@@ -87,11 +87,12 @@
 }
 
 .logo img {
-  height: 55px;
+  height: 62px;
   width: auto;
   object-fit: contain;
   border-radius: 6px;
   transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(123, 229, 130, 0.4));
 }
 
 .logo img:hover {
