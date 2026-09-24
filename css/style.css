@@ -14,6 +14,83 @@
     box-sizing: border-box;
 }
 
+/* ===== PREMIUM GOLD HEADER - CEO JACK ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0a0a0a;
+  border-bottom: 2px solid #D4AF37;
+  padding: 10px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+.navbar {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #D4AF37;
+}
+
+.navbar a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #D4AF37;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px;
+  }
+  .logo img {
+    height: 45px;
+  }
+  .navbar {
+    gap: 12px;
+  }
+  .navbar a {
+    font-size: 13px;
+  }
+}
 
 html {
     scroll-behavior: smooth;
