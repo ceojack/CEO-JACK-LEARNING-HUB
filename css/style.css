@@ -28,6 +28,58 @@
   box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
 }
 
+.marquee {
+    width: 100%;
+    overflow: hidden;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+
+    padding: 12px 0;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+
+    white-space: nowrap;
+
+    animation: marqueeScroll 22s linear infinite;
+}
+
+.marquee-track span {
+    margin: 0 18px;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    color: #aebdcb;
+}
+
+.marquee-track span:nth-child(1),
+.marquee-track span:nth-child(9) {
+    color: #55ddff;
+}
+
+@keyframes marqueeScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause when the user hovers */
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
 .logo {
   display: flex;
   align-items: center;
