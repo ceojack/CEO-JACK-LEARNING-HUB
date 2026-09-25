@@ -1,0 +1,23 @@
+{
+  "name": "CEO JACK LEARNING HUB",
+  "short_name": "CEO JACK",
+  "description": "Premium learning hub for future leaders",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#D4AF37",
+  "icons": [
+    {
+      "src": "images/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -8,8 +8,26 @@
         name="description"
         content="CEO JACK LEARNING HUB — Learn. Create. Develop."
     >
+    <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link rel="apple-touch-icon" href="images/logo.webp">
 
-    <title>CEO JACK LEARNING HUB</title>
+    <!-- CEO JACK PREVIEW WHEN SHARING -->
+<title>CEO JACK LEARNING HUB - Learn, Build, Lead</title>
+<meta name="description" content="CEO JACK LEARNING HUB - Premium courses for future leaders. Learn tech, business and skills.">
+
+<!-- WhatsApp / Facebook / LinkedIn Preview -->
+<meta property="og:title" content="CEO JACK LEARNING HUB">
+<meta property="og:description" content="Premium learning hub for future leaders. Join CEO JACK today.">
+<meta property="og:image" content="https://ceo-jack-learning-hub.vercel.app/images/logo.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ceo-jack-learning-hub.vercel.app">
+<meta property="og:type" content="website">
+
+<!-- Twitter Preview -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ceo-jack-learning-hub.vercel.app/images/logo.webp">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -304,6 +322,11 @@
     ========================== -->
 
     <script src="js/script.js"></script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
 
 </body>
 </html>
