@@ -1473,6 +1473,7 @@ footer {
     }
 
 
+
     .tech-core {
 
         width: 140px;
@@ -1498,6 +1499,528 @@ footer {
         gap: 8px;
 
         text-align: center;
+
+    }
+
+}
+
+/* =========================================
+   WHY CEO JACK
+========================================= */
+
+.why-ceo-jack {
+
+    position: relative;
+
+    width: 88%;
+    max-width: 1200px;
+
+    margin: 80px auto 120px;
+
+    padding: 90px 0 20px;
+
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.section-heading {
+
+    max-width: 700px;
+
+    margin: 0 auto 70px;
+
+    text-align: center;
+
+}
+
+
+.section-tag {
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #58ddff;
+
+}
+
+
+.section-heading h2 {
+
+    font-size:
+        clamp(38px, 5vw, 62px);
+
+    line-height: 1;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.section-heading h2 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #55ddff,
+            #9078ff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.section-heading p {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #7f90a4;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================
+   CONNECTING LINE
+========================================= */
+
+.journey-line {
+
+    position: absolute;
+
+    top: 330px;
+
+    left: 15%;
+
+    width: 70%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(85, 221, 255, 0.35),
+            rgba(144, 120, 255, 0.35),
+            transparent
+        );
+
+}
+
+
+.journey-line::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -2px;
+    left: 0;
+
+    width: 80px;
+    height: 4px;
+
+    border-radius: 50px;
+
+    background: #55ddff;
+
+    filter:
+        blur(4px);
+
+    animation:
+        lineTravel 5s linear infinite;
+
+}
+
+
+@keyframes lineTravel {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(
+            calc(70vw - 80px)
+        );
+    }
+
+}
+
+
+/* =========================================
+   JOURNEY GRID
+========================================= */
+
+.journey-grid {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+
+}
+
+
+/* =========================================
+   JOURNEY CARD
+========================================= */
+
+.journey-card {
+
+    position: relative;
+
+    min-height: 310px;
+
+    padding: 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.045),
+            rgba(255,255,255,0.015)
+        );
+
+    backdrop-filter: blur(14px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+
+}
+
+
+.journey-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -90px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(85, 221, 255, 0.08);
+
+    filter: blur(30px);
+
+}
+
+
+.journey-card:hover {
+
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(85, 221, 255, 0.25);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0, 150, 255, 0.10);
+
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.journey-number {
+
+    position: absolute;
+
+    top: 24px;
+    right: 26px;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: #445367;
+
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.journey-icon {
+
+    width: 62px;
+    height: 62px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-bottom: 28px;
+
+    border:
+        1px solid
+        rgba(85, 221, 255, 0.22);
+
+    border-radius: 16px;
+
+    background:
+        rgba(85, 221, 255, 0.05);
+
+    color: #55ddff;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 0 25px
+        rgba(85, 221, 255, 0.05);
+
+    transition:
+        transform 0.4s ease;
+
+}
+
+
+.journey-card:hover .journey-icon {
+
+    transform:
+        rotate(-8deg)
+        scale(1.08);
+
+}
+
+
+/* =========================================
+   CARD TEXT
+========================================= */
+
+.journey-card h3 {
+
+    margin-bottom: 15px;
+
+    font-size: 26px;
+
+    letter-spacing: -0.5px;
+
+}
+
+
+.journey-card p {
+
+    color: #7e8fa4;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    max-width: 290px;
+
+}
+
+
+.card-word {
+
+    position: absolute;
+
+    bottom: 25px;
+    right: 28px;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #455469;
+
+}
+
+
+/* =========================================
+   PHILOSOPHY TEXT
+========================================= */
+
+.philosophy-text {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 55px;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    color: #536377;
+
+}
+
+
+.philosophy-text span:nth-child(1) {
+    color: #55ddff;
+}
+
+.philosophy-text span:nth-child(3) {
+    color: #927cff;
+}
+
+.philosophy-text span:nth-child(5) {
+    color: #ffffff;
+}
+
+
+.philosophy-text b {
+
+    color: #45576c;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================
+   SCROLL REVEAL
+========================================= */
+
+.reveal {
+
+    opacity: 0;
+
+    transform:
+        translateY(35px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+
+}
+
+
+.reveal.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .why-ceo-jack {
+
+        width: 90%;
+
+        margin-top: 40px;
+
+    }
+
+
+    .journey-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .journey-line {
+
+        display: none;
+
+    }
+
+
+    .journey-card {
+
+        min-height: 280px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .why-ceo-jack {
+
+        padding-top: 50px;
+
+    }
+
+
+    .section-heading {
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .section-heading p {
+
+        font-size: 14px;
+
+    }
+
+
+    .journey-card {
+
+        padding: 25px;
+
+    }
+
+
+    .philosophy-text {
+
+        gap: 10px;
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
 
     }
 
