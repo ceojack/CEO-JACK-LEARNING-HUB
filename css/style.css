@@ -81,10 +81,12 @@
 }
 
 .logo {
+    
   display: flex;
   align-items: center;
   text-decoration: none;
 }
+
 
 .logo img {
   height: 62px;
@@ -2024,4 +2026,161 @@ footer {
 
     }
 
+}
+
+/* =========================================
+   MOBILE POLISH (320px - 600px)
+========================================= */
+
+@media (max-width: 600px) {
+    html,
+    body {
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        min-height: 72px;
+        padding: 12px 16px;
+        gap: 12px;
+    }
+
+    .logo {
+        min-width: 0;
+        gap: 8px;
+    }
+
+    .logo img {
+        height: 46px !important;
+        max-width: 150px;
+    }
+
+    .logo-text {
+        font-size: 13px;
+        letter-spacing: .5px;
+        white-space: nowrap;
+    }
+
+    .logo-text small {
+        font-size: 7px;
+        letter-spacing: 1.8px;
+    }
+
+    .menu-btn {
+        flex: 0 0 42px;
+        min-width: 42px;
+        min-height: 42px;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 76px;
+        left: 12px;
+        right: 12px;
+        padding: 8px;
+        border-radius: 14px;
+    }
+
+    .mobile-menu a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 10px;
+    }
+
+    .mobile-menu a:active,
+    .mobile-menu a:hover {
+        background: rgba(88, 221, 255, .1);
+    }
+
+    .marquee {
+        padding: 9px 0;
+    }
+
+    .marquee-track span {
+        margin: 0 12px;
+        font-size: 11px;
+    }
+
+    .hero {
+        width: auto;
+        margin: 0 16px;
+        min-height: auto;
+        padding: 54px 0 28px;
+        gap: 24px;
+    }
+
+    .status {
+        max-width: 100%;
+        margin-bottom: 18px;
+        padding: 7px 11px;
+        font-size: 9px;
+        letter-spacing: 1.2px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.25rem, 12vw, 3.5rem);
+        line-height: 1.06;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-description {
+        max-width: 34rem;
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .hero-visual {
+        width: 100%;
+        height: min(92vw, 360px);
+        min-height: 280px;
+        transform: scale(.9);
+        transform-origin: top center;
+        margin-bottom: -28px;
+    }
+
+    .floating-card {
+        max-width: 42vw;
+        white-space: normal;
+    }
+
+    .why-ceo-jack,
+    .journey {
+        width: auto;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    footer {
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo-text {
+        display: none;
+    }
+
+    .hero {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
 }

@@ -12,7 +12,7 @@ const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 
 
-menuBtn.addEventListener("click", () => {
+if (menuBtn && mobileMenu) menuBtn.addEventListener("click", () => {
 
     mobileMenu.classList.toggle("active");
 
@@ -21,8 +21,7 @@ menuBtn.addEventListener("click", () => {
 
 /* Close mobile menu when a link is clicked */
 
-const mobileLinks =
-    mobileMenu.querySelectorAll("a");
+const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
 
 
 mobileLinks.forEach(link => {
@@ -126,7 +125,7 @@ function typeEffect() {
 }
 
 
-typeEffect();
+if (typingText) typeEffect();
 
 
 /* =========================================
@@ -137,7 +136,7 @@ const getStarted =
     document.getElementById("getStarted");
 
 
-getStarted.addEventListener("click", () => {
+if (getStarted) getStarted.addEventListener("click", () => {
 
     /*
        FUTURE FLOW:
@@ -219,7 +218,7 @@ document.addEventListener(
              event.clientY) / 40;
 
 
-        visual.style.transform =
+        if (visual) visual.style.transform =
             `translate(${x}px, ${y}px)`;
 
     }
@@ -234,7 +233,7 @@ document.addEventListener(
     "mouseleave",
     () => {
 
-        visual.style.transform =
+        if (visual) visual.style.transform =
             "translate(0, 0)";
 
     }
@@ -249,7 +248,7 @@ const revealElements =
 
 
 const revealObserver =
-    new IntersectionObserver(
+    "IntersectionObserver" in window ? new IntersectionObserver(
         (entries, observer) => {
 
             entries.forEach(entry => {
@@ -270,11 +269,12 @@ const revealObserver =
         {
             threshold: 0.15
         }
-    );
+    ) : null;
 
 
 revealElements.forEach(element => {
 
-    revealObserver.observe(element);
+    if (revealObserver) revealObserver.observe(element);
+    else element.classList.add("show");
 
 });
