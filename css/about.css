@@ -50,6 +50,12 @@ button {
     cursor: pointer;
 }
 
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #55ddff;
+    outline-offset: 3px;
+}
+
 .logo {
     
   display: flex;
@@ -414,8 +420,8 @@ button {
 
     display: none;
 
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
 
     border:
         1px solid
@@ -453,12 +459,12 @@ button {
 
     position: absolute;
 
-    top: 82px;
+    top: calc(100% + 8px);
 
     left: 6%;
     right: 6%;
 
-    padding: 22px;
+    padding: 10px;
 
     border:
         1px solid
@@ -482,15 +488,27 @@ button {
 
     flex-direction: column;
 
-    gap: 18px;
+    gap: 4px;
 
 }
 
 
 .mobile-menu a {
 
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 10px;
+
     color: #b9c5d0;
 
+}
+
+.mobile-menu a:hover,
+.mobile-menu a:focus-visible {
+    background: rgba(85, 221, 255, 0.1);
+    color: #55ddff;
 }
 
 
