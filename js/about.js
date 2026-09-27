@@ -20,10 +20,9 @@ if (menuBtn && mobileMenu) {
     menuBtn.addEventListener(
         "click",
         () => {
-
-            mobileMenu.classList.toggle(
-                "active"
-            );
+            const isOpen = mobileMenu.classList.toggle("active");
+            menuBtn.setAttribute("aria-expanded", String(isOpen));
+            menuBtn.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
 
         }
     );
@@ -42,10 +41,21 @@ if (menuBtn && mobileMenu) {
                 mobileMenu.classList.remove(
                     "active"
                 );
+                menuBtn.setAttribute("aria-expanded", "false");
+                menuBtn.setAttribute("aria-label", "Open navigation");
 
             }
         );
 
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && mobileMenu.classList.contains("active")) {
+            mobileMenu.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
+            menuBtn.setAttribute("aria-label", "Open navigation");
+            menuBtn.focus();
+        }
     });
 
 }
@@ -60,7 +70,7 @@ const revealElements =
 
 
 const revealObserver =
-    new IntersectionObserver(
+    "IntersectionObserver" in window ? new IntersectionObserver(
         (entries, observer) => {
 
             entries.forEach(entry => {
@@ -85,14 +95,13 @@ const revealObserver =
         {
             threshold: 0.15
         }
-    );
+    ) : null;
 
 
 revealElements.forEach(element => {
 
-    revealObserver.observe(
-        element
-    );
+    if (revealObserver) revealObserver.observe(element);
+    else element.classList.add("show");
 
 });
 
