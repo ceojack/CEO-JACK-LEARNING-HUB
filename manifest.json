@@ -2,7 +2,7 @@
   "name": "CEO JACK LEARNING HUB",
   "short_name": "CEO JACK",
   "description": "Premium learning hub for future leaders",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#D4AF37",

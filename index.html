@@ -8,9 +8,9 @@
         name="description"
         content="CEO JACK LEARNING HUB — Learn. Create. Develop."
     >
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#D4AF37">
-<link rel="apple-touch-icon" href="/assets/images/logo1.webp">
+<link rel="apple-touch-icon" href="assets/images/logo1.webp">
 
     <!-- CEO JACK PREVIEW WHEN SHARING -->
 <title>CEO JACK LEARNING HUB - Learn, Build, Lead</title>
@@ -76,7 +76,7 @@
             </span>
         </a>-->
         <a href="index.html" class="logo">
-  <img src="/assets/images/logo1.webp" alt="CEO JACK LEARNING HUB" style="height: 70px; width: auto;">
+  <img src="assets/images/logo1.webp" alt="CEO JACK LEARNING HUB" style="height: 70px; width: auto;">
   <span class="logo-text">
     CEO JACK
     <small>LEARNING HUB</small>
@@ -446,10 +446,11 @@
 
     <script src="js/script.js"></script>
     <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
-  }
-</script>
-
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(function (error) {
+          console.error('Service worker registration failed:', error);
+        });
+      }
+    </script>
 </body>
 </html>
