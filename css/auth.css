@@ -1,0 +1,1630 @@
+
+/* =========================================
+   CEO JACK LEARNING HUB
+   AUTHENTICATION PAGE
+========================================= */
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #02050b;
+
+    color: #ffffff;
+
+    overflow-x: hidden;
+
+}
+
+
+button,
+input {
+
+    font: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: -2;
+
+}
+
+
+.grid {
+
+    position: absolute;
+
+    inset: -50%;
+
+    background-image:
+
+        linear-gradient(
+            rgba(0, 200, 255, 0.045) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(0, 200, 255, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    transform:
+        perspective(500px)
+        rotateX(60deg);
+
+    animation:
+        gridMove 14s linear infinite;
+
+}
+
+
+@keyframes gridMove {
+
+    from {
+
+        transform:
+            perspective(500px)
+            rotateX(60deg)
+            translateY(0);
+
+    }
+
+    to {
+
+        transform:
+            perspective(500px)
+            rotateX(60deg)
+            translateY(60px);
+
+    }
+
+}
+
+
+.glow {
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    filter:
+        blur(110px);
+
+    opacity: 0.14;
+
+}
+
+
+.glow-one {
+
+    background: #008cff;
+
+    top: 5%;
+    left: 5%;
+
+    animation:
+        glowMove 10s ease-in-out infinite alternate;
+
+}
+
+
+.glow-two {
+
+    background: #753cff;
+
+    right: 5%;
+    bottom: 5%;
+
+    animation:
+        glowMove 12s ease-in-out infinite alternate-reverse;
+
+}
+
+
+@keyframes glowMove {
+
+    from {
+        transform:
+            translate(0, 0);
+    }
+
+    to {
+        transform:
+            translate(80px, -50px);
+    }
+
+}
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+.particles span {
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #55ddff;
+
+    box-shadow:
+        0 0 10px #55ddff;
+
+    animation:
+        particleFloat 8s linear infinite;
+
+}
+
+
+.particles span:nth-child(1) {
+    left: 8%;
+    top: 20%;
+}
+
+.particles span:nth-child(2) {
+    left: 20%;
+    top: 70%;
+    animation-delay: 2s;
+}
+
+.particles span:nth-child(3) {
+    left: 34%;
+    top: 30%;
+    animation-delay: 4s;
+}
+
+.particles span:nth-child(4) {
+    left: 50%;
+    top: 80%;
+    animation-delay: 1s;
+}
+
+.particles span:nth-child(5) {
+    left: 65%;
+    top: 15%;
+    animation-delay: 3s;
+}
+
+.particles span:nth-child(6) {
+    left: 75%;
+    top: 65%;
+    animation-delay: 5s;
+}
+
+.particles span:nth-child(7) {
+    left: 85%;
+    top: 30%;
+    animation-delay: 2s;
+}
+
+.particles span:nth-child(8) {
+    left: 92%;
+    top: 80%;
+    animation-delay: 4s;
+}
+
+
+@keyframes particleFloat {
+
+    0% {
+        transform:
+            translateY(30px);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-100px);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar {
+
+    width: 100%;
+
+    padding:
+        22px 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.logo-mark {
+
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid
+        rgba(85,221,255,0.4);
+
+    border-radius: 12px;
+
+    background:
+        rgba(85,221,255,0.05);
+
+    color: #55ddff;
+
+    font-weight: 800;
+
+}
+
+
+.logo-text {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.logo-text small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #69798c;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.back-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #728397;
+
+    font-size: 11px;
+
+    transition:
+        color 0.3s ease;
+
+}
+
+
+.back-link:hover {
+
+    color: #55ddff;
+
+}
+
+
+/* =========================================
+   AUTH PAGE
+========================================= */
+
+.auth-page {
+
+    width: 88%;
+
+    max-width: 1200px;
+
+    min-height:
+        calc(100vh - 90px);
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        0.9fr 0.82fr;
+
+    align-items: center;
+
+    gap: 90px;
+
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.auth-intro {
+
+    max-width: 630px;
+
+}
+
+
+.page-tag {
+
+    display: inline-block;
+
+    margin-bottom: 22px;
+
+    color: #55ddff;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.intro-content h1 {
+
+    font-size:
+        clamp(48px, 6vw, 76px);
+
+    line-height: 0.98;
+
+    letter-spacing: -4px;
+
+}
+
+
+.intro-content h1 span {
+
+    display: block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #55ddff,
+            #9278ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.intro-content > p {
+
+    max-width: 570px;
+
+    margin-top: 28px;
+
+    color: #8595a9;
+
+    font-size: 15px;
+
+    line-height: 1.85;
+
+}
+
+
+/* =========================================
+   JOURNEY
+========================================= */
+
+.journey {
+
+    position: relative;
+
+    margin-top: 42px;
+
+    display: grid;
+
+    gap: 22px;
+
+}
+
+
+.journey::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 9px;
+
+    top: 14px;
+
+    bottom: 14px;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #55ddff,
+            rgba(85,221,255,0.04)
+        );
+
+}
+
+
+.journey-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+}
+
+
+.journey-number {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid
+        rgba(85,221,255,0.3);
+
+    border-radius: 50%;
+
+    background: #02050b;
+
+    color: #55ddff;
+
+    font-size: 7px;
+
+}
+
+
+.journey-item strong {
+
+    display: block;
+
+    color: #c9d5de;
+
+    font-size: 12px;
+
+}
+
+
+.journey-item small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #5f7085;
+
+    font-size: 9px;
+
+}
+
+
+.philosophy {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 38px;
+
+    color: #56677b;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.philosophy span:first-child {
+
+    color: #55ddff;
+
+}
+
+
+.philosophy span:nth-child(3) {
+
+    color: #9278ff;
+
+}
+
+
+.philosophy span:nth-child(5) {
+
+    color: #ffffff;
+
+}
+
+
+.philosophy b {
+
+    color: #405065;
+
+}
+
+
+/* =========================================
+   AUTH CARD
+========================================= */
+
+.auth-section {
+
+    width: 100%;
+
+}
+
+
+.auth-card {
+
+    position: relative;
+
+    padding: 34px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.1);
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.012)
+        );
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,0.28);
+
+    overflow: hidden;
+
+}
+
+
+.auth-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -120px;
+    right: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(85,221,255,0.08);
+
+    filter:
+        blur(45px);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.auth-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.auth-label {
+
+    color: #55ddff;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.auth-header h2 {
+
+    margin-top: 11px;
+
+    font-size: 28px;
+
+    letter-spacing: -1px;
+
+}
+
+
+.auth-header p {
+
+    margin-top: 8px;
+
+    color: #6e8095;
+
+    font-size: 11px;
+
+}
+
+
+.secure-indicator {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #526478;
+
+    font-size: 8px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+
+.secure-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #55ddff;
+
+    box-shadow:
+        0 0 10px #55ddff;
+
+}
+
+
+/* =========================================
+   SOCIAL
+========================================= */
+
+.social-buttons {
+
+    display: grid;
+
+    gap: 10px;
+
+    margin-top: 27px;
+
+}
+
+
+.social-btn {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: #c6d1d9;
+
+    font-size: 11px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
+
+}
+
+
+.social-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(85,221,255,0.22);
+
+    background:
+        rgba(85,221,255,0.04);
+
+}
+
+
+.social-icon {
+
+    font-weight: 800;
+
+    font-size: 15px;
+
+}
+
+
+.google-icon {
+
+    color: #55ddff;
+
+}
+
+
+.apple-icon {
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        22px 0;
+
+}
+
+
+.divider span {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+}
+
+
+.divider small {
+
+    color: #4f6073;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+
+    margin-bottom: 18px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #aebbc7;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+
+.label-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.show-password {
+
+    border: none;
+
+    background: none;
+
+    color: #55ddff;
+
+    font-size: 9px;
+
+}
+
+
+.input-wrap {
+
+    position: relative;
+
+}
+
+
+.input-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #56687c;
+
+    font-size: 11px;
+
+    pointer-events: none;
+
+}
+
+
+.input-wrap input {
+
+    width: 100%;
+
+    height: 47px;
+
+    padding:
+        0 14px 0 38px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(2,7,14,0.62);
+
+    color: #e6edf2;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.input-wrap input::placeholder {
+
+    color: #506075;
+
+}
+
+
+.input-wrap input:focus {
+
+    border-color:
+        rgba(85,221,255,0.4);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(85,221,255,0.05);
+
+}
+
+
+.form-group.invalid .input-wrap input {
+
+    border-color:
+        rgba(255,100,100,0.5);
+
+}
+
+
+.field-error {
+
+    display: block;
+
+    min-height: 14px;
+
+    margin-top: 5px;
+
+    color: #ff8585;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================
+   PASSWORD STRENGTH
+========================================= */
+
+.password-strength {
+
+    margin-top: 9px;
+
+}
+
+
+.strength-bar {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 5px;
+
+}
+
+
+.strength-bar span {
+
+    height: 3px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    transition:
+        background 0.3s ease;
+
+}
+
+
+.password-strength small {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color: #526378;
+
+    font-size: 8px;
+
+}
+
+
+/* =========================================
+   CHECKBOXES
+========================================= */
+
+.terms,
+.remember {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    color: #66778b;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+}
+
+
+.terms input,
+.remember input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.custom-check {
+
+    width: 15px;
+    height: 15px;
+
+    flex-shrink: 0;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.14);
+
+    border-radius: 4px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+
+}
+
+
+.terms input:checked + .custom-check,
+.remember input:checked + .custom-check {
+
+    border-color: #55ddff;
+
+    background:
+        #55ddff;
+
+}
+
+
+.terms input:checked + .custom-check::after,
+.remember input:checked + .custom-check::after {
+
+    content: "✓";
+
+    display: block;
+
+    color: #021018;
+
+    text-align: center;
+
+    font-size: 10px;
+
+    line-height: 13px;
+
+}
+
+
+.terms a {
+
+    color: #55ddff;
+
+}
+
+
+/* =========================================
+   SIGN-IN OPTIONS
+========================================= */
+
+.forgot-row {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: -7px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.forgot-row button {
+
+    border: none;
+
+    background: none;
+
+    color: #55ddff;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================
+   SUBMIT
+========================================= */
+
+.submit-btn {
+
+    width: 100%;
+
+    min-height: 49px;
+
+    margin-top: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 17px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #35cfff,
+            #5578ff
+        );
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 30px
+        rgba(45,160,255,0.14);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
+
+}
+
+
+.submit-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(45,160,255,0.23);
+
+}
+
+
+.submit-btn:disabled {
+
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+.submit-arrow {
+
+    font-size: 18px;
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.form-status {
+
+    min-height: 18px;
+
+    margin-top: 13px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+}
+
+
+.form-status.error {
+
+    color: #ff8585;
+
+}
+
+
+.form-status.success {
+
+    color: #67e5b2;
+
+}
+
+
+.form-status.info {
+
+    color: #55ddff;
+
+}
+
+
+/* =========================================
+   SWITCH
+========================================= */
+
+.auth-switch {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 23px;
+
+    color: #647589;
+
+    font-size: 10px;
+
+}
+
+
+.auth-switch button {
+
+    border: none;
+
+    background: none;
+
+    color: #55ddff;
+
+    font-size: 10px;
+
+}
+
+
+.auth-note {
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: #3f5064;
+
+    font-size: 8px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================
+   REVEAL
+========================================= */
+
+.reveal {
+
+    opacity: 0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+
+}
+
+
+.reveal.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================
+   UTILITY
+========================================= */
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+
+    .auth-page {
+
+        grid-template-columns:
+            1fr;
+
+        width: 90%;
+
+        gap: 55px;
+
+        padding:
+            45px 0 70px;
+
+    }
+
+
+    .auth-intro {
+
+        max-width: 700px;
+
+        margin:
+            auto;
+
+        text-align: center;
+
+    }
+
+
+    .intro-content > p {
+
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+
+    .journey {
+
+        max-width: 500px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        text-align: left;
+
+    }
+
+
+    .philosophy {
+
+        justify-content: center;
+
+    }
+
+
+    .auth-section {
+
+        max-width: 600px;
+
+        margin:
+            auto;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+
+        padding:
+            17px 5%;
+
+    }
+
+
+    .auth-page {
+
+        width: 90%;
+
+    }
+
+
+    .intro-content h1 {
+
+        font-size: 44px;
+
+        letter-spacing: -2px;
+
+    }
+
+
+    .auth-card {
+
+        padding:
+            25px 19px;
+
+    }
+
+
+    .auth-header h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .secure-indicator {
+
+        font-size: 7px;
+
+    }
+
+
+    .social-btn {
+
+        font-size: 10px;
+
+    }
+
+
+    .philosophy {
+
+        font-size: 8px;
+
+        gap: 9px;
+
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+
+    }
+
+}

@@ -903,8 +903,8 @@ button:focus-visible {
 
 
 .get-started {
-
-    display: flex;
+     display: inline-flex; 
+     text-decoration: none; 
 
     align-items: center;
 
@@ -2189,4 +2189,5 @@ footer {
     .hero h1 {
         font-size: 2.2rem;
     }
+
 }

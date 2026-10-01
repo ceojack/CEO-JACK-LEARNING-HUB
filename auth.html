@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Create your account or sign in to CEO JACK LEARNING HUB."
+    >
+
+    <title>
+        Account | CEO JACK LEARNING HUB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/auth.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         BACKGROUND
+    ====================================== -->
+
+    <div class="background">
+
+        <div class="grid"></div>
+
+        <div class="glow glow-one"></div>
+
+        <div class="glow glow-two"></div>
+
+        <div class="particles">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         TOP BAR
+    ====================================== -->
+
+    <header class="topbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
+            <span class="logo-mark">
+                &lt;/&gt;
+            </span>
+
+            <span class="logo-text">
+
+                CEO JACK
+
+                <small>
+                    LEARNING HUB
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <a
+            href="get-started.html"
+            class="back-link"
+        >
+
+            <span>←</span>
+
+            Back
+
+        </a>
+
+    </header>
+
+
+    <!-- =====================================
+         MAIN AUTH AREA
+    ====================================== -->
+
+    <main class="auth-page">
+
+
+        <!-- =================================
+             LEFT INFORMATION PANEL
+        ================================== -->
+
+        <section class="auth-intro">
+
+            <div class="intro-content reveal">
+
+                <span class="page-tag">
+                    ✦ CEO JACK LEARNING HUB
+                </span>
+
+
+                <h1>
+
+                    Your journey
+                    <span>
+                        starts here.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    Create your account once and build
+                    your personalized learning experience
+                    step by step.
+
+                </p>
+
+
+                <div class="journey">
+
+                    <div class="journey-item">
+
+                        <span class="journey-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Account
+                            </strong>
+
+                            <small>
+                                Create your secure profile.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-item">
+
+                        <span class="journey-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Onboarding
+                            </strong>
+
+                            <small>
+                                Tell us about your goals.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-item">
+
+                        <span class="journey-number">
+                            03
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Your Experience
+                            </strong>
+
+                            <small>
+                                Continue into your personalized space.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="philosophy">
+
+                    <span>LEARN</span>
+
+                    <b>→</b>
+
+                    <span>CREATE</span>
+
+                    <b>→</b>
+
+                    <span>DEVELOP</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             AUTH CARD
+        ================================== -->
+
+        <section class="auth-section">
+
+            <div class="auth-card reveal">
+
+
+                <!-- CARD HEADER -->
+
+                <div class="auth-header">
+
+                    <div>
+
+                        <span
+                            class="auth-label"
+                            id="authLabel"
+                        >
+                            CREATE ACCOUNT
+                        </span>
+
+
+                        <h2 id="authTitle">
+                            Create your account
+                        </h2>
+
+
+                        <p id="authSubtitle">
+                            Start your CEO JACK journey.
+                        </p>
+
+                    </div>
+
+
+                    <div class="secure-indicator">
+
+                        <span class="secure-dot"></span>
+
+                        Secure
+
+                    </div>
+
+                </div>
+
+
+                <!-- SOCIAL LOGIN -->
+
+                <div class="social-buttons">
+
+                    <button
+                        type="button"
+                        class="social-btn"
+                        id="googleBtn"
+                    >
+
+                        <span class="social-icon google-icon">
+                            G
+                        </span>
+
+                        <span>
+                            Continue with Google
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="social-btn"
+                        id="appleBtn"
+                    >
+
+                        <span class="social-icon apple-icon">
+                            
+                        </span>
+
+                        <span>
+                            Continue with Apple
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- DIVIDER -->
+
+                <div class="divider">
+
+                    <span></span>
+
+                    <small>
+                        OR
+                    </small>
+
+                    <span></span>
+
+                </div>
+
+
+                <!-- AUTH FORM -->
+
+                <form
+                    id="authForm"
+                    novalidate
+                >
+
+
+                    <!-- NAME -->
+
+                    <div
+                        class="form-group signup-only"
+                        id="nameGroup"
+                    >
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="nameError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="emailError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <div class="label-row">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="togglePassword"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+
+                        <div class="input-wrap">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="password-strength"
+                            id="passwordStrength"
+                        >
+
+                            <div class="strength-bar">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+
+                            <small
+                                id="strengthText"
+                            >
+                                Use 8 or more characters
+                            </small>
+
+                        </div>
+
+
+                        <small
+                            class="field-error"
+                            id="passwordError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div
+                        class="form-group signup-only"
+                        id="confirmGroup"
+                    >
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <span class="input-icon">
+                                ✓
+                            </span>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                            >
+
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="confirmError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- TERMS -->
+
+                    <label
+                        class="terms signup-only"
+                        id="termsGroup"
+                    >
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                        >
+
+                        <span class="custom-check"></span>
+
+                        <span>
+                            I agree to the platform's
+                            <a href="#">
+                                Terms
+                            </a>
+                            and
+                            <a href="#">
+                                Privacy Policy
+                            </a>.
+                        </span>
+
+                    </label>
+
+
+                    <!-- REMEMBER ME -->
+
+                    <label
+                        class="remember signin-only"
+                        id="rememberGroup"
+                    >
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            name="remember"
+                        >
+
+                        <span class="custom-check"></span>
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+                    <!-- FORGOT PASSWORD -->
+
+                    <div
+                        class="forgot-row signin-only"
+                        id="forgotGroup"
+                    >
+
+                        <button
+                            type="button"
+                            id="forgotPassword"
+                        >
+                            Forgot password?
+                        </button>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                        id="submitBtn"
+                    >
+
+                        <span id="submitText">
+                            Create Account
+                        </span>
+
+                        <span class="submit-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <!-- STATUS -->
+
+                    <div
+                        class="form-status"
+                        id="formStatus"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+                </form>
+
+
+                <!-- SWITCH MODE -->
+
+                <div class="auth-switch">
+
+                    <span id="switchPrompt">
+                        Already have an account?
+                    </span>
+
+                    <button
+                        type="button"
+                        id="switchMode"
+                    >
+                        Sign In
+                    </button>
+
+                </div>
+
+
+                <p class="auth-note">
+
+                    Your account will later connect to
+                    your personalized CEO JACK experience.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
