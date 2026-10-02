@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CEO JACK AI | Learning Assistant</title>
+  <meta name="description" content="Learn, code, and build with CEO JACK AI.">
+
+  <link rel="stylesheet" href="css/ai.css">
+  <script src="js/ai.js" defer></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">CJ</div>
+        <div>
+          <strong>CEO JACK</strong>
+          <span>LEARNING HUB</span>
+        </div>
+      </a>
+
+      <button class="new-chat" id="newChatBtn">
+        <span>＋</span> New conversation
+      </button>
+
+      <div class="sidebar-label">AI MODES</div>
+
+      <button class="mode-link active" data-mode="general">
+        <span>✦</span> General Assistant
+      </button>
+
+      <button class="mode-link" data-mode="education">
+        <span>📚</span> Education Mode
+      </button>
+
+      <button class="mode-link" data-mode="coding">
+        <span>&lt;/&gt;</span> Coding Mode
+      </button>
+
+      <button class="mode-link" data-mode="business">
+        <span>◈</span> Business Mode
+      </button>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <span class="online-dot"></span>
+          AI assistant interface
+        </div>
+
+        <a href="dashboard.html" class="back-link">
+          ← Back to Dashboard
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+          ☰
+        </button>
+
+        <div class="topbar-title">
+          <span class="eyebrow">YOUR AI COMPANION</span>
+          <h1>CEO JACK AI</h1>
+        </div>
+
+        <div class="status">
+          <span class="online-dot"></span>
+          <span id="connectionStatus">Ready</span>
+        </div>
+      </header>
+
+      <section class="chat-area" id="chatArea">
+
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="ai-orb">✦</div>
+
+          <p class="welcome-tag">LEARN. CREATE. DEVELOP.</p>
+
+          <h2>What are we building<br>or learning today?</h2>
+
+          <p class="welcome-description">
+            Ask questions, explore ideas, learn programming,
+            or develop your next business concept.
+          </p>
+
+          <div class="prompt-grid">
+            <button class="prompt-card"
+              data-prompt="Teach me HTML from the beginning with examples and a small exercise.">
+              <span>📚</span>
+              <strong>Learn something</strong>
+              <small>Understand a topic step by step</small>
+            </button>
+
+            <button class="prompt-card"
+              data-prompt="Teach me JavaScript with a practical beginner project.">
+              <span>&lt;/&gt;</span>
+              <strong>Build with code</strong>
+              <small>Learn programming practically</small>
+            </button>
+
+            <button class="prompt-card"
+              data-prompt="Help me develop a realistic small business idea in Uganda, including customers, costs, and a first action plan.">
+              <span>◈</span>
+              <strong>Explore business</strong>
+              <small>Turn ideas into action plans</small>
+            </button>
+
+            <button class="prompt-card"
+              data-prompt="Help me create a realistic weekly learning plan for school and digital skills.">
+              <span>🎯</span>
+              <strong>Plan my growth</strong>
+              <small>Set goals and build consistency</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="messages" id="messages" aria-live="polite"></div>
+
+      </section>
+
+      <footer class="composer-wrap">
+        <div class="composer">
+
+          <textarea
+            id="messageInput"
+            rows="1"
+            maxlength="4000"
+            placeholder="Message CEO JACK AI..."
+            aria-label="Your message"
+          ></textarea>
+
+          <button id="sendBtn" class="send-btn" aria-label="Send message">
+            ↑
+          </button>
+        </div>
+
+        <div class="composer-meta">
+          <span id="modeLabel">General Assistant</span>
+          <span>AI can make mistakes. Verify important information.</span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+</body>
+</html>

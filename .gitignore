@@ -1,6 +1,9 @@
+.env.local
 .vscode/
 node_modules/
 .env
 dist/
 .next/
 .vercel
+.env.*
+!.env.example
