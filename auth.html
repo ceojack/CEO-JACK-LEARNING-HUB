@@ -1,647 +1,181 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Create your account or sign in to CEO JACK LEARNING HUB."
-    >
-
-    <title>
-        Account | CEO JACK LEARNING HUB
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="css/auth.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your account or sign in to CEO JACK LEARNING HUB - Your journey starts here.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Account | CEO JACK LEARNING HUB</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/auth.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
-
 <body>
-
-
-    <!-- =====================================
-         BACKGROUND
-    ====================================== -->
-
-    <div class="background">
-
+    <!-- BACKGROUND -->
+    <div class="background" aria-hidden="true">
         <div class="grid"></div>
-
         <div class="glow glow-one"></div>
-
         <div class="glow glow-two"></div>
-
         <div class="particles">
-
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
         </div>
-
     </div>
 
-
-    <!-- =====================================
-         TOP BAR
-    ====================================== -->
-
+    <!-- TOP BAR -->
     <header class="topbar">
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
-            <span class="logo-mark">
-                &lt;/&gt;
-            </span>
-
-            <span class="logo-text">
-
-                CEO JACK
-
-                <small>
-                    LEARNING HUB
-                </small>
-
-            </span>
-
+        <a href="index.html" class="logo" aria-label="CEO JACK LEARNING HUB Home">
+            <span class="logo-mark">&lt;/&gt;</span>
+            <span class="logo-text">CEO JACK <small>LEARNING HUB</small></span>
         </a>
-
-
-        <a
-            href="get-started.html"
-            class="back-link"
-        >
-
-            <span>←</span>
-
-            Back
-
-        </a>
-
+        <a href="get-started.html" class="back-link"><span aria-hidden="true">←</span> Back</a>
     </header>
 
-
-    <!-- =====================================
-         MAIN AUTH AREA
-    ====================================== -->
-
+    <!-- MAIN -->
     <main class="auth-page">
-
-
-        <!-- =================================
-             LEFT INFORMATION PANEL
-        ================================== -->
-
+        <!-- LEFT PANEL -->
         <section class="auth-intro">
-
             <div class="intro-content reveal">
-
-                <span class="page-tag">
-                    ✦ CEO JACK LEARNING HUB
-                </span>
-
-
-                <h1>
-
-                    Your journey
-                    <span>
-                        starts here.
-                    </span>
-
-                </h1>
-
-
-                <p>
-
-                    Create your account once and build
-                    your personalized learning experience
-                    step by step.
-
-                </p>
-
+                <span class="page-tag">✦ CEO JACK LEARNING HUB</span>
+                <h1>Your journey <span>starts here.</span></h1>
+                <p>Create your account once and build your personalized learning experience step by step.</p>
 
                 <div class="journey">
-
                     <div class="journey-item">
-
-                        <span class="journey-number">
-                            01
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Account
-                            </strong>
-
-                            <small>
-                                Create your secure profile.
-                            </small>
-
-                        </div>
-
+                        <span class="journey-number">01</span>
+                        <div><strong>Account</strong><small>Create your secure profile.</small></div>
                     </div>
-
-
                     <div class="journey-item">
-
-                        <span class="journey-number">
-                            02
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Onboarding
-                            </strong>
-
-                            <small>
-                                Tell us about your goals.
-                            </small>
-
-                        </div>
-
+                        <span class="journey-number">02</span>
+                        <div><strong>Onboarding</strong><small>Tell us about your goals.</small></div>
                     </div>
-
-
                     <div class="journey-item">
-
-                        <span class="journey-number">
-                            03
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Your Experience
-                            </strong>
-
-                            <small>
-                                Continue into your personalized space.
-                            </small>
-
-                        </div>
-
+                        <span class="journey-number">03</span>
+                        <div><strong>Your Experience</strong><small>Continue into your personalized space.</small></div>
                     </div>
-
                 </div>
-
 
                 <div class="philosophy">
-
-                    <span>LEARN</span>
-
-                    <b>→</b>
-
-                    <span>CREATE</span>
-
-                    <b>→</b>
-
-                    <span>DEVELOP</span>
-
+                    <span>LEARN</span><b>→</b><span>CREATE</span><b>→</b><span>DEVELOP</span>
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- =================================
-             AUTH CARD
-        ================================== -->
-
+        <!-- AUTH CARD -->
         <section class="auth-section">
-
             <div class="auth-card reveal">
-
-
-                <!-- CARD HEADER -->
-
+                <!-- HEADER -->
                 <div class="auth-header">
-
                     <div>
-
-                        <span
-                            class="auth-label"
-                            id="authLabel"
-                        >
-                            CREATE ACCOUNT
-                        </span>
-
-
-                        <h2 id="authTitle">
-                            Create your account
-                        </h2>
-
-
-                        <p id="authSubtitle">
-                            Start your CEO JACK journey.
-                        </p>
-
+                        <span class="auth-label" id="authLabel">CREATE ACCOUNT</span>
+                        <h2 id="authTitle">Create your account</h2>
+                        <p id="authSubtitle">Start your CEO JACK journey.</p>
                     </div>
-
-
                     <div class="secure-indicator">
-
-                        <span class="secure-dot"></span>
-
-                        Secure
-
+                        <span class="secure-dot"></span> Secure
                     </div>
-
                 </div>
-
 
                 <!-- SOCIAL LOGIN -->
-
                 <div class="social-buttons">
-
-                    <button
-                        type="button"
-                        class="social-btn"
-                        id="googleBtn"
-                    >
-
-                        <span class="social-icon google-icon">
-                            G
-                        </span>
-
-                        <span>
-                            Continue with Google
-                        </span>
-
+                    <button type="button" class="social-btn" id="googleBtn" aria-label="Continue with Google">
+                        <span class="social-icon google-icon">G</span>
+                        <span>Continue with Google</span>
                     </button>
-
-
-                    <button
-                        type="button"
-                        class="social-btn"
-                        id="appleBtn"
-                    >
-
-                        <span class="social-icon apple-icon">
-                            
-                        </span>
-
-                        <span>
-                            Continue with Apple
-                        </span>
-
+                    <button type="button" class="social-btn" id="appleBtn" aria-label="Continue with Apple">
+                        <span class="social-icon apple-icon"></span>
+                        <span>Continue with Apple</span>
                     </button>
-
                 </div>
 
+                <div class="divider"><span></span><small>OR</small><span></span></div>
 
-                <!-- DIVIDER -->
-
-                <div class="divider">
-
-                    <span></span>
-
-                    <small>
-                        OR
-                    </small>
-
-                    <span></span>
-
-                </div>
-
-
-                <!-- AUTH FORM -->
-
-                <form
-                    id="authForm"
-                    novalidate
-                >
-
-
+                <!-- FORM -->
+                <form id="authForm" novalidate autocomplete="on">
                     <!-- NAME -->
-
-                    <div
-                        class="form-group signup-only"
-                        id="nameGroup"
-                    >
-
-                        <label for="fullName">
-                            Full Name
-                        </label>
-
+                    <div class="form-group signup-only" id="nameGroup">
+                        <label for="fullName">Full Name</label>
                         <div class="input-wrap">
-
-                            <span class="input-icon">
-                                ◉
-                            </span>
-
-                            <input
-                                type="text"
-                                id="fullName"
-                                name="fullName"
-                                placeholder="Enter your full name"
-                                autocomplete="name"
-                            >
-
+                            <span class="input-icon" aria-hidden="true">◉</span>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" autocomplete="name">
                         </div>
-
-                        <small
-                            class="field-error"
-                            id="nameError"
-                        ></small>
-
+                        <small class="field-error" id="nameError"></small>
                     </div>
-
 
                     <!-- EMAIL -->
-
                     <div class="form-group">
-
-                        <label for="email">
-                            Email Address
-                        </label>
-
+                        <label for="email">Email Address</label>
                         <div class="input-wrap">
-
-                            <span class="input-icon">
-                                @
-                            </span>
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="you@example.com"
-                                autocomplete="email"
-                                required
-                            >
-
+                            <span class="input-icon" aria-hidden="true">@</span>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
                         </div>
-
-                        <small
-                            class="field-error"
-                            id="emailError"
-                        ></small>
-
+                        <small class="field-error" id="emailError"></small>
                     </div>
-
 
                     <!-- PASSWORD -->
-
                     <div class="form-group">
-
                         <div class="label-row">
-
-                            <label for="password">
-                                Password
-                            </label>
-
-                            <button
-                                type="button"
-                                class="show-password"
-                                id="togglePassword"
-                            >
-                                Show
-                            </button>
-
+                            <label for="password">Password</label>
+                            <button type="button" class="show-password" id="togglePassword" aria-label="Show password">Show</button>
                         </div>
-
-
                         <div class="input-wrap">
-
-                            <span class="input-icon">
-                                •
-                            </span>
-
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                autocomplete="new-password"
-                                required
-                            >
-
+                            <span class="input-icon" aria-hidden="true">•</span>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="new-password" required>
                         </div>
-
-
-                        <div
-                            class="password-strength"
-                            id="passwordStrength"
-                        >
-
-                            <div class="strength-bar">
-
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-
-                            </div>
-
-
-                            <small
-                                id="strengthText"
-                            >
-                                Use 8 or more characters
-                            </small>
-
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar"><span></span><span></span><span></span><span></span></div>
+                            <small id="strengthText">Use 8 or more characters</small>
                         </div>
-
-
-                        <small
-                            class="field-error"
-                            id="passwordError"
-                        ></small>
-
+                        <small class="field-error" id="passwordError"></small>
                     </div>
 
-
-                    <!-- CONFIRM PASSWORD -->
-
-                    <div
-                        class="form-group signup-only"
-                        id="confirmGroup"
-                    >
-
-                        <label for="confirmPassword">
-                            Confirm Password
-                        </label>
-
+                    <!-- CONFIRM -->
+                    <div class="form-group signup-only" id="confirmGroup">
+                        <label for="confirmPassword">Confirm Password</label>
                         <div class="input-wrap">
-
-                            <span class="input-icon">
-                                ✓
-                            </span>
-
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                placeholder="Confirm your password"
-                                autocomplete="new-password"
-                            >
-
+                            <span class="input-icon" aria-hidden="true">✓</span>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" autocomplete="new-password">
                         </div>
-
-                        <small
-                            class="field-error"
-                            id="confirmError"
-                        ></small>
-
+                        <small class="field-error" id="confirmError"></small>
                     </div>
-
 
                     <!-- TERMS -->
-
-                    <label
-                        class="terms signup-only"
-                        id="termsGroup"
-                    >
-
-                        <input
-                            type="checkbox"
-                            id="terms"
-                            name="terms"
-                        >
-
+                    <label class="terms signup-only" id="termsGroup">
+                        <input type="checkbox" id="terms" name="terms" required>
                         <span class="custom-check"></span>
-
-                        <span>
-                            I agree to the platform's
-                            <a href="#">
-                                Terms
-                            </a>
-                            and
-                            <a href="#">
-                                Privacy Policy
-                            </a>.
-                        </span>
-
+                        <span>I agree to the platform's <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</span>
                     </label>
 
-
-                    <!-- REMEMBER ME -->
-
-                    <label
-                        class="remember signin-only"
-                        id="rememberGroup"
-                    >
-
-                        <input
-                            type="checkbox"
-                            id="remember"
-                            name="remember"
-                        >
-
+                    <!-- REMEMBER -->
+                    <label class="remember signin-only" id="rememberGroup" style="display:none;">
+                        <input type="checkbox" id="remember" name="remember">
                         <span class="custom-check"></span>
-
-                        <span>
-                            Remember me
-                        </span>
-
+                        <span>Remember me</span>
                     </label>
 
-
-                    <!-- FORGOT PASSWORD -->
-
-                    <div
-                        class="forgot-row signin-only"
-                        id="forgotGroup"
-                    >
-
-                        <button
-                            type="button"
-                            id="forgotPassword"
-                        >
-                            Forgot password?
-                        </button>
-
+                    <div class="forgot-row signin-only" id="forgotGroup" style="display:none;">
+                        <button type="button" id="forgotPassword">Forgot password?</button>
                     </div>
 
-
-                    <!-- SUBMIT -->
-
-                    <button
-                        type="submit"
-                        class="submit-btn"
-                        id="submitBtn"
-                    >
-
-                        <span id="submitText">
-                            Create Account
-                        </span>
-
-                        <span class="submit-arrow">
-                            →
-                        </span>
-
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="submitText">Create Account</span>
+                        <span class="submit-arrow" aria-hidden="true">→</span>
                     </button>
 
-
-                    <!-- STATUS -->
-
-                    <div
-                        class="form-status"
-                        id="formStatus"
-                        role="status"
-                        aria-live="polite"
-                    ></div>
-
+                    <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
                 </form>
 
-
-                <!-- SWITCH MODE -->
-
                 <div class="auth-switch">
-
-                    <span id="switchPrompt">
-                        Already have an account?
-                    </span>
-
-                    <button
-                        type="button"
-                        id="switchMode"
-                    >
-                        Sign In
-                    </button>
-
+                    <span id="switchPrompt">Already have an account?</span>
+                    <button type="button" id="switchMode">Sign In</button>
                 </div>
 
-
-                <p class="auth-note">
-
-                    Your account will later connect to
-                    your personalized CEO JACK experience.
-
-                </p>
-
+                <p class="auth-note">Your account will later connect to your personalized CEO JACK experience.</p>
             </div>
-
         </section>
-
     </main>
 
-
-    <script src="js/auth.js"></script>
-
+    <script src="js/auth.js" defer></script>
 </body>
-
 </html>
