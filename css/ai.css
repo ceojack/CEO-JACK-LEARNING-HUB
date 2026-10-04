@@ -646,3 +646,49 @@ body { margin:0; overflow:hidden; }
 @media screen and (max-width: 768px) {
   input, textarea { font-size:16px !important; }
 }
+
+/* --- TABLE MOBILE FIX --- */
+.bubble table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.bubble th, .bubble td {
+  border: 1px solid #334155;
+  padding: 8px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+.bubble th { background:#1e293b; color:#00ffaa; }
+
+/* On phone, convert tables to cards */
+@media (max-width: 600px) {
+  .bubble table, .bubble thead, .bubble tbody, .bubble th, .bubble td, .bubble tr {
+    display: block;
+    white-space: normal;
+  }
+  .bubble thead { display:none; }
+  .bubble tr {
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:12px;
+    margin-bottom:12px;
+    padding:10px;
+  }
+  .bubble td {
+    border:0;
+    padding:6px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .bubble td::before {
+    content: attr(data-label);
+    font-weight:bold;
+    color:#7dd3fc;
+  }
+}
