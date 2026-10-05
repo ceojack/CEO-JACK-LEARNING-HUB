@@ -61,25 +61,7 @@
                     true;
 
 
-                setTimeout(() => {
-
-                    /*
-                       FUTURE:
-
-                       window.location.href =
-                           "signup.html";
-                    */
-
-                    showMessage(
-                        "Account creation will be connected next.",
-                        "success"
-                    );
-
-
-                    createAccountButton.disabled =
-                        false;
-
-                }, 700);
+                window.location.href = "auth.html?mode=signup";
 
             }
         );
@@ -107,25 +89,7 @@
                     true;
 
 
-                setTimeout(() => {
-
-                    /*
-                       FUTURE:
-
-                       window.location.href =
-                           "login.html";
-                    */
-
-                    showMessage(
-                        "Sign in will be connected next.",
-                        "success"
-                    );
-
-
-                    signInButton.disabled =
-                        false;
-
-                }, 700);
+                window.location.href = "auth.html?mode=signin";
 
             }
         );
@@ -144,7 +108,7 @@
             () => {
 
                 showMessage(
-                    "Returning you to the welcome experience.",
+                    "Opening your learning space.",
                     "info"
                 );
 
@@ -152,7 +116,7 @@
                 setTimeout(() => {
 
                     window.location.href =
-                        "index.html";
+                        "dashboard.html";
 
                 }, 600);
 

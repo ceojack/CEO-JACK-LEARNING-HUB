@@ -564,16 +564,9 @@
                     "Setup Complete";
 
 
-                /*
-                   NEXT MISSION:
-
-                   After the dashboard is built,
-                   replace the temporary ending with:
-
-                   window.location.href =
-                       "dashboard.html";
-                */
-
+                window.setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 500);
 
                 return;
 

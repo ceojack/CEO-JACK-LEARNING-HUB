@@ -1,931 +1,1090 @@
-/* =========================================
-   CEO JACK LEARNING HUB
-   DASHBOARD JAVASCRIPT
-========================================= */
+"use strict";
 
-(() => {
+/*
+|--------------------------------------------------------------------------
+| CEO JACK LEARNING HUB — DASHBOARD CONTROLLER
+|--------------------------------------------------------------------------
+*/
 
-    /* =====================================
-       ELEMENTS
-    ====================================== */
-
-    const sidebar =
-        document.getElementById("sidebar");
-
-    const sidebarOverlay =
-        document.getElementById("sidebarOverlay");
-
-    const mobileMenuButton =
-        document.getElementById("mobileMenuBtn");
-
-    const sidebarClose =
-        document.getElementById("sidebarClose");
-
-    const notificationButton =
-        document.getElementById("notificationBtn");
-
-    const notificationPanel =
-        document.getElementById("notificationPanel");
-
-    const closeNotifications =
-        document.getElementById("closeNotifications");
-
-    const profileTrigger =
-        document.getElementById("profileTrigger");
-
-    const profileMenu =
-        document.getElementById("profileMenu");
-
-    const profileLogout =
-        document.getElementById("profileLogout");
-
-    const logoutButton =
-        document.getElementById("logoutBtn");
-
-    const settingsButton =
-        document.getElementById("settingsBtn");
-
-    const toast =
-        document.getElementById("toast");
-
-    const globalSearch =
-        document.getElementById("globalSearch");
-
-    const breadcrumbCurrent =
-        document.getElementById("breadcrumbCurrent");
+const routes = {
+  overview: "dashboard.html",
+  education: "education.html",
+  digital: "digital-skills.html",
+  business: "entrepreneurship.html",
+  projects: "projects.html",
+  community: "community.html",
+  ai: "ai.html",
+  safe: "digital-safe.html",
+  portfolio: "portfolio.html"
+};
 
 
-    /* =====================================
-       USER DATA
-    ====================================== */
+/* =====================================================
+   DOM HELPERS
+===================================================== */
 
-    const storedOnboarding =
-        localStorage.getItem(
-            "ceoJackOnboarding"
-        );
+const $ = (selector) => document.querySelector(selector);
 
-
-    let onboardingData = null;
+const $$ = (selector) =>
+  [...document.querySelectorAll(selector)];
 
 
-    if (storedOnboarding) {
+/* =====================================================
+   USER DATA
+===================================================== */
 
-        try {
+function getUserName() {
+  return (
+    localStorage.getItem("ceoJackUserName") ||
+    "CEO JACK"
+  );
+}
 
-            onboardingData =
-                JSON.parse(
-                    storedOnboarding
-                );
 
-        } catch (error) {
+function getUserInitial(name) {
+  const cleanName = String(name || "").trim();
 
-            onboardingData = null;
+  return cleanName
+    ? cleanName.charAt(0).toUpperCase()
+    : "C";
+}
 
+
+/* =====================================================
+   GREETING
+===================================================== */
+
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    return "Good morning";
+  }
+
+  if (hour < 18) {
+    return "Good afternoon";
+  }
+
+  return "Good evening";
+}
+
+
+function updateWelcome() {
+  const name = getUserName();
+  const greeting = getGreeting();
+
+  const welcomeTitle = $("#welcomeTitle");
+  const profileName = $("#profileName");
+  const profileAvatar = $("#profileAvatar");
+
+  if (welcomeTitle) {
+    welcomeTitle.textContent =
+      `${greeting}, ${name} 👋`;
+  }
+
+  if (profileName) {
+    profileName.textContent = name;
+  }
+
+  if (profileAvatar) {
+    profileAvatar.textContent =
+      getUserInitial(name);
+  }
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function navigate(route, options = {}) {
+  const destination = routes[route];
+
+  if (!destination) {
+    showToast("This section is not available yet.");
+    return;
+  }
+
+  if (options.newTab) {
+    window.open(destination, "_blank");
+    return;
+  }
+
+  window.location.href = destination;
+}
+
+
+function setupNavigation() {
+
+  $$("[data-route]").forEach((element) => {
+
+    element.addEventListener("click", (event) => {
+
+      const route =
+        element.dataset.route;
+
+      if (!route) {
+        return;
+      }
+
+      /*
+       * Allow normal links to work naturally
+       * if JavaScript navigation is not required.
+       */
+
+      if (
+        element.tagName === "A" &&
+        element.getAttribute("href")
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      navigate(route);
+    });
+
+  });
+
+}
+
+
+/* =====================================================
+   ACTIVE SIDEBAR ITEM
+===================================================== */
+
+function setActiveSidebarItem() {
+
+  const currentPage =
+    window.location.pathname
+      .split("/")
+      .pop() || "dashboard.html";
+
+  $$(".nav-item").forEach((item) => {
+
+    const href =
+      item.getAttribute("href");
+
+    item.classList.toggle(
+      "active",
+      href === currentPage
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+function setupMobileSidebar() {
+
+  const sidebar = $("#sidebar");
+  const overlay = $("#sidebarOverlay");
+  const menuButton = $("#mobileMenuBtn");
+
+  if (!sidebar || !overlay || !menuButton) {
+    return;
+  }
+
+
+  function openSidebar() {
+
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+  }
+
+
+  function closeSidebar() {
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+    document.body.style.overflow = "";
+  }
+
+
+  menuButton.addEventListener(
+    "click",
+    openSidebar
+  );
+
+
+  overlay.addEventListener(
+    "click",
+    closeSidebar
+  );
+
+
+  $$(".nav-item").forEach((item) => {
+
+    item.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+  });
+
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (window.innerWidth > 850) {
+        closeSidebar();
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function setupNotifications() {
+
+  const button = $("#notificationBtn");
+  const panel = $("#notificationPanel");
+  const markRead = $("#markReadBtn");
+
+  if (!button || !panel) {
+    return;
+  }
+
+
+  button.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
+    panel.classList.toggle("show");
+
+    const profileMenu = $("#profileMenu");
+
+    if (profileMenu) {
+      profileMenu.classList.remove("show");
+    }
+
+  });
+
+
+  if (markRead) {
+
+    markRead.addEventListener(
+      "click",
+      () => {
+
+        const dot =
+          document.querySelector(
+            ".notification-dot"
+          );
+
+        if (dot) {
+          dot.style.display = "none";
         }
 
+        showToast("Notifications marked as read.");
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   PROFILE MENU
+===================================================== */
+
+function setupProfileMenu() {
+
+  const button = $("#profileBtn");
+  const menu = $("#profileMenu");
+
+  if (!button || !menu) {
+    return;
+  }
+
+
+  button.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
+    menu.classList.toggle("show");
+
+    const notifications =
+      $("#notificationPanel");
+
+    if (notifications) {
+      notifications.classList.remove("show");
+    }
+
+  });
+
+}
+
+
+/* =====================================================
+   CLOSE MENUS
+===================================================== */
+
+function setupGlobalMenuClose() {
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const profileMenu =
+        $("#profileMenu");
+
+      const notificationPanel =
+        $("#notificationPanel");
+
+      const profileWrapper =
+        $(".profile-wrapper");
+
+      const notificationButton =
+        $("#notificationBtn");
+
+      if (
+        profileMenu &&
+        profileWrapper &&
+        !profileWrapper.contains(event.target)
+      ) {
+        profileMenu.classList.remove("show");
+      }
+
+
+      if (
+        notificationPanel &&
+        notificationButton &&
+        !notificationPanel.contains(event.target) &&
+        !notificationButton.contains(event.target)
+      ) {
+        notificationPanel.classList.remove("show");
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+  localStorage.removeItem(
+    "ceoJackUserName"
+  );
+
+  localStorage.removeItem(
+    "ceoJackOnboarding"
+  );
+
+  window.location.href = "index.html";
+}
+
+
+function setupLogout() {
+
+  const logoutButton =
+    $("#logoutBtn");
+
+  const menuLogoutButton =
+    $("#menuLogoutBtn");
+
+
+  if (logoutButton) {
+
+    logoutButton.addEventListener(
+      "click",
+      logout
+    );
+
+  }
+
+
+  if (menuLogoutButton) {
+
+    menuLogoutButton.addEventListener(
+      "click",
+      logout
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   CONTINUE LEARNING
+===================================================== */
+
+function setupContinueLearning() {
+
+  const button =
+    document.querySelector(
+      '[data-course="html"]'
+    );
+
+  if (!button) {
+    return;
+  }
+
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "digital-skills.html?mode=digital-skills&course=HTML+Foundations";
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   START LEARNING
+===================================================== */
+
+function setupStartLearning() {
+
+  const button =
+    $("#startLearningBtn");
+
+  if (!button) {
+    return;
+  }
+
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      navigate("education");
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   HUB CARDS
+===================================================== */
+
+function setupHubCards() {
+
+  $$(".hub-card").forEach((card) => {
+
+    card.addEventListener(
+      "click",
+      () => {
+
+        const route =
+          card.dataset.route;
+
+        navigate(route);
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   RECOMMENDATIONS
+===================================================== */
+
+function setupRecommendations() {
+
+  $$(".recommendation-card").forEach(
+    (card) => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          const destination =
+            card.dataset.destination;
+
+          navigate(destination);
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+function setupQuickActions() {
+
+  $$(".quick-action").forEach(
+    (button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const route =
+            button.dataset.route;
+
+          navigate(route);
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function setupSearch() {
+
+  const searchInput =
+    $("#dashboardSearch");
+
+  if (!searchInput) {
+    return;
+  }
+
+
+  function performSearch() {
+
+    const query =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    if (!query) {
+      return;
     }
 
 
     /*
-       At this stage there is no real
-       authenticated user yet.
+     * Education
+     */
 
-       We therefore use a safe fallback.
-    */
+    if (
+      query.includes("math") ||
+      query.includes("english") ||
+      query.includes("science") ||
+      query.includes("biology") ||
+      query.includes("physics") ||
+      query.includes("chemistry") ||
+      query.includes("geography") ||
+      query.includes("history") ||
+      query.includes("subject") ||
+      query.includes("lesson")
+    ) {
 
-    const userName =
-        localStorage.getItem(
-            "ceoJackUserName"
-        ) ||
-        "Learner";
+      window.location.href =
+        `education.html?search=${encodeURIComponent(query)}`;
+
+      return;
+    }
 
 
-    /* =====================================
-       PERSONALIZE NAME
-    ====================================== */
+    /*
+     * Digital Skills
+     */
 
-    const nameElements = [
+    if (
+      query.includes("html") ||
+      query.includes("css") ||
+      query.includes("javascript") ||
+      query.includes("python") ||
+      query.includes("coding") ||
+      query.includes("programming") ||
+      query.includes("web")
+    ) {
 
-        document.getElementById("welcomeName"),
+      window.location.href =
+        `digital-skills.html?search=${encodeURIComponent(query)}`;
 
-        document.getElementById("profileName"),
+      return;
+    }
 
-        document.getElementById("sidebarUserName")
 
+    /*
+     * Entrepreneurship
+     */
+
+    if (
+      query.includes("business") ||
+      query.includes("money") ||
+      query.includes("entrepreneur") ||
+      query.includes("finance") ||
+      query.includes("startup") ||
+      query.includes("idea")
+    ) {
+
+      window.location.href =
+        `entrepreneurship.html?search=${encodeURIComponent(query)}`;
+
+      return;
+    }
+
+
+    /*
+     * AI
+     */
+
+    if (
+      query.includes("ai") ||
+      query.includes("assistant") ||
+      query.includes("explain")
+    ) {
+
+      window.location.href =
+        `ai.html?query=${encodeURIComponent(query)}`;
+
+      return;
+    }
+
+
+    showToast(
+      `Searching CEO JACK for "${query}"...`
+    );
+
+  }
+
+
+  searchInput.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Enter") {
+        performSearch();
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   KEYBOARD SHORTCUTS
+===================================================== */
+
+function setupKeyboardShortcuts() {
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      /*
+       * "/" focuses search
+       */
+
+      if (
+        event.key === "/" &&
+        document.activeElement.tagName !== "INPUT" &&
+        document.activeElement.tagName !== "TEXTAREA"
+      ) {
+
+        event.preventDefault();
+
+        const search =
+          $("#dashboardSearch");
+
+        if (search) {
+          search.focus();
+        }
+
+      }
+
+
+      /*
+       * Escape closes menus
+       */
+
+      if (event.key === "Escape") {
+
+        const profileMenu =
+          $("#profileMenu");
+
+        const notificationPanel =
+          $("#notificationPanel");
+
+        const sidebar =
+          $("#sidebar");
+
+        const overlay =
+          $("#sidebarOverlay");
+
+
+        profileMenu?.classList.remove(
+          "show"
+        );
+
+        notificationPanel?.classList.remove(
+          "show"
+        );
+
+        sidebar?.classList.remove(
+          "open"
+        );
+
+        overlay?.classList.remove(
+          "show"
+        );
+
+        document.body.style.overflow = "";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   PROFILE COMPLETION
+===================================================== */
+
+function calculateProfileCompletion() {
+
+  const onboardingRaw =
+    localStorage.getItem(
+      "ceoJackOnboarding"
+    );
+
+  if (!onboardingRaw) {
+    return 60;
+  }
+
+
+  try {
+
+    const onboarding =
+      JSON.parse(onboardingRaw);
+
+
+    const fields = [
+      "name",
+      "age",
+      "classLevel",
+      "interests",
+      "goals"
     ];
 
 
-    nameElements.forEach((element) => {
+    const completed =
+      fields.filter(
+        (field) => {
 
-        if (element) {
+          const value =
+            onboarding[field];
 
-            element.textContent =
-                userName;
+          if (Array.isArray(value)) {
+            return value.length > 0;
+          }
 
-        }
-
-    });
-
-
-    /* =====================================
-       CREATE INITIAL
-    ====================================== */
-
-    const initial =
-        userName
-            .trim()
-            .charAt(0)
-            .toUpperCase() || "U";
-
-
-    const avatarElements = [
-
-        document.getElementById("profileAvatar"),
-
-        document.getElementById("sidebarAvatar")
-
-    ];
-
-
-    avatarElements.forEach((element) => {
-
-        if (element) {
-
-            element.textContent =
-                initial;
+          return Boolean(value);
 
         }
+      ).length;
 
-    });
 
+    return Math.round(
+      (completed / fields.length) * 100
+    );
 
-    /* =====================================
-       TIME GREETING
-    ====================================== */
+  } catch (error) {
 
-    function updateGreeting() {
+    console.warn(
+      "Could not read onboarding data:",
+      error
+    );
 
-        const greetingElement =
-            document.getElementById(
-                "timeGreeting"
-            );
+    return 60;
+  }
 
+}
 
-        if (!greetingElement) {
-            return;
-        }
 
+function updateProfileCompletion() {
 
-        const hour =
-            new Date().getHours();
+  const percent =
+    calculateProfileCompletion();
 
+  const percentElement =
+    $("#completionPercent");
 
-        let greeting = "day";
+  const fill =
+    $("#completionFill");
 
 
-        if (hour < 12) {
+  if (percentElement) {
+    percentElement.textContent =
+      `${percent}%`;
+  }
 
-            greeting = "morning";
 
-        } else if (hour < 18) {
+  if (fill) {
+    fill.style.width =
+      `${percent}%`;
+  }
 
-            greeting = "afternoon";
+}
 
-        } else {
 
-            greeting = "evening";
+/* =====================================================
+   COURSE / LESSON STATS
+===================================================== */
 
-        }
+function updateStats() {
 
+  const lessonCount =
+    $("#lessonCount");
 
-        greetingElement.textContent =
-            greeting;
+  const courseCount =
+    $("#courseCount");
 
-    }
 
+  /*
+   * These are starter dashboard values.
+   * They can later be replaced with database values.
+   */
 
-    updateGreeting();
-
-
-    /* =====================================
-       MOBILE SIDEBAR
-    ====================================== */
-
-    function openSidebar() {
-
-        sidebar.classList.add("open");
-
-        sidebarOverlay.classList.add("show");
-
-    }
-
-
-    function closeSidebarMenu() {
-
-        sidebar.classList.remove("open");
-
-        sidebarOverlay.classList.remove("show");
-
-    }
-
-
-    if (mobileMenuButton) {
-
-        mobileMenuButton.addEventListener(
-            "click",
-            openSidebar
-        );
-
-    }
-
-
-    if (sidebarClose) {
-
-        sidebarClose.addEventListener(
-            "click",
-            closeSidebarMenu
-        );
-
-    }
-
-
-    if (sidebarOverlay) {
-
-        sidebarOverlay.addEventListener(
-            "click",
-            closeSidebarMenu
-        );
-
-    }
-
-
-    /* =====================================
-       SIDEBAR NAVIGATION
-    ====================================== */
-
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    navItems.forEach((item) => {
-
-        item.addEventListener(
-            "click",
-            () => {
-
-                navItems.forEach(
-                    (nav) => {
-
-                        nav.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                item.classList.add(
-                    "active"
-                );
-
-
-                const view =
-                    item.dataset.view;
-
-
-                if (breadcrumbCurrent) {
-
-                    breadcrumbCurrent.textContent =
-                        formatViewName(view);
-
-                }
-
-
-                /*
-                   These are currently dashboard
-                   interaction points.
-
-                   Later each item can route to
-                   its dedicated application module.
-                */
-
-                showToast(
-                    `${formatViewName(view)} will open here.`
-                );
-
-
-                if (window.innerWidth <= 850) {
-
-                    closeSidebarMenu();
-
-                }
-
-            }
-        );
-
-    });
-
-
-    function formatViewName(view) {
-
-        const names = {
-
-            overview: "Overview",
-
-            education: "Education Hub",
-
-            digital: "Digital Skills Hub",
-
-            business: "Entrepreneurship Hub",
-
-            projects: "Projects",
-
-            community: "Community",
-
-            ai: "AI Assistant",
-
-            safe: "Digital Safe",
-
-            portfolio: "Portfolio"
-
-        };
-
-
-        return names[view] || "Overview";
-
-    }
-
-
-    /* =====================================
-       NOTIFICATIONS
-    ====================================== */
-
-    if (notificationButton) {
-
-        notificationButton.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-                notificationPanel.classList.toggle(
-                    "open"
-                );
-
-                profileMenu.classList.remove(
-                    "open"
-                );
-
-            }
-        );
-
-    }
-
-
-    if (closeNotifications) {
-
-        closeNotifications.addEventListener(
-            "click",
-            () => {
-
-                notificationPanel.classList.remove(
-                    "open"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       PROFILE MENU
-    ====================================== */
-
-    if (profileTrigger) {
-
-        profileTrigger.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-                profileMenu.classList.toggle(
-                    "open"
-                );
-
-                notificationPanel.classList.remove(
-                    "open"
-                );
-
-            }
-        );
-
-    }
-
-
-    document.addEventListener(
-        "click",
-        () => {
-
-            profileMenu.classList.remove(
-                "open"
-            );
-
-            notificationPanel.classList.remove(
-                "open"
-            );
-
-        }
+  const completedLessons =
+    Number(
+      localStorage.getItem(
+        "ceoJackCompletedLessons"
+      ) || 0
     );
 
 
-    if (profileMenu) {
-
-        profileMenu.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       TOAST
-    ====================================== */
-
-    let toastTimer;
-
-
-    function showToast(message) {
-
-        if (!toast) {
-            return;
-        }
-
-
-        clearTimeout(
-            toastTimer
-        );
-
-
-        toast.textContent =
-            message;
-
-
-        toast.classList.add(
-            "show"
-        );
-
-
-        toastTimer =
-            setTimeout(
-                () => {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                2200
-            );
-
-    }
-
-
-    /* =====================================
-       CONTINUE LEARNING
-    ====================================== */
-
-    const continueButton =
-        document.getElementById(
-            "continueBtn"
-        );
-
-
-    const resumeButton =
-        document.getElementById(
-            "resumeCourseBtn"
-        );
-
-
-    if (continueButton) {
-
-        continueButton.addEventListener(
-            "click",
-            () => {
-
-                showToast(
-                    "Opening your current learning path..."
-                );
-
-            }
-        );
-
-    }
-
-
-    if (resumeButton) {
-
-        resumeButton.addEventListener(
-            "click",
-            () => {
-
-                showToast(
-                    "Resuming HTML Foundations..."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       HUB ACTIONS
-    ====================================== */
-
-    const hubButtons =
-        document.querySelectorAll(
-            ".hub-card"
-        );
-
-
-    hubButtons.forEach((button) => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const hub =
-                    button.dataset.hub ||
-                    "Learning Hub";
-
-
-                showToast(
-                    `${hub} is ready for the next build.`
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================
-       QUICK ACTIONS
-    ====================================== */
-
-    const quickActions =
-        document.querySelectorAll(
-            "[data-action]"
-        );
-
-
-    quickActions.forEach((action) => {
-
-        action.addEventListener(
-            "click",
-            () => {
-
-                const actionType =
-                    action.dataset.action;
-
-
-                const messages = {
-
-                    coding:
-                        "Project workspace will open here.",
-
-                    ai:
-                        "AI Assistant will open here.",
-
-                    community:
-                        "Community workspace will open here.",
-
-                    safe:
-                        "Digital Safe will open here."
-
-                };
-
-
-                showToast(
-                    messages[actionType] ||
-                    "Action selected."
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================
-       SEARCH
-    ====================================== */
-
-    if (globalSearch) {
-
-        globalSearch.addEventListener(
-            "keydown",
-            (event) => {
-
-                if (
-                    event.key !== "Enter"
-                ) {
-                    return;
-                }
-
-
-                const query =
-                    globalSearch.value.trim();
-
-
-                if (!query) {
-
-                    showToast(
-                        "Type something to search."
-                    );
-
-                    return;
-
-                }
-
-
-                showToast(
-                    `Searching for "${query}"...`
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       "/" SEARCH SHORTCUT
-    ====================================== */
-
-    document.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (
-                event.key === "/" &&
-                document.activeElement !==
-                globalSearch
-            ) {
-
-                event.preventDefault();
-
-                if (globalSearch) {
-
-                    globalSearch.focus();
-
-                }
-
-            }
-
-        }
+  const enrolledCourses =
+    Number(
+      localStorage.getItem(
+        "ceoJackCourseCount"
+      ) || 0
     );
 
 
-    /* =====================================
-       SETTINGS
-    ====================================== */
+  if (lessonCount) {
 
-    if (settingsButton) {
+    lessonCount.textContent =
+      completedLessons;
 
-        settingsButton.addEventListener(
-            "click",
-            () => {
-
-                showToast(
-                    "Settings center will open here."
-                );
-
-            }
-        );
-
-    }
+  }
 
 
-    /* =====================================
-       LOGOUT
-    ====================================== */
+  if (courseCount) {
 
-    function logout() {
+    courseCount.textContent =
+      enrolledCourses;
 
-        /*
-           This is temporary.
+  }
 
-           Once real authentication exists,
-           logout will call the authentication
-           service and clear the real session.
-        */
-
-        localStorage.removeItem(
-            "ceoJackUserName"
-        );
+}
 
 
-        showToast(
-            "Signing out..."
-        );
+/* =====================================================
+   UPGRADE
+===================================================== */
+
+function setupUpgradeButton() {
+
+  const button =
+    $("#upgradeBtn");
+
+  if (!button) {
+    return;
+  }
 
 
-        setTimeout(
-            () => {
+  button.addEventListener(
+    "click",
+    () => {
 
-                window.location.href =
-                    "index.html";
-
-            },
-            800
-        );
+      showToast(
+        "Premium learning features are coming soon."
+      );
 
     }
+  );
+
+}
 
 
-    if (logoutButton) {
+/* =====================================================
+   ADD GOAL
+===================================================== */
 
-        logoutButton.addEventListener(
-            "click",
-            logout
-        );
+function setupAddGoal() {
 
-    }
+  const button =
+    $("#addGoalBtn");
 
-
-    if (profileLogout) {
-
-        profileLogout.addEventListener(
-            "click",
-            logout
-        );
-
-    }
+  if (!button) {
+    return;
+  }
 
 
-    /* =====================================
-       PERSONALIZED RECOMMENDATIONS
-    ====================================== */
+  button.addEventListener(
+    "click",
+    () => {
 
-    function updateRecommendations() {
-
-        if (
-            !onboardingData ||
-            !onboardingData.interests
-        ) {
-
-            return;
-
-        }
-
-
-        const interests =
-            onboardingData.interests
-                .map(
-                    (interest) =>
-                        interest.toLowerCase()
-                );
-
-
-        const cards =
-            document.querySelectorAll(
-                ".recommendation-card"
-            );
-
-
-        cards.forEach((card) => {
-
-            const content =
-                card.textContent.toLowerCase();
-
-
-            const matches =
-                interests.some(
-                    (interest) =>
-                        content.includes(
-                            interest
-                        )
-                );
-
-
-            if (matches) {
-
-                card.style.borderColor =
-                    "rgba(85,221,255,0.18)";
-
-            }
-
-        });
+      showToast(
+        "Goal creation will be available soon."
+      );
 
     }
+  );
+
+}
 
 
-    updateRecommendations();
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer = null;
 
 
-    /* =====================================
-       PROFILE COMPLETION
-    ====================================== */
+function showToast(message) {
 
-    function calculateProfileCompletion() {
+  const toast =
+    $("#toast");
 
-        if (!onboardingData) {
-            return 25;
-        }
+  const toastMessage =
+    $("#toastMessage");
 
 
-        let completed = 0;
-
-        const fields = [
-
-            onboardingData.learningLevel,
-
-            onboardingData.ageGroup,
-
-            onboardingData.interests?.length,
-
-            onboardingData.goals?.length,
-
-            onboardingData.experience
-
-        ];
+  if (!toast || !toastMessage) {
+    return;
+  }
 
 
-        fields.forEach((field) => {
-
-            if (field) {
-
-                completed++;
-
-            }
-
-        });
+  toastMessage.textContent =
+    message;
 
 
-        return Math.round(
-            (completed / fields.length) * 100
-        );
-
-    }
+  toast.classList.add("show");
 
 
-    const completion =
-        calculateProfileCompletion();
+  clearTimeout(toastTimer);
 
 
-    const profileProgress =
-        document.getElementById(
-            "profileProgress"
-        );
+  toastTimer = setTimeout(
+    () => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },
+    2800
+  );
+
+}
 
 
-    if (profileProgress) {
+/* =====================================================
+   DASHBOARD INITIALIZATION
+===================================================== */
 
-        profileProgress.textContent =
-            `${completion}%`;
+function initDashboard() {
 
-    }
+  updateWelcome();
+
+  updateProfileCompletion();
+
+  updateStats();
+
+  setActiveSidebarItem();
+
+  setupNavigation();
+
+  setupMobileSidebar();
+
+  setupNotifications();
+
+  setupProfileMenu();
+
+  setupGlobalMenuClose();
+
+  setupLogout();
+
+  setupContinueLearning();
+
+  setupStartLearning();
+
+  setupHubCards();
+
+  setupRecommendations();
+
+  setupQuickActions();
+
+  setupSearch();
+
+  setupKeyboardShortcuts();
+
+  setupUpgradeButton();
+
+  setupAddGoal();
+
+}
 
 
-    /* =====================================
-       PROFILE DATA FOR DEBUG / FUTURE
-    ====================================== */
+/* =====================================================
+   START
+===================================================== */
 
-    window.ceoJackDashboard = {
+if (
+  document.readyState === "loading"
+) {
 
-        user: userName,
+  document.addEventListener(
+    "DOMContentLoaded",
+    initDashboard
+  );
 
-        onboarding: onboardingData,
+} else {
 
-        profileCompletion:
-            completion
+  initDashboard();
 
-    };
+}
 
 
-    /* =====================================
-       INITIAL TOAST
-    ====================================== */
+/* =====================================================
+   PUBLIC API
+===================================================== */
 
-    setTimeout(
-        () => {
-
-            showToast(
-                `Welcome back, ${userName}.`
-            );
-
-        },
-        700
-    );
-
-})();
+window.ceoJackDashboard = {
+  navigate,
+  showToast,
+  getUserName,
+  logout
+};

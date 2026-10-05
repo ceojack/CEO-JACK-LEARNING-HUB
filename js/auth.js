@@ -740,45 +740,21 @@
                     : "Checking account...";
 
 
-            /* Temporary frontend demonstration */
+            const name = currentMode === "signup"
+                ? fullName.value.trim()
+                : emailInput.value.trim().split("@")[0];
 
-            await new Promise(
-                (resolve) => {
+            localStorage.setItem("ceoJackUserName", name || "Student");
+            localStorage.setItem("ceoJackUserEmail", emailInput.value.trim());
+            localStorage.setItem("ceoJackSignedIn", "true");
 
-                    setTimeout(
-                        resolve,
-                        900
-                    );
+            submitText.textContent = "Opening your learning space...";
 
-                }
-            );
-
-
-            if (currentMode === "signup") {
-
-                showStatus(
-                    "Account setup is ready for backend integration.",
-                    "success"
-                );
-
-            } else {
-
-                showStatus(
-                    "Sign-in is ready for backend integration.",
-                    "success"
-                );
-
-            }
-
-
-            submitButton.disabled =
-                false;
-
-
-            submitText.textContent =
-                currentMode === "signup"
-                    ? "Create Account"
-                    : "Sign In";
+            window.setTimeout(() => {
+                window.location.href = currentMode === "signup"
+                    ? "onboarding.html"
+                    : "dashboard.html";
+            }, 350);
 
         }
     );

@@ -148,55 +148,12 @@ const getStarted =
 
 
 if (getStarted) getStarted.addEventListener("click", () => {
-
-    /*
-       FUTURE FLOW:
-
-       Welcome Page
-            ↓
-       Get Started
-            ↓
-       Account / Onboarding
-            ↓
-       Personalized Dashboard
-            ↓
-       Three Hubs
-
-       We will build this later.
-    */
-
-
-    getStarted.innerHTML =
-        `
+    /* The anchor supplies the route; this only gives immediate feedback. */
+    getStarted.setAttribute("aria-busy", "true");
+    getStarted.innerHTML = `
         <span>Starting...</span>
         <span class="arrow">→</span>
-        `;
-
-
-    setTimeout(() => {
-
-        /*
-           Temporary behavior.
-
-           Later replace this with:
-
-           window.location.href =
-               "pages/onboarding.html";
-        */
-
-        alert(
-            "Welcome to CEO JACK LEARNING HUB 🚀"
-        );
-
-
-        getStarted.innerHTML =
-            `
-            <span>Get Started</span>
-            <span class="arrow">→</span>
-            `;
-
-    }, 700);
-
+    `;
 });
 
 

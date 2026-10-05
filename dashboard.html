@@ -1,1799 +1,1266 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta
+    name="description"
+    content="CEO JACK Learning Hub — Learn. Create. Develop."
+  >
 
-    <meta
-        name="description"
-        content="Your personalized CEO JACK LEARNING HUB dashboard."
-    >
+  <title>Dashboard | CEO JACK Learning Hub</title>
 
-    <title>
-        Dashboard | CEO JACK LEARNING HUB
-    </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        rel="stylesheet"
-        href="css/dashboard.css"
-    >
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
 
 <body>
 
+  <div class="app-shell">
 
-    <!-- =====================================
-         APP BACKGROUND
-    ====================================== -->
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <div class="app-background">
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
 
-        <div class="bg-grid"></div>
+      <div class="brand">
 
-        <div class="bg-glow glow-blue"></div>
+        <div class="brand-mark">
+          CJ
+        </div>
 
-        <div class="bg-glow glow-purple"></div>
+        <div class="brand-text">
+          <strong>CEO JACK</strong>
+          <span>LEARNING HUB</span>
+        </div>
 
-    </div>
+      </div>
 
+      <nav class="sidebar-nav">
 
-    <!-- =====================================
-         MOBILE OVERLAY
-    ====================================== -->
+        <div class="nav-section">
+          <span class="nav-label">MAIN</span>
 
-    <div
-        class="sidebar-overlay"
-        id="sidebarOverlay"
-    ></div>
+          <a
+            href="dashboard.html"
+            class="nav-item active"
+            data-route="overview"
+          >
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+          </a>
 
+          <a
+            href="education.html"
+            class="nav-item"
+            data-route="education"
+          >
+            <span class="nav-icon">📚</span>
+            <span>Education Hub</span>
+          </a>
 
-    <!-- =====================================
-         SIDEBAR
-    ====================================== -->
+          <a
+            href="digital-skills.html"
+            class="nav-item"
+            data-route="digital"
+          >
+            <span class="nav-icon">💻</span>
+            <span>Digital Skills</span>
+          </a>
 
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
+          <a
+            href="entrepreneurship.html"
+            class="nav-item"
+            data-route="business"
+          >
+            <span class="nav-icon">🚀</span>
+            <span>Entrepreneurship</span>
+          </a>
+        </div>
 
-        <div class="sidebar-top">
+        <div class="nav-section">
 
+          <span class="nav-label">MY LEARNING</span>
 
-            <!-- LOGO -->
+          <a
+            href="projects.html"
+            class="nav-item"
+            data-route="projects"
+          >
+            <span class="nav-icon">🧩</span>
+            <span>Projects</span>
+          </a>
 
-            <a
-                href="dashboard.html"
-                class="brand"
-            >
+          <a
+            href="community.html"
+            class="nav-item"
+            data-route="community"
+          >
+            <span class="nav-icon">👥</span>
+            <span>Community</span>
+          </a>
 
-                <span class="brand-mark">
-                    &lt;/&gt;
-                </span>
+          <a
+            href="ai.html"
+            class="nav-item"
+            data-route="ai"
+          >
+            <span class="nav-icon">✦</span>
+            <span>CEO JACK AI</span>
+          </a>
 
-                <span class="brand-text">
+          <a
+            href="digital-safe.html"
+            class="nav-item"
+            data-route="safe"
+          >
+            <span class="nav-icon">🔐</span>
+            <span>Digital Safe</span>
+          </a>
 
-                    CEO JACK
-
-                    <small>
-                        LEARNING HUB
-                    </small>
-
-                </span>
-
-            </a>
-
-
-            <!-- CLOSE ON MOBILE -->
-
-            <button
-                class="sidebar-close"
-                id="sidebarClose"
-                type="button"
-                aria-label="Close sidebar"
-            >
-                ×
-            </button>
-
+          <a
+            href="portfolio.html"
+            class="nav-item"
+            data-route="portfolio"
+          >
+            <span class="nav-icon">🏆</span>
+            <span>My Portfolio</span>
+          </a>
 
         </div>
 
+      </nav>
 
-        <!-- USER MINI PROFILE -->
+      <!-- Sidebar Bottom -->
 
-        <div class="mini-profile">
+      <div class="sidebar-bottom">
 
-            <div class="avatar" id="sidebarAvatar">
-                U
-            </div>
+        <div class="upgrade-card">
 
-            <div class="mini-profile-info">
+          <div class="upgrade-icon">
+            ✦
+          </div>
 
-                <strong id="sidebarUserName">
-                    Learner
-                </strong>
+          <div>
+            <strong>Unlock More</strong>
+            <p>Explore premium learning tools.</p>
+          </div>
 
-                <span>
-                    Member
-                </span>
-
-            </div>
-
-            <span class="online-dot"></span>
+          <button type="button" id="upgradeBtn">
+            →
+          </button>
 
         </div>
 
-
-        <!-- MAIN NAVIGATION -->
-
-        <nav class="sidebar-nav">
-
-
-            <span class="nav-heading">
-                WORKSPACE
-            </span>
-
-
-            <button
-                class="nav-item active"
-                data-view="overview"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ◉
-                </span>
-
-                <span>
-                    Overview
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="education"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    📚
-                </span>
-
-                <span>
-                    Education
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="digital"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    &lt;/&gt;
-                </span>
-
-                <span>
-                    Digital Skills
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="business"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ◈
-                </span>
-
-                <span>
-                    Entrepreneurship
-                </span>
-
-            </button>
-
-
-            <span class="nav-heading second">
-                PERSONAL
-            </span>
-
-
-            <button
-                class="nav-item"
-                data-view="projects"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ◫
-                </span>
-
-                <span>
-                    Projects
-                </span>
-
-                <span class="nav-badge">
-                    2
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="community"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ◎
-                </span>
-
-                <span>
-                    Community
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="ai"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    AI
-                </span>
-
-                <span>
-                    AI Assistant
-                </span>
-
-                <span class="live-badge">
-                    LIVE
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="safe"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ◇
-                </span>
-
-                <span>
-                    Digital Safe
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-view="portfolio"
-                type="button"
-            >
-
-                <span class="nav-icon">
-                    ↗
-                </span>
-
-                <span>
-                    Portfolio
-                </span>
-
-            </button>
-
-
-        </nav>
-
-
-        <!-- SIDEBAR BOTTOM -->
-
-        <div class="sidebar-bottom">
-
-
-            <button
-                class="sidebar-action"
-                id="settingsBtn"
-                type="button"
-            >
-
-                <span>
-                    ⚙
-                </span>
-
-                Settings
-
-            </button>
-
-
-            <button
-                class="sidebar-action logout"
-                id="logoutBtn"
-                type="button"
-            >
-
-                <span>
-                    ↪
-                </span>
-
-                Sign Out
-
-            </button>
-
-
-        </div>
+        <button
+          type="button"
+          class="logout-btn"
+          id="logoutBtn"
+        >
+          <span>↪</span>
+          <span>Log out</span>
+        </button>
+
+      </div>
 
     </aside>
 
 
-    <!-- =====================================
-         MAIN APP
-    ====================================== -->
+    <!-- ================= MAIN ================= -->
 
-    <div class="app-shell">
+    <main class="main-content">
 
+      <!-- TOPBAR -->
 
-        <!-- =================================
-             TOPBAR
-        ================================== -->
+      <header class="topbar">
 
-        <header class="topbar">
-
-
-            <div class="topbar-left">
-
-                <button
-                    class="mobile-menu-btn"
-                    id="mobileMenuBtn"
-                    type="button"
-                    aria-label="Open sidebar"
-                >
-                    ☰
-                </button>
-
-
-                <div class="breadcrumb">
-
-                    <span>
-                        Dashboard
-                    </span>
-
-                    <b>
-                        /
-                    </b>
-
-                    <strong id="breadcrumbCurrent">
-                        Overview
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <div class="topbar-right">
-
-
-                <!-- SEARCH -->
-
-                <div class="search-box">
-
-                    <span>
-                        ⌕
-                    </span>
-
-                    <input
-                        type="search"
-                        id="globalSearch"
-                        placeholder="Search your workspace..."
-                        autocomplete="off"
-                    >
-
-                    <kbd>
-                        /
-                    </kbd>
-
-                </div>
-
-
-                <!-- NOTIFICATION -->
-
-                <button
-                    class="top-icon-btn"
-                    id="notificationBtn"
-                    type="button"
-                    aria-label="Notifications"
-                >
-
-                    <span>
-                        ♢
-                    </span>
-
-                    <i></i>
-
-                </button>
-
-
-                <!-- PROFILE -->
-
-                <button
-                    class="profile-trigger"
-                    id="profileTrigger"
-                    type="button"
-                >
-
-                    <span
-                        class="profile-avatar"
-                        id="profileAvatar"
-                    >
-                        U
-                    </span>
-
-                    <span class="profile-text">
-
-                        <strong id="profileName">
-                            Learner
-                        </strong>
-
-                        <small>
-                            My account
-                        </small>
-
-                    </span>
-
-                    <span class="profile-arrow">
-                        ▾
-                    </span>
-
-                </button>
-
-
-                <div
-                    class="profile-menu"
-                    id="profileMenu"
-                >
-
-                    <a href="#">
-                        My Profile
-                    </a>
-
-                    <a href="#">
-                        Settings
-                    </a>
-
-                    <button
-                        type="button"
-                        id="profileLogout"
-                    >
-                        Sign Out
-                    </button>
-
-                </div>
-
-
-            </div>
-
-        </header>
-
-
-        <!-- =================================
-             CONTENT
-        ================================== -->
-
-        <main class="dashboard-main">
-
-
-            <!-- =================================
-                 WELCOME
-            ================================== -->
-
-            <section class="welcome-section">
-
-                <div>
-
-                    <span class="eyebrow">
-                        YOUR LEARNING COMMAND CENTER
-                    </span>
-
-
-                    <h1>
-
-                        Good
-                        <span id="timeGreeting">
-                            day
-                        </span>,
-                        <strong id="welcomeName">
-                            Learner
-                        </strong>.
-
-                    </h1>
-
-
-                    <p>
-
-                        Keep moving forward.
-                        Your next step is waiting for you.
-
-                    </p>
-
-                </div>
-
-
-                <div class="welcome-actions">
-
-                    <button
-                        class="outline-btn"
-                        id="continueBtn"
-                        type="button"
-                    >
-
-                        Continue Learning
-                        <span>→</span>
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
-                 PROFILE COMPLETION
-            ================================== -->
-
-            <section class="completion-strip">
-
-                <div class="completion-icon">
-                    ✦
-                </div>
-
-
-                <div class="completion-copy">
-
-                    <strong>
-                        Your learning profile is ready.
-                    </strong>
-
-                    <span>
-                        Keep exploring to make your dashboard more useful.
-                    </span>
-
-                </div>
-
-
-                <div class="completion-progress">
-
-                    <span>
-                        <strong id="profileProgress">
-                            85%
-                        </strong>
-                    </span>
-
-                    <div>
-                        <i></i>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
-                 STATS
-            ================================== -->
-
-            <section class="stats-grid">
-
-
-                <article class="stat-card">
-
-                    <div class="stat-header">
-
-                        <span>
-                            LEARNING PROGRESS
-                        </span>
-
-                        <i>
-                            ◉
-                        </i>
-
-                    </div>
-
-
-                    <div class="stat-value">
-                        24%
-                    </div>
-
-
-                    <div class="stat-bottom">
-
-                        <span>
-                            +8% this week
-                        </span>
-
-                        <small>
-                            Overall
-                        </small>
-
-                    </div>
-
-                </article>
-
-
-                <article class="stat-card">
-
-                    <div class="stat-header">
-
-                        <span>
-                            LEARNING STREAK
-                        </span>
-
-                        <i>
-                            ◌
-                        </i>
-
-                    </div>
-
-
-                    <div class="stat-value">
-                        7
-                        <small>
-                            days
-                        </small>
-                    </div>
-
-
-                    <div class="stat-bottom">
-
-                        <span>
-                            Keep it going
-                        </span>
-
-                        <small>
-                            Current streak
-                        </small>
-
-                    </div>
-
-                </article>
-
-
-                <article class="stat-card">
-
-                    <div class="stat-header">
-
-                        <span>
-                            COMPLETED
-                        </span>
-
-                        <i>
-                            ✓
-                        </i>
-
-                    </div>
-
-
-                    <div class="stat-value">
-                        12
-                    </div>
-
-
-                    <div class="stat-bottom">
-
-                        <span>
-                            Learning activities
-                        </span>
-
-                        <small>
-                            Total
-                        </small>
-
-                    </div>
-
-                </article>
-
-
-                <article class="stat-card">
-
-                    <div class="stat-header">
-
-                        <span>
-                            PROJECTS
-                        </span>
-
-                        <i>
-                            ◫
-                        </i>
-
-                    </div>
-
-
-                    <div class="stat-value">
-                        3
-                    </div>
-
-
-                    <div class="stat-bottom">
-
-                        <span>
-                            1 active
-                        </span>
-
-                        <small>
-                            Portfolio
-                        </small>
-
-                    </div>
-
-                </article>
-
-
-            </section>
-
-
-            <!-- =================================
-                 MAIN GRID
-            ================================== -->
-
-            <section class="dashboard-grid">
-
-
-                <!-- LEFT COLUMN -->
-
-                <div class="dashboard-left">
-
-
-                    <!-- =================================
-                         CONTINUE LEARNING
-                    ================================== -->
-
-                    <section class="panel continue-panel">
-
-                        <div class="panel-heading">
-
-                            <div>
-
-                                <span class="panel-tag">
-                                    KEEP GOING
-                                </span>
-
-                                <h2>
-                                    Continue Learning
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                class="text-btn"
-                                type="button"
-                            >
-                                View all →
-                            </button>
-
-                        </div>
-
-
-                        <article class="continue-card">
-
-
-                            <div class="course-icon">
-                                &lt;/&gt;
-                            </div>
-
-
-                            <div class="course-info">
-
-                                <span>
-                                    DIGITAL SKILLS
-                                </span>
-
-                                <h3>
-                                    HTML Foundations
-                                </h3>
-
-                                <p>
-                                    Build the foundation for creating
-                                    modern web pages.
-                                </p>
-
-
-                                <div class="course-progress">
-
-                                    <div>
-
-                                        <span>
-                                            35% complete
-                                        </span>
-
-                                        <strong>
-                                            3 / 9 lessons
-                                        </strong>
-
-                                    </div>
-
-
-                                    <div class="bar">
-
-                                        <i
-                                            style="width: 35%"
-                                        ></i>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <button
-                                class="play-btn"
-                                id="resumeCourseBtn"
-                                type="button"
-                            >
-
-                                <span>
-                                    →
-                                </span>
-
-                            </button>
-
-                        </article>
-
-                    </section>
-
-
-                    <!-- =================================
-                         PERSONALIZED RECOMMENDATIONS
-                    ================================== -->
-
-                    <section class="panel">
-
-                        <div class="panel-heading">
-
-                            <div>
-
-                                <span class="panel-tag">
-                                    FOR YOU
-                                </span>
-
-                                <h2>
-                                    Recommended Next
-                                </h2>
-
-                            </div>
-
-
-                            <span class="personalized-chip">
-                                Personalized
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="recommendations"
-                            id="recommendations"
-                        >
-
-                            <article class="recommendation-card">
-
-                                <div class="recommendation-icon">
-                                    JS
-                                </div>
-
-                                <div>
-
-                                    <span>
-                                        DIGITAL SKILLS
-                                    </span>
-
-                                    <h3>
-                                        JavaScript Basics
-                                    </h3>
-
-                                    <p>
-                                        Start making your websites interactive.
-                                    </p>
-
-                                </div>
-
-                                <button type="button">
-                                    →
-                                </button>
-
-                            </article>
-
-
-                            <article class="recommendation-card">
-
-                                <div class="recommendation-icon purple">
-                                    AI
-                                </div>
-
-                                <div>
-
-                                    <span>
-                                        TECHNOLOGY
-                                    </span>
-
-                                    <h3>
-                                        Introduction to AI
-                                    </h3>
-
-                                    <p>
-                                        Understand the ideas behind modern AI.
-                                    </p>
-
-                                </div>
-
-                                <button type="button">
-                                    →
-                                </button>
-
-                            </article>
-
-
-                            <article class="recommendation-card">
-
-                                <div class="recommendation-icon gold">
-                                    ◈
-                                </div>
-
-                                <div>
-
-                                    <span>
-                                        ENTREPRENEURSHIP
-                                    </span>
-
-                                    <h3>
-                                        Finding Business Problems
-                                    </h3>
-
-                                    <p>
-                                        Learn how useful businesses start with problems.
-                                    </p>
-
-                                </div>
-
-                                <button type="button">
-                                    →
-                                </button>
-
-                            </article>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- =================================
-                         HUBS
-                    ================================== -->
-
-                    <section class="panel">
-
-                        <div class="panel-heading">
-
-                            <div>
-
-                                <span class="panel-tag">
-                                    EXPLORE
-                                </span>
-
-                                <h2>
-                                    Your Learning World
-                                </h2>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="hub-grid">
-
-
-                            <button
-                                class="hub-card education"
-                                type="button"
-                                data-hub="Education Hub"
-                            >
-
-                                <span class="hub-number">
-                                    01
-                                </span>
-
-                                <span class="hub-icon">
-                                    📚
-                                </span>
-
-                                <strong>
-                                    Education Hub
-                                </strong>
-
-                                <small>
-                                    Learn school subjects,
-                                    concepts, and study resources.
-                                </small>
-
-                                <span class="hub-arrow">
-                                    →
-                                </span>
-
-                            </button>
-
-
-                            <button
-                                class="hub-card digital"
-                                type="button"
-                                data-hub="Digital Skills Hub"
-                            >
-
-                                <span class="hub-number">
-                                    02
-                                </span>
-
-                                <span class="hub-icon">
-                                    &lt;/&gt;
-                                </span>
-
-                                <strong>
-                                    Digital Skills Hub
-                                </strong>
-
-                                <small>
-                                    Code, create, experiment,
-                                    and build digital projects.
-                                </small>
-
-                                <span class="hub-arrow">
-                                    →
-                                </span>
-
-                            </button>
-
-
-                            <button
-                                class="hub-card business"
-                                type="button"
-                                data-hub="Entrepreneurship Hub"
-                            >
-
-                                <span class="hub-number">
-                                    03
-                                </span>
-
-                                <span class="hub-icon">
-                                    ◈
-                                </span>
-
-                                <strong>
-                                    Entrepreneurship Hub
-                                </strong>
-
-                                <small>
-                                    Explore business thinking,
-                                    finance, and opportunities.
-                                </small>
-
-                                <span class="hub-arrow">
-                                    →
-                                </span>
-
-                            </button>
-
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- =================================
-                         ACTIVITY
-                    ================================== -->
-
-                    <section class="panel">
-
-                        <div class="panel-heading">
-
-                            <div>
-
-                                <span class="panel-tag">
-                                    RECENT ACTIVITY
-                                </span>
-
-                                <h2>
-                                    Your Activity
-                                </h2>
-
-                            </div>
-
-
-                            <button
-                                class="text-btn"
-                                type="button"
-                            >
-                                View history →
-                            </button>
-
-                        </div>
-
-
-                        <div class="activity-list">
-
-
-                            <div class="activity-item">
-
-                                <span class="activity-icon">
-                                    ✓
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Completed "HTML Elements"
-                                    </strong>
-
-                                    <small>
-                                        Digital Skills • 2 hours ago
-                                    </small>
-
-                                </div>
-
-                                <span class="activity-points">
-                                    +20 XP
-                                </span>
-
-                            </div>
-
-
-                            <div class="activity-item">
-
-                                <span class="activity-icon">
-                                    ◫
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Created a new project
-                                    </strong>
-
-                                    <small>
-                                        My First Landing Page • Yesterday
-                                    </small>
-
-                                </div>
-
-                                <span class="activity-points">
-                                    +50 XP
-                                </span>
-
-                            </div>
-
-
-                            <div class="activity-item">
-
-                                <span class="activity-icon">
-                                    ✦
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Reached a 7-day streak
-                                    </strong>
-
-                                    <small>
-                                        Consistency milestone • Yesterday
-                                    </small>
-
-                                </div>
-
-                                <span class="activity-points">
-                                    +100 XP
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-                    </section>
-
-
-                </div>
-
-
-                <!-- RIGHT COLUMN -->
-
-                <aside class="dashboard-right">
-
-
-                    <!-- =================================
-                         PROGRESS
-                    ================================== -->
-
-                    <section class="side-panel progress-panel">
-
-                        <div class="side-heading">
-
-                            <div>
-
-                                <span>
-                                    THIS WEEK
-                                </span>
-
-                                <h3>
-                                    Progress
-                                </h3>
-
-                            </div>
-
-                            <button
-                                class="dots-btn"
-                                type="button"
-                            >
-                                ···
-                            </button>
-
-                        </div>
-
-
-                        <div class="progress-circle">
-
-                            <svg
-                                viewBox="0 0 120 120"
-                            >
-
-                                <circle
-                                    class="circle-bg"
-                                    cx="60"
-                                    cy="60"
-                                    r="48"
-                                ></circle>
-
-                                <circle
-                                    class="circle-value"
-                                    cx="60"
-                                    cy="60"
-                                    r="48"
-                                ></circle>
-
-                            </svg>
-
-
-                            <div class="circle-label">
-
-                                <strong>
-                                    24%
-                                </strong>
-
-                                <span>
-                                    complete
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="weekly-bars">
-
-                            <div class="day">
-
-                                <span>
-                                    M
-                                </span>
-
-                                <i style="height:45%"></i>
-
-                            </div>
-
-
-                            <div class="day">
-
-                                <span>
-                                    T
-                                </span>
-
-                                <i style="height:70%"></i>
-
-                            </div>
-
-
-                            <div class="day">
-
-                                <span>
-                                    W
-                                </span>
-
-                                <i style="height:35%"></i>
-
-                            </div>
-
-
-                            <div class="day active">
-
-                                <span>
-                                    T
-                                </span>
-
-                                <i style="height:85%"></i>
-
-                            </div>
-
-
-                            <div class="day">
-
-                                <span>
-                                    F
-                                </span>
-
-                                <i style="height:55%"></i>
-
-                            </div>
-
-
-                            <div class="day">
-
-                                <span>
-                                    S
-                                </span>
-
-                                <i style="height:25%"></i>
-
-                            </div>
-
-
-                            <div class="day">
-
-                                <span>
-                                    S
-                                </span>
-
-                                <i style="height:10%"></i>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- =================================
-                         GOALS
-                    ================================== -->
-
-                    <section class="side-panel">
-
-                        <div class="side-heading">
-
-                            <div>
-
-                                <span>
-                                    YOUR DIRECTION
-                                </span>
-
-                                <h3>
-                                    Current Goals
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="goal-list">
-
-                            <div class="goal-item">
-
-                                <span class="goal-check">
-                                    ✓
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Learn web development
-                                    </strong>
-
-                                    <small>
-                                        2 of 6 milestones
-                                    </small>
-
-                                </div>
-
-                                <span class="goal-percent">
-                                    33%
-                                </span>
-
-                            </div>
-
-
-                            <div class="goal-item">
-
-                                <span class="goal-check">
-                                    ✓
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Build my first project
-                                    </strong>
-
-                                    <small>
-                                        1 of 3 milestones
-                                    </small>
-
-                                </div>
-
-                                <span class="goal-percent">
-                                    33%
-                                </span>
-
-                            </div>
-
-
-                            <div class="goal-item">
-
-                                <span class="goal-check empty">
-                                </span>
-
-                                <div>
-
-                                    <strong>
-                                        Explore AI
-                                    </strong>
-
-                                    <small>
-                                        Not started
-                                    </small>
-
-                                </div>
-
-                                <span class="goal-percent">
-                                    0%
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- =================================
-                         ACHIEVEMENTS
-                    ================================== -->
-
-                    <section class="side-panel">
-
-                        <div class="side-heading">
-
-                            <div>
-
-                                <span>
-                                    MILESTONES
-                                </span>
-
-                                <h3>
-                                    Achievements
-                                </h3>
-
-                            </div>
-
-                            <button
-                                class="text-btn small"
-                                type="button"
-                            >
-                                All
-                            </button>
-
-                        </div>
-
-
-                        <div class="achievement-grid">
-
-                            <div class="achievement unlocked">
-
-                                <span>
-                                    🚀
-                                </span>
-
-                                <small>
-                                    Started
-                                </small>
-
-                            </div>
-
-
-                            <div class="achievement unlocked">
-
-                                <span>
-                                    🔥
-                                </span>
-
-                                <small>
-                                    7-Day Streak
-                                </small>
-
-                            </div>
-
-
-                            <div class="achievement unlocked">
-
-                                <span>
-                                    &lt;/&gt;
-                                </span>
-
-                                <small>
-                                    Coder
-                                </small>
-
-                            </div>
-
-
-                            <div class="achievement locked">
-
-                                <span>
-                                    ◈
-                                </span>
-
-                                <small>
-                                    Builder
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- =================================
-                         QUICK ACTIONS
-                    ================================== -->
-
-                    <section class="side-panel">
-
-                        <div class="side-heading">
-
-                            <div>
-
-                                <span>
-                                    SHORTCUTS
-                                </span>
-
-                                <h3>
-                                    Quick Actions
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="quick-actions">
-
-                            <button
-                                type="button"
-                                data-action="coding"
-                            >
-
-                                <span>
-                                    &lt;/&gt;
-                                </span>
-
-                                New Project
-
-                            </button>
-
-
-                            <button
-                                type="button"
-                                data-action="ai"
-                            >
-
-                                <span>
-                                    AI
-                                </span>
-
-                                Ask AI
-
-                            </button>
-
-
-                            <button
-                                type="button"
-                                data-action="community"
-                            >
-
-                                <span>
-                                    ◎
-                                </span>
-
-                                Community
-
-                            </button>
-
-
-                            <button
-                                type="button"
-                                data-action="safe"
-                            >
-
-                                <span>
-                                    ◇
-                                </span>
-
-                                Digital Safe
-
-                            </button>
-
-                        </div>
-
-                    </section>
-
-                </aside>
-
-            </section>
-
-
-        </main>
-
-
-        <!-- =====================================
-             NOTIFICATION PANEL
-        ====================================== -->
-
-        <aside
-            class="notification-panel"
-            id="notificationPanel"
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          type="button"
+          aria-label="Open navigation"
         >
+          ☰
+        </button>
 
-            <div class="notification-header">
+        <div class="topbar-search">
+
+          <span class="search-icon">⌕</span>
+
+          <input
+            type="search"
+            id="dashboardSearch"
+            placeholder="Search courses, subjects, skills..."
+            autocomplete="off"
+          >
+
+          <span class="search-shortcut">/</span>
+
+        </div>
+
+        <div class="topbar-actions">
+
+          <button
+            class="icon-btn"
+            type="button"
+            id="notificationBtn"
+            aria-label="Notifications"
+          >
+            🔔
+            <span class="notification-dot"></span>
+          </button>
+
+          <div class="notification-panel" id="notificationPanel">
+
+            <div class="panel-header">
+              <strong>Notifications</strong>
+              <button type="button" id="markReadBtn">
+                Mark read
+              </button>
+            </div>
+
+            <div class="notification-item">
+              <span class="notification-badge">📚</span>
+
+              <div>
+                <strong>Keep learning</strong>
+                <p>Your next lesson is waiting.</p>
+              </div>
+            </div>
+
+            <div class="notification-item">
+              <span class="notification-badge">✦</span>
+
+              <div>
+                <strong>CEO JACK AI</strong>
+                <p>Ask AI to explain difficult topics.</p>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="profile-wrapper">
+
+            <button
+              class="profile-button"
+              type="button"
+              id="profileBtn"
+            >
+
+              <div
+                class="profile-avatar"
+                id="profileAvatar"
+              >
+                C
+              </div>
+
+              <div class="profile-info">
+
+                <strong id="profileName">
+                  CEO JACK
+                </strong>
+
+                <span>Student</span>
+
+              </div>
+
+              <span class="profile-chevron">
+                ▾
+              </span>
+
+            </button>
+
+            <div
+              class="profile-menu"
+              id="profileMenu"
+            >
+
+              <a href="profile.html">
+                Profile
+              </a>
+
+              <a href="settings.html">
+                Settings
+              </a>
+
+              <button
+                type="button"
+                id="menuLogoutBtn"
+              >
+                Log out
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- PAGE -->
+
+      <div class="dashboard-page">
+
+        <!-- Welcome -->
+
+        <section class="welcome-section">
+
+          <div>
+
+            <span class="eyebrow">
+              YOUR LEARNING SPACE
+            </span>
+
+            <h1 id="welcomeTitle">
+              Welcome back, CEO JACK 👋
+            </h1>
+
+            <p>
+              Continue learning, build new skills,
+              and develop your future.
+            </p>
+
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="startLearningBtn"
+          >
+            Continue Learning
+            <span>→</span>
+          </button>
+
+        </section>
+
+
+        <!-- Completion -->
+
+        <section class="completion-strip">
+
+          <div class="completion-left">
+
+            <div class="completion-icon">
+              ✓
+            </div>
+
+            <div>
+
+              <strong>Complete your profile</strong>
+
+              <p>
+                A complete profile helps us personalize
+                your learning experience.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="completion-progress">
+
+            <div class="completion-number">
+              <strong id="completionPercent">
+                60%
+              </strong>
+            </div>
+
+            <div class="progress-track">
+
+              <div
+                class="progress-fill"
+                id="completionFill"
+              ></div>
+
+            </div>
+
+          </div>
+
+          <a href="profile.html">
+            Complete profile →
+          </a>
+
+        </section>
+
+
+        <!-- Stats -->
+
+        <section class="stats-grid">
+
+          <article class="stat-card">
+
+            <div class="stat-icon purple">
+              📚
+            </div>
+
+            <div>
+
+              <span>Courses</span>
+
+              <strong id="courseCount">
+                0
+              </strong>
+
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-icon blue">
+              ✓
+            </div>
+
+            <div>
+
+              <span>Lessons completed</span>
+
+              <strong id="lessonCount">
+                0
+              </strong>
+
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-icon green">
+              ⚡
+            </div>
+
+            <div>
+
+              <span>Learning streak</span>
+
+              <strong>
+                3 days
+              </strong>
+
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-icon orange">
+              🏆
+            </div>
+
+            <div>
+
+              <span>Achievements</span>
+
+              <strong>
+                2
+              </strong>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- Continue Learning -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                PICK UP WHERE YOU LEFT OFF
+              </span>
+
+              <h2>Continue Learning</h2>
+
+            </div>
+
+            <a href="education.html">
+              View all →
+            </a>
+
+          </div>
+
+
+          <article class="continue-card">
+
+            <div class="course-thumbnail html-thumb">
+              <span>&lt;/&gt;</span>
+            </div>
+
+            <div class="continue-content">
+
+              <div class="continue-meta">
+                <span class="tag">DIGITAL SKILLS</span>
+                <span>HTML Foundations</span>
+              </div>
+
+              <h3>
+                Learn the foundations of modern HTML
+              </h3>
+
+              <p>
+                Build strong web development foundations
+                with semantic HTML5.
+              </p>
+
+              <div class="course-progress">
+
+                <div class="progress-track">
+
+                  <div
+                    class="progress-fill"
+                    style="width: 42%"
+                  ></div>
+
+                </div>
+
+                <span>42%</span>
+
+              </div>
+
+            </div>
+
+            <button
+              type="button"
+              class="continue-btn"
+              data-course="html"
+            >
+              Continue
+              <span>→</span>
+            </button>
+
+          </article>
+
+        </section>
+
+
+        <!-- Recommendations -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                RECOMMENDED FOR YOU
+              </span>
+
+              <h2>Keep Growing</h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="recommendation-grid">
+
+            <article
+              class="recommendation-card"
+              data-destination="education"
+            >
+
+              <div class="recommendation-icon">
+                📐
+              </div>
+
+              <span class="tag">
+                EDUCATION
+              </span>
+
+              <h3>
+                Strengthen your Mathematics
+              </h3>
+
+              <p>
+                Practice concepts and test your
+                understanding.
+              </p>
+
+              <span class="card-link">
+                Explore →
+              </span>
+
+            </article>
+
+
+            <article
+              class="recommendation-card"
+              data-destination="digital"
+            >
+
+              <div class="recommendation-icon">
+                💻
+              </div>
+
+              <span class="tag">
+                DIGITAL SKILLS
+              </span>
+
+              <h3>
+                Start JavaScript
+              </h3>
+
+              <p>
+                Move from HTML and CSS into
+                interactive websites.
+              </p>
+
+              <span class="card-link">
+                Start →
+              </span>
+
+            </article>
+
+
+            <article
+              class="recommendation-card"
+              data-destination="business"
+            >
+
+              <div class="recommendation-icon">
+                🚀
+              </div>
+
+              <span class="tag">
+                ENTREPRENEURSHIP
+              </span>
+
+              <h3>
+                Explore business ideas
+              </h3>
+
+              <p>
+                Learn how ideas become real
+                products and businesses.
+              </p>
+
+              <span class="card-link">
+                Explore →
+              </span>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- Three Hubs -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                YOUR LEARNING WORLD
+              </span>
+
+              <h2>Explore CEO JACK</h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="hub-grid">
+
+            <article
+              class="hub-card education-hub"
+              data-route="education"
+            >
+
+              <div class="hub-top">
+
+                <div class="hub-icon">
+                  📚
+                </div>
+
+                <span>01</span>
+
+              </div>
+
+              <h3>
+                Education Hub
+              </h3>
+
+              <p>
+                Learn school subjects, explore topics,
+                practice questions, and track progress.
+              </p>
+
+              <span class="hub-link">
+                Enter Education Hub →
+              </span>
+
+            </article>
+
+
+            <article
+              class="hub-card skills-hub"
+              data-route="digital"
+            >
+
+              <div class="hub-top">
+
+                <div class="hub-icon">
+                  💻
+                </div>
+
+                <span>02</span>
+
+              </div>
+
+              <h3>
+                Digital Skills Hub
+              </h3>
+
+              <p>
+                Build practical technology skills,
+                coding ability, and digital confidence.
+              </p>
+
+              <span class="hub-link">
+                Enter Digital Skills →
+              </span>
+
+            </article>
+
+
+            <article
+              class="hub-card business-hub"
+              data-route="business"
+            >
+
+              <div class="hub-top">
+
+                <div class="hub-icon">
+                  🚀
+                </div>
+
+                <span>03</span>
+
+              </div>
+
+              <h3>
+                Entrepreneurship Hub
+              </h3>
+
+              <p>
+                Discover business, money, financial
+                literacy, and entrepreneurship.
+              </p>
+
+              <span class="hub-link">
+                Enter Entrepreneurship →
+              </span>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- Bottom Grid -->
+
+        <section class="dashboard-bottom-grid">
+
+
+          <!-- Activity -->
+
+          <article class="dashboard-panel">
+
+            <div class="panel-title">
+
+              <div>
+                <span class="eyebrow">
+                  YOUR JOURNEY
+                </span>
+
+                <h2>Recent Activity</h2>
+              </div>
+
+              <button
+                type="button"
+                class="dots-btn"
+                aria-label="More activity options"
+              >
+                ⋯
+              </button>
+
+            </div>
+
+
+            <div class="activity-list">
+
+              <div class="activity-item">
+
+                <div class="activity-icon">
+                  ✓
+                </div>
 
                 <div>
 
-                    <span>
-                        NOTIFICATIONS
-                    </span>
+                  <strong>
+                    Completed HTML Basics
+                  </strong>
 
-                    <h3>
-                        Your updates
-                    </h3>
+                  <span>
+                    Digital Skills · Today
+                  </span>
 
                 </div>
 
+              </div>
 
-                <button
-                    id="closeNotifications"
-                    type="button"
-                >
-                    ×
-                </button>
+
+              <div class="activity-item">
+
+                <div class="activity-icon">
+                  📚
+                </div>
+
+                <div>
+
+                  <strong>
+                    Started Mathematics
+                  </strong>
+
+                  <span>
+                    Education Hub · Yesterday
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="activity-item">
+
+                <div class="activity-icon">
+                  ✦
+                </div>
+
+                <div>
+
+                  <strong>
+                    Asked CEO JACK AI
+                  </strong>
+
+                  <span>
+                    AI Assistant · 2 days ago
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Weekly Progress -->
+
+          <article class="dashboard-panel">
+
+            <div class="panel-title">
+
+              <div>
+
+                <span class="eyebrow">
+                  CONSISTENCY
+                </span>
+
+                <h2>Weekly Progress</h2>
+
+              </div>
 
             </div>
 
 
-            <div class="notification-list">
+            <div class="weekly-chart">
 
-                <div class="notification-item">
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 35%"></div>
+                <span>Mon</span>
+              </div>
 
-                    <span class="notification-dot"></span>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 55%"></div>
+                <span>Tue</span>
+              </div>
 
-                    <div>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 75%"></div>
+                <span>Wed</span>
+              </div>
 
-                        <strong>
-                            New recommendation
-                        </strong>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 45%"></div>
+                <span>Thu</span>
+              </div>
 
-                        <p>
-                            JavaScript Basics matches your interests.
-                        </p>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 90%"></div>
+                <span>Fri</span>
+              </div>
 
-                        <small>
-                            Just now
-                        </small>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 60%"></div>
+                <span>Sat</span>
+              </div>
 
-                    </div>
-
-                </div>
-
-
-                <div class="notification-item">
-
-                    <span class="notification-dot"></span>
-
-                    <div>
-
-                        <strong>
-                            Streak maintained
-                        </strong>
-
-                        <p>
-                            You're on a 7-day learning streak.
-                        </p>
-
-                        <small>
-                            Yesterday
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="notification-item">
-
-                    <span class="notification-dot read"></span>
-
-                    <div>
-
-                        <strong>
-                            Project saved
-                        </strong>
-
-                        <p>
-                            Your landing page project was saved.
-                        </p>
-
-                        <small>
-                            2 days ago
-                        </small>
-
-                    </div>
-
-                </div>
+              <div class="chart-day">
+                <div class="chart-bar" style="height: 20%"></div>
+                <span>Sun</span>
+              </div>
 
             </div>
 
-        </aside>
+          </article>
 
 
-        <!-- =====================================
-             TOAST
-        ====================================== -->
+          <!-- Goals -->
 
-        <div
-            class="toast"
-            id="toast"
-            role="status"
-            aria-live="polite"
-        ></div>
+          <article class="dashboard-panel">
+
+            <div class="panel-title">
+
+              <div>
+
+                <span class="eyebrow">
+                  FOCUS
+                </span>
+
+                <h2>My Goals</h2>
+
+              </div>
+
+              <button
+                type="button"
+                class="small-btn"
+                id="addGoalBtn"
+              >
+                + Add
+              </button>
+
+            </div>
 
 
-    </div>
+            <div class="goal-list">
+
+              <div class="goal-item">
+
+                <div class="goal-check checked">
+                  ✓
+                </div>
+
+                <div class="goal-text">
+
+                  <strong>
+                    Complete 3 lessons
+                  </strong>
+
+                  <span>
+                    2 of 3 completed
+                  </span>
+
+                </div>
+
+              </div>
 
 
-    <script src="js/dashboard.js"></script>
+              <div class="goal-item">
+
+                <div class="goal-check">
+                </div>
+
+                <div class="goal-text">
+
+                  <strong>
+                    Practice coding
+                  </strong>
+
+                  <span>
+                    30 minutes this week
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="goal-item">
+
+                <div class="goal-check">
+                </div>
+
+                <div class="goal-text">
+
+                  <strong>
+                    Explore a business idea
+                  </strong>
+
+                  <span>
+                    Entrepreneurship Hub
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- Quick Actions -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                SHORTCUTS
+              </span>
+
+              <h2>Quick Actions</h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="quick-actions">
+
+            <button
+              type="button"
+              class="quick-action"
+              data-route="digital"
+            >
+              <span>💻</span>
+              <strong>Start Coding</strong>
+              <small>Build digital skills</small>
+            </button>
+
+            <button
+              type="button"
+              class="quick-action"
+              data-route="ai"
+            >
+              <span>✦</span>
+              <strong>Ask AI</strong>
+              <small>Get learning help</small>
+            </button>
+
+            <button
+              type="button"
+              class="quick-action"
+              data-route="community"
+            >
+              <span>👥</span>
+              <strong>Community</strong>
+              <small>Connect and learn</small>
+            </button>
+
+            <button
+              type="button"
+              class="quick-action"
+              data-route="safe"
+            >
+              <span>🔐</span>
+              <strong>Digital Safe</strong>
+              <small>Manage your files</small>
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- Achievements -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                MILESTONES
+              </span>
+
+              <h2>Achievements</h2>
+
+            </div>
+
+            <a href="portfolio.html">
+              View portfolio →
+            </a>
+
+          </div>
+
+
+          <div class="achievement-grid">
+
+            <article class="achievement-card unlocked">
+
+              <div class="achievement-icon">
+                🚀
+              </div>
+
+              <div>
+
+                <strong>
+                  First Step
+                </strong>
+
+                <p>
+                  Started your learning journey.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <article class="achievement-card unlocked">
+
+              <div class="achievement-icon">
+                💻
+              </div>
+
+              <div>
+
+                <strong>
+                  Code Starter
+                </strong>
+
+                <p>
+                  Completed your first coding lesson.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <article class="achievement-card">
+
+              <div class="achievement-icon">
+                🔒
+              </div>
+
+              <div>
+
+                <strong>
+                  Learning Streak
+                </strong>
+
+                <p>
+                  Learn for 7 days in a row.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <article class="achievement-card">
+
+              <div class="achievement-icon">
+                🔒
+              </div>
+
+              <div>
+
+                <strong>
+                  Knowledge Builder
+                </strong>
+
+                <p>
+                  Complete 10 lessons.
+                </p>
+
+              </div>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer class="dashboard-footer">
+
+          <div>
+
+            <strong>
+              CEO JACK LEARNING HUB
+            </strong>
+
+            <span>
+              Learn. Create. Develop.
+            </span>
+
+          </div>
+
+          <div>
+            © 2026 CEO JACK
+          </div>
+
+        </footer>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- Toast -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  >
+    <span id="toastMessage"></span>
+  </div>
+
+
+  <script src="js/dashboard.js" defer></script>
 
 </body>
-
 </html>
