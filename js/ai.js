@@ -19,6 +19,11 @@ const modeNames = {
   business: "Business Mode"
 };
 
+function scrollToBottom() {
+  const chatArea = document.querySelector(".chat-area") || messagesEl;
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
 function addMessage(role, text, isStreaming = false) {
   const wrapper = document.createElement("div");
   wrapper.className = `message ${role}`;
@@ -42,7 +47,7 @@ function addMessage(role, text, isStreaming = false) {
   content.append(name, bubble);
   wrapper.append(avatar, content);
   messagesEl.appendChild(wrapper);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  scrollToBottom();
   return { wrapper, bubble };
 }
 
@@ -58,7 +63,7 @@ function showTyping() {
     </div>
   `;
   messagesEl.appendChild(wrapper);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  scrollToBottom();
 }
 
 function removeTyping() {
@@ -100,52 +105,53 @@ async function sendMessage(text = input.value) {
       })
     });
 
-    // FIX 1: Check if server returned HTML (The page c... error)
     const contentType = response.headers.get("content-type") || "";
-    const rawText = await response.clone().text(); // clone to read twice
+    const rawText = await response.clone().text();
 
     if (!response.ok) {
-      // This will show you REAL error instead of "T token"
-      console.error("API Error HTML:", rawText);
-      if (rawText.startsWith("<!DOCTYPE") || rawText.startsWith("<html") || rawText.includes("The page")) {
-        throw new Error("API not found on Vercel. Make sure api/ai/chat.js exists and GROQ_API_KEY is set. Then Redeploy.");
+      console.error("API Error:", rawText);
+      if (rawText.startsWith("<!DOCTYPE") || rawText.includes("The page")) {
+        throw new Error("API not found on Vercel. Check api/ai/chat.js + GROQ_API_KEY + Redeploy");
       }
       throw new Error(rawText.slice(0, 200));
     }
 
     removeTyping();
 
-    // FIX 2: Handle JSON response {reply: "..."} 
+    // --- NEW CHATGPT PARAGRAPH-BY-PARAGRAPH LOGIC ---
     if (contentType.includes("application/json")) {
       const data = JSON.parse(rawText);
       const reply = data.reply || data.error || "No reply";
       
       const { bubble } = addMessage("assistant", "", true);
+      
+      // Split into paragraphs (ChatGPT style)
+      const paragraphs = reply.split(/\n\n+/).filter(p => p.trim() !== "");
       let fullText = "";
-      // Typewriter effect
-      for (let i = 0; i < reply.length; i++) {
-        fullText += reply[i];
+
+      for (let i = 0; i < paragraphs.length; i++) {
+        fullText += (fullText ? "\n\n" : "") + paragraphs[i];
         bubble.innerHTML = marked.parse(fullText) + `<span class="cursor">▌</span>`;
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-        await new Promise(r => setTimeout(r, 12)); // speed: 12 = fast
+        scrollToBottom();
+        // Speed: 35ms = ChatGPT speed, 70ms = calm, 20ms = super fast
+        await new Promise(r => setTimeout(r, 35));
       }
+
       bubble.innerHTML = marked.parse(fullText);
-      conversation.push({ role: "assistant", content: fullText });
-    } 
-    // FIX 3: Handle streaming response
-    else {
+      conversation.push({ role: "assistant", content: reply });
+
+    } else {
+      // Streaming fallback
       const { bubble } = addMessage("assistant", "", true);
       let fullText = "";
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        fullText += chunk;
+        fullText += decoder.decode(value, { stream: true });
         bubble.innerHTML = marked.parse(fullText) + `<span class="cursor">▌</span>`;
-        messagesEl.scrollTop = messagesEl.scrollHeight;
+        scrollToBottom();
       }
       bubble.innerHTML = marked.parse(fullText);
       conversation.push({ role: "assistant", content: fullText });
@@ -156,8 +162,8 @@ async function sendMessage(text = input.value) {
   } catch (error) {
     removeTyping();
     console.error(error);
-    addMessage("assistant", `I couldn't complete that request: ${error.message}\n\nPlease check Vercel logs and make sure api/ai/chat.js is deployed.`);
-    connectionStatus.textContent = "Error - check console";
+    addMessage("assistant", `I couldn't complete that request: ${error.message}`);
+    connectionStatus.textContent = "Error";
   } finally {
     isLoading = false;
     sendBtn.disabled = false;
@@ -203,5 +209,4 @@ overlay?.addEventListener("click", () => {
   overlay.classList.remove("show");
 });
 
-// Init
 setMode("general");
