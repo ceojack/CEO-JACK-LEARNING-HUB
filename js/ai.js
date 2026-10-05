@@ -34,7 +34,7 @@ function addMessage(role, text, isStreaming = false) {
   content.className = "message-content";
   const name = document.createElement("div");
   name.className = "message-name";
-  name.textContent = role === "user" ? "You" : "CEO JACK AI (FREE Groq)";
+  name.textContent = role === "user" ? "You" : "CEO JACK AI";
   const bubble = document.createElement("div");
   bubble.className = "bubble";
   
@@ -73,7 +73,7 @@ function removeTyping() {
 function setMode(mode) {
   if (!modeNames[mode]) return;
   currentMode = mode;
-  modeLabel.textContent = modeNames[mode] + " • gpt-oss-20b";
+  modeLabel.textContent = modeNames[mode] + " • CEO JACK AI";
   document.querySelectorAll(".mode-link").forEach(button => {
     button.classList.toggle("active", button.dataset.mode === mode);
   });
@@ -83,6 +83,29 @@ async function sendMessage(text = input.value) {
   const message = text.trim();
   if (!message || isLoading) return;
 
+  // --- CEO JACK FOUNDER GUARD (CLIENT SIDE, INSTANT) ---
+  const lower = message.toLowerCase();
+  if (lower.includes("who made you") || lower.includes("who created you") || lower.includes("who built you") || lower.includes("who is your founder") || lower.includes("who is your owner") || lower.includes("who developed you") || lower.includes("what is your name") || lower.includes("who are you")) {
+    welcomeScreen.style.display = "none";
+    addMessage("user", message);
+    const founderReply = "I am **CEO JACK AI**, created and built by **CEO JACK** from Uganda 🇺🇬\n\nHe is the founder and developer of this platform. I run on Groq gpt-oss-20b, but I belong to CEO JACK.";
+    const { bubble } = addMessage("assistant", "", true);
+    // Paragraph typer for founder too
+    const parts = founderReply.split("\n\n");
+    let full = "";
+    for (const p of parts) {
+      full += (full? "\n\n":"") + p;
+      bubble.innerHTML = marked.parse(full) + `<span class="cursor">▌</span>`;
+      scrollToBottom();
+      await new Promise(r => setTimeout(r, 40));
+    }
+    bubble.innerHTML = marked.parse(full);
+    conversation.push({ role: "user", content: message });
+    conversation.push({ role: "assistant", content: founderReply });
+    input.value = "";
+    return;
+  }
+
   welcomeScreen.style.display = "none";
   addMessage("user", message);
   conversation.push({ role: "user", content: message });
@@ -91,7 +114,7 @@ async function sendMessage(text = input.value) {
   input.style.height = "auto";
   isLoading = true;
   sendBtn.disabled = true;
-  connectionStatus.textContent = "Groq typing...";
+  connectionStatus.textContent = "CEO JACK typing...";
   showTyping();
 
   try {
@@ -111,21 +134,23 @@ async function sendMessage(text = input.value) {
     if (!response.ok) {
       console.error("API Error:", rawText);
       if (rawText.startsWith("<!DOCTYPE") || rawText.includes("The page")) {
-        throw new Error("API not found on Vercel. Check api/ai/chat.js + GROQ_API_KEY + Redeploy");
+        throw new Error("API not found. Check api/ai/chat.js deployed on Vercel");
       }
       throw new Error(rawText.slice(0, 200));
     }
 
     removeTyping();
 
-    // --- NEW CHATGPT PARAGRAPH-BY-PARAGRAPH LOGIC ---
     if (contentType.includes("application/json")) {
       const data = JSON.parse(rawText);
-      const reply = data.reply || data.error || "No reply";
+      let reply = data.reply || data.error || "No reply";
+
+      // Final safety: if Groq slips, force CEO JACK name
+      if (/i am meta|openai|i was created by meta|i am llama|i am groq/i.test(reply.toLowerCase())) {
+        reply = reply.replace(/I am.*?(Meta|OpenAI|Groq|Llama|Claude).*/i, "") + "\n\nI am CEO JACK AI built by CEO JACK.";
+      }
       
       const { bubble } = addMessage("assistant", "", true);
-      
-      // Split into paragraphs (ChatGPT style)
       const paragraphs = reply.split(/\n\n+/).filter(p => p.trim() !== "");
       let fullText = "";
 
@@ -133,15 +158,13 @@ async function sendMessage(text = input.value) {
         fullText += (fullText ? "\n\n" : "") + paragraphs[i];
         bubble.innerHTML = marked.parse(fullText) + `<span class="cursor">▌</span>`;
         scrollToBottom();
-        // Speed: 35ms = ChatGPT speed, 70ms = calm, 20ms = super fast
-        await new Promise(r => setTimeout(r, 35));
+        await new Promise(r => setTimeout(r, 25)); // 25 = ChatGPT turbo
       }
 
       bubble.innerHTML = marked.parse(fullText);
       conversation.push({ role: "assistant", content: reply });
 
     } else {
-      // Streaming fallback
       const { bubble } = addMessage("assistant", "", true);
       let fullText = "";
       const reader = response.body.getReader();
@@ -157,12 +180,12 @@ async function sendMessage(text = input.value) {
       conversation.push({ role: "assistant", content: fullText });
     }
 
-    connectionStatus.textContent = "Ready - FREE TEACHER";
+    connectionStatus.textContent = "Ready - CEO JACK AI";
 
   } catch (error) {
     removeTyping();
     console.error(error);
-    addMessage("assistant", `I couldn't complete that request: ${error.message}`);
+    addMessage("assistant", `I couldn't complete that: ${error.message}`);
     connectionStatus.textContent = "Error";
   } finally {
     isLoading = false;
@@ -197,7 +220,7 @@ document.getElementById("newChatBtn")?.addEventListener("click", () => {
   conversation = [];
   messagesEl.innerHTML = "";
   welcomeScreen.style.display = "block";
-  connectionStatus.textContent = "Ready - FREE Groq";
+  connectionStatus.textContent = "Ready - CEO JACK";
   input.focus();
 });
 menuBtn?.addEventListener("click", () => {
