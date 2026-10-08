@@ -1,891 +1,274 @@
 
-/* =========================================
-   CEO JACK LEARNING HUB
-   AUTHENTICATION JAVASCRIPT
-========================================= */
+"use strict";
 
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("auth-form");
+  const title = document.getElementById("auth-title");
+  const description = document.getElementById("auth-description");
+  const message = document.getElementById("form-message");
+  const submitButton = document.getElementById("submit-button");
 
-    /* =====================================
-       ELEMENTS
-    ====================================== */
+  const signinTab = document.getElementById("signin-tab");
+  const signupTab = document.getElementById("signup-tab");
 
-    const authForm =
-        document.getElementById("authForm");
+  const nameField = document.getElementById("name-field");
+  const confirmField = document.getElementById("confirm-field");
+  const termsOption = document.getElementById("terms-option");
+  const rememberOption = document.getElementById("remember-option");
+  const forgotPassword = document.getElementById("forgot-password");
 
-    const authLabel =
-        document.getElementById("authLabel");
+  const nameInput = document.getElementById("full-name");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const confirmInput = document.getElementById("confirm-password");
+  const termsInput = document.getElementById("terms");
 
-    const authTitle =
-        document.getElementById("authTitle");
+  const strengthContainer = document.getElementById("password-strength");
+  const strengthBar = document.getElementById("strength-bar");
+  const strengthLabel = document.getElementById("strength-label");
 
-    const authSubtitle =
-        document.getElementById("authSubtitle");
+  const switchPrompt = document.getElementById("switch-prompt");
+  const switchMode = document.getElementById("switch-mode");
 
-    const submitButton =
-        document.getElementById("submitBtn");
+// Social sign-in: UI is ready, but provider authentication
+// must be configured before these buttons can sign users in.
 
-    const submitText =
-        document.getElementById("submitText");
+document.querySelectorAll("[data-provider]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const provider = button.dataset.provider;
 
-    const switchPrompt =
-        document.getElementById("switchPrompt");
+    showMessage(
+      `${provider.charAt(0).toUpperCase() + provider.slice(1)} sign-in is not connected yet. Configure this provider in your authentication service first.`
+    );
+  });
+});
 
-    const switchMode =
-        document.getElementById("switchMode");
+  let currentMode =
+    new URLSearchParams(window.location.search).get("mode") === "signup"
+      ? "signup"
+      : "signin";
 
-    const togglePassword =
-        document.getElementById("togglePassword");
+  document.getElementById("current-year").textContent =
+    new Date().getFullYear();
 
-    const passwordInput =
-        document.getElementById("password");
+  function clearErrors() {
+    document.querySelectorAll(".field-error").forEach((element) => {
+      element.textContent = "";
+    });
 
-    const confirmPassword =
-        document.getElementById("confirmPassword");
+    document.querySelectorAll(".invalid").forEach((element) => {
+      element.classList.remove("invalid");
+      element.removeAttribute("aria-invalid");
+    });
+  }
 
-    const fullName =
-        document.getElementById("fullName");
+  function showMessage(text, type = "info") {
+    message.textContent = text;
+    message.className = "form-message";
 
-    const emailInput =
-        document.getElementById("email");
+    if (type === "error") {
+      message.classList.add("error");
+    }
 
-    const termsInput =
-        document.getElementById("terms");
+    if (type === "success") {
+      message.classList.add("success");
+    }
 
-    const formStatus =
-        document.getElementById("formStatus");
+    message.hidden = false;
+  }
 
-    const googleButton =
-        document.getElementById("googleBtn");
+  function clearMessage() {
+    message.hidden = true;
+    message.textContent = "";
+    message.className = "form-message";
+  }
 
-    const appleButton =
-        document.getElementById("appleBtn");
+  function setError(input, errorId, text) {
+    const errorElement = document.getElementById(errorId);
+    errorElement.textContent = text;
+    input.classList.add("invalid");
+    input.setAttribute("aria-invalid", "true");
+  }
 
-    const forgotPassword =
-        document.getElementById("forgotPassword");
+  function setMode(mode, updateUrl = true) {
+    currentMode = mode === "signup" ? "signup" : "signin";
 
-    const strengthText =
-        document.getElementById("strengthText");
+    const signingUp = currentMode === "signup";
 
-    const strengthBars =
-        document.querySelectorAll(
-            ".strength-bar span"
-        );
+    signinTab.classList.toggle("active", !signingUp);
+    signupTab.classList.toggle("active", signingUp);
 
+    signinTab.setAttribute("aria-pressed", String(!signingUp));
+    signupTab.setAttribute("aria-pressed", String(signingUp));
 
-    let currentMode = "signup";
+    nameField.hidden = !signingUp;
+    confirmField.hidden = !signingUp;
+    termsOption.hidden = !signingUp;
+    rememberOption.hidden = signingUp;
+    strengthContainer.hidden = !signingUp;
 
+    nameInput.required = signingUp;
+    confirmInput.required = signingUp;
+    termsInput.required = signingUp;
 
-    /* =====================================
-       URL MODE
-    ====================================== */
+    passwordInput.autocomplete = signingUp
+      ? "new-password"
+      : "current-password";
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+    title.textContent = signingUp ? "Create your account" : "Welcome back";
 
+    description.textContent = signingUp
+      ? "Start building your future with CEO JACK."
+      : "Sign in to continue your learning journey.";
 
-    const requestedMode =
-        params.get("mode");
+    submitButton.innerHTML = signingUp
+      ? 'Create account <span aria-hidden="true">→</span>'
+      : 'Sign in <span aria-hidden="true">→</span>';
 
+    switchPrompt.firstChild.textContent = signingUp
+      ? "Already have an account? "
+      : "New to CEO JACK? ";
+
+    switchMode.textContent = signingUp ? "Sign in" : "Create an account";
+    switchMode.href = signingUp ? "?mode=signin" : "?mode=signup";
+
+    forgotPassword.hidden = signingUp;
+
+    clearErrors();
+    clearMessage();
+    updatePasswordStrength();
+
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("mode", currentMode);
+      window.history.replaceState({}, "", url);
+    }
+  }
+
+  function updatePasswordStrength() {
+    const password = passwordInput.value;
+
+    if (currentMode !== "signup") {
+      strengthContainer.hidden = true;
+      return;
+    }
+
+    strengthContainer.hidden = false;
+
+    let score = 0;
+
+    if (password.length >= 8) score++;
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    const labels = ["Not entered", "Weak", "Fair", "Good", "Strong"];
+    const widths = ["0%", "25%", "50%", "75%", "100%"];
+
+    strengthBar.style.width = widths[score];
+    strengthLabel.textContent = `Password strength: ${labels[score]}`;
+  }
+
+  function validateForm() {
+    clearErrors();
+
+    let valid = true;
+
+    if (currentMode === "signup" && nameInput.value.trim().length < 2) {
+      setError(nameInput, "name-error", "Enter your full name.");
+      valid = false;
+    }
+
+    const email = emailInput.value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      setError(emailInput, "email-error", "Enter a valid email address.");
+      valid = false;
+    }
+
+    const password = passwordInput.value;
+
+    if (password.length < 8) {
+      setError(
+        passwordInput,
+        "password-error",
+        "Your password must contain at least 8 characters."
+      );
+      valid = false;
+    }
 
     if (
-        requestedMode === "signin" ||
-        requestedMode === "signup"
+      currentMode === "signup" &&
+      confirmInput.value !== password
     ) {
-
-        currentMode =
-            requestedMode;
-
+      setError(
+        confirmInput,
+        "confirm-error",
+        "Your passwords do not match."
+      );
+      valid = false;
     }
 
-
-    /* =====================================
-       MODE CONFIGURATION
-    ====================================== */
-
-    function updateMode(mode) {
-
-        currentMode = mode;
-
-
-        const signupElements =
-            document.querySelectorAll(
-                ".signup-only"
-            );
-
-
-        const signinElements =
-            document.querySelectorAll(
-                ".signin-only"
-            );
-
-
-        if (mode === "signup") {
-
-            authLabel.textContent =
-                "CREATE ACCOUNT";
-
-            authTitle.textContent =
-                "Create your account";
-
-            authSubtitle.textContent =
-                "Start your CEO JACK journey.";
-
-            submitText.textContent =
-                "Create Account";
-
-            switchPrompt.textContent =
-                "Already have an account?";
-
-            switchMode.textContent =
-                "Sign In";
-
-
-            signupElements.forEach((element) => {
-
-                element.classList.remove(
-                    "hidden"
-                );
-
-            });
-
-
-            signinElements.forEach((element) => {
-
-                element.classList.add(
-                    "hidden"
-                );
-
-            });
-
-
-            passwordInput.autocomplete =
-                "new-password";
-
-
-            confirmPassword.autocomplete =
-                "new-password";
-
-
-        } else {
-
-            authLabel.textContent =
-                "WELCOME BACK";
-
-            authTitle.textContent =
-                "Sign in to continue";
-
-            authSubtitle.textContent =
-                "Continue your CEO JACK journey.";
-
-            submitText.textContent =
-                "Sign In";
-
-            switchPrompt.textContent =
-                "Don't have an account?";
-
-            switchMode.textContent =
-                "Create Account";
-
-
-            signupElements.forEach((element) => {
-
-                element.classList.add(
-                    "hidden"
-                );
-
-            });
-
-
-            signinElements.forEach((element) => {
-
-                element.classList.remove(
-                    "hidden"
-                );
-
-            });
-
-
-            passwordInput.autocomplete =
-                "current-password";
-
-        }
-
-
-        clearAllErrors();
-
-        clearStatus();
-
+    if (currentMode === "signup" && !termsInput.checked) {
+      document.getElementById("terms-error").textContent =
+        "Please accept the Terms and Privacy Policy.";
+      valid = false;
     }
 
+    return valid;
+  }
 
-    /* =====================================
-       SWITCH AUTH MODE
-    ====================================== */
+  signinTab.addEventListener("click", () => setMode("signin"));
+  signupTab.addEventListener("click", () => setMode("signup"));
 
-    switchMode.addEventListener(
-        "click",
-        () => {
+  switchMode.addEventListener("click", (event) => {
+    event.preventDefault();
+    setMode(currentMode === "signup" ? "signin" : "signup");
+  });
 
-            const newMode =
-                currentMode === "signup"
-                    ? "signin"
-                    : "signup";
+  passwordInput.addEventListener("input", updatePasswordStrength);
 
+  document.querySelectorAll("[data-toggle-password]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const input = document.getElementById(
+        button.dataset.togglePassword
+      );
 
-            const nextUrl =
-                `${window.location.pathname}?mode=${newMode}`;
+      const shouldShow = input.type === "password";
 
+      input.type = shouldShow ? "text" : "password";
+      button.textContent = shouldShow ? "Hide" : "Show";
+      button.setAttribute(
+        "aria-label",
+        shouldShow ? "Hide password" : "Show password"
+      );
+    });
+  });
 
-            window.history.replaceState(
-                {},
-                "",
-                nextUrl
-            );
+  forgotPassword.addEventListener("click", (event) => {
+    event.preventDefault();
 
-
-            updateMode(newMode);
-
-        }
+    showMessage(
+      "Password recovery is not connected yet. Connect your authentication provider to enable secure password resets."
     );
+  });
 
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    clearMessage();
 
-    /* =====================================
-       SHOW / HIDE PASSWORD
-    ====================================== */
+    if (!validateForm()) {
+      showMessage("Please check the highlighted fields and try again.", "error");
+      return;
+    }
 
-    togglePassword.addEventListener(
-        "click",
-        () => {
-
-            const isPassword =
-                passwordInput.type === "password";
-
-
-            passwordInput.type =
-                isPassword
-                    ? "text"
-                    : "password";
-
-
-            togglePassword.textContent =
-                isPassword
-                    ? "Hide"
-                    : "Show";
-
-        }
+    showMessage(
+      currentMode === "signup"
+        ? "Your form is valid, but account creation is not connected yet. Connect Supabase Auth or your backend before using real accounts."
+        : "Your form is valid, but sign-in is not connected yet. Connect Supabase Auth or your backend before using real accounts."
     );
+  });
 
-
-    /* =====================================
-       PASSWORD STRENGTH
-    ====================================== */
-
-    function updatePasswordStrength() {
-
-        const password =
-            passwordInput.value;
-
-
-        let score = 0;
-
-
-        if (password.length >= 8) {
-            score++;
-        }
-
-        if (/[A-Z]/.test(password)) {
-            score++;
-        }
-
-        if (/[0-9]/.test(password)) {
-            score++;
-        }
-
-        if (/[^A-Za-z0-9]/.test(password)) {
-            score++;
-        }
-
-
-        strengthBars.forEach(
-            (bar, index) => {
-
-                bar.style.background =
-                    index < score
-                        ? "#55ddff"
-                        : "rgba(255,255,255,0.08)";
-
-            }
-        );
-
-
-        if (!password) {
-
-            strengthText.textContent =
-                "Use 8 or more characters";
-
-            return;
-
-        }
-
-
-        if (score === 1) {
-
-            strengthText.textContent =
-                "Weak password";
-
-        } else if (score === 2) {
-
-            strengthText.textContent =
-                "Fair password";
-
-        } else if (score === 3) {
-
-            strengthText.textContent =
-                "Good password";
-
-        } else {
-
-            strengthText.textContent =
-                "Strong password";
-
-        }
-
-    }
-
-
-    passwordInput.addEventListener(
-        "input",
-        updatePasswordStrength
-    );
-
-
-    /* =====================================
-       ERROR HELPERS
-    ====================================== */
-
-    function showError(
-        input,
-        errorId,
-        message
-    ) {
-
-        const errorElement =
-            document.getElementById(
-                errorId
-            );
-
-
-        const group =
-            input.closest(
-                ".form-group"
-            );
-
-
-        if (errorElement) {
-
-            errorElement.textContent =
-                message;
-
-        }
-
-
-        if (group) {
-
-            group.classList.add(
-                "invalid"
-            );
-
-        }
-
-    }
-
-
-    function clearError(
-        input,
-        errorId
-    ) {
-
-        const errorElement =
-            document.getElementById(
-                errorId
-            );
-
-
-        const group =
-            input.closest(
-                ".form-group"
-            );
-
-
-        if (errorElement) {
-
-            errorElement.textContent = "";
-
-        }
-
-
-        if (group) {
-
-            group.classList.remove(
-                "invalid"
-            );
-
-        }
-
-    }
-
-
-    function clearAllErrors() {
-
-        clearError(
-            fullName,
-            "nameError"
-        );
-
-        clearError(
-            emailInput,
-            "emailError"
-        );
-
-        clearError(
-            passwordInput,
-            "passwordError"
-        );
-
-        clearError(
-            confirmPassword,
-            "confirmError"
-        );
-
-    }
-
-
-    /* =====================================
-       STATUS HELPERS
-    ====================================== */
-
-    function showStatus(
-        message,
-        type
-    ) {
-
-        formStatus.textContent =
-            message;
-
-        formStatus.className =
-            `form-status ${type}`;
-
-    }
-
-
-    function clearStatus() {
-
-        formStatus.textContent =
-            "";
-
-        formStatus.className =
-            "form-status";
-
-    }
-
-
-    /* =====================================
-       EMAIL VALIDATION
-    ====================================== */
-
-    function isValidEmail(email) {
-
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email);
-
-    }
-
-
-    /* =====================================
-       SIGNUP VALIDATION
-    ====================================== */
-
-    function validateSignup() {
-
-        let valid = true;
-
-
-        const name =
-            fullName.value.trim();
-
-
-        const email =
-            emailInput.value.trim();
-
-
-        const password =
-            passwordInput.value;
-
-
-        const confirm =
-            confirmPassword.value;
-
-
-        if (name.length < 2) {
-
-            showError(
-                fullName,
-                "nameError",
-                "Please enter your full name."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                fullName,
-                "nameError"
-            );
-
-        }
-
-
-        if (!isValidEmail(email)) {
-
-            showError(
-                emailInput,
-                "emailError",
-                "Enter a valid email address."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                emailInput,
-                "emailError"
-            );
-
-        }
-
-
-        if (password.length < 8) {
-
-            showError(
-                passwordInput,
-                "passwordError",
-                "Password must contain at least 8 characters."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                passwordInput,
-                "passwordError"
-            );
-
-        }
-
-
-        if (confirm !== password) {
-
-            showError(
-                confirmPassword,
-                "confirmError",
-                "Passwords do not match."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                confirmPassword,
-                "confirmError"
-            );
-
-        }
-
-
-        if (!termsInput.checked) {
-
-            showStatus(
-                "Please accept the Terms and Privacy Policy.",
-                "error"
-            );
-
-            valid = false;
-
-        }
-
-
-        return valid;
-
-    }
-
-
-    /* =====================================
-       SIGNIN VALIDATION
-    ====================================== */
-
-    function validateSignin() {
-
-        let valid = true;
-
-
-        const email =
-            emailInput.value.trim();
-
-
-        const password =
-            passwordInput.value;
-
-
-        if (!isValidEmail(email)) {
-
-            showError(
-                emailInput,
-                "emailError",
-                "Enter a valid email address."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                emailInput,
-                "emailError"
-            );
-
-        }
-
-
-        if (!password) {
-
-            showError(
-                passwordInput,
-                "passwordError",
-                "Please enter your password."
-            );
-
-            valid = false;
-
-        } else {
-
-            clearError(
-                passwordInput,
-                "passwordError"
-            );
-
-        }
-
-
-        return valid;
-
-    }
-
-
-    /* =====================================
-       FORM SUBMISSION
-    ====================================== */
-
-    authForm.addEventListener(
-        "submit",
-        async (event) => {
-
-            event.preventDefault();
-
-
-            clearStatus();
-
-
-            const isValid =
-                currentMode === "signup"
-                    ? validateSignup()
-                    : validateSignin();
-
-
-            if (!isValid) {
-
-                if (
-                    currentMode === "signup" &&
-                    !termsInput.checked
-                ) {
-
-                    return;
-
-                }
-
-
-                showStatus(
-                    "Please correct the highlighted fields.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            submitButton.disabled =
-                true;
-
-
-            submitText.textContent =
-                currentMode === "signup"
-                    ? "Preparing account..."
-                    : "Checking account...";
-
-
-            const name = currentMode === "signup"
-                ? fullName.value.trim()
-                : emailInput.value.trim().split("@")[0];
-
-            localStorage.setItem("ceoJackUserName", name || "Student");
-            localStorage.setItem("ceoJackUserEmail", emailInput.value.trim());
-            localStorage.setItem("ceoJackSignedIn", "true");
-
-            submitText.textContent = "Opening your learning space...";
-
-            window.setTimeout(() => {
-                window.location.href = currentMode === "signup"
-                    ? "onboarding.html"
-                    : "dashboard.html";
-            }, 350);
-
-        }
-    );
-
-
-    /* =====================================
-       GOOGLE
-    ====================================== */
-
-    googleButton.addEventListener(
-        "click",
-        () => {
-
-            showStatus(
-                "Google authentication will be connected here.",
-                "info"
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       APPLE
-    ====================================== */
-
-    appleButton.addEventListener(
-        "click",
-        () => {
-
-            showStatus(
-                "Apple authentication will be connected here.",
-                "info"
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       FORGOT PASSWORD
-    ====================================== */
-
-    forgotPassword.addEventListener(
-        "click",
-        () => {
-
-            showStatus(
-                "Password recovery will be connected to the authentication backend.",
-                "info"
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       SCROLL / INITIAL REVEAL
-    ====================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
-
-
-    if (
-        "IntersectionObserver"
-        in window
-    ) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach(
-                        (entry) => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    "show"
-                                );
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-
-        revealElements.forEach(
-            (element) => {
-
-                revealObserver.observe(
-                    element
-                );
-
-            }
-        );
-
-    } else {
-
-        revealElements.forEach(
-            (element) => {
-
-                element.classList.add(
-                    "show"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       INITIALIZE
-    ====================================== */
-
-    updateMode(currentMode);
-
-})();
+  setMode(currentMode, false);
+});

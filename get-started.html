@@ -1,408 +1,178 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your CEO JACK LEARNING HUB account and begin your journey to learn, create, and develop.">
+  <meta name="theme-color" content="#080b16">
+  <title>Get Started | CEO JACK LEARNING HUB</title>
 
-    <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Start your journey with CEO JACK LEARNING HUB."
-    >
-
-    <title>Get Started | CEO JACK LEARNING HUB</title>
-
-    <link
-        rel="stylesheet"
-        href="css/get-started.css"
-    >
-
+  <link rel="stylesheet" href="css/get-started.css">
+  <script src="js/get-started.js" defer></script>
 </head>
 
-
 <body>
+  <div class="site-background" aria-hidden="true">
+    <div class="background-grid"></div>
+    <div class="background-glow glow-blue"></div>
+    <div class="background-glow glow-purple"></div>
+  </div>
 
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="CEO JACK Learning Hub home">
+      <img src="assets/images/logo1.webp" alt="" class="brand-logo">
+      <span class="brand-lockup">
+        <strong>CEO JACK</strong>
+        <small>LEARNING HUB</small>
+      </span>
+    </a>
 
-    <!-- =================================
-         BACKGROUND
-    ================================== -->
+    <button class="menu-toggle" type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="primary-navigation">
+      <span></span><span></span><span></span>
+    </button>
 
-    <div class="background">
+    <nav class="primary-navigation" id="primary-navigation" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#hubs">Hubs</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta active" href="get-started.html" aria-current="page">
+        Get Started Free <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </header>
 
-        <div class="grid"></div>
+  <main>
+    <section class="start-layout" aria-labelledby="page-title">
+      <div class="intro-panel reveal">
+        <p class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          YOUR NEXT CHAPTER STARTS HERE
+        </p>
 
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
+        <h1 id="page-title">
+          Your future is built
+          <span>one step at a time.</span>
+        </h1>
 
-        <div class="particles">
+        <p class="intro-copy">
+          Create one account for your learning journey.
+          Explore new knowledge, build practical skills,
+          and turn what you learn into something meaningful.
+        </p>
 
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="journey-list" aria-label="Your journey in three steps">
+          <div class="journey-step">
+            <span class="step-index">01</span>
+            <div>
+              <h2>Start with one account</h2>
+              <p>Keep your learning journey connected in one place.</p>
+            </div>
+          </div>
 
+          <div class="journey-step">
+            <span class="step-index">02</span>
+            <div>
+              <h2>Make it yours</h2>
+              <p>Choose your interests and the goals you want to work toward.</p>
+            </div>
+          </div>
+
+          <div class="journey-step">
+            <span class="step-index">03</span>
+            <div>
+              <h2>Keep moving forward</h2>
+              <p>Explore the hubs, practise your skills, and track your progress.</p>
+            </div>
+          </div>
         </div>
 
-    </div>
+        <div class="principle-strip">
+          <span>LEARN</span>
+          <span class="principle-arrow">→</span>
+          <span>CREATE</span>
+          <span class="principle-arrow">→</span>
+          <span>DEVELOP</span>
+        </div>
+      </div>
 
+      <section class="choice-card reveal" aria-labelledby="choice-title">
+        <div class="card-topline">
+          <span class="card-kicker">CEO JACK LEARNING HUB</span>
+          <span class="free-label"><span></span> FREE TO START</span>
+        </div>
 
-    <!-- =================================
-         HEADER
-    ================================== -->
+        <div class="card-symbol" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M10 24h27M26 13l11 11-11 11"
+              stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
 
-    <header class="topbar">
+        <h2 id="choice-title">How would you like to begin?</h2>
+        <p class="card-description">
+          Choose an option to continue. Your learning journey can grow with you.
+        </p>
 
-        <a
-            href="index.html"
-            class="logo"
-        >
+        <button class="action-option action-primary" id="createAccountBtn" type="button">
+          <span class="option-icon" aria-hidden="true">＋</span>
+          <span class="option-copy">
+            <strong>Create an account</strong>
+            <small>I'm new here</small>
+          </span>
+          <span class="option-arrow" aria-hidden="true">↗</span>
+        </button>
 
-            <span class="logo-mark">
-                &lt;/&gt;
-            </span>
+        <button class="action-option action-secondary" id="signInBtn" type="button">
+          <span class="option-icon" aria-hidden="true">↗</span>
+          <span class="option-copy">
+            <strong>Sign in</strong>
+            <small>I already have an account</small>
+          </span>
+          <span class="option-arrow" aria-hidden="true">→</span>
+        </button>
 
-            <span class="logo-text">
+        <div class="card-separator">
+          <span></span><small>OR</small><span></span>
+        </div>
 
-                CEO JACK
-
-                <small>
-                    LEARNING HUB
-                </small>
-
-            </span>
-
+        <a class="explore-link" href="index.html#hubs" id="guestBtn">
+          Explore the learning hubs first <span aria-hidden="true">→</span>
         </a>
 
-
-        <a
-            href="index.html"
-            class="back-home"
-        >
-
-            <span>←</span>
-
-            Back to Home
-
-        </a>
-
-    </header>
-
-
-    <!-- =================================
-         MAIN
-    ================================== -->
-
-    <main>
-
-        <section class="start-section">
-
-
-            <!-- =================================
-                 LEFT SIDE
-            ================================== -->
-
-            <div class="start-content reveal">
-
-                <span class="page-tag">
-                    ✦ YOUR JOURNEY STARTS HERE
-                </span>
-
-
-                <h1>
-
-                    Start building
-                    <span>
-                        your future.
-                    </span>
-
-                </h1>
-
-
-                <p>
-
-                    Welcome to the next step.
-                    Create your account or sign in
-                    to begin your experience with
-                    CEO JACK LEARNING HUB.
-
-                </p>
-
-
-                <div class="journey-preview">
-
-                    <div class="preview-line"></div>
-
-
-                    <div class="preview-item">
-
-                        <span class="preview-number">
-                            01
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Create an account
-                            </strong>
-
-                            <small>
-                                Set up your personal learning profile.
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="preview-item">
-
-                        <span class="preview-number">
-                            02
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Tell us about yourself
-                            </strong>
-
-                            <small>
-                                Personalize your learning journey.
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="preview-item">
-
-                        <span class="preview-number">
-                            03
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Enter your learning world
-                            </strong>
-
-                            <small>
-                                Discover the experience built around you.
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================
-                 RIGHT SIDE
-            ================================== -->
-
-            <div class="start-card reveal">
-
-
-                <div class="card-header">
-
-                    <span class="card-tag">
-                        CEO JACK
-                    </span>
-
-                    <span class="secure-badge">
-                        ● SECURE
-                    </span>
-
-                </div>
-
-
-                <div class="card-icon">
-
-                    <span>
-                        →
-                    </span>
-
-                </div>
-
-
-                <h2>
-                    Choose how
-                    you want to begin.
-                </h2>
-
-
-                <p>
-                    Your account will become the
-                    foundation of your personalized
-                    experience.
-                </p>
-
-
-                <!-- CREATE ACCOUNT -->
-
-                <button
-                    class="start-btn primary"
-                    id="createAccountBtn"
-                    type="button"
-                >
-
-                    <span class="btn-icon">
-                        +
-                    </span>
-
-                    <span class="btn-content">
-
-                        <strong>
-                            Create Account
-                        </strong>
-
-                        <small>
-                            I'm new to CEO JACK
-                        </small>
-
-                    </span>
-
-                    <span class="btn-arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-                <!-- SIGN IN -->
-
-                <button
-                    class="start-btn secondary"
-                    id="signInBtn"
-                    type="button"
-                >
-
-                    <span class="btn-icon">
-                        ↗
-                    </span>
-
-                    <span class="btn-content">
-
-                        <strong>
-                            Sign In
-                        </strong>
-
-                        <small>
-                            I already have an account
-                        </small>
-
-                    </span>
-
-                    <span class="btn-arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-                <div class="card-divider">
-
-                    <span></span>
-
-                    <small>
-                        or
-                    </small>
-
-                    <span></span>
-
-                </div>
-
-
-                <div class="guest-option">
-
-                    <button
-                        id="guestBtn"
-                        type="button"
-                    >
-                        Explore first
-                    </button>
-
-                    <span>
-                        No account action yet
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="start-message"
-                    id="startMessage"
-                    role="status"
-                    aria-live="polite"
-                ></div>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             PHILOSOPHY
-        ================================== -->
-
-        <section class="philosophy reveal">
-
-            <span class="philosophy-tag">
-                THE JOURNEY
-            </span>
-
-
-            <div class="philosophy-flow">
-
-                <span>
-                    LEARN
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    CREATE
-                </span>
-
-                <b>→</b>
-
-                <span>
-                    DEVELOP
-                </span>
-
-            </div>
-
-
-            <p>
-                One step at a time. One skill at a time.
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <!-- =================================
-         JAVASCRIPT
-    ================================== -->
-
-    <script src="js/get-started.js"></script>
-
+        <p class="form-notice" id="startMessage" role="status" aria-live="polite"></p>
+
+        <p class="privacy-note">
+          <span aria-hidden="true">◇</span>
+          Your account should be protected by secure authentication.
+        </p>
+      </section>
+    </section>
+
+    <section class="bottom-note reveal" aria-label="Platform promise">
+      <span class="bottom-note-line"></span>
+      <p><strong>One platform.</strong> Three ways to grow.</p>
+      <span class="bottom-note-line"></span>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="index.html">
+      CEO JACK <span>LEARNING HUB</span>
+    </a>
+    <p>Learn. Create. Develop.</p>
+    <a href="contact.html">Need help? Contact us <span>↗</span></a>
+  </footer>
 </body>
-
 </html>

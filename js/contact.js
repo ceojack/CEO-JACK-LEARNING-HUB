@@ -1,533 +1,377 @@
-
 /* =========================================
    CEO JACK LEARNING HUB
    CONTACT PAGE JAVASCRIPT
 ========================================= */
 
+"use strict";
+
 (() => {
 
-    /* =====================================
-       MOBILE MENU
-    ====================================== */
+  /* MOBILE MENU */
 
-    const menuButton =
-        document.getElementById("menuBtn");
+  const menuButton = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-    const mobileNavigation =
-        document.getElementById("mobileMenu");
+  function closeMenu() {
+    if (!menuButton || !mobileMenu) return;
 
+    mobileMenu.classList.remove("active");
 
-    if (menuButton && mobileNavigation) {
+    menuButton.setAttribute(
+      "aria-expanded",
+      "false"
+    );
 
-        menuButton.addEventListener("click", () => {
+    menuButton.setAttribute(
+      "aria-label",
+      "Open navigation"
+    );
+  }
 
-            const isOpen =
-                mobileNavigation.classList.toggle("active");
+  if (menuButton && mobileMenu) {
 
+    menuButton.addEventListener("click", () => {
 
-            menuButton.setAttribute(
-                "aria-expanded",
-                String(isOpen)
-            );
+      const open =
+        mobileMenu.classList.toggle("active");
 
-        });
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
 
+      menuButton.setAttribute(
+        "aria-label",
+        open ? "Close navigation" : "Open navigation"
+      );
 
-        const mobileLinks =
-            mobileNavigation.querySelectorAll("a");
+    });
 
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
 
-        mobileLinks.forEach((link) => {
+    document.addEventListener("keydown", event => {
 
-            link.addEventListener("click", () => {
+      if (event.key === "Escape") {
+        closeMenu();
+        menuButton.focus();
+      }
 
-                mobileNavigation.classList.remove("active");
+    });
 
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
+    window.addEventListener("resize", () => {
 
-            });
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
 
-        });
+    });
 
-    }
-
-
-    /* =====================================
-       SCROLL REVEAL
-    ====================================== */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
-
-    if ("IntersectionObserver" in window) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach((entry) => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add("show");
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
+  }
 
 
-        revealElements.forEach((element) => {
+  /* SCROLL REVEAL */
 
-            revealObserver.observe(element);
+  const revealItems =
+    document.querySelectorAll(".reveal");
+
+  if ("IntersectionObserver" in window) {
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+            obs.unobserve(entry.target);
+
+          }
 
         });
 
-    } else {
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -25px 0px"
+      }
+    );
 
-        revealElements.forEach((element) => {
+    revealItems.forEach(item => {
+      observer.observe(item);
+    });
 
-            element.classList.add("show");
+  } else {
 
-        });
+    revealItems.forEach(item => {
+      item.classList.add("show");
+    });
+
+  }
+
+
+  /* CURRENT YEAR */
+
+  const year = document.getElementById("year");
+
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+
+
+  /* FORM ELEMENTS */
+
+  const form = document.getElementById("contactForm");
+
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const subjectInput = document.getElementById("subject");
+  const messageInput = document.getElementById("message");
+
+  const count = document.getElementById("characterCount");
+  const status = document.getElementById("formStatus");
+
+  if (!form) return;
+
+
+  /* ERROR MESSAGE ELEMENTS */
+
+  const errorIds = {
+    name: "nameError",
+    email: "emailError",
+    subject: "subjectError",
+    message: "messageError"
+  };
+
+
+  function setError(input, message) {
+
+    const group =
+      input.closest(".form-group");
+
+    const error =
+      document.getElementById(errorIds[input.name]);
+
+    if (group) {
+      group.classList.toggle(
+        "invalid",
+        Boolean(message)
+      );
+    }
+
+    if (error) {
+      error.textContent = message || "";
+    }
+
+    input.setAttribute(
+      "aria-invalid",
+      String(Boolean(message))
+    );
+
+  }
+
+
+  /* VALIDATE THE FORM */
+
+  function validate() {
+
+    let valid = true;
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    const emailOK =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    const checks = [
+
+      [
+        nameInput,
+        name.length >= 2,
+        "Please enter your name (at least 2 characters)."
+      ],
+
+      [
+        emailInput,
+        emailOK,
+        "Please enter a valid email address."
+      ],
+
+      [
+        subjectInput,
+        Boolean(subjectInput.value),
+        "Please choose a subject."
+      ],
+
+      [
+        messageInput,
+        message.length >= 10,
+        "Please write at least 10 characters."
+      ]
+
+    ];
+
+    checks.forEach(([input, passed, messageText]) => {
+
+      setError(
+        input,
+        passed ? "" : messageText
+      );
+
+      if (!passed) {
+        valid = false;
+      }
+
+    });
+
+    return valid;
+
+  }
+
+
+  /* CHARACTER COUNTER */
+
+  function updateCount() {
+
+    if (count) {
+
+      count.textContent =
+        `${messageInput.value.length} / 1000`;
+
+    }
+
+  }
+
+  messageInput.addEventListener(
+    "input",
+    updateCount
+  );
+
+  updateCount();
+
+
+  /* CLEAR ERRORS AS THE USER CORRECTS INPUT */
+
+  [
+    nameInput,
+    emailInput,
+    subjectInput,
+    messageInput
+  ].forEach(input => {
+
+    input.addEventListener("input", () => {
+
+      if (input.getAttribute("aria-invalid") === "true") {
+        validate();
+      }
+
+      if (status) {
+        status.textContent = "";
+      }
+
+    });
+
+    input.addEventListener("change", () => {
+
+      if (input.getAttribute("aria-invalid") === "true") {
+        validate();
+      }
+
+    });
+
+  });
+
+
+  /* FORM SUBMISSION */
+
+  form.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    if (status) {
+      status.textContent = "";
+      status.className = "form-status";
+    }
+
+    if (!validate()) {
+
+      if (status) {
+        status.textContent =
+          "Please correct the highlighted fields.";
+
+        status.classList.add("error");
+      }
+
+      const firstInvalid =
+        form.querySelector('[aria-invalid="true"]');
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+      }
+
+      return;
 
     }
 
 
-    /* =====================================
-       FORM ELEMENTS
-    ====================================== */
+    /*
+      FRONTEND-ONLY EMAIL FALLBACK
 
-    const contactForm =
-        document.getElementById("contactForm");
+      This opens the visitor's email application.
+      It does not send the message directly from
+      the website. A backend can be connected later.
+    */
 
-    const nameInput =
-        document.getElementById("name");
+    const recipient =
+      "hello@ceojacklearninghub.com";
 
-    const emailInput =
-        document.getElementById("email");
+    const subject =
+      `[CEO JACK Contact] ${subjectInput.value}`;
 
-    const subjectInput =
-        document.getElementById("subject");
+    const body = [
 
-    const messageInput =
-        document.getElementById("message");
+      `Name: ${nameInput.value.trim()}`,
 
-    const characterCount =
-        document.getElementById("characterCount");
+      `Reply email: ${emailInput.value.trim()}`,
 
-    const formStatus =
-        document.getElementById("formStatus");
+      `Subject: ${subjectInput.value}`,
 
-    const submitButton =
-        document.getElementById("submitBtn");
+      "",
 
+      messageInput.value.trim()
 
-    /* =====================================
-       CHARACTER COUNTER
-    ====================================== */
-
-    if (messageInput && characterCount) {
-
-        const updateCharacterCount = () => {
-
-            const length =
-                messageInput.value.length;
+    ].join("\n");
 
 
-            characterCount.textContent =
-                `${length} / 1000`;
-
-        };
-
-
-        messageInput.addEventListener(
-            "input",
-            updateCharacterCount
-        );
+    const mailto =
+      `mailto:${recipient}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
 
 
-        updateCharacterCount();
+    if (status) {
+
+      status.textContent =
+        "Opening your email application with the message prepared. Send it there to complete delivery.";
+
+      status.classList.add("success");
 
     }
 
+    window.location.href = mailto;
 
-    /* =====================================
-       ERROR HANDLING
-    ====================================== */
+  });
 
-    function showError(input, errorId, message) {
 
-        const errorElement =
-            document.getElementById(errorId);
+  /* OPTIONAL PUBLIC METHODS */
 
-
-        const formGroup =
-            input.closest(".form-group");
-
-
-        if (errorElement) {
-
-            errorElement.textContent =
-                message;
-
-        }
-
-
-        if (formGroup) {
-
-            formGroup.classList.add(
-                "invalid"
-            );
-
-        }
-
-    }
-
-
-    function clearError(input, errorId) {
-
-        const errorElement =
-            document.getElementById(errorId);
-
-
-        const formGroup =
-            input.closest(".form-group");
-
-
-        if (errorElement) {
-
-            errorElement.textContent = "";
-
-        }
-
-
-        if (formGroup) {
-
-            formGroup.classList.remove(
-                "invalid"
-            );
-
-        }
-
-    }
-
-
-    /* =====================================
-       EMAIL VALIDATION
-    ====================================== */
-
-    function isValidEmail(email) {
-
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email);
-
-    }
-
-
-    /* =====================================
-       FORM VALIDATION
-    ====================================== */
-
-    function validateForm() {
-
-        let isValid = true;
-
-
-        const name =
-            nameInput.value.trim();
-
-
-        const email =
-            emailInput.value.trim();
-
-
-        const subject =
-            subjectInput.value;
-
-
-        const message =
-            messageInput.value.trim();
-
-
-        /* Name */
-
-        if (name.length < 2) {
-
-            showError(
-                nameInput,
-                "nameError",
-                "Please enter your name."
-            );
-
-            isValid = false;
-
-        } else {
-
-            clearError(
-                nameInput,
-                "nameError"
-            );
-
-        }
-
-
-        /* Email */
-
-        if (!isValidEmail(email)) {
-
-            showError(
-                emailInput,
-                "emailError",
-                "Please enter a valid email address."
-            );
-
-            isValid = false;
-
-        } else {
-
-            clearError(
-                emailInput,
-                "emailError"
-            );
-
-        }
-
-
-        /* Subject */
-
-        if (!subject) {
-
-            showError(
-                subjectInput,
-                "subjectError",
-                "Please select a subject."
-            );
-
-            isValid = false;
-
-        } else {
-
-            clearError(
-                subjectInput,
-                "subjectError"
-            );
-
-        }
-
-
-        /* Message */
-
-        if (message.length < 10) {
-
-            showError(
-                messageInput,
-                "messageError",
-                "Message must contain at least 10 characters."
-            );
-
-            isValid = false;
-
-        } else {
-
-            clearError(
-                messageInput,
-                "messageError"
-            );
-
-        }
-
-
-        return isValid;
-
-    }
-
-
-    /* =====================================
-       FORM SUBMISSION
-    ====================================== */
-
-    if (contactForm) {
-
-        contactForm.addEventListener(
-            "submit",
-            async (event) => {
-
-                event.preventDefault();
-
-
-                formStatus.textContent = "";
-
-                formStatus.className =
-                    "form-status";
-
-
-                if (!validateForm()) {
-
-                    formStatus.textContent =
-                        "Please correct the highlighted fields.";
-
-                    formStatus.classList.add(
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                /* Disable button */
-
-                submitButton.disabled = true;
-
-
-                submitButton.innerHTML =
-                    `
-                    <span>
-                        Preparing message...
-                    </span>
-
-                    <span class="submit-arrow">
-                        ...
-                    </span>
-                    `;
-
-
-                /*
-                   FRONT-END DEMO
-
-                   No backend has been connected yet.
-
-                   Later this section can become:
-
-                   fetch("/api/contact", {
-                       method: "POST",
-                       body: new FormData(contactForm)
-                   });
-                */
-
-
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            900
-                        )
-                );
-
-
-                formStatus.textContent =
-                    "Your message has been prepared successfully. The message-sending backend will be connected next.";
-
-                formStatus.classList.add(
-                    "success"
-                );
-
-
-                contactForm.reset();
-
-
-                if (characterCount) {
-
-                    characterCount.textContent =
-                        "0 / 1000";
-
-                }
-
-
-                submitButton.disabled = false;
-
-
-                submitButton.innerHTML =
-                    `
-                    <span>
-                        Send Message
-                    </span>
-
-                    <span class="submit-arrow">
-                        →
-                    </span>
-                    `;
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       HERO PARALLAX
-    ====================================== */
-
-    const contactVisual =
-        document.querySelector(
-            ".contact-visual"
-        );
-
-
-    if (contactVisual) {
-
-        document.addEventListener(
-            "mousemove",
-            (event) => {
-
-                if (
-                    window.innerWidth < 950
-                ) {
-
-                    contactVisual.style.transform =
-                        "translate(0, 0)";
-
-                    return;
-
-                }
-
-
-                const x =
-                    (
-                        window.innerWidth / 2 -
-                        event.clientX
-                    ) / 70;
-
-
-                const y =
-                    (
-                        window.innerHeight / 2 -
-                        event.clientY
-                    ) / 70;
-
-
-                contactVisual.style.transform =
-                    `translate(${x}px, ${y}px)`;
-
-            }
-        );
-
-
-        document.addEventListener(
-            "mouseleave",
-            () => {
-
-                contactVisual.style.transform =
-                    "translate(0, 0)";
-
-            }
-        );
-
-    }
-
+  window.CeoJackContact = {
+    closeMenu,
+    validate
+  };
 
 })();

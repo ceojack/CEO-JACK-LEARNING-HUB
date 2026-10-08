@@ -1,1143 +1,847 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the learning, digital skills, entrepreneurship and AI services offered by CEO JACK LEARNING HUB.">
+  <meta name="theme-color" content="#080d1b">
 
-    <meta charset="UTF-8">
+  <title>Services | CEO JACK LEARNING HUB</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <meta
-        name="description"
-        content="Explore the services and learning experiences offered by CEO JACK LEARNING HUB."
-    >
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-    <title>Services | CEO JACK LEARNING HUB</title>
-
-    <link
-        rel="stylesheet"
-        href="css/services.css"
-    >
-
+  <link rel="icon" href="assets/images/logo1.webp">
+  <link rel="stylesheet" href="css/services.css">
 </head>
-
 
 <body>
 
-    <!-- =================================
-         BACKGROUND
-    ================================== -->
+  <div class="page-bg"></div>
 
-    <div class="background">
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-        <div class="grid"></div>
+  <header class="site-header">
 
-        <div class="glow glow-one"></div>
+    <div class="container nav-wrap">
 
-        <div class="glow glow-two"></div>
-
-        <div class="particles">
-
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================
-         NAVBAR
-    ================================== -->
-
-    <header class="navbar">
-
-        <a
-            href="index.html"
-            class="logo"
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="CEO JACK Learning Hub home"
+      >
+        <img
+          src="assets/images/logo1.webp"
+          alt="CEO JACK Learning Hub"
+          class="brand-logo"
         >
 
-            <span class="logo-mark">
-                &lt;/&gt;
-            </span>
-
-            <span class="logo-text">
-
-                CEO JACK
-
-                <small>
-                    LEARNING HUB
-                </small>
-
-            </span>
-
-        </a>
+        <span class="brand-copy">
+          <strong>CEO JACK</strong>
+          <small>LEARNING HUB</small>
+        </span>
+      </a>
 
 
-        <nav class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
-            <a
-                href="services.html"
-                class="active"
-            >
-                Services
-            </a>
-
-            <a href="contact.html">
-                Contact
-            </a>
-
-        </nav>
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
 
-        <button
-            class="menu-btn"
-            id="menuBtn"
-            aria-label="Open navigation"
-            aria-expanded="false"
-            aria-controls="mobileMenu"
-            type="button"
-        >
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-    </header>
-
-
-    <!-- =================================
-         MOBILE MENU
-    ================================== -->
-
-    <div
-        class="mobile-menu"
-        id="mobileMenu"
-    >
+      <nav class="desktop-nav" aria-label="Main navigation">
 
         <a href="index.html">
-            Home
+          Home
+        </a>
+
+        <a href="index.html#hubs">
+          Hubs
+        </a>
+
+        <a href="index.html#how-it-works">
+          How It Works
         </a>
 
         <a href="about.html">
-            About
+          About
         </a>
 
-        <a
-            href="services.html"
-            class="active"
-        >
-            Services
+        <a href="services.html" class="active">
+          Services
         </a>
 
         <a href="contact.html">
-            Contact
+          Contact
         </a>
+
+        <a
+          href="get-started.html"
+          class="nav-cta"
+        >
+          Get Started Free
+          <span>→</span>
+        </a>
+
+      </nav>
+
+
+      <nav
+        class="mobile-menu"
+        id="mobileMenu"
+        aria-label="Mobile navigation"
+      >
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="index.html#hubs">
+          Hubs
+        </a>
+
+        <a href="index.html#how-it-works">
+          How It Works
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="services.html" class="active">
+          Services
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+        <a
+          href="get-started.html"
+          class="mobile-cta"
+        >
+          Get Started Free →
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="services-hero section">
+
+      <div class="container services-hero-grid">
+
+        <div class="hero-copy reveal">
+
+          <span class="section-label">
+            WHAT WE OFFER
+          </span>
+
+          <h1>
+            Everything you need to
+            <span>
+              keep moving forward.
+            </span>
+          </h1>
+
+          <p class="hero-lead">
+            CEO JACK LEARNING HUB brings learning,
+            practical digital skills, entrepreneurship
+            and AI support together in one connected platform.
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              href="get-started.html"
+              class="btn btn-primary"
+            >
+              Get Started Free
+              <span>→</span>
+            </a>
+
+            <a
+              href="#services"
+              class="btn btn-secondary"
+            >
+              Explore Services
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="services-visual reveal reveal-delay">
+
+          <div class="visual-card">
+
+            <div class="visual-top">
+
+              <span>
+                CEO JACK ECOSYSTEM
+              </span>
+
+              <span class="status">
+                <b></b>
+                Learning in motion
+              </span>
+
+            </div>
+
+
+            <div class="service-orbit">
+
+              <div class="orbit orbit-one"></div>
+
+              <div class="orbit orbit-two"></div>
+
+              <div class="orbit orbit-three"></div>
+
+
+              <div class="orbit-node node-education">
+                EDU
+              </div>
+
+              <div class="orbit-node node-skills">
+                SKILLS
+              </div>
+
+              <div class="orbit-node node-business">
+                BUSINESS
+              </div>
+
+
+              <div class="visual-core">
+
+                <strong>
+                  CJ
+                </strong>
+
+                <small>
+                  LEARN
+                </small>
+
+                <small>
+                  CREATE
+                </small>
+
+                <small>
+                  DEVELOP
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CORE SERVICES
+    ========================== -->
+
+    <section
+      class="section"
+      id="services"
+    >
+
+      <div class="container">
+
+        <div class="section-heading centered reveal">
+
+          <span class="section-label">
+            CORE SERVICES
+          </span>
+
+          <h2>
+            Three pathways.
+            <span>
+              One ecosystem.
+            </span>
+          </h2>
+
+          <p>
+            Start with what you need today and grow
+            into the other areas as your goals develop.
+          </p>
+
+        </div>
+
+
+        <div class="service-grid">
+
+          <!-- EDUCATION -->
+
+          <article class="service-card education reveal">
+
+            <div class="service-number">
+              01
+            </div>
+
+            <div class="service-icon">
+              ▦
+            </div>
+
+            <span class="service-tag">
+              LEARN
+            </span>
+
+            <h3>
+              Education Hub
+            </h3>
+
+            <p>
+              A structured learning environment for
+              academic development, subjects, topics,
+              lessons, practice and progress.
+            </p>
+
+            <ul>
+
+              <li>
+                Class and subject pathways
+              </li>
+
+              <li>
+                Topic-based learning
+              </li>
+
+              <li>
+                Lessons and practice
+              </li>
+
+              <li>
+                Learning progress
+              </li>
+
+            </ul>
+
+            <a href="education.html">
+              Explore Education →
+            </a>
+
+          </article>
+
+
+          <!-- DIGITAL SKILLS -->
+
+          <article class="service-card skills reveal reveal-delay">
+
+            <div class="service-number">
+              02
+            </div>
+
+            <div class="service-icon">
+              &lt;/&gt;
+            </div>
+
+            <span class="service-tag">
+              CREATE
+            </span>
+
+            <h3>
+              Digital Skills Hub
+            </h3>
+
+            <p>
+              Practical technology learning designed
+              to help learners move from consuming
+              technology to creating with it.
+            </p>
+
+            <ul>
+
+              <li>
+                Web development
+              </li>
+
+              <li>
+                Programming and coding
+              </li>
+
+              <li>
+                AI and digital tools
+              </li>
+
+              <li>
+                Practical projects
+              </li>
+
+            </ul>
+
+            <a href="digital-skills.html">
+              Explore Digital Skills →
+            </a>
+
+          </article>
+
+
+          <!-- ENTREPRENEURSHIP -->
+
+          <article class="service-card business reveal reveal-delay-2">
+
+            <div class="service-number">
+              03
+            </div>
+
+            <div class="service-icon">
+              ↗
+            </div>
+
+            <span class="service-tag">
+              DEVELOP
+            </span>
+
+            <h3>
+              Entrepreneurship Hub
+            </h3>
+
+            <p>
+              Build business awareness and financial
+              thinking while learning how ideas can
+              become useful opportunities.
+            </p>
+
+            <ul>
+
+              <li>
+                Business ideas
+              </li>
+
+              <li>
+                Financial literacy
+              </li>
+
+              <li>
+                Entrepreneurial thinking
+              </li>
+
+              <li>
+                Opportunity discovery
+              </li>
+
+            </ul>
+
+            <a href="entrepreneurship.html">
+              Explore Entrepreneurship →
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUPPORTING SERVICES
+    ========================== -->
+
+    <section class="section support-section">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <span class="section-label">
+            SUPPORTING SERVICES
+          </span>
+
+          <h2>
+            More than lessons.
+            <span>
+              A complete learning experience.
+            </span>
+          </h2>
+
+          <p>
+            The three hubs are the foundation.
+            Supporting tools help learners understand,
+            practise, organize and continue their development.
+          </p>
+
+        </div>
+
+
+        <div class="support-grid">
+
+
+          <article class="support-card reveal">
+
+            <div class="support-icon">
+              ✦
+            </div>
+
+            <div>
+
+              <h3>
+                CEO JACK AI
+              </h3>
+
+              <p>
+                Ask questions, clarify concepts,
+                explore ideas and get learning guidance.
+              </p>
+
+              <a href="ai.html">
+                Explore AI →
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="support-card reveal reveal-delay">
+
+            <div class="support-icon">
+              ✓
+            </div>
+
+            <div>
+
+              <h3>
+                Progress & Goals
+              </h3>
+
+              <p>
+                Keep track of learning activity,
+                completed work and development goals.
+              </p>
+
+              <a href="get-started.html">
+                Start Learning →
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="support-card reveal reveal-delay-2">
+
+            <div class="support-icon">
+              ⌘
+            </div>
+
+            <div>
+
+              <h3>
+                Projects & Practice
+              </h3>
+
+              <p>
+                Turn knowledge into practical work
+                through projects, exercises and creation.
+              </p>
+
+              <a href="get-started.html">
+                Build Something →
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="support-card reveal">
+
+            <div class="support-icon">
+              ◎
+            </div>
+
+            <div>
+
+              <h3>
+                Personalized Journey
+              </h3>
+
+              <p>
+                Build an experience around your interests,
+                goals and chosen learning path.
+              </p>
+
+              <a href="get-started.html">
+                Create Your Path →
+              </a>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         JOURNEY
+    ========================== -->
+
+    <section class="section journey-section">
+
+      <div class="container journey-grid">
+
+        <div class="journey-copy reveal">
+
+          <span class="section-label">
+            HOW THE SERVICES CONNECT
+          </span>
+
+          <h2>
+            Learn something.
+            <span>
+              Use it. Build with it.
+            </span>
+          </h2>
+
+          <p>
+            CEO JACK is designed to make development feel connected.
+            Academic knowledge can strengthen digital skills.
+            Digital skills can support projects. Business thinking
+            can help turn useful skills into opportunities.
+          </p>
+
+        </div>
+
+
+        <div class="journey-steps reveal reveal-delay">
+
+          <div class="journey-step">
+
+            <span>
+              01
+            </span>
+
+            <div>
+
+              <strong>
+                Learn
+              </strong>
+
+              <small>
+                Build knowledge and understanding.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="journey-step">
+
+            <span>
+              02
+            </span>
+
+            <div>
+
+              <strong>
+                Create
+              </strong>
+
+              <small>
+                Practise and turn knowledge into something real.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="journey-step">
+
+            <span>
+              03
+            </span>
+
+            <div>
+
+              <strong>
+                Develop
+              </strong>
+
+              <small>
+                Grow your skills, thinking and future direction.
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+
+    <section class="section cta-section">
+
+      <div class="container cta-box reveal">
+
+        <span class="section-label">
+          YOUR NEXT STEP
+        </span>
+
+        <h2>
+          Ready to start your
+          <span>
+            CEO JACK journey?
+          </span>
+        </h2>
+
+        <p>
+          Create your account and begin exploring
+          the learning path that fits you.
+        </p>
+
+        <a
+          href="get-started.html"
+          class="btn btn-primary"
+        >
+          Get Started Free →
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="site-footer">
+
+    <div class="container footer-top">
+
+      <div class="footer-brand">
+
+        <a
+          href="index.html"
+          class="brand"
+        >
+
+          <img
+            src="assets/images/logo1.webp"
+            alt="CEO JACK Learning Hub"
+            class="brand-logo"
+          >
+
+          <span class="brand-copy">
+
+            <strong>
+              CEO JACK
+            </strong>
+
+            <small>
+              LEARNING HUB
+            </small>
+
+          </span>
+
+        </a>
+
+        <p>
+          Learn. Create. Develop.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="index.html#hubs">
+          Hubs
+        </a>
+
+        <a href="index.html#how-it-works">
+          How It Works
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="services.html">
+          Services
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
 
     </div>
 
 
-    <main>
+    <div class="container footer-bottom">
 
+      <span>
+        ©
+        <span id="year"></span>
+        CEO JACK LEARNING HUB.
+        All rights reserved.
+      </span>
 
-        <!-- =================================
-             HERO
-        ================================== -->
+      <span>
+        Learn. Create. Develop.
+      </span>
 
-        <section class="services-hero">
+    </div>
 
-            <div class="hero-content reveal">
+  </footer>
 
-                <span class="page-tag">
-                    ✦ WHAT WE PROVIDE
-                </span>
 
-
-                <h1>
-
-                    Tools for
-                    <span>
-                        learning, creating
-                    </span>
-                    and developing.
-
-                </h1>
-
-
-                <p>
-
-                    CEO JACK LEARNING HUB brings
-                    education, practical digital skills,
-                    creative development, and
-                    entrepreneurship resources into one
-                    connected experience.
-
-                </p>
-
-
-                <div class="hero-actions">
-
-                    <a
-                        href="index.html"
-                        class="primary-btn"
-                    >
-
-                        Get Started
-
-                        <span>→</span>
-
-                    </a>
-
-
-                    <a
-                        href="about.html"
-                        class="secondary-btn"
-                    >
-
-                        Our Story
-
-                        <span>↗</span>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================
-                 HERO VISUAL
-            ================================== -->
-
-            <div class="service-visual reveal">
-
-                <div class="visual-ring ring-one"></div>
-
-                <div class="visual-ring ring-two"></div>
-
-                <div class="visual-ring ring-three"></div>
-
-
-                <div class="visual-center">
-
-                    <span class="center-code">
-                        &lt;/&gt;
-                    </span>
-
-                    <span class="center-title">
-                        BUILD
-                    </span>
-
-                    <small>
-                        YOUR FUTURE
-                    </small>
-
-                </div>
-
-
-                <div class="floating-service service-one">
-
-                    <span>
-                        01
-                    </span>
-
-                    LEARNING
-
-                </div>
-
-
-                <div class="floating-service service-two">
-
-                    <span>
-                        02
-                    </span>
-
-                    DIGITAL
-
-                </div>
-
-
-                <div class="floating-service service-three">
-
-                    <span>
-                        03
-                    </span>
-
-                    BUSINESS
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             SERVICES
-        ================================== -->
-
-        <section class="services-section">
-
-            <div class="section-heading reveal">
-
-                <span class="section-tag">
-                    CORE SERVICES
-                </span>
-
-                <h2>
-
-                    What you can
-                    <span>
-                        do here.
-                    </span>
-
-                </h2>
-
-                <p>
-
-                    The platform is designed to help
-                    users move from understanding
-                    concepts to actually applying them.
-
-                </p>
-
-            </div>
-
-
-            <div class="services-grid">
-
-
-                <!-- SERVICE 01 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            01
-                        </span>
-
-                        <span class="card-icon">
-                            ◉
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Structured Learning
-                    </h3>
-
-
-                    <p>
-
-                        Learn through organized educational
-                        content, explanations, study resources,
-                        exercises, and practical activities.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            LESSONS
-                        </span>
-
-                        <span>
-                            PRACTICE
-                        </span>
-
-                        <span>
-                            RESOURCES
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <!-- SERVICE 02 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            02
-                        </span>
-
-                        <span class="card-icon">
-                            &lt;/&gt;
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Digital Skills
-                    </h3>
-
-
-                    <p>
-
-                        Develop practical technology skills
-                        through coding, web development,
-                        AI concepts, and digital creation.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            CODE
-                        </span>
-
-                        <span>
-                            WEB
-                        </span>
-
-                        <span>
-                            AI
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <!-- SERVICE 03 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            03
-                        </span>
-
-                        <span class="card-icon">
-                            ◈
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Entrepreneurship
-                    </h3>
-
-
-                    <p>
-
-                        Explore business thinking, financial
-                        literacy, problem-solving, business
-                        ideas, and practical opportunities.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            BUSINESS
-                        </span>
-
-                        <span>
-                            MONEY
-                        </span>
-
-                        <span>
-                            IDEAS
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <!-- SERVICE 04 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            04
-                        </span>
-
-                        <span class="card-icon">
-                            ✦
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Project Building
-                    </h3>
-
-
-                    <p>
-
-                        Turn knowledge into practical work by
-                        creating projects, experimenting with
-                        ideas, and building a personal portfolio.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            PROJECTS
-                        </span>
-
-                        <span>
-                            PORTFOLIO
-                        </span>
-
-                        <span>
-                            CREATE
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <!-- SERVICE 05 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            05
-                        </span>
-
-                        <span class="card-icon">
-                            AI
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        AI-Assisted Learning
-                    </h3>
-
-
-                    <p>
-
-                        Use intelligent tools and guided
-                        assistance to explore concepts,
-                        practice skills, and accelerate
-                        your learning process.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            AI
-                        </span>
-
-                        <span>
-                            GUIDANCE
-                        </span>
-
-                        <span>
-                            DISCOVERY
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <!-- SERVICE 06 -->
-
-                <article class="service-card reveal">
-
-                    <div class="card-top">
-
-                        <span class="card-number">
-                            06
-                        </span>
-
-                        <span class="card-icon">
-                            ↗
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Personal Development
-                    </h3>
-
-
-                    <p>
-
-                        Build consistency, creativity,
-                        confidence, problem-solving ability,
-                        and a clearer direction for your future.
-
-                    </p>
-
-
-                    <div class="card-tags">
-
-                        <span>
-                            GROWTH
-                        </span>
-
-                        <span>
-                            FOCUS
-                        </span>
-
-                        <span>
-                            FUTURE
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             HOW IT WORKS
-        ================================== -->
-
-        <section class="process-section">
-
-            <div class="section-heading reveal">
-
-                <span class="section-tag">
-                    HOW IT WORKS
-                </span>
-
-                <h2>
-
-                    From idea
-                    <span>
-                        to action.
-                    </span>
-
-                </h2>
-
-            </div>
-
-
-            <div class="process-grid">
-
-
-                <article class="process-step reveal">
-
-                    <div class="step-number">
-                        01
-                    </div>
-
-                    <h3>
-                        Discover
-                    </h3>
-
-                    <p>
-
-                        Start by identifying what you want
-                        to learn, build, improve, or explore.
-
-                    </p>
-
-                </article>
-
-
-                <article class="process-step reveal">
-
-                    <div class="step-number">
-                        02
-                    </div>
-
-                    <h3>
-                        Learn
-                    </h3>
-
-                    <p>
-
-                        Follow useful content and develop
-                        an understanding of the concepts
-                        behind your goal.
-
-                    </p>
-
-                </article>
-
-
-                <article class="process-step reveal">
-
-                    <div class="step-number">
-                        03
-                    </div>
-
-                    <h3>
-                        Create
-                    </h3>
-
-                    <p>
-
-                        Put knowledge into practice by
-                        building projects and testing ideas.
-
-                    </p>
-
-                </article>
-
-
-                <article class="process-step reveal">
-
-                    <div class="step-number">
-                        04
-                    </div>
-
-                    <h3>
-                        Develop
-                    </h3>
-
-                    <p>
-
-                        Keep improving through practice,
-                        reflection, and continuous growth.
-
-                    </p>
-
-                </article>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             PLATFORM FEATURES
-        ================================== -->
-
-        <section class="features-section">
-
-            <div class="features-copy reveal">
-
-                <span class="section-tag">
-                    PLATFORM EXPERIENCE
-                </span>
-
-
-                <h2>
-
-                    Designed to
-                    <span>
-                        grow with you.
-                    </span>
-
-                </h2>
-
-
-                <p>
-
-                    CEO JACK LEARNING HUB is being designed
-                    as a connected digital ecosystem where
-                    your experience can become more personalized
-                    as you progress.
-
-                </p>
-
-            </div>
-
-
-            <div class="features-list">
-
-
-                <div class="feature-item reveal">
-
-                    <span class="feature-index">
-                        01
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Personalized Experience
-                        </h3>
-
-                        <p>
-                            Content and recommendations can
-                            adapt around your interests and goals.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item reveal">
-
-                    <span class="feature-index">
-                        02
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Practical Learning
-                        </h3>
-
-                        <p>
-                            Learn concepts and apply them
-                            through exercises and projects.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item reveal">
-
-                    <span class="feature-index">
-                        03
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Progress & Development
-                        </h3>
-
-                        <p>
-                            Build skills progressively instead
-                            of treating learning as a one-time event.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item reveal">
-
-                    <span class="feature-index">
-                        04
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            One Connected Ecosystem
-                        </h3>
-
-                        <p>
-                            Move between learning, creation,
-                            technology, and entrepreneurship
-                            as your goals develop.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             FAQ
-        ================================== -->
-
-        <section class="faq-section">
-
-            <div class="section-heading reveal">
-
-                <span class="section-tag">
-                    COMMON QUESTIONS
-                </span>
-
-                <h2>
-
-                    Questions?
-                    <span>
-                        Start here.
-                    </span>
-
-                </h2>
-
-            </div>
-
-
-            <div class="faq-container">
-
-
-                <div class="faq-item reveal">
-
-                    <button class="faq-question">
-
-                        <span>
-                            What is CEO JACK LEARNING HUB?
-                        </span>
-
-                        <span class="faq-plus">
-                            +
-                        </span>
-
-                    </button>
-
-
-                    <div class="faq-answer">
-
-                        <p>
-
-                            CEO JACK LEARNING HUB is a digital
-                            platform designed to combine learning,
-                            practical digital skills, project creation,
-                            entrepreneurship, and personal development
-                            in one connected experience.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item reveal">
-
-                    <button class="faq-question">
-
-                        <span>
-                            Who is the platform for?
-                        </span>
-
-                        <span class="faq-plus">
-                            +
-                        </span>
-
-                    </button>
-
-
-                    <div class="faq-answer">
-
-                        <p>
-
-                            The platform is being designed for
-                            learners and aspiring creators who want
-                            to learn useful skills, build projects,
-                            explore ideas, and develop themselves.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item reveal">
-
-                    <button class="faq-question">
-
-                        <span>
-                            What happens after Get Started?
-                        </span>
-
-                        <span class="faq-plus">
-                            +
-                        </span>
-
-                    </button>
-
-
-                    <div class="faq-answer">
-
-                        <p>
-
-                            The planned experience begins with
-                            account creation and onboarding.
-                            Users can then receive a more personalized
-                            experience based on their interests,
-                            goals, and learning direction.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item reveal">
-
-                    <button class="faq-question">
-
-                        <span>
-                            Can I build projects here?
-                        </span>
-
-                        <span class="faq-plus">
-                            +
-                        </span>
-
-                    </button>
-
-
-                    <div class="faq-answer">
-
-                        <p>
-
-                            Yes. A major part of the platform's
-                            philosophy is turning knowledge into
-                            action through practical projects,
-                            experiments, and creative work.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             CTA
-        ================================== -->
-
-        <section class="services-cta">
-
-            <div class="cta-box reveal">
-
-                <span class="section-tag">
-                    YOUR JOURNEY STARTS HERE
-                </span>
-
-
-                <h2>
-
-                    Ready to
-                    <span>
-                        build your future?
-                    </span>
-
-                </h2>
-
-
-                <p>
-
-                    Learn something useful.
-                    Create something meaningful.
-                    Keep developing.
-
-                </p>
-
-
-                <a
-                    href="index.html"
-                    class="cta-btn"
-                >
-
-                    Get Started
-
-                    <span>
-                        →
-                    </span>
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- =================================
-         FOOTER
-    ================================== -->
-
-    <footer>
-
-        <div class="footer-brand">
-
-            <strong>
-                CEO JACK LEARNING HUB
-            </strong>
-
-            <span>
-                Learn. Create. Develop.
-            </span>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
-            <a href="services.html">
-                Services
-            </a>
-
-            <a href="contact.html">
-                Contact
-            </a>
-
-        </div>
-
-
-        <p>
-            © 2026 CEO JACK LEARNING HUB
-        </p>
-
-    </footer>
-
-
-    <script src="js/services.js"></script>
+  <script src="js/services.js" defer></script>
 
 </body>
-
 </html>

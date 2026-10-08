@@ -3,208 +3,175 @@
    ABOUT PAGE JAVASCRIPT
 ========================================= */
 
+"use strict";
 
-/* =========================================
-   MOBILE NAVIGATION
-========================================= */
 
-const menuBtn =
-    document.getElementById("menuBtn");
+/* =========================
+   MOBILE MENU
+========================= */
 
-const mobileMenu =
-    document.getElementById("mobileMenu");
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+
+function closeMobileMenu() {
+
+  if (!menuBtn || !mobileMenu) {
+    return;
+  }
+
+  mobileMenu.classList.remove("active");
+
+  menuBtn.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  menuBtn.setAttribute(
+    "aria-label",
+    "Open navigation"
+  );
+}
 
 
 if (menuBtn && mobileMenu) {
 
-    menuBtn.addEventListener(
-        "click",
-        () => {
-            const isOpen = mobileMenu.classList.toggle("active");
-            menuBtn.setAttribute("aria-expanded", String(isOpen));
-            menuBtn.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  menuBtn.addEventListener("click", () => {
 
-        }
+    const isOpen =
+      mobileMenu.classList.toggle("active");
+
+    menuBtn.setAttribute(
+      "aria-expanded",
+      String(isOpen)
     );
 
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen
+        ? "Close navigation"
+        : "Open navigation"
+    );
 
-    const mobileLinks =
-        mobileMenu.querySelectorAll("a");
+  });
 
 
-    mobileLinks.forEach(link => {
+  mobileMenu
+    .querySelectorAll("a")
+    .forEach(link => {
 
-        link.addEventListener(
-            "click",
-            () => {
+      link.addEventListener(
+        "click",
+        closeMobileMenu
+      );
 
-                mobileMenu.classList.remove(
-                    "active"
-                );
-                menuBtn.setAttribute("aria-expanded", "false");
-                menuBtn.setAttribute("aria-label", "Open navigation");
-
-            }
-        );
-
-    });
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && mobileMenu.classList.contains("active")) {
-            mobileMenu.classList.remove("active");
-            menuBtn.setAttribute("aria-expanded", "false");
-            menuBtn.setAttribute("aria-label", "Open navigation");
-            menuBtn.focus();
-        }
     });
 
 }
 
 
-/* =========================================
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+
+  }
+);
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    if (window.innerWidth > 780) {
+      closeMobileMenu();
+    }
+
+  }
+);
+
+
+/* =========================
    SCROLL REVEAL
-========================================= */
+========================= */
 
 const revealElements =
-    document.querySelectorAll(".reveal");
+  document.querySelectorAll(".reveal");
 
 
-const revealObserver =
-    "IntersectionObserver" in window ? new IntersectionObserver(
-        (entries, observer) => {
+if ("IntersectionObserver" in window) {
 
-            entries.forEach(entry => {
+  const observer =
+    new IntersectionObserver(
+      (entries, obs) => {
 
-                if (
-                    entry.isIntersecting
-                ) {
+        entries.forEach(entry => {
 
-                    entry.target.classList.add(
-                        "show"
-                    );
-
-                    observer.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.15
-        }
-    ) : null;
-
-
-revealElements.forEach(element => {
-
-    if (revealObserver) revealObserver.observe(element);
-    else element.classList.add("show");
-
-});
-
-
-/* =========================================
-   SUBTLE MOUSE MOVEMENT
-========================================= */
-
-const aboutVisual =
-    document.querySelector(
-        ".about-visual"
-    );
-
-
-document.addEventListener(
-    "mousemove",
-    event => {
-
-        if (
-            !aboutVisual ||
-            window.innerWidth < 950
-        ) {
+          if (!entry.isIntersecting) {
             return;
-        }
+          }
 
+          entry.target.classList.add("show");
 
-        const x =
-            (
-                window.innerWidth / 2 -
-                event.clientX
-            ) / 60;
-
-
-        const y =
-            (
-                window.innerHeight / 2 -
-                event.clientY
-            ) / 60;
-
-
-        aboutVisual.style.transform =
-            `translate(${x}px, ${y}px)`;
-
-    }
-);
-
-
-/* =========================================
-   RESET MOUSE EFFECT
-========================================= */
-
-document.addEventListener(
-    "mouseleave",
-    () => {
-
-        if (aboutVisual) {
-
-            aboutVisual.style.transform =
-                "translate(0, 0)";
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   ACTIVE PAGE
-========================================= */
-
-const currentPage =
-    window.location.pathname;
-
-
-if (
-    currentPage.includes("about")
-) {
-
-    document
-        .querySelectorAll(
-            ".nav-links a"
-        )
-        .forEach(link => {
-
-            link.classList.remove(
-                "active"
-            );
+          obs.unobserve(
+            entry.target
+          );
 
         });
 
+      },
+      {
+        threshold: 0.12,
 
-    const aboutLink =
-        document.querySelector(
-            '.nav-links a[href="about.html"]'
-        );
+        rootMargin:
+          "0px 0px -35px 0px"
+      }
+    );
 
 
-    if (aboutLink) {
+  revealElements.forEach(
+    element => observer.observe(element)
+  );
 
-        aboutLink.classList.add(
-            "active"
-        );
+} else {
 
-    }
+  revealElements.forEach(
+    element => element.classList.add("show")
+  );
 
 }
+
+
+/* =========================
+   CURRENT YEAR
+========================= */
+
+const yearElement =
+  document.getElementById("year");
+
+if (yearElement) {
+
+  yearElement.textContent =
+    new Date().getFullYear();
+
+}
+
+
+/* =========================
+   PUBLIC API
+========================= */
+
+window.CeoJackAbout = {
+  closeMobileMenu
+};

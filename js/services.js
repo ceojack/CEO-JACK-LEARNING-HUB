@@ -3,243 +3,175 @@
    SERVICES PAGE JAVASCRIPT
 ========================================= */
 
-(() => {
+"use strict";
 
-    /* =====================================
-       MOBILE MENU
-    ====================================== */
 
-    const menuButton =
-        document.getElementById("menuBtn");
+/* =========================
+   MOBILE MENU
+========================= */
 
-    const mobileNavigation =
-        document.getElementById("mobileMenu");
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
 
 
-    if (menuButton && mobileNavigation) {
+function closeMobileMenu() {
 
-        menuButton.addEventListener("click", () => {
+  if (!menuBtn || !mobileMenu) {
+    return;
+  }
 
-            const isOpen =
-                mobileNavigation.classList.toggle("active");
+  mobileMenu.classList.remove("active");
 
-            menuButton.setAttribute("aria-expanded", String(isOpen));
-            menuButton.setAttribute(
-                "aria-label",
-                isOpen ? "Close navigation" : "Open navigation"
-            );
+  menuBtn.setAttribute(
+    "aria-expanded",
+    "false"
+  );
 
-        });
+  menuBtn.setAttribute(
+    "aria-label",
+    "Open navigation"
+  );
+}
 
 
-        const mobileLinks =
-            mobileNavigation.querySelectorAll("a");
+if (menuBtn && mobileMenu) {
 
+  menuBtn.addEventListener("click", () => {
 
-        mobileLinks.forEach((link) => {
+    const isOpen =
+      mobileMenu.classList.toggle("active");
 
-            link.addEventListener("click", () => {
+    menuBtn.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
 
-                mobileNavigation.classList.remove("active");
-                menuButton.setAttribute("aria-expanded", "false");
-                menuButton.setAttribute("aria-label", "Open navigation");
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen
+        ? "Close navigation"
+        : "Open navigation"
+    );
 
-            });
+  });
 
-        });
 
-        document.addEventListener("keydown", (event) => {
+  mobileMenu
+    .querySelectorAll("a")
+    .forEach(link => {
 
-            if (event.key === "Escape" && mobileNavigation.classList.contains("active")) {
-
-                mobileNavigation.classList.remove("active");
-                menuButton.setAttribute("aria-expanded", "false");
-                menuButton.setAttribute("aria-label", "Open navigation");
-                menuButton.focus();
-
-            }
-
-        });
-
-    }
-
-
-    /* =====================================
-       SCROLL REVEAL
-    ====================================== */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
-
-    if ("IntersectionObserver" in window) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach((entry) => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add("show");
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-
-        revealElements.forEach((element) => {
-
-            revealObserver.observe(element);
-
-        });
-
-    } else {
-
-        /* Fallback for older browsers */
-
-        revealElements.forEach((element) => {
-
-            element.classList.add("show");
-
-        });
-
-    }
-
-
-    /* =====================================
-       FAQ ACCORDION
-    ====================================== */
-
-    const faqItems =
-        document.querySelectorAll(".faq-item");
-
-
-    faqItems.forEach((item, index) => {
-
-        const question =
-            item.querySelector(".faq-question");
-
-        const answer =
-            item.querySelector(".faq-answer");
-
-
-        if (!question || !answer) {
-            return;
-        }
-
-        const answerId = `faq-answer-${index + 1}`;
-
-        question.type = "button";
-        question.setAttribute("aria-expanded", "false");
-        question.setAttribute("aria-controls", answerId);
-        answer.id = answerId;
-
-
-        question.addEventListener("click", () => {
-
-            const isOpen =
-                item.classList.contains("open");
-
-
-            /* Close every FAQ */
-
-            faqItems.forEach((otherItem) => {
-
-                const otherAnswer =
-                    otherItem.querySelector(".faq-answer");
-
-
-                otherItem.classList.remove("open");
-                const otherQuestion =
-                    otherItem.querySelector(".faq-question");
-
-                if (otherQuestion) {
-
-                    otherQuestion.setAttribute("aria-expanded", "false");
-
-                }
-
-
-                if (otherAnswer) {
-
-                    otherAnswer.style.maxHeight = null;
-
-                }
-
-            });
-
-
-            /* Open clicked FAQ */
-
-            if (!isOpen) {
-
-                item.classList.add("open");
-                question.setAttribute("aria-expanded", "true");
-
-                answer.style.maxHeight =
-                    `${answer.scrollHeight}px`;
-
-            }
-
-        });
+      link.addEventListener(
+        "click",
+        closeMobileMenu
+      );
 
     });
 
-
-    /* =====================================
-       HERO PARALLAX
-    ====================================== */
-
-    const serviceVisual =
-        document.querySelector(".service-visual");
+}
 
 
-    if (serviceVisual) {
+/* =========================
+   ESCAPE KEY
+========================= */
 
-        document.addEventListener("mousemove", (event) => {
+document.addEventListener(
+  "keydown",
+  event => {
 
-            /* Disable parallax on smaller screens */
-
-            if (window.innerWidth < 950) {
-                serviceVisual.style.transform = "translate(0, 0)";
-                return;
-            }
-
-
-            const x =
-                (window.innerWidth / 2 - event.clientX) / 70;
-
-
-            const y =
-                (window.innerHeight / 2 - event.clientY) / 70;
-
-
-            serviceVisual.style.transform =
-                `translate(${x}px, ${y}px)`;
-
-        });
-
-
-        document.addEventListener("mouseleave", () => {
-
-            serviceVisual.style.transform =
-                "translate(0, 0)";
-
-        });
-
+    if (event.key === "Escape") {
+      closeMobileMenu();
     }
 
+  }
+);
 
-})();
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    if (window.innerWidth > 780) {
+      closeMobileMenu();
+    }
+
+  }
+);
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+
+if ("IntersectionObserver" in window) {
+
+  const observer =
+    new IntersectionObserver(
+      (entries, obs) => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("show");
+
+          obs.unobserve(
+            entry.target
+          );
+
+        });
+
+      },
+      {
+        threshold: 0.12,
+
+        rootMargin:
+          "0px 0px -35px 0px"
+      }
+    );
+
+
+  revealElements.forEach(
+    element => observer.observe(element)
+  );
+
+} else {
+
+  revealElements.forEach(
+    element => element.classList.add("show")
+  );
+
+}
+
+
+/* =========================
+   CURRENT YEAR
+========================= */
+
+const yearElement =
+  document.getElementById("year");
+
+if (yearElement) {
+
+  yearElement.textContent =
+    new Date().getFullYear();
+
+}
+
+
+/* =========================
+   PUBLIC API
+========================= */
+
+window.CeoJackServices = {
+  closeMobileMenu
+};

@@ -1,241 +1,103 @@
 
-/* =========================================
-   CEO JACK LEARNING HUB
-   GET STARTED PAGE JAVASCRIPT
-========================================= */
-
+/* CEO JACK LEARNING HUB — Get Started */
 (() => {
+  "use strict";
 
-    /* =====================================
-       BUTTONS
-    ====================================== */
+  const createAccountButton = document.getElementById("createAccountBtn");
+  const signInButton = document.getElementById("signInBtn");
+  const startMessage = document.getElementById("startMessage");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navigation = document.getElementById("primary-navigation");
 
-    const createAccountButton =
-        document.getElementById("createAccountBtn");
+  function showMessage(message) {
+    if (startMessage) {
+      startMessage.textContent = message;
+    }
+  }
 
-    const signInButton =
-        document.getElementById("signInBtn");
-
-    const guestButton =
-        document.getElementById("guestBtn");
-
-    const startMessage =
-        document.getElementById("startMessage");
-
-
-    /* =====================================
-       MESSAGE HELPER
-    ====================================== */
-
-    function showMessage(message, type = "info") {
-
-        if (!startMessage) {
-            return;
-        }
-
-        startMessage.textContent = message;
-
-        startMessage.className =
-            `start-message ${type}`;
-
+  function navigateToAuth(mode, button) {
+    if (button) {
+      button.disabled = true;
     }
 
+    showMessage(
+      mode === "signup"
+        ? "Taking you to account creation…"
+        : "Taking you to sign in…"
+    );
 
-    /* =====================================
-       CREATE ACCOUNT
-    ====================================== */
+    // auth.html must exist and implement real authentication.
+    window.location.href = `auth.html?mode=${encodeURIComponent(mode)}`;
+  }
 
-    if (createAccountButton) {
+  createAccountButton?.addEventListener("click", () => {
+    navigateToAuth("signup", createAccountButton);
+  });
 
-        createAccountButton.addEventListener(
-            "click",
-            () => {
+  signInButton?.addEventListener("click", () => {
+    navigateToAuth("signin", signInButton);
+  });
 
-                showMessage(
-                    "Opening account creation...",
-                    "info"
-                );
+  // Visitors can explore public hubs without an account.
+  document.getElementById("guestBtn")?.addEventListener("click", () => {
+    showMessage("You can explore the hubs without creating an account.");
+  });
 
+  // Responsive mobile navigation.
+  if (menuToggle && navigation) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
 
-                createAccountButton.disabled =
-                    true;
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Open navigation menu" : "Close navigation menu"
+      );
 
+      navigation.classList.toggle("is-open", !isOpen);
+    });
 
-                window.location.href = "auth.html?mode=signup";
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+      });
+    });
 
-            }
-        );
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+        menuToggle.focus();
+      }
+    });
+  }
 
-    }
+  // Scroll reveal, with a fallback for reduced-motion preferences.
+  const revealElements = document.querySelectorAll(".reveal");
 
-
-    /* =====================================
-       SIGN IN
-    ====================================== */
-
-    if (signInButton) {
-
-        signInButton.addEventListener(
-            "click",
-            () => {
-
-                showMessage(
-                    "Opening sign in...",
-                    "info"
-                );
-
-
-                signInButton.disabled =
-                    true;
-
-
-                window.location.href = "auth.html?mode=signin";
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       EXPLORE FIRST
-    ====================================== */
-
-    if (guestButton) {
-
-        guestButton.addEventListener(
-            "click",
-            () => {
-
-                showMessage(
-                    "Opening your learning space.",
-                    "info"
-                );
-
-
-                setTimeout(() => {
-
-                    window.location.href =
-                        "dashboard.html";
-
-                }, 600);
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-       SCROLL REVEAL
-    ====================================== */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
-
-    if ("IntersectionObserver" in window) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach((entry) => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add(
-                                "show"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-
-        revealElements.forEach((element) => {
-
-            revealObserver.observe(element);
-
+  if (
+    "IntersectionObserver" in window &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            currentObserver.unobserve(entry.target);
+          }
         });
+      },
+      { threshold: 0.12 }
+    );
 
-    } else {
-
-        revealElements.forEach((element) => {
-
-            element.classList.add("show");
-
-        });
-
-    }
-
-
-    /* =====================================
-       CARD PARALLAX
-    ====================================== */
-
-    const startCard =
-        document.querySelector(".start-card");
-
-
-    if (startCard) {
-
-        document.addEventListener(
-            "mousemove",
-            (event) => {
-
-                if (window.innerWidth < 950) {
-
-                    startCard.style.transform =
-                        "translate(0, 0)";
-
-                    return;
-
-                }
-
-
-                const x =
-                    (
-                        window.innerWidth / 2 -
-                        event.clientX
-                    ) / 100;
-
-
-                const y =
-                    (
-                        window.innerHeight / 2 -
-                        event.clientY
-                    ) / 100;
-
-
-                startCard.style.transform =
-                    `translate(${x}px, ${y}px)`;
-
-            }
-        );
-
-
-        document.addEventListener(
-            "mouseleave",
-            () => {
-
-                startCard.style.transform =
-                    "translate(0, 0)";
-
-            }
-        );
-
-    }
-
-
+    revealElements.forEach((element) => observer.observe(element));
+  } else {
+    revealElements.forEach((element) => {
+      element.classList.add("is-visible");
+    });
+  }
 })();

@@ -1,697 +1,428 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact CEO JACK LEARNING HUB with questions, feedback, ideas or collaboration enquiries.">
+  <meta name="theme-color" content="#080d1b">
 
-    <meta charset="UTF-8">
+  <title>Contact | CEO JACK LEARNING HUB</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <meta
-        name="description"
-        content="Contact CEO JACK LEARNING HUB for questions, feedback, support, and collaboration."
-    >
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-    <title>Contact | CEO JACK LEARNING HUB</title>
-
-    <link
-        rel="stylesheet"
-        href="css/contact.css"
-    >
-
+  <link rel="icon" href="assets/images/logo1.webp">
+  <link rel="stylesheet" href="css/contact.css">
 </head>
-
 
 <body>
 
+  <div class="page-bg" aria-hidden="true"></div>
 
-    <!-- =================================
-         BACKGROUND
-    ================================== -->
+  <!-- HEADER: CONSISTENT ACROSS ALL PUBLIC PAGES -->
+  <header class="site-header">
+    <div class="container nav-wrap">
 
-    <div class="background">
-
-        <div class="grid"></div>
-
-        <div class="glow glow-one"></div>
-
-        <div class="glow glow-two"></div>
-
-        <div class="particles">
-
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================
-         NAVIGATION
-    ================================== -->
-
-    <header class="navbar">
-
-        <a
-            href="index.html"
-            class="logo"
+      <a href="index.html" class="brand" aria-label="CEO JACK Learning Hub home">
+        <img
+          src="assets/images/logo1.webp"
+          alt="CEO JACK Learning Hub logo"
+          class="brand-logo"
         >
 
-            <span class="logo-mark">
-                &lt;/&gt;
-            </span>
+        <span class="brand-copy">
+          <strong>CEO JACK</strong>
+          <small>LEARNING HUB</small>
+        </span>
+      </a>
 
-            <span class="logo-text">
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-                CEO JACK
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#hubs">Hubs</a>
+        <a href="index.html#how-it-works">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" class="active" aria-current="page">Contact</a>
 
-                <small>
-                    LEARNING HUB
-                </small>
-
-            </span>
-
+        <a href="get-started.html" class="nav-cta">
+          Get Started Free <span>→</span>
         </a>
+      </nav>
 
-
-        <nav class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
-            <a href="services.html">
-                Services
-            </a>
-
-            <a
-                href="contact.html"
-                class="active"
-            >
-                Contact
-            </a>
-
-        </nav>
-
-
-        <button
-            class="menu-btn"
-            id="menuBtn"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-        >
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-    </header>
-
-
-    <!-- =================================
-         MOBILE MENU
-    ================================== -->
-
-    <div
+      <nav
         class="mobile-menu"
         id="mobileMenu"
-    >
+        aria-label="Mobile navigation"
+      >
+        <a href="index.html">Home</a>
+        <a href="index.html#hubs">Hubs</a>
+        <a href="index.html#how-it-works">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" class="active" aria-current="page">Contact</a>
 
-        <a href="index.html">
-            Home
+        <a href="get-started.html" class="mobile-cta">
+          Get Started Free →
         </a>
-
-        <a href="about.html">
-            About
-        </a>
-
-        <a href="services.html">
-            Services
-        </a>
-
-        <a
-            href="contact.html"
-            class="active"
-        >
-            Contact
-        </a>
+      </nav>
 
     </div>
+  </header>
 
 
-    <main>
+  <main>
 
+    <!-- HERO -->
+    <section class="contact-hero section">
+      <div class="container hero-grid">
 
-        <!-- =================================
-             CONTACT HERO
-        ================================== -->
+        <div class="hero-copy reveal">
 
-        <section class="contact-hero">
+          <span class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            GET IN TOUCH
+          </span>
 
-            <div class="hero-content reveal">
+          <h1>
+            Let's start a
+            <span>conversation.</span>
+          </h1>
 
-                <span class="page-tag">
-                    ✦ GET IN TOUCH
-                </span>
+          <p class="hero-lead">
+            Have a question, suggestion, idea or feedback?
+            We want to hear from you as CEO JACK LEARNING HUB grows.
+          </p>
 
+          <div class="contact-points">
 
-                <h1>
+            <a
+              class="contact-point"
+              href="mailto:hello@ceojacklearninghub.com"
+            >
+              <span class="point-icon" aria-hidden="true">@</span>
 
-                    Let's start a
-                    <span>
-                        conversation.
-                    </span>
+              <span>
+                <strong>Email</strong>
+                <small>hello@ceojacklearninghub.com</small>
+              </span>
 
-                </h1>
+              <span class="point-arrow" aria-hidden="true">↗</span>
+            </a>
 
+            <div class="contact-point">
+              <span class="point-icon" aria-hidden="true">?</span>
 
-                <p>
-
-                    Have a question, suggestion, idea,
-                    feedback, or something you'd like
-                    to discuss? Reach out to CEO JACK
-                    LEARNING HUB.
-
-                </p>
-
-
-                <div class="contact-points">
-
-                    <div class="contact-point">
-
-                        <span class="point-icon">
-                            @
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Email
-                            </strong>
-
-                            <p>
-                                hello@ceojacklearninghub.com
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="contact-point">
-
-                        <span class="point-icon">
-                            ?
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Support
-                            </strong>
-
-                            <p>
-                                Questions about the platform?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="contact-point">
-
-                        <span class="point-icon">
-                            ✦
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Ideas & Feedback
-                            </strong>
-
-                            <p>
-                                Help us improve the experience.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+              <span>
+                <strong>Platform support</strong>
+                <small>Questions about learning or using the platform</small>
+              </span>
             </div>
 
+            <div class="contact-point">
+              <span class="point-icon" aria-hidden="true">✦</span>
 
-            <!-- =================================
-                 CONTACT VISUAL
-            ================================== -->
-
-            <div class="contact-visual reveal">
-
-                <div class="visual-ring ring-one"></div>
-
-                <div class="visual-ring ring-two"></div>
-
-                <div class="visual-ring ring-three"></div>
-
-
-                <div class="communication-core">
-
-                    <span class="core-symbol">
-                        ✦
-                    </span>
-
-                    <span class="core-title">
-                        CONNECT
-                    </span>
-
-                    <small>
-                        START THE CONVERSATION
-                    </small>
-
-                </div>
-
-
-                <div class="signal signal-one">
-                    MESSAGE
-                </div>
-
-                <div class="signal signal-two">
-                    IDEA
-                </div>
-
-                <div class="signal signal-three">
-                    RESPONSE
-                </div>
-
+              <span>
+                <strong>Ideas &amp; feedback</strong>
+                <small>Share ways we can make the experience better</small>
+              </span>
             </div>
 
-        </section>
+          </div>
+        </div>
 
 
-        <!-- =================================
-             CONTACT CONTENT
-        ================================== -->
+        <!-- CONTACT VISUAL -->
+        <div
+          class="contact-visual reveal reveal-delay"
+          aria-label="Connect, share ideas and start a conversation"
+        >
 
-        <section class="contact-section">
+          <div class="visual-orbit orbit-one"></div>
+          <div class="visual-orbit orbit-two"></div>
+          <div class="visual-orbit orbit-three"></div>
 
-            <div class="contact-grid">
+          <div class="visual-core">
+            <span class="core-symbol">✦</span>
+            <strong>CONNECT</strong>
+            <small>START A CONVERSATION</small>
+          </div>
 
+          <span class="signal signal-one">MESSAGE</span>
+          <span class="signal signal-two">IDEA</span>
+          <span class="signal signal-three">FEEDBACK</span>
 
-                <!-- =================================
-                     FORM
-                ================================== -->
+        </div>
 
-                <div class="form-wrapper reveal">
+      </div>
+    </section>
 
-                    <div class="section-heading left">
 
-                        <span class="section-tag">
-                            SEND A MESSAGE
-                        </span>
+    <!-- CONTACT FORM -->
+    <section class="contact-section section" id="send-message">
+      <div class="container contact-grid">
 
-                        <h2>
-                            Tell us what is
-                            <span>
-                                on your mind.
-                            </span>
-                        </h2>
+        <div class="form-column reveal">
 
-                        <p>
-                            Complete the form below and
-                            we'll have your message ready
-                            for the future contact system.
-                        </p>
+          <div class="section-heading">
+            <span class="section-label">SEND A MESSAGE</span>
 
-                    </div>
+            <h2>
+              Tell us what's
+              <span>on your mind.</span>
+            </h2>
 
+            <p>
+              Complete the form and your email application will open
+              with your message prepared. This page does not yet send
+              messages to a server.
+            </p>
+          </div>
 
-                    <form
-                        id="contactForm"
-                        class="contact-form"
-                        novalidate
-                    >
 
+          <form id="contactForm" class="contact-form" novalidate>
 
-                        <div class="form-row">
+            <div class="form-row">
 
-                            <div class="form-group">
+              <div class="form-group">
+                <label for="name">Your name</label>
 
-                                <label for="name">
-                                    Your Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Enter your name"
-                                    autocomplete="name"
-                                    required
-                                >
-
-                                <small
-                                    class="error-message"
-                                    id="nameError"
-                                ></small>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="email">
-                                    Email Address
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="you@example.com"
-                                    autocomplete="email"
-                                    required
-                                >
-
-                                <small
-                                    class="error-message"
-                                    id="emailError"
-                                ></small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="subject">
-                                Subject
-                            </label>
-
-                            <select
-                                id="subject"
-                                name="subject"
-                                required
-                            >
-
-                                <option value="">
-                                    Select a subject
-                                </option>
-
-                                <option value="question">
-                                    General Question
-                                </option>
-
-                                <option value="support">
-                                    Technical Support
-                                </option>
-
-                                <option value="feedback">
-                                    Feedback
-                                </option>
-
-                                <option value="partnership">
-                                    Partnership
-                                </option>
-
-                                <option value="idea">
-                                    Suggestion / Idea
-                                </option>
-
-                            </select>
-
-                            <small
-                                class="error-message"
-                                id="subjectError"
-                            ></small>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="message">
-                                Your Message
-                            </label>
-
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="7"
-                                maxlength="1000"
-                                placeholder="Write your message here..."
-                                required
-                            ></textarea>
-
-                            <div class="textarea-footer">
-
-                                <small
-                                    class="error-message"
-                                    id="messageError"
-                                ></small>
-
-                                <span id="characterCount">
-                                    0 / 1000
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="submit-btn"
-                            id="submitBtn"
-                        >
-
-                            <span>
-                                Send Message
-                            </span>
-
-                            <span class="submit-arrow">
-                                →
-                            </span>
-
-                        </button>
-
-
-                        <div
-                            class="form-status"
-                            id="formStatus"
-                            role="status"
-                            aria-live="polite"
-                        ></div>
-
-                    </form>
-
-                </div>
-
-
-                <!-- =================================
-                     SIDE INFORMATION
-                ================================== -->
-
-                <aside class="contact-sidebar reveal">
-
-
-                    <div class="side-card">
-
-                        <span class="side-card-tag">
-                            CEO JACK
-                        </span>
-
-                        <h3>
-                            Communication
-                            matters.
-                        </h3>
-
-                        <p>
-
-                            Great platforms are built by
-                            listening to the people who use
-                            them. Your questions, ideas, and
-                            feedback can help shape the
-                            experience.
-
-                        </p>
-
-                    </div>
-
-
-                    <div class="side-card quick-card">
-
-                        <span class="section-tag">
-                            QUICK LINKS
-                        </span>
-
-
-                        <a href="about.html">
-
-                            <span>
-                                Learn about us
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </a>
-
-
-                        <a href="services.html">
-
-                            <span>
-                                Explore our services
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </a>
-
-
-                        <a href="index.html">
-
-                            <span>
-                                Return to home
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                </aside>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             CTA
-        ================================== -->
-
-        <section class="contact-cta">
-
-            <div class="cta-box reveal">
-
-                <span class="section-tag">
-                    READY WHEN YOU ARE
-                </span>
-
-
-                <h2>
-
-                    Learn.
-                    Create.
-                    <span>
-                        Develop.
-                    </span>
-
-                </h2>
-
-
-                <p>
-                    Your journey begins with one step.
-                </p>
-
-
-                <a
-                    href="index.html"
-                    class="cta-btn"
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Enter your name"
+                  autocomplete="name"
+                  required
+                  minlength="2"
+                  aria-describedby="nameError"
                 >
 
-                    Back to Home
+                <small class="error-message" id="nameError"></small>
+              </div>
 
-                    <span>
-                        →
-                    </span>
 
-                </a>
+              <div class="form-group">
+                <label for="email">Email address</label>
+
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                  aria-describedby="emailError"
+                >
+
+                <small class="error-message" id="emailError"></small>
+              </div>
 
             </div>
 
-        </section>
 
-    </main>
+            <div class="form-group">
+              <label for="subject">What is this about?</label>
+
+              <select
+                id="subject"
+                name="subject"
+                required
+                aria-describedby="subjectError"
+              >
+                <option value="">Select a subject</option>
+                <option value="General question">General question</option>
+                <option value="Technical support">Technical support</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Partnership">Partnership or collaboration</option>
+                <option value="Suggestion or idea">Suggestion or idea</option>
+              </select>
+
+              <small class="error-message" id="subjectError"></small>
+            </div>
 
 
-    <!-- =================================
-         FOOTER
-    ================================== -->
+            <div class="form-group">
 
-    <footer>
+              <div class="label-row">
+                <label for="message">Your message</label>
+                <span id="characterCount">0 / 1000</span>
+              </div>
 
-        <div class="footer-brand">
+              <textarea
+                id="message"
+                name="message"
+                rows="7"
+                maxlength="1000"
+                placeholder="Tell us how we can help..."
+                required
+                minlength="10"
+                aria-describedby="messageError characterCount"
+              ></textarea>
 
-            <strong>
-                CEO JACK LEARNING HUB
-            </strong>
+              <small class="error-message" id="messageError"></small>
 
-            <span>
-                Learn. Create. Develop.
-            </span>
+            </div>
+
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <span>Prepare email</span>
+              <span aria-hidden="true">→</span>
+            </button>
+
+            <p
+              class="form-status"
+              id="formStatus"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <p class="privacy-note">
+              Please don't include passwords or other sensitive information.
+            </p>
+
+          </form>
 
         </div>
 
 
-        <div class="footer-links">
+        <!-- SIDEBAR -->
+        <aside class="contact-sidebar reveal reveal-delay">
 
-            <a href="index.html">
-                Home
-            </a>
+          <div class="side-card feature-card">
+
+            <span class="section-label">CEO JACK LEARNING HUB</span>
+
+            <h3>
+              Good communication builds better experiences.
+            </h3>
+
+            <p>
+              Your questions, suggestions and feedback help us
+              understand what learners need as the platform develops.
+            </p>
+
+            <div class="mini-rule"></div>
+
+            <p class="side-motto">
+              Learn. Create. Develop.
+            </p>
+
+          </div>
+
+
+          <div class="side-card quick-card">
+
+            <span class="section-label">EXPLORE MORE</span>
 
             <a href="about.html">
-                About
+              <span>Learn about us</span>
+              <span>↗</span>
             </a>
 
             <a href="services.html">
-                Services
+              <span>Explore our services</span>
+              <span>↗</span>
             </a>
 
-            <a href="contact.html">
-                Contact
+            <a href="index.html#hubs">
+              <span>Discover the three hubs</span>
+              <span>↗</span>
             </a>
 
-        </div>
+          </div>
 
+        </aside>
+
+      </div>
+    </section>
+
+
+    <!-- FINAL CTA -->
+    <section class="cta-section section">
+      <div class="container cta-box reveal">
+
+        <span class="section-label">YOUR NEXT STEP</span>
+
+        <h2>
+          Learn. Create.
+          <span>Develop.</span>
+        </h2>
 
         <p>
-            © 2026 CEO JACK LEARNING HUB
+          Your journey can begin today. Explore the platform
+          and choose the path that fits your goals.
         </p>
 
-    </footer>
+        <a href="get-started.html" class="btn btn-primary">
+          Get Started Free <span>→</span>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
 
 
-    <script src="js/contact.js"></script>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+
+          <img
+            src="assets/images/logo1.webp"
+            alt="CEO JACK Learning Hub logo"
+            class="brand-logo"
+          >
+
+          <span class="brand-copy">
+            <strong>CEO JACK</strong>
+            <small>LEARNING HUB</small>
+          </span>
+
+        </a>
+
+        <p>Learn. Create. Develop.</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+
+    <div class="container footer-bottom">
+      <span>
+        © <span id="year"></span> CEO JACK LEARNING HUB. All rights reserved.
+      </span>
+
+      <span>Built for people building their future.</span>
+    </div>
+  </footer>
+
+  <script src="js/contact.js" defer></script>
 
 </body>
-
 </html>
