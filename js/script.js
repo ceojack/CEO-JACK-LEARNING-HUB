@@ -1,7 +1,9 @@
 /* =========================================
    CEO JACK LEARNING HUB
-   WELCOME PAGE JAVASCRIPT
+   HOMEPAGE JAVASCRIPT
 ========================================= */
+
+"use strict";
 
 
 /* =========================================
@@ -12,237 +14,234 @@ const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 
 
-if (menuBtn && mobileMenu) menuBtn.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.toggle("active");
-    menuBtn.setAttribute("aria-expanded", String(isOpen));
-    menuBtn.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-});
+function closeMobileMenu() {
+
+  if (!mobileMenu || !menuBtn) {
+    return;
+  }
+
+  mobileMenu.classList.remove("active");
+
+  menuBtn.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  menuBtn.setAttribute(
+    "aria-label",
+    "Open navigation"
+  );
+}
 
 
-/* Close mobile menu when a link is clicked */
+if (menuBtn && mobileMenu) {
 
-const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
+  menuBtn.addEventListener("click", () => {
+
+    const isOpen =
+      mobileMenu.classList.toggle("active");
+
+    menuBtn.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen
+        ? "Close navigation"
+        : "Open navigation"
+    );
+
+  });
 
 
-mobileLinks.forEach(link => {
+  mobileMenu
+    .querySelectorAll("a")
+    .forEach((link) => {
 
-    link.addEventListener("click", () => {
-
-        mobileMenu.classList.remove("active");
-        menuBtn?.setAttribute("aria-expanded", "false");
-        menuBtn?.setAttribute("aria-label", "Open navigation");
+      link.addEventListener(
+        "click",
+        closeMobileMenu
+      );
 
     });
-
-});
-
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && mobileMenu?.classList.contains("active")) {
-        mobileMenu.classList.remove("active");
-        menuBtn?.setAttribute("aria-expanded", "false");
-        menuBtn?.setAttribute("aria-label", "Open navigation");
-        menuBtn?.focus();
-    }
-});
-
-
-/* =========================================
-   TYPING ANIMATION
-========================================= */
-
-const typingText =
-    document.getElementById("typingText");
-
-
-const words = [
-    "LEARNING HUB",
-    "DIGITAL FUTURE",
-    "CREATIVE SPACE",
-    "YOUR NEXT STEP"
-];
-
-
-let wordIndex = 0;
-let characterIndex = 0;
-let deleting = false;
-
-
-function typeEffect() {
-
-    const currentWord =
-        words[wordIndex];
-
-
-    if (!deleting) {
-
-        typingText.textContent =
-            currentWord.substring(
-                0,
-                characterIndex + 1
-            );
-
-        characterIndex++;
-
-
-        if (
-            characterIndex ===
-            currentWord.length
-        ) {
-
-            deleting = true;
-
-            setTimeout(
-                typeEffect,
-                1800
-            );
-
-            return;
-        }
-
-
-    } else {
-
-        typingText.textContent =
-            currentWord.substring(
-                0,
-                characterIndex - 1
-            );
-
-        characterIndex--;
-
-
-        if (characterIndex === 0) {
-
-            deleting = false;
-
-            wordIndex =
-                (wordIndex + 1) %
-                words.length;
-
-        }
-
-    }
-
-
-    const speed =
-        deleting ? 45 : 90;
-
-
-    setTimeout(
-        typeEffect,
-        speed
-    );
 
 }
 
 
-if (typingText) typeEffect();
-
-
-/* =========================================
-   GET STARTED
-========================================= */
-
-const getStarted =
-    document.getElementById("getStarted");
-
-
-if (getStarted) getStarted.addEventListener("click", () => {
-    /* The anchor supplies the route; this only gives immediate feedback. */
-    getStarted.setAttribute("aria-busy", "true");
-    getStarted.innerHTML = `
-        <span>Starting...</span>
-        <span class="arrow">→</span>
-    `;
-});
-
-
-/* =========================================
-   MOUSE PARALLAX EFFECT
-========================================= */
-
-const visual =
-    document.querySelector(".hero-visual");
-
+/* ESCAPE KEY */
 
 document.addEventListener(
-    "mousemove",
-    (event) => {
+  "keydown",
+  (event) => {
 
-        if (
-            window.innerWidth < 900
-        ) {
-            return;
-        }
-
-
-        const x =
-            (window.innerWidth / 2 -
-             event.clientX) / 40;
-
-
-        const y =
-            (window.innerHeight / 2 -
-             event.clientY) / 40;
-
-
-        if (visual) visual.style.transform =
-            `translate(${x}px, ${y}px)`;
-
+    if (event.key === "Escape") {
+      closeMobileMenu();
     }
+
+  }
 );
 
 
-/* =========================================
-   RESET PARALLAX
-========================================= */
+/* CLOSE MOBILE MENU AFTER RESIZE */
 
-document.addEventListener(
-    "mouseleave",
-    () => {
+window.addEventListener(
+  "resize",
+  () => {
 
-        if (visual) visual.style.transform =
-            "translate(0, 0)";
-
+    if (window.innerWidth > 780) {
+      closeMobileMenu();
     }
+
+  }
 );
+
 
 /* =========================================
    SCROLL REVEAL
 ========================================= */
 
 const revealElements =
-    document.querySelectorAll(".reveal");
+  document.querySelectorAll(".reveal");
 
 
-const revealObserver =
-    "IntersectionObserver" in window ? new IntersectionObserver(
-        (entries, observer) => {
+if ("IntersectionObserver" in window) {
 
-            entries.forEach(entry => {
+  const revealObserver =
+    new IntersectionObserver(
+      (entries, observer) => {
 
-                if (entry.isIntersecting) {
+        entries.forEach((entry) => {
 
-                    entry.target.classList.add("show");
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-                    observer.unobserve(
-                        entry.target
-                    );
+          entry.target.classList.add("show");
 
-                }
+          observer.unobserve(
+            entry.target
+          );
 
-            });
+        });
 
-        },
-        {
-            threshold: 0.15
+      },
+      {
+        threshold: 0.12,
+
+        rootMargin:
+          "0px 0px -40px 0px"
+      }
+    );
+
+
+  revealElements.forEach(
+    (element) => {
+
+      revealObserver.observe(
+        element
+      );
+
+    }
+  );
+
+} else {
+
+  revealElements.forEach(
+    (element) => {
+
+      element.classList.add(
+        "show"
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   SMOOTH INTERNAL NAVIGATION
+========================================= */
+
+document
+  .querySelectorAll('a[href^="#"]')
+  .forEach((link) => {
+
+    link.addEventListener(
+      "click",
+      (event) => {
+
+        const targetId =
+          link.getAttribute("href");
+
+        if (
+          !targetId ||
+          targetId === "#"
+        ) {
+          return;
         }
-    ) : null;
+
+        const target =
+          document.querySelector(
+            targetId
+          );
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const headerHeight =
+          document.querySelector(
+            ".site-header"
+          )?.offsetHeight || 0;
+
+        const targetTop =
+          target.getBoundingClientRect().top +
+          window.scrollY -
+          headerHeight -
+          12;
+
+        window.scrollTo({
+          top: targetTop,
+          behavior: "smooth"
+        });
+
+        history.replaceState(
+          null,
+          "",
+          targetId
+        );
+
+      }
+    );
+
+  });
 
 
-revealElements.forEach(element => {
+/* =========================================
+   CURRENT YEAR
+========================================= */
 
-    if (revealObserver) revealObserver.observe(element);
-    else element.classList.add("show");
+const year =
+  document.getElementById("year");
 
-});
+
+if (year) {
+
+  year.textContent =
+    new Date().getFullYear();
+
+}
+
+
+/* =========================================
+   GLOBAL HOMEPAGE API
+========================================= */
+
+window.CeoJackHomepage = {
+  closeMobileMenu
+};
