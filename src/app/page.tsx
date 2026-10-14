@@ -1,82 +1,19 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
+import { SiteHeader } from "@/src/components/header";
+import { useReveal } from "@/src/hooks/use-reveal";
 import "./homepage.css";
 
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>(".reveal");
-
-    if (!("IntersectionObserver" in window)) {
-      elements.forEach((element) => element.classList.add("show"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries, currentObserver) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            currentObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
-  const closeMenu = () => setMenuOpen(false);
+  useReveal();
 
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-
-      <header className="site-header">
-        <div className="container nav-wrap">
-          <a href="/" className="brand" aria-label="CEO JACK Learning Hub home" onClick={closeMenu}>
-            <img src="/assets/images/logo1.webp" alt="CEO JACK Learning Hub" className="brand-logo" />
-            <span className="brand-copy">
-              <strong>CEO JACK</strong>
-              <small>LEARNING HUB</small>
-            </span>
-          </a>
-
-          <button
-            className="menu-btn"
-            type="button"
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={menuOpen}
-            aria-controls="mobileMenu"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span /><span /><span />
-          </button>
-
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="/" className="active">Home</a>
-            <a href="/how-it-works">How It Works</a>
-            <a href="/about">About</a>
-            <a href="/services">Services</a>
-            <a href="/contact">Contact</a>
-            <a href="/get-started" className="nav-cta">Get Started Free <span>→</span></a>
-          </nav>
-
-          <nav className={`mobile-menu${menuOpen ? " active" : ""}`} id="mobileMenu" aria-label="Mobile navigation">
-            <a href="/" onClick={closeMenu}>Home</a>
-            <a href="/how-it-works" onClick={closeMenu}>How It Works</a>
-            <a href="/about" onClick={closeMenu}>About</a>
-            <a href="/services" onClick={closeMenu}>Services</a>
-            <a href="/contact" onClick={closeMenu}>Contact</a>
-            <a href="/get-started" className="mobile-cta" onClick={closeMenu}>Get Started Free →</a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader active="home" />
 
       <main>
         <section className="hero section" id="home">
@@ -88,7 +25,7 @@ export default function HomePage() {
                 One platform to learn, build practical skills, discover opportunities, and prepare for your future.
               </p>
               <div className="hero-actions">
-                <a href="/get-started" className="btn btn-primary">Get Started Free <span>→</span></a>
+                <Link href="/get-started" className="btn btn-primary">Get Started Free <span>→</span></Link>
                 <a href="#hubs" className="btn btn-secondary">Explore the Hubs</a>
               </div>
               <div className="trust-row">
@@ -111,27 +48,27 @@ export default function HomePage() {
                     <h2>What will you develop today?</h2>
                   </div>
                   <div className="preview-grid">
-                    <a href="/education" className="preview-card education">
+                    <Link href="/education" className="preview-card education">
                       <div className="preview-icon">▦</div>
                       <div><strong>Education Hub</strong><p>Learn by class, subject and topic.</p></div>
                       <span>→</span>
-                    </a>
-                    <a href="/digital-skills" className="preview-card skills">
+                    </Link>
+                    <Link href="/digital-skills" className="preview-card skills">
                       <div className="preview-icon">&lt;/&gt;</div>
                       <div><strong>Digital Skills</strong><p>Build practical technology skills.</p></div>
                       <span>→</span>
-                    </a>
-                    <a href="/entrepreneurship" className="preview-card business">
+                    </Link>
+                    <Link href="/entrepreneurship" className="preview-card business">
                       <div className="preview-icon">↗</div>
                       <div><strong>Entrepreneurship</strong><p>Turn ideas into opportunities.</p></div>
                       <span>→</span>
-                    </a>
+                    </Link>
                   </div>
-                  <a href="/ai" className="ai-preview">
+                  <Link href="/ai" className="ai-preview">
                     <div className="ai-symbol">✦</div>
                     <div><small>CEO JACK AI</small><strong>Your learning companion</strong></div>
                     <span>Ask AI →</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="floating-note note-one">Personalized learning</div>
@@ -179,19 +116,19 @@ export default function HomePage() {
                 <div className="hub-number">01</div><div className="hub-icon">▦</div>
                 <span className="hub-tag">LEARN</span><h3>Education Hub</h3>
                 <p>Structured learning for students from primary through secondary levels, with lessons, topics, practice and progress.</p>
-                <a href="/education">Explore Education <span>→</span></a>
+                <Link href="/education">Explore Education <span>→</span></Link>
               </article>
               <article className="hub-card hub-skills reveal reveal-delay">
                 <div className="hub-number">02</div><div className="hub-icon">&lt;/&gt;</div>
                 <span className="hub-tag">CREATE</span><h3>Digital Skills Hub</h3>
                 <p>Learn web development, programming, AI and other practical digital skills by building real things.</p>
-                <a href="/digital-skills">Build Digital Skills <span>→</span></a>
+                <Link href="/digital-skills">Build Digital Skills <span>→</span></Link>
               </article>
               <article className="hub-card hub-business reveal reveal-delay-2">
                 <div className="hub-number">03</div><div className="hub-icon">↗</div>
                 <span className="hub-tag">DEVELOP</span><h3>Entrepreneurship Hub</h3>
                 <p>Develop business thinking, financial literacy and practical ideas that can grow into opportunities.</p>
-                <a href="/entrepreneurship">Explore Entrepreneurship <span>→</span></a>
+                <Link href="/entrepreneurship">Explore Entrepreneurship <span>→</span></Link>
               </article>
             </div>
           </div>
@@ -220,7 +157,7 @@ export default function HomePage() {
                 <span className="section-label">MEET CEO JACK AI</span>
                 <h2>Stuck? Ask.<br />Curious? Explore.</h2>
                 <p>CEO JACK AI is your learning companion. Ask questions, get explanations, explore ideas and receive help while you learn.</p>
-                <a href="/ai" className="btn btn-light">Explore CEO JACK AI →</a>
+                <Link href="/ai" className="btn btn-light">Explore CEO JACK AI →</Link>
               </div>
               <div className="ai-orb" aria-hidden="true">
                 <div className="orb-ring ring-a" /><div className="orb-ring ring-b" /><div className="orb-core">✦</div>
@@ -235,7 +172,7 @@ export default function HomePage() {
               <span className="section-label">THE CEO JACK PHILOSOPHY</span>
               <h2>Learn something.<br />Create something.<br />Develop yourself.</h2>
               <p>Education should not end when the lesson ends. Use what you learn, turn knowledge into skills, and use those skills to shape your future.</p>
-              <a href="/get-started" className="text-link">Start your journey <span>→</span></a>
+              <Link href="/get-started" className="text-link">Start your journey <span>→</span></Link>
             </div>
             <div className="outcome-list reveal reveal-delay">
               <div><b>01</b><strong>Knowledge</strong><span>Understand the foundations.</span></div>
@@ -252,31 +189,13 @@ export default function HomePage() {
               <span className="section-label">YOUR NEXT STEP</span>
               <h2>Ready to learn, create and develop?</h2>
               <p>Start free and build a learning journey around your goals.</p>
-              <a href="/get-started" className="btn btn-primary large">Get Started Free <span>→</span></a>
+              <Link href="/get-started" className="btn btn-primary large">Get Started Free <span>→</span></Link>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container footer-top">
-          <div className="footer-brand">
-            <a href="/" className="brand">
-              <img src="/assets/images/logo1.webp" alt="" className="brand-logo" />
-              <span className="brand-copy"><strong>CEO JACK</strong><small>LEARNING HUB</small></span>
-            </a>
-            <p>Learn. Create. Develop.</p>
-          </div>
-          <div className="footer-links">
-            <a href="#home">Home</a><a href="#hubs">Hubs</a>
-            <a href="#how-it-works">How It Works</a><a href="#about">About</a><a href="#contact">Contact</a>
-          </div>
-        </div>
-        <div className="container footer-bottom">
-          <span>© {new Date().getFullYear()} CEO JACK LEARNING HUB. All rights reserved.</span>
-          <span>Built for the next generation of learners.</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
