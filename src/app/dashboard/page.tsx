@@ -2,25 +2,28 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import "@/src/styles/dashboard.css";
+
+function subscribe() {
+  return () => {};
+}
+
+function getUserName() {
+  try {
+    const stored = window.localStorage.getItem("ceoJackUser");
+    if (!stored) return "Learner";
+    const parsed = JSON.parse(stored) as { name?: string };
+    return parsed.name || "Learner";
+  } catch {
+    return "Learner";
+  }
+}
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [name, setName] = useState("Learner");
+  const name = useSyncExternalStore(subscribe, getUserName, () => "Learner");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem("ceoJackUser");
-      if (raw) {
-        const user = JSON.parse(raw) as { name?: string };
-        if (user.name) setName(user.name);
-      }
-    } catch {
-      setName("Learner");
-    }
-  }, []);
 
   function logout() {
     window.localStorage.removeItem("ceoJackUser");
@@ -29,7 +32,7 @@ export default function DashboardPage() {
 
   return (
     <div className="app-shell">
-      {sidebarOpen ? <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} /> : null}
+      {sidebarOpen ? <div className="sidebar-overlay show" onClick={() => setSidebarOpen(false)} /> : null}
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <div className="brand">
           <div className="brand-mark">CJ</div>
@@ -74,11 +77,19 @@ export default function DashboardPage() {
               Continue Learning <span>→</span>
             </Link>
           </section>
-          <section className="hub-shortcuts">
-            <Link href="/education" className="hub-card">Education Hub</Link>
-            <Link href="/digital-skills" className="hub-card">Digital Skills</Link>
-            <Link href="/entrepreneurship" className="hub-card">Entrepreneurship</Link>
-            <Link href="/ai" className="hub-card">CEO JACK AI</Link>
+          <section className="hub-cards">
+            <Link href="/education" className="hub-card">
+              <h2>Education</h2>
+              <p>Classes, subjects and topics.</p>
+            </Link>
+            <Link href="/digital-skills" className="hub-card">
+              <h2>Digital Skills</h2>
+              <p>Build with technology.</p>
+            </Link>
+            <Link href="/entrepreneurship" className="hub-card">
+              <h2>Entrepreneurship</h2>
+              <p>Turn ideas into action.</p>
+            </Link>
           </section>
         </div>
       </main>

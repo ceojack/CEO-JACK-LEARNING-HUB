@@ -26,7 +26,7 @@ export default function DigitalSkillsPage() {
           <Link href="/ai" className="nav-link"><span className="nav-icon">✦</span>CEO JACK AI</Link>
         </nav>
       </aside>
-      {sidebarOpen ? <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} /> : null}
+      {sidebarOpen ? <div className="mobile-overlay show" onClick={() => setSidebarOpen(false)} /> : null}
       <main className="main">
         <header className="topbar">
           <div className="topbar-left">

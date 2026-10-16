@@ -17,10 +17,10 @@ function AiChat() {
   const [busy, setBusy] = useState(false);
 
   async function send(text: string) {
-    const message = text.trim();
-    if (!message || busy) return;
-    const history = [...messages, { role: "user" as const, content: message }];
-    setMessages(history);
+    const trimmed = text.trim();
+    if (!trimmed || busy) return;
+    const nextMessages = [...messages, { role: "user" as const, content: trimmed }];
+    setMessages(nextMessages);
     setInput("");
     setBusy(true);
     try {
@@ -28,15 +28,21 @@ function AiChat() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message,
+          message: trimmed,
           mode,
-          history: history.map((item) => ({ role: item.role, content: item.content })),
+          history: nextMessages.slice(-10).map((item) => ({
+            role: item.role === "assistant" ? "assistant" : "user",
+            content: item.content,
+          })),
         }),
       });
       const data = (await response.json()) as { reply?: string };
-      setMessages([...history, { role: "assistant", content: data.reply || "No reply yet." }]);
+      setMessages((current) => [...current, { role: "assistant", content: data.reply || "No reply yet." }]);
     } catch {
-      setMessages([...history, { role: "assistant", content: "The AI service is unavailable right now. Try again in a moment." }]);
+      setMessages((current) => [
+        ...current,
+        { role: "assistant", content: "I could not reach the AI service. Check your connection and try again." },
+      ]);
     } finally {
       setBusy(false);
     }
@@ -62,7 +68,12 @@ function AiChat() {
         </button>
         <div className="sidebar-label">AI MODES</div>
         {(["general", "education", "coding", "business"] as const).map((item) => (
-          <button key={item} className={`mode-link${mode === item ? " active" : ""}`} type="button" onClick={() => setMode(item)}>
+          <button
+            key={item}
+            className={`mode-link${mode === item ? " active" : ""}`}
+            type="button"
+            onClick={() => setMode(item)}
+          >
             {item === "general" ? "✦ General Assistant" : item === "education" ? "📚 Education Mode" : item === "coding" ? "</> Coding Mode" : "◈ Business Mode"}
           </button>
         ))}
@@ -97,9 +108,9 @@ function AiChat() {
             </div>
           ) : (
             <div className="messages">
-              {messages.map((item, index) => (
-                <article key={`${item.role}-${index}`} className={item.role === "user" ? "user-bubble" : "ai-bubble"}>
-                  {item.content}
+              {messages.map((message, index) => (
+                <article key={`${message.role}-${index}`} className={message.role === "assistant" ? "ai-bubble" : "user-bubble"}>
+                  {message.content}
                 </article>
               ))}
             </div>
@@ -107,12 +118,18 @@ function AiChat() {
         </section>
         <footer className="composer-wrap">
           <form className="composer" onSubmit={handleSubmit}>
-            <textarea rows={1} maxLength={4000} placeholder="Message CEO JACK AI..." value={input} onChange={(event) => setInput(event.target.value)} aria-label="Your message" />
-            <button type="submit" className="send-btn" aria-label="Send message" disabled={busy}>↑</button>
+            <textarea
+              rows={1}
+              maxLength={4000}
+              placeholder="Message CEO JACK AI..."
+              aria-label="Your message"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+            />
+            <button className="send-btn" type="submit" disabled={busy} aria-label="Send message">↑</button>
           </form>
         </footer>
       </main>
-      {sidebarOpen ? <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} /> : null}
     </div>
   );
 }

@@ -67,7 +67,7 @@ export default function EducationPage() {
           <Link href="/dashboard" className="back-link">← Main Dashboard</Link>
         </div>
       </aside>
-      {sidebarOpen ? <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} /> : null}
+      {sidebarOpen ? <div className="mobile-overlay show" onClick={() => setSidebarOpen(false)} /> : null}
 
       <main className="main">
         <header className="topbar">

@@ -13,7 +13,7 @@ function SubjectContent() {
 
   return (
     <>
-      {sidebarOpen ? <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} /> : null}
+      {sidebarOpen ? <div className="sidebar-overlay show" onClick={() => setSidebarOpen(false)} /> : null}
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <div className="brand">
           <div className="brand-logo">CJ</div>

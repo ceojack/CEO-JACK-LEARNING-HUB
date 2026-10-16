@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useReveal } from "@/src/hooks/use-reveal";
@@ -56,13 +57,13 @@ export default function OnboardingPage() {
         <div className="glow glow-two" />
       </div>
       <header className="topbar">
-        <a href="/" className="logo">
+        <Link href="/" className="logo">
           <span className="logo-mark">&lt;/&gt;</span>
           <span className="logo-text">
             CEO JACK
             <small>LEARNING HUB</small>
           </span>
-        </a>
+        </Link>
         <div className="progress-info">
           <span>SETUP</span>
           <strong>{step} / 4</strong>
