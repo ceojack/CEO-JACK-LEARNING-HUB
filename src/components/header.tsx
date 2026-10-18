@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const navItems = [
@@ -23,7 +24,7 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
     <header className="site-header">
       <div className="container nav-wrap">
         <Link href="/" className="brand" aria-label="CEO JACK Learning Hub home" onClick={closeMenu}>
-          <img src="/assets/images/logo1.webp" alt="CEO JACK Learning Hub" className="brand-logo" />
+          <Image src="/assets/images/logo1.webp" alt="CEO JACK Learning Hub" className="brand-logo" width={40} height={40} priority />
           <span className="brand-copy">
             <strong>CEO JACK</strong>
             <small>LEARNING HUB</small>

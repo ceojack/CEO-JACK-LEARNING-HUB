@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useReveal } from "@/src/hooks/use-reveal";
@@ -27,7 +28,7 @@ export default function GetStartedPage() {
 
       <header className="site-header">
         <Link className="brand" href="/" aria-label="CEO JACK Learning Hub home">
-          <img src="/assets/images/logo1.webp" alt="" className="brand-logo" />
+          <Image src="/assets/images/logo1.webp" alt="" className="brand-logo" width={40} height={40} priority />
           <span className="brand-lockup">
             <strong>CEO JACK</strong>
             <small>LEARNING HUB</small>

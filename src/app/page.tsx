@@ -150,6 +150,29 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="section progress-section" aria-labelledby="progress-title">
+          <div className="container progress-layout">
+            <div className="progress-copy reveal">
+              <span className="section-label">BUILT TO GROW WITH YOU</span>
+              <h2 id="progress-title">Your learning space, all in one view.</h2>
+              <p>
+                As you connect your account, this space is ready to show enrolled lessons, saved ideas, progress streaks and the next action on your path.
+              </p>
+              <Link href="/dashboard" className="text-link">Preview your dashboard <span>→</span></Link>
+            </div>
+            <div className="learning-board reveal reveal-delay" aria-label="Example learning dashboard preview">
+              <div className="board-header"><span>YOUR WEEKLY MOMENTUM</span><b>76% complete</b></div>
+              <div className="board-progress"><span style={{ width: "76%" }} /></div>
+              <div className="board-stats">
+                <div><strong>04</strong><small>LESSONS READY</small></div>
+                <div><strong>02</strong><small>SKILLS IN PROGRESS</small></div>
+                <div><strong>01</strong><small>IDEA TO EXPLORE</small></div>
+              </div>
+              <div className="next-lesson"><span className="lesson-icon">↗</span><div><small>CONTINUE LEARNING</small><strong>Turn an idea into a simple plan</strong></div><span aria-hidden="true">→</span></div>
+            </div>
+          </div>
+        </section>
+
         <section className="section ai-section">
           <div className="container">
             <div className="ai-panel reveal">

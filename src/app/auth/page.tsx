@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useMemo, useState } from "react";
 import { useReveal } from "@/src/hooks/use-reveal";
@@ -72,7 +73,7 @@ function AuthForm() {
       </div>
       <header className="topbar">
         <Link href="/" className="logo" aria-label="CEO JACK Learning Hub home">
-          <img src="/assets/images/logo1.webp" alt="" className="logo-image" />
+          <Image src="/assets/images/logo1.webp" alt="" className="logo-image" width={44} height={44} priority />
           <span className="logo-text">
             <strong>CEO JACK</strong>
             <small>LEARNING HUB</small>

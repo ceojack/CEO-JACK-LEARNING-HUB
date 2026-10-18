@@ -18,10 +18,17 @@ type ChatPayload = {
 };
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as ChatPayload;
+  let body: ChatPayload;
+
+  try {
+    body = (await request.json()) as ChatPayload;
+  } catch {
+    return NextResponse.json({ reply: "Send a valid JSON request." }, { status: 400 });
+  }
+
   const message = body.message?.trim();
 
-  if (!message) {
+  if (!message || message.length > 4_000) {
     return NextResponse.json({ reply: "Please send a message." }, { status: 400 });
   }
 
@@ -33,30 +40,38 @@ export async function POST(request: Request) {
   }
 
   const systemContent = systemPrompts[body.mode || "general"] || systemPrompts.general;
-  const history = Array.isArray(body.history) ? body.history.slice(-10) : [];
+  const history = Array.isArray(body.history)
+    ? body.history
+        .slice(-10)
+        .filter((item) => item && (item.role === "user" || item.role === "assistant") && typeof item.content === "string")
+        .map((item) => ({ role: item.role, content: item.content.slice(0, 4_000) }))
+    : [];
 
-  const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${groqKey}`,
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-oss-20b",
-      messages: [
-        { role: "system", content: systemContent },
-        ...history,
-        { role: "user", content: message },
-      ],
-      temperature: 0.6,
-      max_tokens: 1500,
-    }),
-  });
+  let groqRes: Response;
+  let data: { error?: { message?: string }; choices?: { message?: { content?: string } }[] };
 
-  const data = (await groqRes.json()) as {
-    error?: { message?: string };
-    choices?: { message?: { content?: string } }[];
-  };
+  try {
+    groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${groqKey}`,
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-oss-20b",
+        messages: [{ role: "system", content: systemContent }, ...history, { role: "user", content: message }],
+        temperature: 0.6,
+        max_tokens: 1500,
+      }),
+      signal: AbortSignal.timeout(20_000),
+    });
+    data = (await groqRes.json()) as typeof data;
+  } catch {
+    return NextResponse.json(
+      { reply: "The AI service is unavailable right now. Please try again shortly." },
+      { status: 503 }
+    );
+  }
 
   if (!groqRes.ok) {
     return NextResponse.json(

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function SiteFooter() {
   return (
@@ -6,7 +7,7 @@ export function SiteFooter() {
       <div className="container footer-top">
         <div className="footer-brand">
           <Link href="/" className="brand">
-            <img src="/assets/images/logo1.webp" alt="" className="brand-logo" />
+            <Image src="/assets/images/logo1.webp" alt="" className="brand-logo" width={40} height={40} />
             <span className="brand-copy">
               <strong>CEO JACK</strong>
               <small>LEARNING HUB</small>
