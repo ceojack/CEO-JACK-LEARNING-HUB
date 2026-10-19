@@ -39,7 +39,9 @@ export async function POST(request: Request) {
     });
   }
 
-  const systemContent = systemPrompts[body.mode || "general"] || systemPrompts.general;
+  const systemContent = `${systemPrompts[body.mode || "general"] || systemPrompts.general}
+
+Format answers for easy reading like a polished chat assistant. Use short paragraphs, descriptive Markdown headings when useful, numbered steps for processes, and bullets for lists. Bold key terms sparingly. Put code in fenced code blocks with a language label and explain what it does. Make web links descriptive Markdown links instead of showing raw URLs. Keep explanations concise but include a small example when it helps. Use a compact emoji-labeled text diagram for visual explanations. Only include a Markdown image using an exact, known, publicly accessible https image URL when a real image materially helps; never invent image URLs or include decorative images.`;
   const history = Array.isArray(body.history)
     ? body.history
         .slice(-10)

@@ -1827,3 +1827,240 @@ a {
     transition-duration: .01ms !important;
   }
 }
+
+/* RESPONSIVE LAYOUTS: laptop, tablet, and narrow phones */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .hero-copy,
+  .hero-product,
+  .hero-product .product-window {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .hub-grid,
+  .journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hub-card,
+  .journey-card {
+    min-height: 0;
+  }
+
+  .site-footer,
+  main,
+  .container,
+  .hero-grid > *,
+  .hub-grid > * {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .container {
+    width: min(calc(100% - 32px), var(--container));
+  }
+
+  .nav-wrap {
+    min-height: 68px;
+    gap: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
+
+  .brand-copy strong {
+    font-size: 12px;
+  }
+
+  .brand-copy small {
+    font-size: 7px;
+    letter-spacing: .14em;
+  }
+
+  .mobile-menu {
+    left: 16px;
+    right: 16px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .hero {
+    min-height: 0;
+    padding: 50px 0 64px;
+  }
+
+  .hero-grid {
+    gap: 38px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 12vw, 76px);
+    overflow-wrap: anywhere;
+  }
+
+  .hero-lead {
+    font-size: 16px;
+  }
+
+  .hero-product {
+    max-width: 100%;
+  }
+
+  .product-body {
+    padding: clamp(16px, 4vw, 24px);
+  }
+
+  .preview-heading h2 {
+    font-size: clamp(20px, 5vw, 25px);
+  }
+
+  .note-one {
+    left: 8px;
+  }
+
+  .note-two {
+    right: 8px;
+  }
+
+  .hub-grid,
+  .journey-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hub-card,
+  .journey-card {
+    padding: 24px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    gap: 12px 20px;
+  }
+
+  .footer-bottom > * {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .nav-wrap {
+    min-height: 62px;
+    gap: 6px;
+  }
+
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+
+  .brand-copy strong {
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  .brand-copy small {
+    font-size: 6px;
+    letter-spacing: .1em;
+  }
+
+  .menu-btn {
+    flex: 0 0 38px;
+    width: 38px;
+  }
+
+  .hero {
+    padding: 40px 0 52px;
+  }
+
+  .eyebrow,
+  .section-label {
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    letter-spacing: -.07em;
+  }
+
+  .hero-lead {
+    font-size: 15px;
+  }
+
+  .window-top {
+    gap: 7px;
+    padding-inline: 10px;
+    font-size: 7px;
+    letter-spacing: .06em;
+  }
+
+  .product-body {
+    padding: 14px;
+  }
+
+  .preview-card {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .preview-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ai-preview {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .ai-preview > span {
+    grid-column: 2;
+  }
+
+  .section-heading h2,
+  .outcomes-copy h2,
+  .final-card h2,
+  .ai-copy h2 {
+    font-size: 31px;
+  }
+
+  .footer-links {
+    gap: 10px 14px;
+  }
+
+  .final-card {
+    padding: 48px 16px;
+  }
+}

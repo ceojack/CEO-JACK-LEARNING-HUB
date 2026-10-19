@@ -1196,3 +1196,157 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+/* RESPONSIVE COURSE AND SUBJECT LAYOUTS */
+@media (max-width: 1024px) {
+  .page-content,
+  .topbar {
+    min-width: 0;
+  }
+
+  .class-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .subject-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .continue-card,
+  .ai-banner {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body,
+  .app,
+  .main {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  .page-content {
+    padding: 20px 18px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    min-width: 0;
+  }
+
+  .topbar {
+    gap: 10px;
+  }
+
+  .hero {
+    padding-inline: 28px;
+  }
+
+  .hero-visual {
+    max-width: 48%;
+  }
+
+  .class-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .subject-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .continue-card,
+  .ai-banner {
+    flex-wrap: wrap;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 320px) {
+  .page-content {
+    padding: 16px 12px;
+  }
+
+  .topbar {
+    padding-inline: 10px;
+  }
+
+  .topbar-left {
+    gap: 7px;
+  }
+
+  .topbar h1 {
+    font-size: 14px;
+  }
+
+  .breadcrumb {
+    font-size: 8px;
+  }
+
+  .menu-btn {
+    flex: 0 0 30px;
+    width: 30px;
+    padding: 0;
+  }
+
+  .hero {
+    min-height: 300px;
+    padding: 22px 16px;
+  }
+
+  .hero h2 {
+    font-size: 30px;
+  }
+
+  .hero-content > p {
+    max-width: 100%;
+  }
+
+  .hero-visual {
+    max-width: 44%;
+    opacity: .35;
+  }
+
+  .class-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .class-card {
+    padding-inline: 3px;
+  }
+
+  .class-card span {
+    font-size: 7px;
+  }
+
+  .subject-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .section-heading h2 {
+    overflow-wrap: anywhere;
+  }
+
+  .level-tab {
+    padding-inline: 7px;
+  }
+
+  .continue-card,
+  .ai-banner {
+    padding: 13px;
+  }
+
+  .continue-info {
+    width: calc(100% - 60px);
+  }
+
+  .footer > * {
+    overflow-wrap: anywhere;
+  }
+}
