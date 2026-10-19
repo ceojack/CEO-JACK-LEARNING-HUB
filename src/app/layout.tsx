@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "CEO JACK LEARNING HUB",
     images: [
       {
-        url: "/og-image.png",
+        url: "/assets/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "CEO JACK LEARNING HUB - Learn. Create. Develop.",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CEO JACK LEARNING HUB",
     description: "Learn. Create. Develop. An AI-powered learning platform",
-    images: ["/og-image.png"],
+    images: ["/assets/images/og-image.png"],
   },
 };
 
