@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     siteName: "CEO JACK LEARNING HUB",
     images: [
       {
-        url: "/public/assets/images/og-image.png",
+        url: "https://ceojacklearninghub.com/assets/images/logo-image.png",
         width: 1200,
         height: 630,
-        alt: "CEO JACK LEARNING HUB - Learn. Create. Develop.",
+        alt: "CEO JACK LEARNING HUB",
       },
     ],
     type: "website",
@@ -30,7 +30,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CEO JACK LEARNING HUB",
     description: "Learn. Create. Develop. An AI-powered learning platform",
-    images: ["/public/assets/images/og-image.png"],
+    images: [
+      {
+        url: "https://ceojacklearninghub.com/assets/images/logo-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CEO JACK LEARNING HUB",
+      },
+    ],
   },
 };
 
