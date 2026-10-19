@@ -30,14 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CEO JACK LEARNING HUB",
     description: "Learn. Create. Develop. An AI-powered learning platform",
-    images: [
-      {
-        url: "https://ceojacklearninghub.com/assets/images/logo-image.png",
-        width: 1200,
-        height: 630,
-        alt: "CEO JACK LEARNING HUB",
-      },
-    ],
+    images: ["https://ceojacklearninghub.com/assets/images/logo-image.png"],
   },
 };
 
