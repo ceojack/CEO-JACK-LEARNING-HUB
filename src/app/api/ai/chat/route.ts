@@ -68,9 +68,18 @@ Format answers for easy reading like a polished chat assistant. Use short paragr
       signal: AbortSignal.timeout(20_000),
     });
     data = (await groqRes.json()) as typeof data;
-  } catch {
+  } catch (error) {
+    const timedOut = error instanceof Error && error.name === "TimeoutError";
+    console.error(
+      timedOut ? "Groq chat request timed out." : "Could not connect to the Groq chat API.",
+      error instanceof Error ? error.message : "Unknown network error"
+    );
     return NextResponse.json(
-      { reply: "The AI service is unavailable right now. Please try again shortly." },
+      {
+        reply: timedOut
+          ? "The AI service took too long to respond. Please try again."
+          : "CEO JACK AI couldn’t connect to its provider. Check the server’s internet access and try again.",
+      },
       { status: 503 }
     );
   }

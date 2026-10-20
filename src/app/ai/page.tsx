@@ -302,7 +302,7 @@ function AiChat() {
           <button className="menu-btn" type="button" aria-label={sidebarOpen ? "Close menu" : "Open menu"} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen((open) => !open)}>☰</button>
           <div className="topbar-title"><span className="eyebrow">YOUR AI COMPANION</span><h1>CEO JACK AI</h1></div>
           <div className="topbar-tools">
-            <span className="connection-status"><i />AI ready</span>
+            <span className="connection-status"><i />AI chat</span>
             <button className={`voice-mode-button${voiceMode ? " active" : ""}`} type="button" aria-pressed={voiceMode} onClick={() => { setVoiceMode((enabled) => !enabled); setVoiceNotice(voiceMode ? "Voice mode off." : "Voice mode on. Replies will be spoken aloud."); }}>
               <span aria-hidden="true">◖</span><span>{voiceMode ? "Voice on" : "Voice mode"}</span>
             </button>
