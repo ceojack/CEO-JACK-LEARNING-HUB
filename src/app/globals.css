@@ -1,30 +1,23 @@
-
 /* CEO JACK LEARNING HUB — Global Design System */
-
 :root {
   color-scheme: dark;
-
   /* Brand colors */
   --color-bg: #080d1b;
   --color-surface: #10182a;
   --color-surface-hover: #172239;
   --color-primary: #6385ff;
   --color-accent: #9b7bff;
-
   /* Text colors */
   --color-text: #f5f7ff;
   --color-muted: #a7b1c7;
-
   /* Borders and layout */
   --color-border: rgba(255, 255, 255, 0.1);
   --container-width: 1160px;
   --header-height: 78px;
-
   /* Reusable design values */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-
   --shadow-card: 0 16px 45px rgba(0, 0, 0, 0.18);
 }
 
@@ -40,28 +33,29 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(
-      ellipse at 15% 0%,
-      rgba(99, 133, 255, 0.12),
-      transparent 38%
-    ),
-    var(--color-bg);
+  background: radial-gradient(
+    ellipse at 15% 0%,
+    rgba(99, 133, 255, 0.12),
+    transparent 38%
+  ),
+  var(--color-bg);
   color: var(--color-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Satoshi', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-input,
-textarea,
-select {
+h1, h2, h3, h4 {
+  font-family: 'Clash Display', sans-serif;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+button, input, textarea, select {
   font: inherit;
 }
 
-button,
-a {
+button, a {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -70,9 +64,7 @@ a {
   text-decoration: none;
 }
 
-img,
-svg,
-video {
+img, svg, video {
   display: block;
   max-width: 100%;
 }
@@ -85,20 +77,8 @@ button {
   cursor: pointer;
 }
 
-h1,
-h2,
-h3,
-h4,
-p {
+h1, h2, h3, h4, p {
   margin-top: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  line-height: 1.2;
-  letter-spacing: -0.025em;
 }
 
 ::selection {
@@ -207,7 +187,6 @@ h4 {
   .container {
     width: calc(100% - 32px);
   }
-
   .section {
     padding-block: 56px;
   }
