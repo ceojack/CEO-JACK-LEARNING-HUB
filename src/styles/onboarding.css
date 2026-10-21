@@ -31,9 +31,9 @@ body {
         Arial,
         sans-serif;
 
-    background: #02050b;
+    background: #111a27;
 
-    color: #ffffff;
+    color: #fffdf8;
 
     overflow-x: hidden;
 
@@ -146,7 +146,7 @@ a {
 
 .glow-one {
 
-    background: #008cff;
+    background: #71a7b4;
 
     top: 5%;
     left: 5%;
@@ -159,7 +159,7 @@ a {
 
 .glow-two {
 
-    background: #753cff;
+    background: #c7a564;
 
     bottom: 5%;
     right: 5%;
@@ -198,10 +198,10 @@ a {
 
     border-radius: 50%;
 
-    background: #55ddff;
+    background: #78c7bc;
 
     box-shadow:
-        0 0 10px #55ddff;
+        0 0 10px #78c7bc;
 
     animation:
         particleFloat 8s linear infinite;
@@ -333,7 +333,7 @@ a {
     background:
         rgba(85,221,255,0.05);
 
-    color: #55ddff;
+    color: #78c7bc;
 
     font-weight: 800;
 
@@ -385,7 +385,7 @@ a {
 
 .progress-info strong {
 
-    color: #55ddff;
+    color: #78c7bc;
 
     font-size: 9px;
 
@@ -433,7 +433,7 @@ a {
 
     margin-bottom: 20px;
 
-    color: #55ddff;
+    color: #78c7bc;
 
     font-size: 9px;
 
@@ -461,9 +461,9 @@ a {
     background:
         linear-gradient(
             90deg,
-            #ffffff,
-            #55ddff,
-            #9278ff
+            #fffdf8,
+            #78c7bc,
+            #c7a564
         );
 
     -webkit-background-clip: text;
@@ -531,8 +531,8 @@ a {
     background:
         linear-gradient(
             90deg,
-            #55ddff,
-            #9278ff
+            #78c7bc,
+            #c7a564
         );
 
     transition:
@@ -583,7 +583,7 @@ a {
 
     border-radius: 50%;
 
-    background: #02050b;
+    background: #111a27;
 
     font-size: 7px;
 
@@ -613,7 +613,7 @@ a {
     background:
         rgba(85,221,255,0.08);
 
-    color: #55ddff;
+    color: #78c7bc;
 
 }
 
@@ -715,7 +715,7 @@ a {
 
 .step-label {
 
-    color: #55ddff;
+    color: #78c7bc;
 
     font-size: 8px;
 
@@ -745,8 +745,8 @@ a {
     background:
         linear-gradient(
             90deg,
-            #55ddff,
-            #9278ff
+            #78c7bc,
+            #c7a564
         );
 
     -webkit-background-clip: text;
@@ -974,11 +974,11 @@ a {
 .option-card:has(input:checked)
 .option-check {
 
-    border-color: #55ddff;
+    border-color: #78c7bc;
 
-    background: #55ddff;
+    background: #78c7bc;
 
-    color: #021018;
+    color: #17263a;
 
 }
 
@@ -1053,7 +1053,7 @@ a {
 
     margin-bottom: 18px;
 
-    color: #55ddff;
+    color: #78c7bc;
 
     font-size: 17px;
 
@@ -1118,11 +1118,11 @@ a {
 .interest-card:has(input:checked)
 .interest-check {
 
-    background: #55ddff;
+    background: #78c7bc;
 
-    border-color: #55ddff;
+    border-color: #78c7bc;
 
-    color: #021018;
+    color: #17263a;
 
 }
 
@@ -1225,11 +1225,11 @@ a {
 
 .goal-card:has(input:checked) b {
 
-    background: #55ddff;
+    background: #78c7bc;
 
-    border-color: #55ddff;
+    border-color: #78c7bc;
 
-    color: #021018;
+    color: #17263a;
 
 }
 
@@ -1317,7 +1317,7 @@ a {
 
 .back-btn:hover {
 
-    color: #ffffff;
+    color: #fffdf8;
 
     border-color:
         rgba(255,255,255,0.15);
@@ -1332,11 +1332,11 @@ a {
     background:
         linear-gradient(
             135deg,
-            #35cfff,
-            #5578ff
+            #78c7bc,
+            #71a7b4
         );
 
-    color: #ffffff;
+    color: #fffdf8;
 
     font-weight: 700;
 
@@ -1588,21 +1588,21 @@ a {
 
 .journey-philosophy span:first-child {
 
-    color: #55ddff;
+    color: #78c7bc;
 
 }
 
 
 .journey-philosophy span:nth-child(3) {
 
-    color: #9278ff;
+    color: #c7a564;
 
 }
 
 
 .journey-philosophy span:nth-child(5) {
 
-    color: #ffffff;
+    color: #fffdf8;
 
 }
 

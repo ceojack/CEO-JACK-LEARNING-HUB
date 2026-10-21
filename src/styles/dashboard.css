@@ -1,15 +1,15 @@
 :root {
-  --bg: #f6f8fc;
-  --surface: #ffffff;
-  --sidebar: #101a2d;
+  --bg: #f7f4ec;
+  --surface: #fffdf8;
+  --sidebar: #1b2b3d;
   --sidebar-soft: #17243b;
 
-  --text: #17233a;
-  --muted: #78859a;
+  --text: #263449;
+  --muted: #697789;
   --muted-dark: #9aa7ba;
 
-  --primary: #6558df;
-  --primary-dark: #5145c3;
+  --primary: #367f78;
+  --primary-dark: #2e6b65;
   --primary-soft: #eeecff;
 
   --blue: #4285f4;
@@ -17,7 +17,7 @@
   --orange: #f59e0b;
   --red: #ef5350;
 
-  --border: #e8edf4;
+  --border: #e9e2d6;
   --shadow: 0 10px 30px rgba(24, 38, 67, 0.06);
 
   --radius-sm: 10px;
@@ -1676,7 +1676,7 @@ a {
 
   border-radius: 10px;
 
-  background: #17233a;
+  background: #263449;
   color: #fff;
 
   box-shadow: var(--shadow);

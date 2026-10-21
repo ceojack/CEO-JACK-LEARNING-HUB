@@ -1,20 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 :root {
-  --bg: #080d1b;
-  --bg-soft: #0d1427;
-  --surface: #111a30;
-  --surface-2: #16213b;
+  --bg: #111a27;
+  --bg-soft: #17263a;
+  --surface: #1d2d41;
+  --surface-2: #26394d;
 
-  --text: #f7f9ff;
-  --muted: #9aa7bd;
+  --text: #f7f5ef;
+  --muted: #bac6cd;
 
   --line: rgba(255,255,255,.09);
 
-  --primary: #7567ff;
-  --primary-2: #4f8cff;
-  --cyan: #48d9ff;
-  --green: #45d39c;
+  --primary: #c7a564;
+  --primary-2: #71a7b4;
+  --cyan: #78c7bc;
+  --green: #8cc8a9;
 
   --shadow: 0 24px 70px rgba(0,0,0,.32);
 
@@ -67,19 +67,19 @@ a {
   background:
     radial-gradient(
       circle at 78% 13%,
-      rgba(117,103,255,.15),
+      rgba(199,165,100,.15),
       transparent 28%
     ),
     radial-gradient(
       circle at 15% 58%,
-      rgba(72,217,255,.07),
+      rgba(120,199,188,.07),
       transparent 28%
     ),
     linear-gradient(
       180deg,
-      #080d1b 0%,
-      #0a1020 55%,
-      #080d1b 100%
+      #111a27 0%,
+      #121e2d 55%,
+      #111a27 100%
     );
 }
 
@@ -120,7 +120,7 @@ a {
   top: 0;
   z-index: 100;
 
-  background: rgba(8,13,27,.82);
+  background: rgba(17,26,39,.82);
 
   border-bottom: 1px solid var(--line);
 
@@ -168,7 +168,7 @@ a {
     );
 
   box-shadow:
-    0 10px 30px rgba(117,103,255,.28);
+    0 10px 30px rgba(199,165,100,.28);
 }
 
 .brand-copy {
@@ -183,7 +183,7 @@ a {
 }
 
 .brand-copy small {
-  color: #8d9ab2;
+  color: #bfc9ce;
   font-size: 8px;
   letter-spacing: .19em;
   margin-top: 4px;
@@ -219,7 +219,7 @@ a {
 }
 
 .brand-copy small {
-  color: #8d9ab2;
+  color: #bfc9ce;
 
   font-size: 8px;
 
@@ -323,7 +323,7 @@ a {
 }
 
 .btn-light {
-  color: #0a1020;
+  color: #121e2d;
   background: #fff;
 }
 
@@ -447,8 +447,8 @@ a {
     linear-gradient(
       100deg,
       #fff,
-      #8d83ff,
-      #55cfff
+      #d1b16c,
+      #78c7bc
     );
 
   background-clip: text;
@@ -664,10 +664,10 @@ a {
   font-weight: 700;
 
   background:
-    rgba(117,103,255,.16);
+    rgba(199,165,100,.16);
 
   border:
-    1px solid rgba(117,103,255,.22);
+    1px solid rgba(199,165,100,.22);
 }
 
 .preview-card strong {
@@ -694,8 +694,8 @@ a {
 }
 
 .skills .preview-icon {
-  background: rgba(72,217,255,.11);
-  border-color: rgba(72,217,255,.18);
+  background: rgba(120,199,188,.11);
+  border-color: rgba(120,199,188,.18);
 }
 
 .business .preview-icon {
@@ -721,15 +721,15 @@ a {
   gap: 12px;
 
   border:
-    1px solid rgba(117,103,255,.25);
+    1px solid rgba(199,165,100,.25);
 
   border-radius: 15px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(117,103,255,.12),
-      rgba(72,217,255,.05)
+      rgba(199,165,100,.12),
+      rgba(120,199,188,.05)
     );
 }
 
@@ -895,12 +895,12 @@ a {
   background:
     linear-gradient(
       145deg,
-      rgba(117,103,255,.13),
+      rgba(199,165,100,.13),
       rgba(255,255,255,.025)
     );
 
   border-color:
-    rgba(117,103,255,.25);
+    rgba(199,165,100,.25);
 }
 
 .step-number,
@@ -935,7 +935,7 @@ a {
 /* HUBS */
 
 .hubs-section {
-  background: #0a1020;
+  background: #121e2d;
 }
 
 .hub-card {
@@ -969,21 +969,21 @@ a {
   border-radius: 50%;
 
   background:
-    rgba(117,103,255,.13);
+    rgba(199,165,100,.13);
 
   filter: blur(15px);
 }
 
 .hub-education {
-  border-top: 2px solid #7567ff;
+  border-top: 2px solid #c7a564;
 }
 
 .hub-skills {
-  border-top: 2px solid #48d9ff;
+  border-top: 2px solid #78c7bc;
 }
 
 .hub-business {
-  border-top: 2px solid #45d39c;
+  border-top: 2px solid #8cc8a9;
 }
 
 .hub-icon {
@@ -1029,7 +1029,7 @@ a {
 
 .hub-card a span,
 .text-link span {
-  color: #8c82ff;
+  color: #c7a564;
   margin-left: 7px;
 }
 
@@ -1068,7 +1068,7 @@ a {
 }
 
 .step > span {
-  color: #7567ff;
+  color: #c7a564;
 
   font-family: "Space Grotesk", sans-serif;
 
@@ -1097,7 +1097,7 @@ a {
 /* LEARNING SPACE PREVIEW */
 
 .progress-section {
-  background: #0a1020;
+  background: #121e2d;
 }
 
 .progress-layout {
@@ -1123,7 +1123,7 @@ a {
 
 .learning-board {
   padding: 28px;
-  border: 1px solid rgba(117,103,255,.28);
+  border: 1px solid rgba(199,165,100,.28);
   border-radius: var(--radius);
   background: linear-gradient(145deg, rgba(22,33,59,.98), rgba(12,19,37,.98));
   box-shadow: var(--shadow);
@@ -1190,9 +1190,9 @@ a {
 .next-lesson {
   margin-top: 12px;
   padding: 16px;
-  border: 1px solid rgba(72,217,255,.2);
+  border: 1px solid rgba(120,199,188,.2);
   border-radius: 14px;
-  background: rgba(72,217,255,.055);
+  background: rgba(120,199,188,.055);
 }
 
 .next-lesson > div { margin-right: auto; }
@@ -1203,7 +1203,7 @@ a {
   height: 38px;
   place-items: center;
   border-radius: 11px;
-  background: rgba(72,217,255,.13);
+  background: rgba(120,199,188,.13);
   color: var(--cyan);
 }
 
@@ -1227,12 +1227,12 @@ a {
   border-radius: 30px;
 
   border:
-    1px solid rgba(117,103,255,.22);
+    1px solid rgba(199,165,100,.22);
 
   background:
     radial-gradient(
       circle at 75% 45%,
-      rgba(117,103,255,.18),
+      rgba(199,165,100,.18),
       transparent 28%
     ),
     linear-gradient(
@@ -1269,7 +1269,7 @@ a {
   inset: 0;
 
   border:
-    1px solid rgba(117,103,255,.35);
+    1px solid rgba(199,165,100,.35);
 
   border-radius: 50%;
 }
@@ -1286,7 +1286,7 @@ a {
     scaleY(.55);
 
   border-color:
-    rgba(72,217,255,.3);
+    rgba(120,199,188,.3);
 }
 
 .orb-core {
@@ -1306,13 +1306,13 @@ a {
   background:
     radial-gradient(
       circle,
-      #8c82ff,
-      #5145c3 48%,
+      #c7a564,
+      #2e6b65 48%,
       #10182e 70%
     );
 
   box-shadow:
-    0 0 70px rgba(117,103,255,.32);
+    0 0 70px rgba(199,165,100,.32);
 }
 
 
@@ -1359,7 +1359,7 @@ a {
 }
 
 .outcome-list b {
-  color: #7567ff;
+  color: #c7a564;
   font-size: 11px;
 }
 
@@ -1392,7 +1392,7 @@ a {
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(117,103,255,.18),
+      rgba(199,165,100,.18),
       transparent 45%
     ),
     rgba(255,255,255,.025);
@@ -1416,7 +1416,7 @@ a {
   border-top:
     1px solid var(--line);
 
-  background: #070c18;
+  background: #0d1521;
 }
 
 .footer-top {

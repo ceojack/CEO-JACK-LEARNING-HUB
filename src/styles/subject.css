@@ -1,18 +1,18 @@
 :root {
-  --bg: #f6f8fc;
-  --surface: #ffffff;
-  --sidebar: #101a2d;
-  --sidebar-soft: #18243b;
+  --bg: #f7f4ec;
+  --surface: #fffdf8;
+  --sidebar: #1b2b3d;
+  --sidebar-soft: #283b50;
 
-  --text: #17233a;
-  --muted: #78859a;
+  --text: #263449;
+  --muted: #697789;
 
-  --primary: #6558df;
-  --primary-dark: #5145c3;
+  --primary: #367f78;
+  --primary-dark: #2e6b65;
 
-  --border: #e8edf4;
+  --border: #e9e2d6;
 
-  --success: #22a06b;
+  --success: #3d896f;
   --warning: #e99b22;
 
   --shadow: 0 12px 35px rgba(26, 37, 61, 0.07);
@@ -92,8 +92,8 @@ a {
 
   background: linear-gradient(
     135deg,
-    #7467f0,
-    #5145c3
+    #c7a564,
+    #2e6b65
   );
 
   border-radius: 12px;
@@ -208,7 +208,7 @@ a {
 
   border-radius: 10px;
 
-  color: #b9b2ff;
+  color: #367f78;
 }
 
 .sidebar-ai strong {
@@ -347,7 +347,7 @@ a {
   display: grid;
   place-items: center;
 
-  background: #ebe8ff;
+  background: #f8f0df;
 
   color: var(--primary);
 
@@ -657,7 +657,7 @@ a {
   display: grid;
   place-items: center;
 
-  background: #f0efff;
+  background: #f8f0df;
 
   border-radius: 11px;
 
@@ -752,7 +752,7 @@ a {
 .topic-card:hover {
   transform: translateY(-2px);
 
-  border-color: #d9d4ff;
+  border-color: #e3d2a9;
 
   box-shadow: var(--shadow);
 }
@@ -766,7 +766,7 @@ a {
 
   flex-shrink: 0;
 
-  background: #f0efff;
+  background: #f8f0df;
 
   color: var(--primary);
 
@@ -871,11 +871,11 @@ a {
 
   background: linear-gradient(
     135deg,
-    #eeeaff,
-    #f6f4ff
+    #f4ead4,
+    #eef4f1
   );
 
-  border: 1px solid #ddd8ff;
+  border: 1px solid #e3d2a9;
 
   border-radius: 18px;
 }
@@ -1068,7 +1068,7 @@ a {
 }
 
 .toast span {
-  color: #62d79d;
+  color: #3d896f;
 }
 
 .toast p {

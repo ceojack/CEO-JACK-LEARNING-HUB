@@ -22,7 +22,7 @@ export default function HomePage() {
               <div className="eyebrow"><span />A learning platform built for the future</div>
               <h1>Learn.<br /><em>Create.</em><br />Develop.</h1>
               <p className="hero-lead">
-                One platform to learn, build practical skills, discover opportunities, and prepare for your future.
+                You don’t need to have it all figured out. Start with one question, one idea, one small step. We’ll help you grow from there.
               </p>
               <div className="hero-actions">
                 <Link href="/get-started" className="btn btn-primary">Get Started Free <span>→</span></Link>

@@ -1,22 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 .admin-shell {
-  --admin-bg: #080d1b;
-  --admin-panel: #0d1427;
-  --admin-card: #111a30;
-  --admin-card-soft: #16213b;
+  --admin-bg: #111a27;
+  --admin-panel: #17263a;
+  --admin-card: #1d2d41;
+  --admin-card-soft: #26394d;
   --admin-line: rgba(255, 255, 255, .085);
-  --admin-text: #f7f9ff;
-  --admin-muted: #9aa7bd;
-  --admin-primary: #7567ff;
-  --admin-blue: #4f8cff;
-  --admin-green: #45d39c;
+  --admin-text: #f7f5ef;
+  --admin-muted: #bac6cd;
+  --admin-primary: #c7a564;
+  --admin-blue: #71a7b4;
+  --admin-green: #8cc8a9;
   --admin-radius: 18px;
 
   min-height: 100vh;
   color: var(--admin-text);
   background:
-    radial-gradient(ellipse at 72% -10%, rgba(117, 103, 255, .14), transparent 34%),
+    radial-gradient(ellipse at 72% -10%, rgba(199, 165, 100, .14), transparent 34%),
     var(--admin-bg);
   font-family: "DM Sans", sans-serif;
   line-height: 1.5;
@@ -69,7 +69,7 @@
   place-items: center;
   border: 1px solid rgba(255, 255, 255, .18);
   border-radius: 12px;
-  background: linear-gradient(135deg, #7567ff, #4f8cff);
+  background: linear-gradient(135deg, #c7a564, #71a7b4);
   box-shadow: 0 9px 25px rgba(94, 103, 255, .24);
   font-family: "Space Grotesk", sans-serif;
   font-size: 13px;
@@ -118,7 +118,7 @@
   padding: 0 12px;
   border: 1px solid transparent;
   border-radius: 11px;
-  color: #9aa7bd;
+  color: #bac6cd;
   font-size: 12px;
   font-weight: 600;
   transition: color .18s ease, background .18s ease, border-color .18s ease;
@@ -131,8 +131,8 @@
 }
 
 .admin-nav-item.is-active {
-  border-color: rgba(117, 103, 255, .18);
-  background: linear-gradient(100deg, rgba(117, 103, 255, .2), rgba(79, 140, 255, .075));
+  border-color: rgba(199, 165, 100, .18);
+  background: linear-gradient(100deg, rgba(199, 165, 100, .2), rgba(79, 140, 255, .075));
   color: #fff;
 }
 
@@ -143,7 +143,7 @@
   left: -18px;
   width: 3px;
   border-radius: 0 4px 4px 0;
-  background: linear-gradient(#8b7cff, #4f8cff);
+  background: linear-gradient(#c7a564, #71a7b4);
   content: "";
 }
 
@@ -152,7 +152,7 @@
   width: 20px;
   flex: 0 0 20px;
   place-items: center;
-  color: #9a8fff;
+  color: #c7a564;
   font-size: 16px;
 }
 
@@ -165,7 +165,7 @@
   place-items: center;
   border-radius: 7px;
   background: rgba(255, 255, 255, .07);
-  color: #9aa7bd;
+  color: #bac6cd;
   font-size: 9px;
 }
 
@@ -177,7 +177,7 @@
   padding: 16px;
   border: 1px solid var(--admin-line);
   border-radius: 14px;
-  background: linear-gradient(145deg, rgba(117, 103, 255, .1), rgba(255, 255, 255, .025));
+  background: linear-gradient(145deg, rgba(199, 165, 100, .1), rgba(255, 255, 255, .025));
 }
 
 .admin-help-spark {
@@ -187,8 +187,8 @@
   margin-bottom: 13px;
   place-items: center;
   border-radius: 9px;
-  background: rgba(117, 103, 255, .19);
-  color: #a69cff;
+  background: rgba(199, 165, 100, .19);
+  color: #e0c989;
 }
 
 .admin-help-card strong {
@@ -205,7 +205,7 @@
 
 .admin-help-card a,
 .admin-back-link {
-  color: #bbb4ff;
+  color: #e0c989;
   font-size: 10px;
   font-weight: 700;
 }
@@ -223,7 +223,7 @@
 }
 
 .admin-back-link span {
-  color: #8f84ff;
+  color: #c7a564;
 }
 
 .admin-main {
@@ -243,7 +243,7 @@
   gap: 24px;
   padding: 0 42px;
   border-bottom: 1px solid var(--admin-line);
-  background: rgba(8, 13, 27, .84);
+  background: rgba(17, 26, 39, .84);
   backdrop-filter: blur(18px);
 }
 
@@ -280,9 +280,9 @@
 }
 
 .admin-search input:focus {
-  border-color: rgba(117, 103, 255, .55);
+  border-color: rgba(199, 165, 100, .55);
   background: rgba(255, 255, 255, .055);
-  box-shadow: 0 0 0 3px rgba(117, 103, 255, .1);
+  box-shadow: 0 0 0 3px rgba(199, 165, 100, .1);
 }
 
 .admin-search kbd {
@@ -315,7 +315,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   background: transparent;
-  color: #9aa7bd !important;
+  color: #bac6cd !important;
   font-size: 16px !important;
 }
 
@@ -357,8 +357,8 @@
   place-items: center;
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 50%;
-  background: linear-gradient(135deg, #7567ff, #4f8cff);
-  box-shadow: 0 4px 15px rgba(117, 103, 255, .2);
+  background: linear-gradient(135deg, #c7a564, #71a7b4);
+  box-shadow: 0 4px 15px rgba(199, 165, 100, .2);
   font-family: "Space Grotesk", sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -407,7 +407,7 @@
 
 .admin-eyebrow,
 .admin-section-kicker {
-  color: #9c91ff;
+  color: #c7a564;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: .16em;
@@ -437,7 +437,7 @@
 }
 
 .admin-welcome h1 span {
-  color: #9b91ff;
+  color: #c7a564;
   font-size: .7em;
 }
 
@@ -463,7 +463,7 @@
 }
 
 .admin-primary-button {
-  background: linear-gradient(120deg, #7567ff, #4f8cff);
+  background: linear-gradient(120deg, #c7a564, #71a7b4);
   box-shadow: 0 9px 24px rgba(94, 103, 255, .2);
 }
 
@@ -519,7 +519,7 @@
   font-size: 14px;
 }
 
-.admin-stat-icon.violet { border-color: rgba(117, 103, 255, .15); background: rgba(117, 103, 255, .12); color: #a399ff; }
+.admin-stat-icon.violet { border-color: rgba(199, 165, 100, .15); background: rgba(199, 165, 100, .12); color: #a399ff; }
 .admin-stat-icon.blue { border-color: rgba(79, 140, 255, .15); background: rgba(79, 140, 255, .11); color: #7fb1ff; }
 .admin-stat-icon.green { border-color: rgba(69, 211, 156, .15); background: rgba(69, 211, 156, .1); color: #65ddb1; }
 .admin-stat-icon.orange { border-color: rgba(255, 177, 89, .15); background: rgba(255, 177, 89, .1); color: #ffc16e; }
@@ -560,7 +560,7 @@
   letter-spacing: -2px;
 }
 
-.spark-violet { color: #9a8fff; }
+.spark-violet { color: #c7a564; }
 .spark-blue { color: #72aaff; }
 .spark-green { color: #56d5a2; }
 
@@ -577,13 +577,13 @@
   height: 20px;
   margin-left: -4px;
   place-items: center;
-  border: 2px solid #111a30;
+  border: 2px solid #1d2d41;
   border-radius: 50%;
-  background: linear-gradient(135deg, #7567ff, #4f8cff);
+  background: linear-gradient(135deg, #c7a564, #71a7b4);
   font-style: normal;
 }
 
-.admin-teacher-dots i:nth-child(2) { background: linear-gradient(135deg, #45d39c, #4f8cff); }
+.admin-teacher-dots i:nth-child(2) { background: linear-gradient(135deg, #8cc8a9, #71a7b4); }
 .admin-teacher-dots i:nth-child(3) { background: linear-gradient(135deg, #ff9a76, #e55d9d); }
 .admin-teacher-dots b { width: 26px; background: #202d47; color: #aebbd0; font-size: 7px; }
 
@@ -594,9 +594,9 @@
   gap: 18px;
   margin-bottom: 34px;
   padding: 15px 18px;
-  border: 1px solid rgba(117, 103, 255, .17);
+  border: 1px solid rgba(199, 165, 100, .17);
   border-radius: 14px;
-  background: linear-gradient(100deg, rgba(117, 103, 255, .1), rgba(72, 217, 255, .035));
+  background: linear-gradient(100deg, rgba(199, 165, 100, .1), rgba(120, 199, 188, .035));
 }
 
 .admin-insight-copy {
@@ -612,10 +612,10 @@
   height: 34px;
   flex: 0 0 34px;
   place-items: center;
-  border: 1px solid rgba(117, 103, 255, .2);
+  border: 1px solid rgba(199, 165, 100, .2);
   border-radius: 10px;
-  background: rgba(117, 103, 255, .14);
-  color: #a59bff;
+  background: rgba(199, 165, 100, .14);
+  color: #e0c989;
 }
 
 .admin-insight-copy strong {
@@ -632,7 +632,7 @@
 .admin-insight-row > a,
 .admin-table-footer a {
   flex: 0 0 auto;
-  color: #b3aaff;
+  color: #e0c989;
   font-size: 9px;
   font-weight: 700;
 }
@@ -678,7 +678,7 @@
   transform: translateY(-1px);
 }
 
-.admin-secondary-button span { color: #9a8fff; }
+.admin-secondary-button span { color: #c7a564; }
 
 .admin-course-table-wrap {
   overflow-x: auto;
@@ -737,7 +737,7 @@
   font-weight: 700;
 }
 
-.admin-course-mark.violet { border-color: rgba(117, 103, 255, .18); background: rgba(117, 103, 255, .13); color: #aaa1ff; }
+.admin-course-mark.violet { border-color: rgba(199, 165, 100, .18); background: rgba(199, 165, 100, .13); color: #e0c989; }
 .admin-course-mark.blue { border-color: rgba(79, 140, 255, .18); background: rgba(79, 140, 255, .13); color: #87b5ff; font-size: 9px; }
 .admin-course-mark.green { border-color: rgba(69, 211, 156, .18); background: rgba(69, 211, 156, .11); color: #69ddb2; }
 .admin-course-mark.orange { border-color: rgba(255, 177, 89, .18); background: rgba(255, 177, 89, .11); color: #ffc477; font-family: "Space Grotesk", sans-serif; }
@@ -772,7 +772,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #7567ff, #4f8cff);
+  background: linear-gradient(90deg, #c7a564, #71a7b4);
 }
 
 .admin-completion small { color: #aab5c9; font-size: 8px; }
@@ -810,7 +810,7 @@
 
 .admin-empty-state {
   height: 90px !important;
-  color: #9aa7bd !important;
+  color: #bac6cd !important;
   text-align: center;
 }
 

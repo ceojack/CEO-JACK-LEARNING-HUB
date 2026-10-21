@@ -1,15 +1,15 @@
 :root {
-  --bg: #080d1b;
-  --surface: #111a30;
-  --surface-2: #0d1528;
-  --text: #f7f9ff;
-  --muted: #9aa7bd;
+  --bg: #111a27;
+  --surface: #1d2d41;
+  --surface-2: #17263a;
+  --text: #f7f5ef;
+  --muted: #bac6cd;
   --line: rgba(255,255,255,.09);
 
-  --primary: #7567ff;
-  --primary2: #4f8cff;
-  --cyan: #48d9ff;
-  --green: #45d39c;
+  --primary: #c7a564;
+  --primary2: #71a7b4;
+  --cyan: #78c7bc;
+  --green: #8cc8a9;
 
   --shadow: 0 24px 70px rgba(0,0,0,.32);
 
@@ -69,19 +69,19 @@ a {
   background:
     radial-gradient(
       circle at 78% 10%,
-      rgba(117,103,255,.15),
+      rgba(199,165,100,.15),
       transparent 28%
     ),
     radial-gradient(
       circle at 12% 60%,
-      rgba(72,217,255,.07),
+      rgba(120,199,188,.07),
       transparent 28%
     ),
     linear-gradient(
       180deg,
-      #080d1b,
-      #0a1020 55%,
-      #080d1b
+      #111a27,
+      #121e2d 55%,
+      #111a27
     );
 }
 
@@ -124,7 +124,7 @@ a {
   top: 0;
   z-index: 100;
 
-  background: rgba(8,13,27,.82);
+  background: rgba(17,26,39,.82);
 
   border-bottom: 1px solid var(--line);
 
@@ -174,7 +174,7 @@ a {
 }
 
 .brand-copy small {
-  color: #8d9ab2;
+  color: #bfc9ce;
 
   font-size: 8px;
 
@@ -426,8 +426,8 @@ a {
     linear-gradient(
       100deg,
       #fff,
-      #8d83ff,
-      #55cfff
+      #d1b16c,
+      #78c7bc
     );
 
   background-clip: text;
@@ -549,7 +549,7 @@ a {
   position: absolute;
 
   border:
-    1px solid rgba(117,103,255,.23);
+    1px solid rgba(199,165,100,.23);
 
   border-radius: 50%;
 }
@@ -569,7 +569,7 @@ a {
   transform: rotate(-30deg);
 
   border-color:
-    rgba(72,217,255,.2);
+    rgba(120,199,188,.2);
 
   animation:
     spin-two 20s linear infinite;
@@ -580,7 +580,7 @@ a {
   height: 370px;
 
   border-color:
-    rgba(117,103,255,.1);
+    rgba(199,165,100,.1);
 }
 
 .visual-core {
@@ -606,10 +606,10 @@ a {
     );
 
   border:
-    1px solid rgba(117,103,255,.4);
+    1px solid rgba(199,165,100,.4);
 
   box-shadow:
-    0 0 55px rgba(117,103,255,.22);
+    0 0 55px rgba(199,165,100,.22);
 }
 
 .visual-core strong {
@@ -779,10 +779,10 @@ a {
   color: #fff;
 
   background:
-    rgba(117,103,255,.13);
+    rgba(199,165,100,.13);
 
   border:
-    1px solid rgba(117,103,255,.2);
+    1px solid rgba(199,165,100,.2);
 
   font-family: "Space Grotesk", sans-serif;
 
@@ -916,10 +916,10 @@ a {
   border-radius: 13px;
 
   background:
-    rgba(117,103,255,.11);
+    rgba(199,165,100,.11);
 
   border:
-    1px solid rgba(117,103,255,.18);
+    1px solid rgba(199,165,100,.18);
 
   color: #938aff;
 
@@ -1045,14 +1045,14 @@ a {
   text-align: center;
 
   border:
-    1px solid rgba(117,103,255,.22);
+    1px solid rgba(199,165,100,.22);
 
   border-radius: 30px;
 
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(117,103,255,.18),
+      rgba(199,165,100,.18),
       transparent 48%
     ),
     rgba(255,255,255,.025);
@@ -1085,7 +1085,7 @@ a {
   border-top:
     1px solid var(--line);
 
-  background: #070c18;
+  background: #0d1521;
 }
 
 .footer-top {

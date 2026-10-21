@@ -1,14 +1,14 @@
 :root {
-  --bg: #080d1b;
-  --surface: #111a30;
-  --text: #f7f9ff;
-  --muted: #9aa7bd;
+  --bg: #111a27;
+  --surface: #1d2d41;
+  --text: #f7f5ef;
+  --muted: #bac6cd;
   --line: rgba(255, 255, 255, 0.09);
 
-  --primary: #7567ff;
-  --primary2: #4f8cff;
-  --cyan: #48d9ff;
-  --green: #45d39c;
+  --primary: #c7a564;
+  --primary2: #71a7b4;
+  --cyan: #78c7bc;
+  --green: #8cc8a9;
 
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
 
@@ -68,19 +68,19 @@ a {
   background:
     radial-gradient(
       circle at 78% 12%,
-      rgba(117, 103, 255, 0.15),
+      rgba(199, 165, 100, 0.15),
       transparent 28%
     ),
     radial-gradient(
       circle at 12% 58%,
-      rgba(72, 217, 255, 0.07),
+      rgba(120, 199, 188, 0.07),
       transparent 28%
     ),
     linear-gradient(
       180deg,
-      #080d1b,
-      #0a1020 55%,
-      #080d1b
+      #111a27,
+      #121e2d 55%,
+      #111a27
     );
 }
 
@@ -123,7 +123,7 @@ a {
   top: 0;
   z-index: 100;
 
-  background: rgba(8, 13, 27, 0.82);
+  background: rgba(17, 26, 39, 0.82);
 
   border-bottom: 1px solid var(--line);
 
@@ -171,7 +171,7 @@ a {
 }
 
 .brand-copy small {
-  color: #8d9ab2;
+  color: #bfc9ce;
 
   font-size: 8px;
 
@@ -374,7 +374,7 @@ a {
 }
 
 .btn-light {
-  color: #0a1020;
+  color: #121e2d;
 
   background: #fff;
 }
@@ -429,8 +429,8 @@ a {
     linear-gradient(
       100deg,
       #fff,
-      #8d83ff,
-      #55cfff
+      #d1b16c,
+      #78c7bc
     );
 
   background-clip: text;
@@ -526,7 +526,7 @@ a {
 
   border-radius: 50%;
 
-  background: rgba(117, 103, 255, 0.12);
+  background: rgba(199, 165, 100, 0.12);
 
   filter: blur(55px);
 
@@ -586,7 +586,7 @@ a {
 .center-ring {
   position: absolute;
 
-  border: 1px solid rgba(117, 103, 255, 0.23);
+  border: 1px solid rgba(199, 165, 100, 0.23);
 
   border-radius: 50%;
 }
@@ -605,7 +605,7 @@ a {
 
   transform: rotate(-28deg);
 
-  border-color: rgba(72, 217, 255, 0.2);
+  border-color: rgba(120, 199, 188, 0.2);
 
   animation:
     spin2 20s linear infinite;
@@ -635,10 +635,10 @@ a {
       rgba(10, 17, 34, 0.98) 68%
     );
 
-  border: 1px solid rgba(117, 103, 255, 0.4);
+  border: 1px solid rgba(199, 165, 100, 0.4);
 
   box-shadow:
-    0 0 55px rgba(117, 103, 255, 0.22);
+    0 0 55px rgba(199, 165, 100, 0.22);
 }
 
 .center-core strong {
@@ -753,12 +753,12 @@ a {
   background:
     linear-gradient(
       145deg,
-      rgba(117, 103, 255, 0.13),
+      rgba(199, 165, 100, 0.13),
       rgba(255, 255, 255, 0.025)
     );
 
   border-color:
-    rgba(117, 103, 255, 0.25);
+    rgba(199, 165, 100, 0.25);
 }
 
 .card-number {
@@ -791,10 +791,10 @@ a {
   color: #fff;
 
   background:
-    rgba(117, 103, 255, 0.14);
+    rgba(199, 165, 100, 0.14);
 
   border:
-    1px solid rgba(117, 103, 255, 0.2);
+    1px solid rgba(199, 165, 100, 0.2);
 
   font-family: "Space Grotesk", sans-serif;
 
@@ -821,7 +821,7 @@ a {
 ========================= */
 
 .story-section {
-  background: #0a1020;
+  background: #121e2d;
 }
 
 .story-grid {
@@ -859,14 +859,14 @@ a {
   overflow: hidden;
 
   border:
-    1px solid rgba(117, 103, 255, 0.22);
+    1px solid rgba(199, 165, 100, 0.22);
 
   border-radius: 25px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(117, 103, 255, 0.1),
+      rgba(199, 165, 100, 0.1),
       rgba(255, 255, 255, 0.025)
     );
 
@@ -922,7 +922,7 @@ a {
 ========================= */
 
 .hubs-section {
-  background: #080d1b;
+  background: #111a27;
 }
 
 .hub-card {
@@ -942,15 +942,15 @@ a {
 }
 
 .hub-card.education {
-  border-top: 2px solid #7567ff;
+  border-top: 2px solid #c7a564;
 }
 
 .hub-card.skills {
-  border-top: 2px solid #48d9ff;
+  border-top: 2px solid #78c7bc;
 }
 
 .hub-card.business {
-  border-top: 2px solid #45d39c;
+  border-top: 2px solid #8cc8a9;
 }
 
 .hub-top {
@@ -986,10 +986,10 @@ a {
   color: #fff;
 
   background:
-    rgba(117, 103, 255, 0.13);
+    rgba(199, 165, 100, 0.13);
 
   border:
-    1px solid rgba(117, 103, 255, 0.2);
+    1px solid rgba(199, 165, 100, 0.2);
 
   font-family: "Space Grotesk", sans-serif;
 
@@ -1117,12 +1117,12 @@ a {
   background:
     radial-gradient(
       circle at 40% 30%,
-      rgba(117, 103, 255, 0.18),
+      rgba(199, 165, 100, 0.18),
       rgba(10, 17, 33, 0.97) 70%
     );
 
   border:
-    1px solid rgba(117, 103, 255, 0.25);
+    1px solid rgba(199, 165, 100, 0.25);
 
   box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.25);
@@ -1151,16 +1151,16 @@ a {
   z-index: 2;
 
   border-color:
-    rgba(72, 217, 255, 0.38);
+    rgba(120, 199, 188, 0.38);
 
   box-shadow:
-    0 0 70px rgba(72, 217, 255, 0.1);
+    0 0 70px rgba(120, 199, 188, 0.1);
 }
 
 .node-center strong {
   font-size: 28px;
 
-  color: #8d83ff;
+  color: #d1b16c;
 }
 
 .node-education {
@@ -1192,7 +1192,7 @@ a {
     linear-gradient(
       90deg,
       transparent,
-      rgba(117, 103, 255, 0.4),
+      rgba(199, 165, 100, 0.4),
       transparent
     );
 
@@ -1248,14 +1248,14 @@ a {
   gap: 25px;
 
   border:
-    1px solid rgba(117, 103, 255, 0.22);
+    1px solid rgba(199, 165, 100, 0.22);
 
   border-radius: 25px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(117, 103, 255, 0.12),
+      rgba(199, 165, 100, 0.12),
       rgba(255, 255, 255, 0.025)
     );
 }
@@ -1316,7 +1316,7 @@ a {
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(117, 103, 255, 0.18),
+      rgba(199, 165, 100, 0.18),
       transparent 45%
     ),
     rgba(255, 255, 255, 0.025);
@@ -1350,7 +1350,7 @@ a {
 
   border-top: 1px solid var(--line);
 
-  background: #070c18;
+  background: #0d1521;
 }
 
 .footer-top {
