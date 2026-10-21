@@ -3,32 +3,47 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "CEO JACK LEARNING HUB",
-    template: "%s | CEO JACK LEARNING HUB",
+    default: "CEO JACK Uganda | Business Coach & Founder of CEO JACK Learning Hub",
+    template: "%s | CEO JACK Uganda",
   },
-  description: "Learn. Create. Develop. An AI-powered learning platform for education, digital skills, and entrepreneurship.",
+  description: "CEO Jack is a business coach and entrepreneur based in Kampala, Uganda. Founder of CEO JACK Learning Hub, teaching business, leadership and digital skills to young entrepreneurs.",
+  keywords: ["CEO JACK", "CEO JACK Uganda", "CEO Jack Kampala", "CEO Jack Uganda Business Coach", "JACKHUB Learning Hub", "Business Coach Uganda"],
+  authors: [{ name: "CEO JACK", url: "https://ceojacklearninghub.com" }],
+  creator: "CEO JACK",
   applicationName: "CEO JACK LEARNING HUB",
   metadataBase: new URL("https://ceojacklearninghub.com"),
   openGraph: {
-    title: "CEO JACK LEARNING HUB",
-    description: "Learn. Create. Develop. An AI-powered learning platform built for the future.",
+    title: "CEO JACK Uganda | Business Coach & Founder of JACKHUB Learning Hub",
+    description: "CEO Jack is a business coach and founder of CEO JACK Learning Hub in Kampala, Uganda. Learn business, leadership and digital skills.",
     url: "https://ceojacklearninghub.com",
     siteName: "CEO JACK LEARNING HUB",
+    locale: "en_UG",
     images: [
       {
-        url: "https://ceojacklearninghub.com/assets/images/logo-image.png",
-        width: 1200,
-        height: 630,
-        alt: "CEO JACK LEARNING HUB",
+        url: "/assets/images/banner.jpeg",
+        width: 1096,
+        height: 576,
+        alt: "CEO JACK LEARNING HUB — Learn. Create. Develop.",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CEO JACK LEARNING HUB",
-    description: "Learn. Create. Develop. An AI-powered learning platform",
-    images: ["https://ceojacklearninghub.com/assets/images/logo-image.png"],
+    title: "CEO JACK Uganda | Business Coach & Founder",
+    description: "CEO Jack is a business coach in Kampala, Uganda. Founder of CEO JACK Learning Hub.",
+    images: ["/assets/images/banner.jpeg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
