@@ -12,7 +12,7 @@ export default function ServicesPage() {
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-      <SiteHeader active="services" />
+      <SiteHeader active="/services" />
       <main>
         <section className="services-hero section">
           <div className="container services-hero-grid">

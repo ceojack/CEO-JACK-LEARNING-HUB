@@ -1,17 +1,17 @@
 :root {
-  --bg: #111a27;
-  --bg-soft: #17263a;
-  --surface: #1d2d41;
-  --surface-2: #26394d;
+  --bg: #080d1b;
+  --bg-soft: #10182a;
+  --surface: #10182a;
+  --surface-2: #172239;
 
-  --text: #f7f5ef;
-  --muted: #bac6cd;
+  --text: #f5f7ff;
+  --muted: #a7b1c7;
 
   --line: rgba(255,255,255,.09);
 
-  --primary: #c7a564;
-  --primary-2: #71a7b4;
-  --cyan: #78c7bc;
+  --primary: #6385ff;
+  --primary-2: #9b7bff;
+  --cyan: #9b7bff;
   --green: #8cc8a9;
 
   --shadow: 0 24px 70px rgba(0,0,0,.32);
@@ -65,19 +65,19 @@ a {
   background:
     radial-gradient(
       circle at 78% 13%,
-      rgba(199,165,100,.15),
+      rgba(99,133,255,.15),
       transparent 28%
     ),
     radial-gradient(
       circle at 15% 58%,
-      rgba(120,199,188,.07),
+      rgba(155,123,255,.07),
       transparent 28%
     ),
     linear-gradient(
       180deg,
-      #111a27 0%,
-      #121e2d 55%,
-      #111a27 100%
+      #080d1b 0%,
+      #0d1427 55%,
+      #080d1b 100%
     );
 }
 
@@ -166,7 +166,7 @@ a {
     );
 
   box-shadow:
-    0 10px 30px rgba(199,165,100,.28);
+    0 10px 30px rgba(99,133,255,.28);
 }
 
 .brand-copy {
@@ -250,6 +250,21 @@ a {
   color: #fff;
 }
 
+.desktop-nav > a.active:not(.nav-cta) {
+  position: relative;
+}
+
+.desktop-nav > a.active:not(.nav-cta)::after {
+  position: absolute;
+  right: 0;
+  bottom: -11px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+  content: "";
+}
+
 
 /* BUTTONS */
 
@@ -321,7 +336,7 @@ a {
 }
 
 .btn-light {
-  color: #121e2d;
+  color: #0d1427;
   background: #fff;
 }
 
@@ -445,8 +460,8 @@ a {
     linear-gradient(
       100deg,
       #fff,
-      #d1b16c,
-      #78c7bc
+      #83a2ff,
+      #9b7bff
     );
 
   background-clip: text;
@@ -662,10 +677,10 @@ a {
   font-weight: 700;
 
   background:
-    rgba(199,165,100,.16);
+    rgba(99,133,255,.16);
 
   border:
-    1px solid rgba(199,165,100,.22);
+    1px solid rgba(99,133,255,.22);
 }
 
 .preview-card strong {
@@ -692,8 +707,8 @@ a {
 }
 
 .skills .preview-icon {
-  background: rgba(120,199,188,.11);
-  border-color: rgba(120,199,188,.18);
+  background: rgba(155,123,255,.11);
+  border-color: rgba(155,123,255,.18);
 }
 
 .business .preview-icon {
@@ -719,15 +734,15 @@ a {
   gap: 12px;
 
   border:
-    1px solid rgba(199,165,100,.25);
+    1px solid rgba(99,133,255,.25);
 
   border-radius: 15px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(199,165,100,.12),
-      rgba(120,199,188,.05)
+      rgba(99,133,255,.12),
+      rgba(155,123,255,.05)
     );
 }
 
@@ -893,12 +908,12 @@ a {
   background:
     linear-gradient(
       145deg,
-      rgba(199,165,100,.13),
+      rgba(99,133,255,.13),
       rgba(255,255,255,.025)
     );
 
   border-color:
-    rgba(199,165,100,.25);
+    rgba(99,133,255,.25);
 }
 
 .step-number,
@@ -933,7 +948,7 @@ a {
 /* HUBS */
 
 .hubs-section {
-  background: #121e2d;
+  background: #0d1427;
 }
 
 .hub-card {
@@ -967,17 +982,17 @@ a {
   border-radius: 50%;
 
   background:
-    rgba(199,165,100,.13);
+    rgba(99,133,255,.13);
 
   filter: blur(15px);
 }
 
 .hub-education {
-  border-top: 2px solid #c7a564;
+  border-top: 2px solid #6385ff;
 }
 
 .hub-skills {
-  border-top: 2px solid #78c7bc;
+  border-top: 2px solid #9b7bff;
 }
 
 .hub-business {
@@ -1027,7 +1042,7 @@ a {
 
 .hub-card a span,
 .text-link span {
-  color: #c7a564;
+  color: #6385ff;
   margin-left: 7px;
 }
 
@@ -1066,7 +1081,7 @@ a {
 }
 
 .step > span {
-  color: #c7a564;
+  color: #6385ff;
 
   font-family: "Space Grotesk", sans-serif;
 
@@ -1111,12 +1126,12 @@ a {
   border-radius: 30px;
 
   border:
-    1px solid rgba(199,165,100,.22);
+    1px solid rgba(99,133,255,.22);
 
   background:
     radial-gradient(
       circle at 75% 45%,
-      rgba(199,165,100,.18),
+      rgba(99,133,255,.18),
       transparent 28%
     ),
     linear-gradient(
@@ -1153,7 +1168,7 @@ a {
   inset: 0;
 
   border:
-    1px solid rgba(199,165,100,.35);
+    1px solid rgba(99,133,255,.35);
 
   border-radius: 50%;
 }
@@ -1170,7 +1185,7 @@ a {
     scaleY(.55);
 
   border-color:
-    rgba(120,199,188,.3);
+    rgba(155,123,255,.3);
 }
 
 .orb-core {
@@ -1190,13 +1205,13 @@ a {
   background:
     radial-gradient(
       circle,
-      #c7a564,
+      #6385ff,
       #2e6b65 48%,
       #10182e 70%
     );
 
   box-shadow:
-    0 0 70px rgba(199,165,100,.32);
+    0 0 70px rgba(99,133,255,.32);
 }
 
 
@@ -1243,7 +1258,7 @@ a {
 }
 
 .outcome-list b {
-  color: #c7a564;
+  color: #6385ff;
   font-size: 11px;
 }
 
@@ -1276,7 +1291,7 @@ a {
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(199,165,100,.18),
+      rgba(99,133,255,.18),
       transparent 45%
     ),
     rgba(255,255,255,.025);
@@ -1514,7 +1529,8 @@ a {
     font-size: 14px;
   }
 
-  .mobile-menu a:hover {
+  .mobile-menu a:hover,
+  .mobile-menu a.active:not(.mobile-cta) {
     background:
       rgba(255,255,255,.05);
 

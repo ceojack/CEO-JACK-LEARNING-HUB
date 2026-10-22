@@ -12,7 +12,7 @@ export default function HowItWorksPage() {
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-      <SiteHeader active="how-it-works" />
+      <SiteHeader active="/how-it-works" />
       <main>
         <section className="section how-section" id="how-it-works">
           <div className="container">

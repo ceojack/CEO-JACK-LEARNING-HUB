@@ -5,18 +5,19 @@ import Image from "next/image";
 import { useState } from "react";
 
 const navItems = [
-  { href: "/", label: "Home", id: "home" },
-  { href: "/how-it-works", label: "How It Works", id: "how-it-works" },
-  { href: "/about", label: "About", id: "about" },
-  { href: "/services", label: "Services", id: "services" },
-  { href: "/contact", label: "Contact", id: "contact" },
+  { href: "/", label: "Home" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 type SiteHeaderProps = {
-  active?: (typeof navItems)[number]["id"] | "get-started";
+  active?: (typeof navItems)[number]["href"] | "/get-started";
 };
 
-export function SiteHeader({ active = "home" }: SiteHeaderProps) {
+export function SiteHeader({ active = "/" }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
 
@@ -47,15 +48,15 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link
-              key={item.id}
+              key={item.href}
               href={item.href}
-              className={active === item.id ? "active" : undefined}
-              aria-current={active === item.id ? "page" : undefined}
+              className={active === item.href ? "active" : undefined}
+              aria-current={active === item.href ? "page" : undefined}
             >
               {item.label}
             </Link>
           ))}
-          <Link href="/get-started" className="nav-cta">
+          <Link href="/get-started" className={`nav-cta${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined}>
             Get Started Free <span>→</span>
           </Link>
         </nav>
@@ -66,11 +67,17 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
           aria-label="Mobile navigation"
         >
           {navItems.map((item) => (
-            <Link key={item.id} href={item.href} onClick={closeMenu}>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={active === item.href ? "active" : undefined}
+              aria-current={active === item.href ? "page" : undefined}
+              onClick={closeMenu}
+            >
               {item.label}
             </Link>
           ))}
-          <Link href="/get-started" className="mobile-cta" onClick={closeMenu}>
+          <Link href="/get-started" className={`mobile-cta${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined} onClick={closeMenu}>
             Get Started Free →
           </Link>
         </nav>

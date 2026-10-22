@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-      <SiteHeader active="about" />
+      <SiteHeader active="/about" />
       <main>
         <section className="about-hero section">
           <div className="container about-hero-grid">

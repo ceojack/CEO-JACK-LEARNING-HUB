@@ -2,13 +2,13 @@
 
 :root {
   color-scheme: dark;
-  --page: #111a27;
+  --page: #080d1b;
   --panel: rgba(29, 45, 65, .94);
-  --line: rgba(217, 190, 139, .14);
-  --text: #f7f5ef;
-  --muted: #bac6cd;
+  --line: rgba(99, 133, 255, .14);
+  --text: #f5f7ff;
+  --muted: #a7b1c7;
   --quiet: #74819c;
-  --blue: #78c7bc;
+  --blue: #9b7bff;
   --purple: #7bc4b9;
   --body: "DM Sans", "Segoe UI", Arial, sans-serif;
   --display: "Space Grotesk", "DM Sans", sans-serif;
@@ -89,13 +89,13 @@ input:focus-visible {
 .glow-one {
   top: 10%;
   left: -220px;
-  background: #71a7b4;
+  background: #9b7bff;
 }
 
 .glow-two {
   right: -220px;
   bottom: 0;
-  background: #c7a564;
+  background: #6385ff;
 }
 
 .topbar {
@@ -205,7 +205,7 @@ h1 {
 h1 span {
   display: block;
   color: transparent;
-  background: linear-gradient(95deg, #fff, #78c7bc 48%, #e0c989);
+  background: linear-gradient(95deg, #fff, #9b7bff 48%, #c0a3ff);
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -361,7 +361,7 @@ h1 span {
   width: 100%;
   min-height: 47px;
   padding: 0 14px;
-  border: 1px solid rgba(217, 190, 139, .14);
+  border: 1px solid rgba(99, 133, 255, .14);
   border-radius: 10px;
   background: rgba(3, 7, 17, .55);
   color: var(--text);
@@ -650,7 +650,7 @@ h1 span {
   content: "";
   height: 1px;
   flex: 1;
-  background: rgba(217, 190, 139, .13);
+  background: rgba(99, 133, 255, .13);
 }
 
 .social-login {
@@ -667,7 +667,7 @@ h1 span {
   justify-content: center;
   gap: 7px;
   padding: 8px 6px;
-  border: 1px solid rgba(217, 190, 139, .15);
+  border: 1px solid rgba(99, 133, 255, .15);
   border-radius: 10px;
   background: rgba(255, 255, 255, .025);
   color: #e7ebf8;

@@ -2,14 +2,14 @@
 :root {
   color-scheme: dark;
   /* Brand colors */
-  --color-bg: #111a27;
-  --color-surface: #1a2b3f;
-  --color-surface-hover: #26394d;
-  --color-primary: #c7a564;
-  --color-accent: #78c7bc;
+  --color-bg: #080d1b;
+  --color-surface: #10182a;
+  --color-surface-hover: #172239;
+  --color-primary: #6385ff;
+  --color-accent: #9b7bff;
   /* Text colors */
-  --color-text: #f7f5ef;
-  --color-muted: #bac6cd;
+  --color-text: #f5f7ff;
+  --color-muted: #a7b1c7;
   /* Borders and layout */
   --color-border: rgba(255, 255, 255, 0.1);
   --container-width: 1160px;
@@ -35,7 +35,7 @@ body {
   min-height: 100vh;
   background: radial-gradient(
     ellipse at 15% 0%,
-    rgba(199, 165, 100, 0.08),
+    rgba(99, 133, 255, 0.08),
     transparent 38%
   ),
   var(--color-bg);
@@ -121,7 +121,7 @@ h1, h2, h3, h4, p {
   background: linear-gradient(
     100deg,
     #83a2ff,
-    #e0c989
+    #c0a3ff
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -189,6 +189,20 @@ h1, h2, h3, h4, p {
   }
   .section {
     padding-block: 56px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+
+  body :is(p, li, label, small, a, button, td, th, figcaption, span, strong, em, b) {
+    font-size: max(14px, 1em) !important;
+  }
+
+  body :is(input, textarea, select) {
+    font-size: 16px !important;
   }
 }
 

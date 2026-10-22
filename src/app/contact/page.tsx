@@ -41,7 +41,7 @@ export default function ContactPage() {
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-      <SiteHeader active="contact" />
+      <SiteHeader active="/contact" />
       <main>
         <section className="contact-hero section">
           <div className="container hero-grid">

@@ -1,12 +1,12 @@
 
 :root {
   color-scheme: dark;
-  --page: #111a27;
-  --line: rgba(217, 190, 139, 0.13);
-  --text: #f7f5ef;
-  --muted: #bac6cd;
+  --page: #080d1b;
+  --line: rgba(99, 133, 255, 0.13);
+  --text: #f5f7ff;
+  --muted: #a7b1c7;
   --quiet: #6f7b96;
-  --blue: #78c7bc;
+  --blue: #9b7bff;
   --purple: #7bc4b9;
   --font-body: "DM Sans", "Segoe UI", Arial, sans-serif;
   --font-display: "Space Grotesk", "DM Sans", sans-serif;
@@ -89,13 +89,13 @@ a:focus-visible {
 .glow-blue {
   top: 15%;
   left: -220px;
-  background: #71a7b4;
+  background: #9b7bff;
 }
 
 .glow-purple {
   right: -220px;
   bottom: 4%;
-  background: #c7a564;
+  background: #6385ff;
 }
 
 /* HEADER */
@@ -246,7 +246,7 @@ h1 span {
   display: block;
   padding-bottom: .08em;
   color: transparent;
-  background: linear-gradient(95deg, #fff 0%, #78c7bc 45%, #e0c989 100%);
+  background: linear-gradient(95deg, #fff 0%, #9b7bff 45%, #c0a3ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -328,7 +328,7 @@ h1 span {
 }
 
 .principle-strip span:last-child {
-  color: #e0c989;
+  color: #c0a3ff;
 }
 
 .principle-arrow {
@@ -565,7 +565,7 @@ h1 span {
 }
 
 .privacy-note span {
-  color: #c7a564;
+  color: #6385ff;
   font-size: 14px;
   line-height: 1;
 }

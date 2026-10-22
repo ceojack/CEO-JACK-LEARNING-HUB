@@ -7,13 +7,37 @@ import { SiteHeader } from "@/src/components/header";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "./homepage.css";
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": "https://ceojacklearninghub.com/#organization",
+  name: "CEO JACK LEARNING HUB",
+  alternateName: "JACKHUB Learning Hub",
+  url: "https://ceojacklearninghub.com",
+  logo: "https://ceojacklearninghub.com/assets/images/logo.webp",
+  image: "https://ceojacklearninghub.com/assets/images/banner.jpeg",
+  description:
+    "CEO JACK LEARNING HUB is a learning platform for education, digital skills, entrepreneurship and personal development.",
+  areaServed: { "@type": "Country", name: "Uganda" },
+  founder: {
+    "@type": "Person",
+    name: "CEO JACK",
+    url: "https://ceojacklearninghub.com/author/ceo-jack",
+  },
+  knowsAbout: ["Education", "Digital skills", "Entrepreneurship", "Business learning"],
+};
+
 export default function HomePage() {
   useReveal();
 
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
-      <SiteHeader active="home" />
+      <SiteHeader active="/" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema).replace(/</g, "\\u003c") }}
+      />
 
       <main>
         <section className="hero section" id="home">
