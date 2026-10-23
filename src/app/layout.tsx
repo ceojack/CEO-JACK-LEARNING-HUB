@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { ScrollToTop } from "@/src/components/scroll-to-top";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -60,7 +62,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

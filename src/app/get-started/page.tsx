@@ -46,7 +46,7 @@ export default function GetStartedPage() {
         </button>
         <nav className={`primary-navigation${menuOpen ? " is-open" : ""}`} id="primary-navigation" aria-label="Main navigation">
           <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/#hubs" onClick={() => setMenuOpen(false)}>Hubs</Link>
+          <Link href="/" onClick={() => setMenuOpen(false)}>Hubs</Link>
           <Link href="/how-it-works" onClick={() => setMenuOpen(false)}>How It Works</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/services" onClick={() => setMenuOpen(false)}>Services</Link>
@@ -134,7 +134,7 @@ export default function GetStartedPage() {
             <div className="card-separator">
               <span /><small>OR</small><span />
             </div>
-            <Link className="explore-link" href="/#hubs" onClick={() => setMessage("You can explore the hubs without creating an account.")}>
+            <Link className="explore-link" href="/" onClick={() => setMessage("You can explore the hubs without creating an account.")}>
               Explore the learning hubs first <span aria-hidden="true">→</span>
             </Link>
             <p className="form-notice" role="status" aria-live="polite">{message}</p>

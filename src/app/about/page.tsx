@@ -33,7 +33,7 @@ export default function AboutPage() {
                 <Link href="/get-started" className="btn btn-primary">
                   Start Your Journey <span>→</span>
                 </Link>
-                <Link href="/#hubs" className="btn btn-secondary">
+                <Link href="/" className="btn btn-secondary">
                   Explore the Hubs
                 </Link>
               </div>

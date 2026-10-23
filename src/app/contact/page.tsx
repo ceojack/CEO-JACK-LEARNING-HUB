@@ -162,7 +162,7 @@ export default function ContactPage() {
                 <span className="section-label">EXPLORE MORE</span>
                 <Link href="/about"><span>Learn about us</span><span>↗</span></Link>
                 <Link href="/services"><span>Explore our services</span><span>↗</span></Link>
-                <Link href="/#hubs"><span>Discover the three hubs</span><span>↗</span></Link>
+                <Link href="/"><span>Discover the three hubs</span><span>↗</span></Link>
               </div>
             </aside>
           </div>
