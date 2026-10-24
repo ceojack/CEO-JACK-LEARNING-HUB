@@ -93,7 +93,8 @@ export default function OnboardingPage() {
                   </label>
                 ))}
               </div>
-              <select value={ageGroup} onChange={(event) => setAgeGroup(event.target.value)}>
+              <label className="age-select-label" htmlFor="ageGroup">Age group</label>
+              <select id="ageGroup" className={`age-select${ageGroup ? " has-value" : ""}`} value={ageGroup} onChange={(event) => setAgeGroup(event.target.value)}>
                 <option value="">Select your age group</option>
                 <option>Under 13</option>
                 <option>13 - 15</option>
@@ -141,18 +142,20 @@ export default function OnboardingPage() {
                 <span className="step-label">STEP 04</span>
                 <h2>Review your <span>path.</span></h2>
               </div>
-              <p>Level: {level}</p>
-              <p>Age group: {ageGroup}</p>
-              <p>Interests: {selectedInterests.join(", ")}</p>
-              <p>Goals: {selectedGoals.join(", ")}</p>
+              <div className="onboarding-review">
+                <p><span>Learning level</span><strong>{level}</strong></p>
+                <p><span>Age group</span><strong>{ageGroup}</strong></p>
+                <p><span>Interests</span><strong>{selectedInterests.join(", ")}</strong></p>
+                <p><span>Your goals</span><strong>{selectedGoals.join(", ")}</strong></p>
+              </div>
             </div>
           ) : null}
-          <p role="status">{status}</p>
+          <p className="onboarding-status" role="status">{status}</p>
           <div className="step-actions">
             {step > 1 ? (
-              <button type="button" onClick={() => setStep((value) => value - 1)}>Back</button>
+              <button className="nav-btn back-btn" type="button" onClick={() => { setStatus(""); setStep((value) => value - 1); }}>Back</button>
             ) : null}
-            <button type="button" onClick={next}>
+            <button className="nav-btn next-btn" type="button" onClick={next}>
               {step === 4 ? "Enter dashboard" : "Continue"}
             </button>
           </div>

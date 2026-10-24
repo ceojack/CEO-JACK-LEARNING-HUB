@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   AcademicLevel,
   classes,
@@ -16,6 +16,16 @@ export default function EducationPage() {
   const [selectedClass, setSelectedClass] = useState("P1");
   const [query, setQuery] = useState("");
   const [toast, setToast] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedLevel: AcademicLevel = params.get("level") === "secondary" ? "secondary" : "primary";
+    const requestedClass = params.get("class");
+    setLevel(requestedLevel);
+    if (requestedClass && (classes[requestedLevel] as readonly string[]).includes(requestedClass)) {
+      setSelectedClass(requestedClass);
+    }
+  }, []);
 
   const subjects = useMemo(() => {
     const source = level === "primary" ? primarySubjects : secondarySubjects;
@@ -126,6 +136,17 @@ export default function EducationPage() {
             </div>
           </section>
 
+          <section className="section" aria-labelledby="featured-lesson-title">
+            <div className="section-heading">
+              <div>
+                <span className="section-kicker">TRY A COMPLETE LESSON</span>
+                <h2 id="featured-lesson-title">Learn, practise, and check your understanding</h2>
+                <p>Start with a short P7 Mathematics lesson on equivalent fractions, then take a three-question quiz.</p>
+              </div>
+              <Link href="/lesson" className="lesson-entry-link">Open sample lesson →</Link>
+            </div>
+          </section>
+
           <section className="section" id="subjectsSection">
             <div className="section-heading">
               <div>
@@ -142,7 +163,7 @@ export default function EducationPage() {
               {subjects.map((subject) => (
                 <Link
                   key={subject.name}
-                  href={`/subject?name=${encodeURIComponent(subject.name)}&class=${encodeURIComponent(selectedClass)}`}
+                  href={`/subject?name=${encodeURIComponent(subject.name)}&class=${encodeURIComponent(selectedClass)}&level=${level}`}
                   className="subject-card"
                 >
                   <div className="subject-icon" style={{ backgroundColor: subject.color, color: subject.iconColor }}>

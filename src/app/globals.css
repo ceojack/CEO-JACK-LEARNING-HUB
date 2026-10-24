@@ -183,6 +183,22 @@ h1, h2, h3, h4, p {
   font-size: 14px;
 }
 
+.footer-legal-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-legal-links a {
+  color: var(--color-muted);
+  text-underline-offset: 3px;
+}
+
+.footer-legal-links a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .container {
     width: calc(100% - 32px);

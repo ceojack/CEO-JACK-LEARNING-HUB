@@ -17,7 +17,10 @@ export function SiteFooter() {
         </div>
         <nav className="footer-links" aria-label="Footer navigation">
           <Link href="/">Home</Link>
-          <Link href="/">Hubs</Link>
+          <Link href="/#hubs">Hubs</Link>
+          <Link href="/education">Education</Link>
+          <Link href="/digital-skills">Digital Skills</Link>
+          <Link href="/entrepreneurship">Entrepreneurship</Link>
           <Link href="/how-it-works">How It Works</Link>
           <Link href="/about">About</Link>
           <Link href="/services">Services</Link>
@@ -26,8 +29,9 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} CEO JACK LEARNING HUB. All rights reserved.</span>
+        <span>© CEO JACK LEARNING HUB. All rights reserved.</span>
         <span>Built for the next generation of learners.</span>
+        <span className="footer-legal-links"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></span>
       </div>
     </footer>
   );

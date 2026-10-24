@@ -113,7 +113,7 @@ export default function DashboardPage() {
               <h1>Good morning, Jack <span aria-hidden="true">✦</span></h1>
               <p>Here’s what’s happening across CEO JACK LEARNING HUB today.</p>
             </div>
-            <Link className="admin-primary-button" href="/education"><span aria-hidden="true">＋</span> Create a course</Link>
+            <Link className="admin-primary-button" href="/education"><span aria-hidden="true">↗</span> Explore learning</Link>
           </section>
 
           <section className="admin-stats" aria-label="Platform overview">
@@ -150,7 +150,7 @@ export default function DashboardPage() {
           <section className="admin-courses-section">
             <div className="admin-section-heading">
               <div><span className="admin-section-kicker">CONTENT LIBRARY</span><h2>Recent courses</h2><p>Keep track of your most recently updated learning content.</p></div>
-              <Link href="/education" className="admin-secondary-button">Manage courses <span aria-hidden="true">→</span></Link>
+              <Link href="/education" className="admin-secondary-button">Browse education hub <span aria-hidden="true">→</span></Link>
             </div>
 
             <div className="admin-course-table-wrap">
@@ -163,18 +163,18 @@ export default function DashboardPage() {
                       <td><span className="admin-enrolled">{course.students}<small> students</small></span></td>
                       <td><div className="admin-completion"><div className="admin-progress-track"><span style={{ width: `${course.progress}%` }} /></div><small>{course.progress}%</small></div></td>
                       <td><span className={`admin-status ${course.status === "Published" ? "published" : course.status === "In review" ? "review" : "draft"}`}><i />{course.status}</span></td>
-                      <td><button className="admin-row-action" type="button" aria-label={`Open ${course.name}`}>↗</button></td>
+                      <td><Link className="admin-row-action" href="/education" aria-label={`Browse learning content for ${course.name}`}>↗</Link></td>
                     </tr>
                   ))}
                   {filteredCourses.length === 0 ? <tr><td className="admin-empty-state" colSpan={5}>No courses match “{query}”. Try another search.</td></tr> : null}
                 </tbody>
               </table>
             </div>
-            <div className="admin-table-footer"><span>Showing {filteredCourses.length} of 24 courses</span><Link href="/education">View all courses <span aria-hidden="true">→</span></Link></div>
+            <div className="admin-table-footer"><span>Showing {filteredCourses.length} of 24 sample courses</span><Link href="/education">Browse learning content <span aria-hidden="true">→</span></Link></div>
           </section>
 
           <footer className="admin-footer" id="settings">
-            <span>© {new Date().getFullYear()} CEO JACK LEARNING HUB</span>
+            <span>© CEO JACK LEARNING HUB</span>
             <span>Learn. Create. Develop.</span>
           </footer>
         </div>

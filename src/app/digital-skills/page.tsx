@@ -56,11 +56,12 @@ export default function DigitalSkillsPage() {
             </div>
             <div className="subject-grid">
               {digitalTracks.map((track) => (
-                <article key={track.name} className="subject-card">
+                <Link key={track.name} href={`/ai?prompt=${encodeURIComponent(`Help me get started with ${track.name}. ${track.description} Give me a beginner-friendly activity and clear next steps.`)}`} className="subject-card track-link">
                   <div className="subject-icon">{track.icon}</div>
                   <h3>{track.name}</h3>
                   <p>{track.description}</p>
-                </article>
+                  <span className="track-action">Explore this path <span aria-hidden="true">→</span></span>
+                </Link>
               ))}
             </div>
           </section>
