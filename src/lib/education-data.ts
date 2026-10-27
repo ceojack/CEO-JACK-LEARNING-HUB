@@ -1,9 +1,31 @@
 export const classes = {
-  primary: ["P1", "P2", "P3", "P4", "P5", "P6", "P7"],
-  secondary: ["S1", "S2", "S3", "S4", "S5", "S6"],
+  primary: [
+    { value: "baby-class", label: "Baby Class", group: "Nursery" },
+    { value: "middle-class", label: "Middle Class", group: "Nursery" },
+    { value: "top-class", label: "Top Class", group: "Nursery" },
+    { value: "P1", label: "Primary One", group: "Primary" },
+    { value: "P2", label: "Primary Two", group: "Primary" },
+    { value: "P3", label: "Primary Three", group: "Primary" },
+    { value: "P4", label: "Primary Four", group: "Primary" },
+    { value: "P5", label: "Primary Five", group: "Primary" },
+    { value: "P6", label: "Primary Six", group: "Primary" },
+    { value: "P7", label: "Primary Seven", group: "Primary" },
+  ],
+  secondary: [
+    { value: "S1", label: "Senior One", group: "Secondary" },
+    { value: "S2", label: "Senior Two", group: "Secondary" },
+    { value: "S3", label: "Senior Three", group: "Secondary" },
+    { value: "S4", label: "Senior Four", group: "Secondary" },
+    { value: "S5", label: "Senior Five", group: "Secondary" },
+    { value: "S6", label: "Senior Six", group: "Secondary" },
+  ],
 } as const;
 
 export type AcademicLevel = keyof typeof classes;
+
+export function getClassLabel(classValue: string) {
+  return Object.values(classes).flat().find((item) => item.value === classValue)?.label ?? classValue;
+}
 
 export type Subject = {
   name: string;

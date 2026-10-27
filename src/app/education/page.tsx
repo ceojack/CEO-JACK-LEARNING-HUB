@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AcademicLevel,
   classes,
+  getClassLabel,
   primarySubjects,
   secondarySubjects,
 } from "@/src/lib/education-data";
@@ -22,8 +23,9 @@ export default function EducationPage() {
     const requestedLevel: AcademicLevel = params.get("level") === "secondary" ? "secondary" : "primary";
     const requestedClass = params.get("class");
     setLevel(requestedLevel);
-    if (requestedClass && (classes[requestedLevel] as readonly string[]).includes(requestedClass)) {
-      setSelectedClass(requestedClass);
+    if (requestedClass) {
+      const match = classes[requestedLevel].find((item) => item.value === requestedClass || item.label === requestedClass);
+      if (match) setSelectedClass(match.value);
     }
   }, []);
 
@@ -39,13 +41,13 @@ export default function EducationPage() {
 
   function selectClass(className: string) {
     setSelectedClass(className);
-    setToast(`${className} selected successfully.`);
+    setToast(`${getClassLabel(className)} selected successfully.`);
     window.setTimeout(() => setToast(""), 2800);
   }
 
   function switchLevel(nextLevel: AcademicLevel) {
     setLevel(nextLevel);
-    setSelectedClass(classes[nextLevel][0]);
+    setSelectedClass(classes[nextLevel][0].value);
     setQuery("");
   }
 
@@ -112,25 +114,25 @@ export default function EducationPage() {
             <div className="section-heading">
               <div>
                 <span className="section-kicker">PERSONALIZE YOUR LEARNING</span>
-                <h2>Choose your academic level</h2>
-                <p>Select your class to discover relevant subjects.</p>
+                <h2>Choose your school section</h2>
+                <p>Choose a school section, then select your class to discover relevant subjects.</p>
               </div>
               <div className="level-switch">
-                <button className={`level-tab${level === "primary" ? " active" : ""}`} type="button" onClick={() => switchLevel("primary")}>Primary</button>
-                <button className={`level-tab${level === "secondary" ? " active" : ""}`} type="button" onClick={() => switchLevel("secondary")}>Secondary</button>
+                <button className={`level-tab${level === "primary" ? " active" : ""}`} type="button" onClick={() => switchLevel("primary")}>Primary School</button>
+                <button className={`level-tab${level === "secondary" ? " active" : ""}`} type="button" onClick={() => switchLevel("secondary")}>Secondary School</button>
               </div>
             </div>
             <div className="class-grid">
-              {classes[level].map((className) => (
+              {classes[level].map((classOption) => (
                 <button
-                  key={className}
-                  className={`class-card${selectedClass === className ? " active" : ""}`}
+                  key={classOption.value}
+                  className={`class-card${selectedClass === classOption.value ? " active" : ""}`}
                   type="button"
-                  aria-pressed={selectedClass === className}
-                  onClick={() => selectClass(className)}
+                  aria-pressed={selectedClass === classOption.value}
+                  onClick={() => selectClass(classOption.value)}
                 >
-                  <strong>{className}</strong>
-                  <span>{level === "primary" ? "Primary" : "Secondary"}</span>
+                  <strong>{classOption.label}</strong>
+                  <span>{classOption.group}</span>
                 </button>
               ))}
             </div>
@@ -152,7 +154,7 @@ export default function EducationPage() {
               <div>
                 <span className="section-kicker">DISCOVER KNOWLEDGE</span>
                 <h2>Explore subjects</h2>
-                <p>Explore subjects for {selectedClass}.</p>
+                <p>Explore subjects for {getClassLabel(selectedClass)}.</p>
               </div>
               <label className="search-box">
                 <span>⌕</span>

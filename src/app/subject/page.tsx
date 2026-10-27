@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { getClassLabel } from "@/src/lib/education-data";
 import "@/src/styles/subject.css";
 
 function SubjectContent() {
@@ -38,19 +39,19 @@ function SubjectContent() {
         <header className="topbar">
           <button className="menu-btn" type="button" onClick={() => setSidebarOpen(true)}>☰</button>
           <div className="topbar-left">
-            <Link href={`/education?level=${encodeURIComponent(level)}&class=${encodeURIComponent(className)}`} className="back-btn">← Back to {className} subjects</Link>
+            <Link href={`/education?level=${encodeURIComponent(level)}&class=${encodeURIComponent(className)}`} className="back-btn">← Back to {getClassLabel(className)} subjects</Link>
           </div>
         </header>
         <section className="subject-hero">
           <div className="hero-text">
-            <span className="class-badge">{className} · SUBJECT</span>
+            <span className="class-badge">{getClassLabel(className)} · SUBJECT</span>
             <h1>{name}</h1>
             <p>Start with the foundations, then practise and ask CEO JACK AI when you get stuck.</p>
             <div className="hero-actions">
               {name === "Mathematics" && className === "P7" ? (
                 <Link href="/lesson" className="primary-btn">Start the equivalent fractions lesson →</Link>
               ) : null}
-              <Link href={`/ai?prompt=${encodeURIComponent(`Help me learn ${name} for ${className}.`)}`} className={name === "Mathematics" && className === "P7" ? "secondary-btn" : "primary-btn"}>
+              <Link href={`/ai?prompt=${encodeURIComponent(`Help me learn ${name} for ${getClassLabel(className)}.`)}`} className={name === "Mathematics" && className === "P7" ? "secondary-btn" : "primary-btn"}>
                 Ask CEO JACK AI →
               </Link>
             </div>
