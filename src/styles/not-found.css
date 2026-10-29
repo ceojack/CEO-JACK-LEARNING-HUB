@@ -1,0 +1,99 @@
+.not-found-page {
+  display: grid;
+  min-height: 68vh;
+  place-items: center;
+  padding: 64px 24px;
+  background:
+    radial-gradient(ellipse at 50% 15%, rgba(99, 133, 255, 0.14), transparent 45%),
+    #080d1b;
+  color: #f4f6fc;
+  text-align: center;
+}
+
+.not-found-card {
+  width: min(100%, 620px);
+  padding: clamp(26px, 6vw, 52px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(18, 28, 48, 0.94), rgba(12, 19, 34, 0.96));
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+}
+
+.not-found-code {
+  color: #b8a5ff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.not-found-card h1 {
+  margin: 18px 0 12px;
+  font-size: clamp(32px, 6vw, 48px);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.not-found-card p {
+  max-width: 480px;
+  margin: 0 auto;
+  color: #b6c0d2;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.not-found-back,
+.not-found-home {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 19px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4f6fc;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.not-found-home {
+  border-color: rgba(155, 123, 255, 0.5);
+  background: linear-gradient(105deg, rgba(99, 133, 255, 0.2), rgba(155, 123, 255, 0.2));
+}
+
+.not-found-back:hover,
+.not-found-home:hover {
+  transform: translateY(-2px);
+  border-color: rgba(184, 165, 255, 0.75);
+  background-color: rgba(155, 123, 255, 0.16);
+}
+
+.not-found-back:focus-visible,
+.not-found-home:focus-visible {
+  outline: 2px solid #b8a5ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .not-found-page {
+    min-height: 60vh;
+    padding: 36px 18px;
+  }
+
+  .not-found-actions {
+    flex-direction: column;
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { getClassLabel } from "@/src/lib/education-data";
@@ -58,6 +59,7 @@ function SubjectContent() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </>
   );
 }

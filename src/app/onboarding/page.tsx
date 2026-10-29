@@ -3,12 +3,20 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/onboarding.css";
 
 const levels = ["Primary", "Secondary", "Higher Education", "Independent Learner"];
 const interests = ["School & Education", "Web Development", "Programming", "AI", "Business", "Design"];
 const goals = ["Improve school results", "Learn digital skills", "Build projects", "Start a small idea"];
+const stepLabels = ["Your level", "Interests", "Goals", "Review"];
+const stepGuidance = [
+  "Choose the level that best describes you and your age group. This helps us recommend learning at the right pace.",
+  "Choose every area you would like to explore. You can change these choices whenever you like.",
+  "Pick the outcomes you care about most. We’ll use them to shape your recommended next steps.",
+  "Check your choices. You can go back to update anything before opening your learning dashboard.",
+];
 
 export default function OnboardingPage() {
   useReveal();
@@ -66,7 +74,7 @@ export default function OnboardingPage() {
         </Link>
         <div className="progress-info">
           <span>SETUP</span>
-          <strong>{step} / 4</strong>
+          <strong>Step {step} of 4</strong>
         </div>
       </header>
       <main className="onboarding-page">
@@ -78,12 +86,24 @@ export default function OnboardingPage() {
           </h1>
           <p>A few quick questions will help us understand your learning direction.</p>
         </div>
+        <nav className="onboarding-progress" aria-label="Onboarding progress">
+          <div className="onboarding-progress-track" aria-hidden="true"><span style={{ width: `${step * 25}%` }} /></div>
+          <ol>
+            {stepLabels.map((label, index) => (
+              <li key={label} className={index + 1 === step ? "current" : index + 1 < step ? "complete" : ""} aria-current={index + 1 === step ? "step" : undefined}>
+                <span className="progress-number">{index + 1 < step ? "✓" : `0${index + 1}`}</span>
+                <span>{label}</span>
+              </li>
+            ))}
+          </ol>
+        </nav>
         <section className="onboarding-card reveal">
           {step === 1 ? (
             <div className="form-step active">
               <div className="step-heading">
                 <span className="step-label">STEP 01</span>
                 <h2>Tell us about your <span>learning level.</span></h2>
+                <p>{stepGuidance[0]}</p>
               </div>
               <div className="option-grid">
                 {levels.map((item) => (
@@ -109,6 +129,7 @@ export default function OnboardingPage() {
               <div className="step-heading">
                 <span className="step-label">STEP 02</span>
                 <h2>What are you <span>interested in?</span></h2>
+                <p>{stepGuidance[1]}</p>
               </div>
               <div className="interest-grid">
                 {interests.map((item) => (
@@ -125,6 +146,7 @@ export default function OnboardingPage() {
               <div className="step-heading">
                 <span className="step-label">STEP 03</span>
                 <h2>What do you want to <span>achieve?</span></h2>
+                <p>{stepGuidance[2]}</p>
               </div>
               <div className="interest-grid">
                 {goals.map((item) => (
@@ -141,6 +163,7 @@ export default function OnboardingPage() {
               <div className="step-heading">
                 <span className="step-label">STEP 04</span>
                 <h2>Review your <span>path.</span></h2>
+                <p>{stepGuidance[3]}</p>
               </div>
               <div className="onboarding-review">
                 <p><span>Learning level</span><strong>{level}</strong></p>
@@ -150,7 +173,7 @@ export default function OnboardingPage() {
               </div>
             </div>
           ) : null}
-          <p className="onboarding-status" role="status">{status}</p>
+          <p className="onboarding-status" role="status" aria-live="polite">{status}</p>
           <div className="step-actions">
             {step > 1 ? (
               <button className="nav-btn back-btn" type="button" onClick={() => { setStatus(""); setStep((value) => value - 1); }}>Back</button>
@@ -161,6 +184,7 @@ export default function OnboardingPage() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </>
   );
 }

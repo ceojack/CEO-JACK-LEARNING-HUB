@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useState } from "react";
 import "@/src/styles/lesson.css";
 
@@ -38,6 +39,7 @@ export default function LessonPage() {
   }
 
   return (
+    <>
     <div className="lesson-app">
       <aside className="lesson-sidebar">
         <Link href="/" className="lesson-brand"><span>CJ</span><strong>CEO JACK<small>LEARNING HUB</small></strong></Link>
@@ -108,5 +110,7 @@ export default function LessonPage() {
         </article>
       </main>
     </div>
+    <SiteFooter />
+    </>
   );
 }

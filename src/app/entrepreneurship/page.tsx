@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
 import { useState } from "react";
 import { entrepreneurshipTracks } from "@/src/lib/education-data";
 import "@/src/styles/education.css";
@@ -9,6 +10,7 @@ export default function EntrepreneurshipPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
+    <>
     <div className="app">
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <Link href="/" className="brand">
@@ -68,5 +70,7 @@ export default function EntrepreneurshipPage() {
         </div>
       </main>
     </div>
+    <SiteFooter />
+    </>
   );
 }

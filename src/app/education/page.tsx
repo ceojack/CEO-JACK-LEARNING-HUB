@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useMemo, useState } from "react";
 import {
   AcademicLevel,
@@ -52,6 +53,7 @@ export default function EducationPage() {
   }
 
   return (
+    <>
     <div className="app">
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`} id="sidebar">
         <Link href="/" className="brand">
@@ -198,5 +200,7 @@ export default function EducationPage() {
       </main>
       <div className={`toast${toast ? " show" : ""}`} role="status">{toast}</div>
     </div>
+      <SiteFooter />
+    </>
   );
 }

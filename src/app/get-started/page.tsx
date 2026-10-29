@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/get-started.css";
 
@@ -152,13 +153,7 @@ export default function GetStartedPage() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <Link className="footer-brand" href="/">
-          CEO JACK <span>LEARNING HUB</span>
-        </Link>
-        <p>Learn. Create. Develop.</p>
-        <Link href="/contact">Need help? Contact us <span>↗</span></Link>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

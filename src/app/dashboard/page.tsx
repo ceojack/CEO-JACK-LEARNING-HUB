@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useMemo, useState } from "react";
 import "./dashboard.css";
 
@@ -116,8 +117,8 @@ export default function DashboardPage() {
             <div className="personalize-mark">✦</div><div className="personalize-copy"><span className="section-kicker">MAKE IT YOURS</span><h2>{profile ? "Your learning path is set up" : "Get a learning path made for you"}</h2><p>{profile ? `Your interests: ${(profile.interests ?? []).join(", ") || "ready to explore"}. You can revisit your choices any time.` : "Tell us what you’re interested in and we’ll help you find a place to start."}</p></div><Link href="/onboarding" className="personalize-link">{profile ? "Update my path" : "Personalize my path"}<span>→</span></Link>
           </section>
 
-          <footer className="dashboard-footer"><Link href="/">CEO JACK LEARNING HUB</Link><span>Learn. Create. Develop.</span><Link href="/contact">Need help? Contact us</Link></footer>
         </div>
+        <SiteFooter />
       </main>
     </div>
   );

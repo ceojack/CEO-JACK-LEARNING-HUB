@@ -655,13 +655,13 @@ h1 span {
 
 .social-login {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
 .social-button {
   min-width: 0;
-  min-height: 43px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -671,10 +671,20 @@ h1 span {
   border-radius: 10px;
   background: rgba(255, 255, 255, .025);
   color: #e7ebf8;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: background .2s, border-color .2s, transform .2s;
+}
+
+.google-button {
+  border-color: rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .06);
+}
+
+.google-button:hover {
+  border-color: rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .1);
 }
 
 .social-button svg {

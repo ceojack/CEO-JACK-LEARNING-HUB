@@ -1,18 +1,45 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { SiteFooter } from "@/src/components/footer";
+import "@/src/styles/not-found.css";
 
 export default function NotFound() {
+  const router = useRouter();
+
+  function goBack() {
+    const referrer = document.referrer;
+    const hasSameSiteHistory = window.history.length > 1 && referrer && (() => {
+      try {
+        return new URL(referrer).origin === window.location.origin;
+      } catch {
+        return false;
+      }
+    })();
+
+    if (hasSameSiteHistory) {
+      router.back();
+      return;
+    }
+
+    router.push("/");
+  }
+
   return (
-    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: 32, textAlign: "center" }}>
-      <div>
-        <p style={{ color: "#bac6cd", letterSpacing: "0.12em", fontSize: 12 }}>404</p>
-        <h1 style={{ fontSize: 42, margin: "12px 0 16px" }}>This page is still being built.</h1>
-        <p style={{ color: "#bac6cd", maxWidth: 480, margin: "0 auto 28px" }}>
-          The route you opened is not available yet. Head back to the Learning Hub and continue from there.
-        </p>
-        <Link href="/" className="primary-button">
-          Back to home
-        </Link>
-      </div>
-    </main>
+    <>
+      <main className="not-found-page">
+        <div className="not-found-card">
+          <span className="not-found-code">404 · PAGE NOT FOUND</span>
+          <h1>We can’t find that page.</h1>
+          <p>The link may be outdated, or the page may have moved. Choose where you’d like to go next.</p>
+          <div className="not-found-actions">
+            <button type="button" className="not-found-back" onClick={goBack}>← Go back</button>
+            <Link href="/" className="not-found-home">Go to home <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
