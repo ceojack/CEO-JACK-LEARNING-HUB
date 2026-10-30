@@ -29,8 +29,8 @@ export const blogPosts: BlogPost[] = [
     datePublished: "2026-10-21",
     readTime: "6 min read",
     image: "/assets/images/blog/study-group.webp",
-    imageAlt: "Learners studying together around a table",
-    imageCredit: "Photo via Unsplash",
+    imageAlt: "Three learners smiling as they work together on laptops at a table.",
+    imageCredit: "Peer learning with laptops",
     intro:
       "A good study plan is not a timetable packed from morning to night. It is a repeatable way to decide what matters, practise it, and notice what you still need to learn. Start small enough that you can keep going.",
     sections: [
@@ -77,11 +77,11 @@ export const blogPosts: BlogPost[] = [
     description:
       "A beginner-friendly roadmap to digital confidence: communication, online safety, documents, spreadsheets and small projects.",
     category: "Digital skills",
-    datePublished: "2026-10-21",
+    datePublished: "2026-10-24",
     readTime: "7 min read",
     image: "/assets/images/blog/digital-learning.webp",
-    imageAlt: "A person learning and working with a laptop",
-    imageCredit: "Photo via Unsplash",
+    imageAlt: "Two people use a laptop together, with one pointing to the screen.",
+    imageCredit: "Learning together on a laptop",
     intro:
       "You do not need to learn every app or programming language at once. Begin with the everyday skills that help you communicate, organise information and solve a real problem. Then build confidence by making something of your own.",
     sections: [
@@ -128,11 +128,11 @@ export const blogPosts: BlogPost[] = [
     description:
       "Learn how to check a business idea, talk with potential customers, estimate costs and run a small, low-risk test.",
     category: "Entrepreneurship",
-    datePublished: "2026-10-21",
+    datePublished: "2026-10-28",
     readTime: "7 min read",
     image: "/assets/images/blog/business-planning.webp",
-    imageAlt: "A small team discussing an idea around a table",
-    imageCredit: "Photo via Unsplash",
+    imageAlt: "Coworkers meet around a table in a shared office.",
+    imageCredit: "Team discussion in a shared office",
     intro:
       "An idea becomes a business only when it helps someone and they choose to pay for it. You do not need to start with a large loan, a shop or a perfect logo. Begin by learning about a customer and testing one clear offer on a small scale.",
     sections: [

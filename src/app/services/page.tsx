@@ -26,7 +26,7 @@ export default function ServicesPage() {
                 CEO JACK LEARNING HUB brings learning, practical digital skills, entrepreneurship and AI support together in one connected platform.
               </p>
               <div className="hero-actions">
-                <Link href="/get-started" className="btn btn-primary">
+                <Link href="/get-started" className="btn btn-primary get-started-button">
                   Get Started Free <span>→</span>
                 </Link>
                 <a href="#services" className="btn btn-secondary">
@@ -212,8 +212,8 @@ export default function ServicesPage() {
               <span> CEO JACK journey?</span>
             </h2>
             <p>Create your account and begin exploring the learning path that fits you.</p>
-            <Link href="/get-started" className="btn btn-primary">
-              Get Started Free →
+            <Link href="/get-started" className="btn btn-primary get-started-button">
+              Get Started Free <span aria-hidden="true">→</span>
             </Link>
           </div>
         </section>

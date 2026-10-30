@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
 import { useReveal } from "@/src/hooks/use-reveal";
@@ -27,8 +28,56 @@ const organizationSchema = {
   knowsAbout: ["Education", "Digital skills", "Entrepreneurship", "Business learning"],
 };
 
+const eyebrowPhrases = [
+  "A learning platform built for the future",
+  "Empowering future innovators",
+  "Learn today. Create tomorrow. Develop for life.",
+];
+const longestEyebrowPhrase = eyebrowPhrases.reduce((longest, phrase) =>
+  phrase.length > longest.length ? phrase : longest,
+);
+
 export default function HomePage() {
   useReveal();
+  const [typedPhrase, setTypedPhrase] = useState(eyebrowPhrases[0]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let phraseIndex = 0;
+    let characterIndex = eyebrowPhrases[0].length;
+    let deleting = true;
+    let timer: ReturnType<typeof setTimeout>;
+
+    function typeNext() {
+      const phrase = eyebrowPhrases[phraseIndex];
+
+      if (deleting) {
+        characterIndex = Math.max(0, characterIndex - 1);
+        setTypedPhrase(phrase.slice(0, characterIndex));
+        if (characterIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % eyebrowPhrases.length;
+          timer = setTimeout(typeNext, 320);
+          return;
+        }
+        timer = setTimeout(typeNext, 32);
+        return;
+      }
+
+      characterIndex += 1;
+      setTypedPhrase(phrase.slice(0, characterIndex));
+      if (characterIndex >= phrase.length) {
+        deleting = true;
+        timer = setTimeout(typeNext, 1800);
+        return;
+      }
+      timer = setTimeout(typeNext, 68);
+    }
+
+    timer = setTimeout(typeNext, 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -43,13 +92,20 @@ export default function HomePage() {
         <section className="hero section" id="home">
           <div className="container hero-grid">
             <div className="hero-copy reveal">
-              <div className="eyebrow"><span />A learning platform built for the future</div>
+              <div className="eyebrow">
+                <span />
+                <span className="hero-typewriter" aria-hidden="true">
+                  <span className="hero-typewriter-current">{typedPhrase}</span>
+                  <span className="hero-typewriter-measure">{longestEyebrowPhrase}</span>
+                </span>
+                <span className="hero-typewriter-sr">A learning platform built for the future, empowering future innovators. Learn today. Create tomorrow. Develop for life.</span>
+              </div>
               <h1>Learn.<br /><em>Create.</em><br />Develop.</h1>
               <p className="hero-lead">
                 You don’t need to have it all figured out. Start with one question, one idea, one small step. We’ll help you grow from there.
               </p>
               <div className="hero-actions">
-                <Link href="/get-started" className="btn btn-primary">Get Started Free <span>→</span></Link>
+                <Link href="/get-started" className="btn btn-primary get-started-button">Get Started Free <span>→</span></Link>
                 <a href="#hubs" className="btn btn-secondary">Explore the Hubs</a>
               </div>
               <div className="trust-row">
@@ -236,7 +292,7 @@ export default function HomePage() {
               <span className="section-label">YOUR NEXT STEP</span>
               <h2>Ready to learn, create and develop?</h2>
               <p>Start free and build a learning journey around your goals.</p>
-              <Link href="/get-started" className="btn btn-primary large">Get Started Free <span>→</span></Link>
+              <Link href="/get-started" className="btn btn-primary large get-started-button">Get Started Free <span>→</span></Link>
             </div>
           </div>
         </section>

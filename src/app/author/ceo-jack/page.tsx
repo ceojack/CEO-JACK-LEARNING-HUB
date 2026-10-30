@@ -81,7 +81,7 @@ export default function CeoJackAuthorPage() {
               <p className="author-profile-intro">Business coach and entrepreneur based in Kampala, Uganda. Founder of CEO JACK LEARNING HUB.</p>
               <p className="author-profile-description">Through the Hub, CEO JACK shares learning across education, leadership, digital skills and entrepreneurship to help young people turn knowledge into practical action.</p>
               <div className="author-profile-actions">
-                <Link href="/blog" className="blog-cta-button">Read the blog <span aria-hidden="true">→</span></Link>
+                <Link href="/blog" className="get-started-button">Read the blog <span aria-hidden="true">→</span></Link>
                 <Link href="/about" className="author-about-link">About the Learning Hub <span aria-hidden="true">→</span></Link>
               </div>
             </div>

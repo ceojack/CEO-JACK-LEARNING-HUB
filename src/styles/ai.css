@@ -47,6 +47,22 @@ button{cursor:pointer}
 .new-chat:hover{background:rgba(99,133,255,.2)}
 .new-chat span{margin-right:8px;font-size:19px}
 .sidebar-label{color:#697791;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:32px 10px 12px}
+.planner-open-button{width:100%;display:flex;align-items:center;gap:10px;margin-top:9px;padding:11px 12px;border:1px solid rgba(140,200,169,.18);border-radius:11px;background:rgba(140,200,169,.06);color:#d2e7dc;text-align:left;font-size:12px;font-weight:600;transition:background .18s,border-color .18s}
+.planner-open-button:hover{border-color:rgba(140,200,169,.38);background:rgba(140,200,169,.12)}
+.planner-open-button>span:first-child{color:var(--success);font-size:16px}
+.planner-open-button>span:nth-child(2){flex:1}
+.planner-open-button small{color:#94b8a5;font-size:10px}
+.recent-label{margin-top:26px;margin-bottom:9px}
+.history-note{margin:-5px 10px 9px;color:#718097;font-size:10px}
+.conversation-history{display:grid;gap:4px;max-height:min(34vh,320px);overflow:auto;margin:0 -3px;padding:0 3px}
+.conversation-item{display:flex;align-items:center;gap:4px;min-width:0;border-radius:9px;transition:background .18s}
+.conversation-item:hover,.conversation-item.active{background:var(--panel-light)}
+.conversation-open{flex:1;min-width:0;overflow:hidden;padding:10px 9px;border:0;background:transparent;color:#aebbd0;text-align:left;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+.conversation-item.active .conversation-open,.conversation-open:hover{color:white}
+.conversation-delete{width:30px;height:30px;flex:0 0 30px;border:0;border-radius:7px;background:transparent;color:#78859b;font-size:18px;opacity:0;transition:opacity .18s,background .18s,color .18s}
+.conversation-item:hover .conversation-delete,.conversation-delete:focus-visible{opacity:1}
+.conversation-delete:hover{background:rgba(255,105,125,.14);color:#ff9bac}
+.conversation-empty{margin:0;padding:6px 10px;color:#718097;font-size:11px;line-height:1.5}
 .mode-link{width:100%;padding:13px 12px;border:0;border-radius:10px;background:transparent;color:#aebbd0;text-align:left;margin-bottom:5px;transition:.2s}
 .mode-link span{display:inline-block;width:27px;color:var(--accent)}
 .mode-link:hover,.mode-link.active{background:var(--panel-light);color:white}
@@ -150,6 +166,8 @@ button{cursor:pointer}
 .composer textarea::placeholder{color:#74819a}
 .send-btn{width:38px;height:38px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;font-size:18px;transition:.2s;flex-shrink:0;display:grid;place-items:center}
 .send-btn:hover{transform:translateY(-1px)}
+.send-btn.stop-btn{background:linear-gradient(135deg,#ef6478,#c84261);font-size:13px}
+.send-btn.stop-btn:hover{box-shadow:0 0 0 5px rgba(239,100,120,.12)}
 .send-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 .composer-meta{display:flex;justify-content:space-between;gap:10px;color:#68758d;font-size:10px;padding:8px 4px 0;max-width:800px;margin:0 auto}
 
@@ -184,9 +202,15 @@ button{cursor:pointer}
 .voice-mode-button{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.035);color:#b9c4d8;font-size:10px;font-weight:700;transition:.2s}
 .voice-mode-button:hover,.voice-mode-button.active{border-color:rgba(99,133,255,.42);background:rgba(99,133,255,.13);color:#fff}
 .voice-mode-button>span:first-child{font-size:15px;color:#a69aff}
+.export-chat-button{display:inline-flex;min-height:38px;align-items:center;justify-content:center;gap:6px;padding:0 10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.035);color:#b9c4d8;font-size:10px;font-weight:700;transition:.2s}
+.export-chat-button:hover:not(:disabled){border-color:rgba(99,133,255,.42);background:rgba(99,133,255,.13);color:#fff}
+.export-chat-button:disabled{opacity:.38;cursor:not-allowed}
+.export-chat-button>span:first-child{font-size:15px;color:#a69aff}
 .message-actions{display:flex;gap:5px;margin-top:8px;opacity:.72}
 .message-actions button{padding:5px 7px;border:1px solid transparent;border-radius:7px;background:transparent;color:#8d9ab1;font-size:9px;transition:.2s}
 .message-actions button:hover{border-color:var(--border);background:rgba(255,255,255,.045);color:#e9edfa}
+.message-actions button:disabled{opacity:.4;cursor:not-allowed}
+.message-actions.user-actions{justify-content:flex-end}
 .bubble{white-space:normal}
 .bubble p{margin:0 0 11px}
 .bubble p:last-child{margin-bottom:0}
@@ -222,6 +246,8 @@ button{cursor:pointer}
   .topbar-tools{margin-left:auto;gap:9px}
   .connection-status{display:none}
   .voice-mode-button{padding:8px 9px}
+  .export-chat-button{width:38px;padding:0}
+  .export-label{display:none}
   .message-content,.message.user .message-content{max-width:calc(100% - 42px)}
 }
 
@@ -237,6 +263,7 @@ button{cursor:pointer}
   .welcome-screen h2{font-size:clamp(27px,8vw,34px)}
   .welcome-description{margin:10px auto 18px;font-size:13px;line-height:1.55}
   .prompt-card{min-height:96px;padding:13px}
+  .conversation-delete{opacity:1}
   .prompt-card>span{margin-bottom:6px}
   .composer-wrap{padding:8px 10px max(8px,env(safe-area-inset-bottom))}
   .composer{gap:6px;padding:8px 9px;border-radius:18px}
@@ -246,6 +273,8 @@ button{cursor:pointer}
   .voice-input-btn,.send-btn{width:44px;height:44px;flex-basis:44px}
   .ai-inline-image{width:min(100%,260px)}
 }
+
+@media(hover:none){.conversation-delete{opacity:1}}
 
 @media(max-width:380px){
   .chat-area{padding:12px 10px}
@@ -268,4 +297,63 @@ button{cursor:pointer}
 
 @media(prefers-reduced-motion:reduce){
   .voice-input-btn.listening{animation:none}
+}
+
+/* Guided work plan */
+.workplan-scrim{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:24px;background:rgba(3,7,15,.76);backdrop-filter:blur(8px)}
+.workplan-dialog{width:min(760px,100%);max-height:min(92vh,900px);max-height:min(92dvh,900px);overflow:auto;padding:clamp(20px,4vw,34px);border:1px solid rgba(140,200,169,.2);border-radius:22px;background:linear-gradient(145deg,#111d2b,#0d1422 65%);box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.workplan-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.workplan-kicker{color:#9bc9b0;font-size:9px;font-weight:800;letter-spacing:.16em}
+.workplan-header h2{margin:5px 0 0;color:#f4f7fb;font-family:'Space Grotesk',sans-serif;font-size:27px;letter-spacing:-.035em}
+.workplan-close{display:grid;width:38px;height:38px;place-items:center;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.04);color:#bdc8d8;font-size:22px}
+.workplan-close:hover{background:rgba(255,255,255,.1);color:#fff}
+.workplan-intro{max-width:620px;margin:10px 0 22px;color:#a7b4c7;font-size:13px;line-height:1.65}
+.workplan-form{display:grid;gap:12px;padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:15px;background:rgba(255,255,255,.025)}
+.workplan-field{display:grid;gap:7px;color:#c8d2e1;font-size:11px;font-weight:700}
+.workplan-form input:not([type=range]),.workplan-field select{width:100%;min-height:42px;padding:0 12px;border:1px solid rgba(255,255,255,.12);border-radius:9px;outline:none;background:#0a111e;color:#f3f6fb;font-size:13px}
+.workplan-form input:focus,.workplan-field select:focus{border-color:rgba(140,200,169,.6);box-shadow:0 0 0 3px rgba(140,200,169,.1)}
+.workplan-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.workplan-hours{grid-template-columns:1fr auto;align-items:center}
+.workplan-hours strong{color:#a9d0b8;font-size:12px}
+.workplan-hours input[type=range]{grid-column:1/-1;width:100%;accent-color:#8cc8a9}
+.workplan-form-actions{display:flex;align-items:center;flex-wrap:wrap;gap:11px;margin-top:2px}
+.workplan-generate,.workplan-coach{display:inline-flex;min-height:42px;align-items:center;justify-content:center;gap:9px;padding:0 15px;border:1px solid rgba(140,200,169,.35);border-radius:10px;background:linear-gradient(120deg,rgba(57,129,99,.65),rgba(50,102,111,.65));color:#f5fbf7;font-size:12px;font-weight:700;transition:transform .18s,filter .18s}
+.workplan-generate:hover,.workplan-coach:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.12)}
+.workplan-replace-note{color:#718097;font-size:10px}
+.workplan-empty{display:grid;justify-items:center;gap:7px;padding:27px 14px 4px;text-align:center}
+.workplan-empty>span{color:#9bc9b0;font-size:23px}
+.workplan-empty strong{color:#e8edf4;font-size:13px}
+.workplan-empty p{max-width:360px;color:#8693a9;font-size:11px;line-height:1.55}
+.workplan-current{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
+.workplan-summary{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.workplan-summary h3{max-width:520px;margin:5px 0 0;color:#f5f7fa;font-family:'Space Grotesk',sans-serif;font-size:19px;line-height:1.35;overflow-wrap:anywhere}
+.workplan-progress-count{flex:0 0 auto;color:#a9d0b8;font-size:11px;font-weight:700}
+.workplan-progress-track{height:6px;overflow:hidden;margin:13px 0 15px;border-radius:99px;background:rgba(255,255,255,.08)}
+.workplan-progress-track span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#60b986,#a2d5aa);transition:width .2s ease}
+.workplan-tasks{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.workplan-task-toggle{display:flex;width:100%;align-items:flex-start;gap:12px;padding:12px;border:1px solid rgba(255,255,255,.075);border-radius:11px;background:rgba(255,255,255,.025);color:inherit;text-align:left;transition:border-color .18s,background .18s}
+.workplan-task-toggle:hover{border-color:rgba(140,200,169,.3);background:rgba(140,200,169,.045)}
+.workplan-task-toggle>span:first-child{display:grid;width:20px;height:20px;flex:0 0 20px;place-items:center;margin-top:2px;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#e5fff0;font-size:13px}
+.workplan-task-copy{display:grid;gap:4px}
+.workplan-task-copy small{color:#9bc9b0;font-size:9px;font-weight:700;letter-spacing:.04em}
+.workplan-task-copy strong{color:#e9eef5;font-size:12px}
+.workplan-task-copy>span{color:#96a3b7;font-size:11px;line-height:1.55}
+.workplan-tasks li.is-done .workplan-task-toggle{border-color:rgba(140,200,169,.16);background:rgba(140,200,169,.04)}
+.workplan-tasks li.is-done .workplan-task-toggle>span:first-child{border-color:#70b78d;background:#458a66}
+.workplan-tasks li.is-done .workplan-task-copy strong{text-decoration:line-through;text-decoration-color:#829b8b;color:#a5b5aa}
+.workplan-complete-note{margin:12px 2px 0;padding:10px 12px;border:1px solid rgba(140,200,169,.18);border-radius:9px;background:rgba(140,200,169,.055);color:#b5d5c1;font-size:11px;line-height:1.5}
+.workplan-footer-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+.workplan-coach{background:linear-gradient(120deg,#6385ff,#785fff);border-color:rgba(155,173,255,.55)}
+.workplan-coach:disabled{opacity:.45;cursor:not-allowed}
+.workplan-delete{padding:9px;border:0;background:transparent;color:#8794a8;font-size:10px}
+.workplan-delete:hover{color:#ff9bac}
+
+@media(max-width:560px){
+  .workplan-scrim{padding:8px}
+  .workplan-dialog{max-height:96dvh;padding:19px 15px;border-radius:17px}
+  .workplan-form{padding:13px}
+  .workplan-form-grid{grid-template-columns:1fr}
+  .workplan-summary{align-items:flex-start;flex-direction:column;gap:7px}
+  .workplan-footer-actions{align-items:stretch;flex-direction:column}
+  .workplan-delete{text-align:center}
 }

@@ -30,8 +30,8 @@ export default function AboutPage() {
                 We bring education, digital skills and entrepreneurship into one experience so learning can move from knowledge to practical action.
               </p>
               <div className="hero-actions">
-                <Link href="/get-started" className="btn btn-primary">
-                  Start Your Journey <span>→</span>
+                <Link href="/get-started" className="btn btn-primary get-started-button">
+                  Get Started Free <span>→</span>
                 </Link>
                 <Link href="/" className="btn btn-secondary">
                   Explore the Hubs
@@ -247,8 +247,8 @@ export default function AboutPage() {
               <span> they create with it.</span>
             </h2>
             <p>The long-term vision of CEO JACK LEARNING HUB is to become a place where learners can acquire knowledge, develop practical skills, experiment with ideas and build things that matter.</p>
-            <Link href="/get-started" className="btn btn-primary">
-              Start the Journey →
+            <Link href="/get-started" className="btn btn-primary get-started-button">
+              Get Started Free <span aria-hidden="true">→</span>
             </Link>
           </div>
         </section>

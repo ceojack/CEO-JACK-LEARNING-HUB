@@ -128,6 +128,7 @@
 .footer-social-links svg {
   width: 19px;
   height: 19px;
+  color: var(--social-icon-color, #dce3f1);
 }
 
 .site-footer.hub-footer .footer-bottom {

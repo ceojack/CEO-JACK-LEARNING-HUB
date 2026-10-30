@@ -59,7 +59,7 @@ export default function HowItWorksPage() {
               <span className="section-label">YOUR NEXT STEP</span>
               <h2>Ready to learn, create and develop?</h2>
               <p>Start free and build a learning journey around your goals.</p>
-              <Link href="/get-started" className="btn btn-primary large">
+              <Link href="/get-started" className="btn btn-primary large get-started-button">
                 Get Started Free <span>→</span>
               </Link>
             </div>

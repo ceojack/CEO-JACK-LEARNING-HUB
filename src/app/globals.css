@@ -64,6 +64,81 @@ a {
   text-decoration: none;
 }
 
+/* Shared primary action for every prominent path into account creation. */
+html body a.get-started-button.get-started-button {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 20px;
+  border: 1px solid rgba(155, 173, 255, .55);
+  border-radius: 12px;
+  background: linear-gradient(120deg, #6385ff, #785fff);
+  box-shadow: 0 12px 30px rgba(89, 89, 220, .24);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+html body a.get-started-button.get-started-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(89, 89, 220, .34);
+  color: #fff;
+  filter: brightness(1.06);
+}
+
+html body a.get-started-button.get-started-button:active {
+  transform: translateY(0);
+}
+
+html body a.get-started-button.get-started-button:focus-visible {
+  outline: 3px solid #b6a5ff;
+  outline-offset: 3px;
+}
+
+html body a.get-started-button.get-started-button span {
+  margin: 0;
+  color: currentColor;
+}
+
+/* Keep the current-page treatment consistent in every shared site header. */
+.site-header .desktop-nav > a.active:not(.nav-cta) {
+  position: relative;
+  border-color: transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #f5f7ff;
+}
+
+.site-header .desktop-nav > a.active:not(.nav-cta)::before {
+  content: none;
+}
+
+.site-header .desktop-nav > a.active:not(.nav-cta)::after {
+  position: absolute;
+  right: 0;
+  bottom: -28px;
+  left: 0;
+  height: 2px;
+  background: #819aff;
+  content: "";
+}
+
+.site-header .mobile-menu > a.active:not(.mobile-cta) {
+  border-left: 3px solid #819aff;
+  background: rgba(99, 133, 255, .13);
+  box-shadow: none;
+  color: #fff;
+}
+
+.site-header .mobile-menu > a.active:not(.mobile-cta)::after {
+  content: none;
+}
+
 img, svg, video {
   display: block;
   max-width: 100%;

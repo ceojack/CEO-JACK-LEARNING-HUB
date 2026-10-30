@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: BlogArticleProps): Promise<Me
       url: `/blog/${post.slug}`,
       siteName: "CEO JACK LEARNING HUB",
       type: "article",
-      publishedTime: `${post.datePublished}T09:00:00-07:00`,
+      publishedTime: `${post.datePublished}T09:00:00+03:00`,
       authors: [`${siteUrl}/author/ceo-jack`],
       images: [{ url: post.image, alt: post.imageAlt }],
     },
@@ -59,7 +59,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
     headline: post.title,
     description: post.description,
     image: `${siteUrl}${post.image}`,
-    datePublished: `${post.datePublished}T09:00:00-07:00`,
+    datePublished: `${post.datePublished}T09:00:00+03:00`,
     dateModified: post.datePublished,
     author: {
       "@type": "Person",
@@ -104,7 +104,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
             <p className="article-deck">{post.description}</p>
             <div className="article-byline">
               <Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile">CJ</Link>
-              <span><Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small><time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time> <i aria-hidden="true">·</i> {post.readTime}</small></span>
+              <span><Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>Published <time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time> <i aria-hidden="true">·</i> {post.readTime}</small></span>
             </div>
           </header>
           <figure className="article-cover">

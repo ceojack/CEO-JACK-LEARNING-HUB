@@ -54,6 +54,7 @@ function formatDate(date: string) {
 
 export default function BlogPage() {
   const [featuredPost, ...otherPosts] = blogPosts;
+  const latestPosts = [...otherPosts].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 
   return (
     <div className="blog-page blog-shell">
@@ -89,7 +90,7 @@ export default function BlogPage() {
               <div className="blog-meta"><span className="blog-category">{featuredPost.category}</span><span>{featuredPost.readTime}</span></div>
               <h3><Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link></h3>
               <p>{featuredPost.description}</p>
-              <div className="blog-byline"><Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile">CJ</Link><span>By <Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>{formatDate(featuredPost.datePublished)}</small></span></div>
+              <div className="blog-byline"><Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile">CJ</Link><span>By <Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>Published {formatDate(featuredPost.datePublished)}</small></span></div>
               <Link className="blog-read-link" href={`/blog/${featuredPost.slug}`}>Read the guide <span aria-hidden="true">→</span></Link>
             </div>
           </article>
@@ -101,7 +102,7 @@ export default function BlogPage() {
             <p>Small ideas. Practical steps. Room to grow.</p>
           </div>
           <div className="blog-grid">
-            {otherPosts.map((post, index) => (
+            {latestPosts.map((post, index) => (
               <article className="blog-card" key={post.slug}>
                 <Link className="blog-card-image" href={`/blog/${post.slug}`} aria-label={`Read ${post.title}`}>
                   <Image src={post.image} alt={post.imageAlt} fill sizes="(max-width: 680px) 100vw, (max-width: 1000px) 50vw, 33vw" />
@@ -122,7 +123,7 @@ export default function BlogPage() {
         <section className="container blog-cta-section">
           <div className="blog-cta">
             <div><span className="blog-kicker">KEEP YOUR MOMENTUM</span><h2>Turn your next question into progress.</h2><p>Explore the learning hubs and find a useful next step for your goals.</p></div>
-            <Link href="/get-started" className="blog-cta-button">Explore CEO JACK <span aria-hidden="true">→</span></Link>
+            <Link href="/get-started" className="get-started-button">Get Started Free <span aria-hidden="true">→</span></Link>
           </div>
         </section>
       </main>

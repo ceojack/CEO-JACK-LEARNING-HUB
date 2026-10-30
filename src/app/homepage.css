@@ -428,7 +428,7 @@ a {
   margin-bottom: 23px;
 }
 
-.eyebrow span {
+.eyebrow > span:first-child {
   width: 7px;
   height: 7px;
 
@@ -438,6 +438,54 @@ a {
 
   box-shadow:
     0 0 18px var(--cyan);
+}
+
+.hero-typewriter {
+  display: inline-grid;
+  min-height: 1.25em;
+  align-items: center;
+  font-size: 15px;
+  letter-spacing: .08em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.hero-typewriter-current,
+.hero-typewriter-measure {
+  grid-area: 1 / 1;
+}
+
+.hero .eyebrow .hero-typewriter > span {
+  font-size: inherit !important;
+}
+
+.hero-typewriter-current::after {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  background: var(--cyan);
+  content: "";
+  vertical-align: -0.12em;
+  animation: typewriter-caret 850ms steps(2, start) infinite;
+}
+
+.hero-typewriter-measure {
+  visibility: hidden;
+}
+
+.hero-typewriter-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes typewriter-caret {
+  to { visibility: hidden; }
 }
 
 .hero h1 {
@@ -819,7 +867,8 @@ a {
 
 .note-one {
   left: -22px;
-  top: 18%;
+  top: -40px;
+  z-index: 2;
 }
 
 .note-two {
@@ -2022,6 +2071,11 @@ a {
   .section-label {
     font-size: 9px;
     letter-spacing: .12em;
+  }
+
+  .hero .eyebrow .hero-typewriter {
+    font-size: 11px;
+    letter-spacing: .04em;
   }
 
   .hero h1 {

@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <span className="legal-kicker">CEO JACK LEARNING HUB</span>
         <h1>Privacy Policy</h1>
         <p className="legal-lead">This page explains what information the current Learning Hub prototype uses, why it is used, and what choices you have.</p>
-        <p className="legal-updated">Last updated: <time dateTime="2026-10-28">28 October 2026</time></p>
+        <p className="legal-updated">Last updated: <time dateTime="2026-10-30">30 October 2026</time></p>
         <div className="legal-copy">
           <section aria-labelledby="privacy-controller">
             <h2 id="privacy-controller">1. Who is responsible</h2>
@@ -27,6 +27,7 @@ export default function PrivacyPage() {
               <li><strong>Onboarding:</strong> your learning level, age group, interests and goals are saved in this browser so the dashboard can suggest a learning path.</li>
               <li><strong>Lesson progress:</strong> completion for the sample lesson is saved in this browser.</li>
               <li><strong>AI companion:</strong> if live AI service is enabled, the message you send and up to the ten most recent chat messages may be sent to our server and then to Groq to generate a reply. Avoid sharing personal, sensitive or confidential information.</li>
+              <li><strong>AI chat history and work plans:</strong> recent conversations and your current work plan are saved in local browser storage on the device you use. They are not synced to an account and remain there until you delete them or clear that browser’s site data.</li>
               <li><strong>Voice input:</strong> dictation uses speech recognition provided by your browser or device. Its handling of audio or speech data is governed by that provider’s privacy terms.</li>
               <li><strong>Contact:</strong> the contact form prepares an email in your device’s mail application. The website does not submit or store that message itself.</li>
             </ul>
@@ -49,7 +50,7 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-rights">
             <h2 id="privacy-rights">7. Your choices and requests</h2>
-            <p>You can clear profile and progress details from your browser storage. Under applicable law, you may ask about personal information held about you and request access, correction or deletion where those rights apply. Email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
+            <p>You can delete individual AI conversations and your work plan in CEO JACK AI, or clear profile, progress and other saved details from your browser storage. Under applicable law, you may ask about personal information held about you and request access, correction or deletion where those rights apply. Email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
           </section>
           <section aria-labelledby="privacy-security">
             <h2 id="privacy-security">8. Security</h2>

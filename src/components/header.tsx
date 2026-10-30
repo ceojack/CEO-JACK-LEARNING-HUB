@@ -57,7 +57,7 @@ export function SiteHeader({ active = "/" }: SiteHeaderProps) {
               {item.label}
             </Link>
           ))}
-          <Link href="/get-started" className={`nav-cta${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined}>
+          <Link href="/get-started" className={`nav-cta get-started-button${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined}>
             Get Started Free <span>→</span>
           </Link>
         </nav>
@@ -78,8 +78,8 @@ export function SiteHeader({ active = "/" }: SiteHeaderProps) {
               {item.label}
             </Link>
           ))}
-          <Link href="/get-started" className={`mobile-cta${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined} onClick={closeMenu}>
-            Get Started Free →
+          <Link href="/get-started" className={`mobile-cta get-started-button${active === "/get-started" ? " active" : ""}`} aria-current={active === "/get-started" ? "page" : undefined} onClick={closeMenu}>
+            Get Started Free <span aria-hidden="true">→</span>
           </Link>
         </nav>
       </div>

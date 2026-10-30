@@ -176,7 +176,7 @@ export default function ContactPage() {
               <span> Develop.</span>
             </h2>
             <p>Your journey can begin today. Explore the platform and choose the path that fits your goals.</p>
-            <Link href="/get-started" className="btn btn-primary">
+            <Link href="/get-started" className="btn btn-primary get-started-button">
               Get Started Free <span>→</span>
             </Link>
           </div>

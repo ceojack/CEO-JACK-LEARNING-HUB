@@ -51,9 +51,10 @@ export default function GetStartedPage() {
           <Link href="/how-it-works" onClick={() => setMenuOpen(false)}>How It Works</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/services" onClick={() => setMenuOpen(false)}>Services</Link>
+          <Link href="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
           <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-          <Link className="nav-cta active" href="/get-started" aria-current="page">
-            Get Started Free <span aria-hidden="true">↗</span>
+          <Link className="nav-cta get-started-button active" href="/get-started" aria-current="page">
+            Get Started Free <span aria-hidden="true">→</span>
           </Link>
         </nav>
       </header>
