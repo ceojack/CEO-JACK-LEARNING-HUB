@@ -44,7 +44,7 @@ export function SiteFooter() {
             {quickLinks.map((link) => <Link href={link.href} key={link.href}>{link.label}</Link>)}
           </nav>
           <nav className="footer-social" aria-label="Social media">
-            <h2>Follow CEO JACK</h2>
+            <h2>Follow CEO JACK LEARNING HUB</h2>
             <div className="footer-social-links">
               {socialLinks.map((social) => (
                 <a href={social.href} key={social.name} target="_blank" rel="noreferrer" aria-label={`CEO JACK Learning Hub on ${social.name}: @${social.handle}`} title={`${social.name} @${social.handle}`} style={{ "--social-icon-color": social.color } as React.CSSProperties}>

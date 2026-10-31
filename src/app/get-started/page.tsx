@@ -64,35 +64,35 @@ export default function GetStartedPage() {
           <div className="intro-panel reveal">
             <p className="eyebrow">
               <span className="eyebrow-dot" />
-              YOUR NEXT CHAPTER STARTS HERE
+              START HERE · FREE TO JOIN
             </p>
             <h1 id="page-title">
-              Your future is built
-              <span> one step at a time.</span>
+              Start learning.
+              <span>Build your future.</span>
             </h1>
             <p className="intro-copy">
-              Create one account for your learning journey. Explore new knowledge, build practical skills, and turn what you learn into something meaningful.
+              Create a free account, choose what you want to learn, and keep your progress in one place. You can explore education, digital skills, and entrepreneurship.
             </p>
             <div className="journey-list" aria-label="Your journey in three steps">
               <div className="journey-step">
                 <span className="step-index">01</span>
                 <div>
-                  <h2>Start with one account</h2>
-                  <p>Keep your learning journey connected in one place.</p>
+                  <h2>Create your account</h2>
+                  <p>Sign up with your name, email, and a password.</p>
                 </div>
               </div>
               <div className="journey-step">
                 <span className="step-index">02</span>
                 <div>
-                  <h2>Make it yours</h2>
-                  <p>Choose your interests and the goals you want to work toward.</p>
+                  <h2>Choose a learning hub</h2>
+                  <p>Start with Education, Digital Skills, or Entrepreneurship.</p>
                 </div>
               </div>
               <div className="journey-step">
                 <span className="step-index">03</span>
                 <div>
-                  <h2>Keep moving forward</h2>
-                  <p>Explore the hubs, practise your skills, and track your progress.</p>
+                  <h2>Learn at your pace</h2>
+                  <p>Follow lessons, practise skills, and return to your progress.</p>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function GetStartedPage() {
 
           <section className="choice-card reveal" aria-labelledby="choice-title">
             <div className="card-topline">
-              <span className="card-kicker">CEO JACK LEARNING HUB</span>
+              <span className="card-kicker">YOUR FIRST STEP</span>
               <span className="free-label"><span /> FREE TO START</span>
             </div>
             <div className="card-symbol" aria-hidden="true">
@@ -115,21 +115,21 @@ export default function GetStartedPage() {
                 <path d="M10 24h27M26 13l11 11-11 11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h2 id="choice-title">How would you like to begin?</h2>
-            <p className="card-description">Choose an option to continue. Your learning journey can grow with you.</p>
+            <h2 id="choice-title">Choose how to continue</h2>
+            <p className="card-description">New to CEO JACK? Create an account. Already joined? Sign in to continue.</p>
             <button className="action-option action-primary" type="button" onClick={() => goToAuth("signup")}>
               <span className="option-icon" aria-hidden="true">＋</span>
               <span className="option-copy">
-                <strong>Create an account</strong>
-                <small>I&apos;m new here</small>
+                <strong>Create a free account</strong>
+                <small>For new learners · Sign up with your name and email</small>
               </span>
               <span className="option-arrow" aria-hidden="true">↗</span>
             </button>
             <button className="action-option action-secondary" type="button" onClick={() => goToAuth("signin")}>
               <span className="option-icon" aria-hidden="true">↗</span>
               <span className="option-copy">
-                <strong>Sign in</strong>
-                <small>I already have an account</small>
+                <strong>Sign in to your account</strong>
+                <small>For returning learners · Continue where you left off</small>
               </span>
               <span className="option-arrow" aria-hidden="true">→</span>
             </button>
@@ -142,7 +142,7 @@ export default function GetStartedPage() {
             <p className="form-notice" role="status" aria-live="polite">{message}</p>
             <p className="privacy-note">
               <span aria-hidden="true">◇</span>
-              Your account should be protected by secure authentication.
+              Your account keeps your learning progress together. Use a password you don&apos;t use elsewhere.
             </p>
           </section>
         </section>

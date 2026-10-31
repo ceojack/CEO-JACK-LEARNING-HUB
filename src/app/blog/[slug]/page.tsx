@@ -106,6 +106,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
               <Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile">CJ</Link>
               <span><Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>Published <time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time> <i aria-hidden="true">·</i> {post.readTime}</small></span>
             </div>
+            <Link href="/author/ceo-jack" className="blog-author-profile-link">Meet the author <span aria-hidden="true">→</span></Link>
           </header>
           <figure className="article-cover">
             <Image src={post.image} alt={post.imageAlt} width={1400} height={850} sizes="(max-width: 900px) 100vw, 1000px" preload />

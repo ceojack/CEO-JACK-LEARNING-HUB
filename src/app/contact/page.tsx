@@ -118,7 +118,7 @@ export default function ContactPage() {
                   </div>
                   <div className={`form-group${errors.email ? " invalid" : ""}`}>
                     <label htmlFor="email">Email address</label>
-                    <input id="email" name="email" type="email" placeholder="you@example.com" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <input id="email" name="email" type="email" placeholder="example@gmail.com" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} />
                     <small className="error-message">{errors.email}</small>
                   </div>
                 </div>

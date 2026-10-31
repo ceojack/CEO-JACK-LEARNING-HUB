@@ -72,6 +72,12 @@
 .blog-byline, .article-byline { display: flex; align-items: center; gap: 11px; margin-top: 24px; color: var(--blog-text); font-size: 12px; font-weight: 700; line-height: 1.5; }
 .author-mark { display: grid; width: 39px; height: 39px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(129,154,255,.4); border-radius: 13px; color: #e2e8ff; background: linear-gradient(145deg, rgba(99,133,255,.28), rgba(155,123,255,.2)); font-size: 12px; }
 .blog-byline small, .article-byline small { color: var(--blog-muted); font-size: 11px; font-weight: 500; }
+.article-author-name { color: #dce4ff; text-decoration: underline; text-decoration-color: rgba(129,154,255,.65); text-underline-offset: 3px; }
+.article-author-name:hover { color: #fff; text-decoration-color: currentColor; }
+.blog-author-profile-link { display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; margin-top: 12px; padding: 9px 13px; border: 1px solid rgba(129,154,255,.34); border-radius: 10px; color: #dce4ff; background: rgba(99,133,255,.12); font-size: 12px; font-weight: 800; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+.blog-author-profile-link span { color: var(--blog-blue); transition: transform .2s ease; }
+.blog-author-profile-link:hover { transform: translateY(-1px); border-color: rgba(129,154,255,.65); background: rgba(99,133,255,.2); color: #fff; }
+.blog-author-profile-link:hover span { transform: translateX(3px); }
 .blog-read-link { display: inline-flex; align-items: center; gap: 9px; margin-top: auto; padding-top: 24px; color: var(--blog-blue) !important; font-size: 14px; font-weight: 800; }
 .blog-read-link span { transition: transform .2s ease; }
 .blog-read-link:hover span { transform: translateX(4px); }

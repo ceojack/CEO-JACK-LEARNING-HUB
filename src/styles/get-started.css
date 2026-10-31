@@ -100,6 +100,9 @@ a:focus-visible {
 
 /* HEADER */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   width: min(calc(100% - 64px), 1320px);
   min-height: 92px;
   margin: 0 auto;
@@ -108,6 +111,8 @@ a:focus-visible {
   justify-content: space-between;
   gap: 30px;
   border-bottom: 1px solid rgba(255, 255, 255, .055);
+  background: rgba(8, 13, 27, .94);
+  backdrop-filter: blur(16px);
 }
 
 .brand {

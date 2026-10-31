@@ -91,6 +91,7 @@ export default function BlogPage() {
               <h3><Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link></h3>
               <p>{featuredPost.description}</p>
               <div className="blog-byline"><Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile">CJ</Link><span>By <Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>Published {formatDate(featuredPost.datePublished)}</small></span></div>
+              <Link href="/author/ceo-jack" className="blog-author-profile-link">Meet the author <span aria-hidden="true">→</span></Link>
               <Link className="blog-read-link" href={`/blog/${featuredPost.slug}`}>Read the guide <span aria-hidden="true">→</span></Link>
             </div>
           </article>

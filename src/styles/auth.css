@@ -99,6 +99,9 @@ input:focus-visible {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   width: min(calc(100% - 64px), 1320px);
   min-height: 88px;
   margin: 0 auto;
@@ -107,6 +110,8 @@ input:focus-visible {
   justify-content: space-between;
   gap: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, .06);
+  background: rgba(8, 13, 27, .94);
+  backdrop-filter: blur(16px);
 }
 
 .logo {
@@ -141,18 +146,45 @@ input:focus-visible {
 }
 
 .back-link {
-  color: #a9b5ce;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 13px 6px 7px;
+  border: 1px solid rgba(155, 123, 255, .2);
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(155, 123, 255, .08), rgba(255, 255, 255, .025));
+  color: #c8d0e2;
   font-size: 12px;
-  transition: color .2s;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
 }
 
 .back-link span {
-  margin-right: 7px;
-  color: var(--blue);
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border: 1px solid rgba(155, 123, 255, .2);
+  border-radius: 50%;
+  background: rgba(155, 123, 255, .12);
+  color: #c5b2ff;
+  font-size: 15px;
+  transition: transform .2s ease, background .2s ease;
 }
 
 .back-link:hover {
   color: #fff;
+  border-color: rgba(155, 123, 255, .5);
+  background: rgba(155, 123, 255, .12);
+  transform: translateX(-2px);
+}
+
+.back-link:hover span {
+  transform: translateX(-2px);
+  background: rgba(155, 123, 255, .2);
 }
 
 .auth-page {
@@ -758,7 +790,16 @@ h1 span {
   }
 
   .back-link {
+    min-height: 40px;
+    gap: 7px;
+    padding-right: 10px;
     font-size: 10px;
+  }
+
+  .back-link span {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
   }
 
   .auth-page {
