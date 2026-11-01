@@ -9,7 +9,7 @@ import {
   getClassLabel,
   primarySubjects,
   secondarySubjects,
-} from "@/src/lib/education-data";
+} from "@/src/utils/education-data";
 import "@/src/styles/education.css";
 
 export default function EducationPage() {

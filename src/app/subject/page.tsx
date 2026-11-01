@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { getClassLabel } from "@/src/lib/education-data";
+import { getClassLabel } from "@/src/utils/education-data";
 import "@/src/styles/subject.css";
 
 function SubjectContent() {

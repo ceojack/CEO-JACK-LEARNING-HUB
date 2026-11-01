@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
-import { blogPosts } from "@/src/lib/blog-posts";
+import { blogPosts } from "@/src/utils/blog-posts";
 import "./blog.css";
 
 const siteUrl = "https://ceojacklearninghub.com";

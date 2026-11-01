@@ -759,6 +759,13 @@ function AiChat() {
           <div className="brand-logo">CJ</div>
           <div><strong>CEO JACK</strong><span>LEARNING HUB</span></div>
         </Link>
+        <nav className="workspace-nav" aria-label="Learning space">
+          <Link href="/dashboard" onClick={() => setSidebarOpen(false)}><span>⌂</span>My dashboard</Link>
+          <Link href="/education" onClick={() => setSidebarOpen(false)}><span>▤</span>Education Hub</Link>
+          <Link href="/digital-skills" onClick={() => setSidebarOpen(false)}><span>&lt;/&gt;</span>Digital Skills</Link>
+          <Link href="/entrepreneurship" onClick={() => setSidebarOpen(false)}><span>◈</span>Entrepreneurship</Link>
+          <Link href="/ai" className="active" aria-current="page" onClick={() => setSidebarOpen(false)}><span>✦</span>CEO JACK AI</Link>
+        </nav>
         <button className="new-chat" type="button" onClick={startNewConversation}><span aria-hidden="true">＋</span> New conversation</button>
         <button className="planner-open-button" type="button" onClick={() => { setSidebarOpen(false); setPlanOpen(true); }}><span aria-hidden="true">▦</span><span>{workPlan ? "Work plan" : "Build a work plan"}</span>{workPlan ? <small>{workPlan.tasks.filter((task) => task.done).length}/{workPlan.tasks.length}</small> : null}</button>
         <div className="sidebar-label recent-label">RECENT CONVERSATIONS</div>

@@ -93,6 +93,8 @@
 .footer-email:hover,
 .site-footer .footer-legal-links a:hover {
   color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .footer-social-links {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
-import { blogPosts, getBlogPost } from "@/src/lib/blog-posts";
+import { blogPosts, getBlogPost } from "@/src/utils/blog-posts";
 import "../blog.css";
 
 const siteUrl = "https://ceojacklearninghub.com";

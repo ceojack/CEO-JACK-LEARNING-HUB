@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
-import { blogPosts } from "@/src/lib/blog-posts";
+import { blogPosts } from "@/src/utils/blog-posts";
 import "@/src/app/blog/blog.css";
 import "./author.css";
 

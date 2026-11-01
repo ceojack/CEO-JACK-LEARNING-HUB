@@ -7,6 +7,7 @@ import { FormEvent, Suspense, useMemo, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/auth.css";
+import { createClient } from "@/src/utils/supabase/client";
 
 type Mode = "signup" | "signin";
 
@@ -25,6 +26,7 @@ function AuthForm() {
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const supabase = createClient();
 
   const strength = useMemo(() => {
     let score = 0;
@@ -47,7 +49,7 @@ function AuthForm() {
     return Object.keys(next).length === 0;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!validate()) {
       setStatusType("error");
@@ -55,14 +57,46 @@ function AuthForm() {
       return;
     }
 
-    const user = {
-      name: fullName.trim() || email.split("@")[0],
-      email: email.trim().toLowerCase(),
-    };
-    window.localStorage.setItem("ceoJackUser", JSON.stringify(user));
-    setStatusType("success");
-    setStatus(mode === "signup" ? "Account created. Taking you to onboarding..." : "Signed in. Opening your dashboard...");
-    router.push(mode === "signup" ? "/onboarding" : "/dashboard");
+    setStatusType("");
+    setStatus("Please wait...");
+
+    if (mode === "signup") {
+      const { error } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: { data: { full_name: fullName } }
+      });
+      if (error) {
+        setStatusType("error");
+        setStatus(error.message);
+      } else {
+        setStatusType("success");
+        setStatus("Account created! Check your email, then sign in.");
+        setMode("signin");
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+      if (error) {
+        setStatusType("error");
+        setStatus(error.message);
+      } else {
+        setStatusType("success");
+        setStatus("Signed in. Opening your dashboard...");
+        router.push("/dashboard");
+      }
+    }
+  }
+
+  async function handleGoogle() {
+    setStatusType("");
+    setStatus("Redirecting to Google...");
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/auth/callback` }
+    });
   }
 
   return (
@@ -109,23 +143,23 @@ function AuthForm() {
               {mode === "signup" ? (
                 <div className={`form-group${errors.fullName ? " invalid" : ""}`}>
                   <label htmlFor="fullName">Full name</label>
-                  <input id="fullName" value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="Enter your full name" autoComplete="name" />
+                  <input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Enter your full name" autoComplete="name" />
                   <small className="field-error">{errors.fullName}</small>
                 </div>
               ) : null}
               <div className={`form-group${errors.email ? " invalid" : ""}`}>
                 <label htmlFor="email">Email address</label>
-                <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" autoComplete="email" />
+                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
                 <small className="field-error">{errors.email}</small>
               </div>
               <div className={`form-group${errors.password ? " invalid" : ""}`}>
                 <div className="label-row">
                   <label htmlFor="password">Password</label>
-                  <button className="text-button" type="button" onClick={() => setShowPassword((value) => !value)}>
+                  <button className="text-button" type="button" onClick={() => setShowPassword((v) => !v)}>
                     {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
-                <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter your password" autoComplete={mode === "signup" ? "new-password" : "current-password"} />
+                <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" autoComplete={mode === "signup" ? "new-password" : "current-password"} />
                 {mode === "signup" ? (
                   <div className="password-strength">
                     <div className="strength-bar" aria-hidden="true">
@@ -142,11 +176,11 @@ function AuthForm() {
                 <>
                   <div className={`form-group${errors.confirmPassword ? " invalid" : ""}`}>
                     <label htmlFor="confirmPassword">Confirm password</label>
-                    <input id="confirmPassword" type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Enter your password again" autoComplete="new-password" />
+                    <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Enter your password again" autoComplete="new-password" />
                     <small className="field-error">{errors.confirmPassword}</small>
                   </div>
                   <label className="terms">
-                    <input type="checkbox" checked={terms} onChange={(event) => setTerms(event.target.checked)} />
+                    <input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} />
                     <span>
                       I agree to the <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.
                     </span>
@@ -162,14 +196,7 @@ function AuthForm() {
             </form>
             <div className="social-divider"><span>OR CONTINUE WITH</span></div>
             <div className="social-login">
-              <button
-                className="social-button google-button"
-                type="button"
-                onClick={() => {
-                  setStatusType("error");
-                  setStatus("Google sign-in is not connected yet. Configure Google OAuth in Supabase to enable it.");
-                }}
-              >
+              <button className="social-button google-button" type="button" onClick={handleGoogle}>
                 <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                   <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" />
                   <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.98 46.98 31.9 46.98 24.55Z" />

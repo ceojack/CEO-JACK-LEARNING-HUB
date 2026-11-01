@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/onboarding.css";
@@ -27,6 +27,28 @@ export default function OnboardingPage() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const saved = window.localStorage.getItem("ceoJackOnboarding");
+        if (!saved) return;
+        const profile = JSON.parse(saved) as {
+          level?: string;
+          ageGroup?: string;
+          interests?: string[];
+          goals?: string[];
+        };
+        if (profile.level && levels.includes(profile.level)) setLevel(profile.level);
+        if (profile.ageGroup) setAgeGroup(profile.ageGroup);
+        if (Array.isArray(profile.interests)) setSelectedInterests(profile.interests.filter((item) => interests.includes(item)));
+        if (Array.isArray(profile.goals)) setSelectedGoals(profile.goals.filter((item) => goals.includes(item)));
+      } catch {
+        // Keep the form available if saved browser data is unavailable or invalid.
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   function toggle(list: string[], value: string, setter: (next: string[]) => void) {
     setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);

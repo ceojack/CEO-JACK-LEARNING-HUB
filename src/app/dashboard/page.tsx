@@ -40,7 +40,6 @@ export default function DashboardPage() {
   }, [profile]);
 
   const levelQuery = profile?.level === "Secondary" ? "secondary" : "primary";
-  const learnerName = "Jack";
   const completedCount = lessonComplete ? 1 : 0;
 
   return (
@@ -76,8 +75,8 @@ export default function DashboardPage() {
           <section className="dashboard-hero">
             <div className="dashboard-hero-copy">
               <div className="dashboard-eyebrow"><i /> YOUR LEARNING JOURNEY</div>
-              <h1>Welcome to your learning hub<span> ✦</span></h1>
-              <p>Your next big step starts with a small one. Pick up where you left off or explore something new.</p>
+              <h1>{profile ? "Welcome back to your learning hub" : "Welcome to your learning hub"}<span> ✦</span></h1>
+              <p>{profile ? `Your ${recommendedPath.title} path is ready. Pick up where you left off or explore something new.` : "Your next big step starts with a small one. Pick up where you left off or explore something new."}</p>
               <div className="dashboard-hero-actions">
                 <Link href={lessonComplete ? `/education?level=${levelQuery}` : "/lesson"} className="dashboard-primary-cta">{lessonComplete ? "Choose your next lesson" : "Continue learning"}<span>→</span></Link>
                 <Link href="#learning-paths" className="dashboard-text-cta">Explore learning areas <span>↓</span></Link>

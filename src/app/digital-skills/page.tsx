@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { useState } from "react";
-import { digitalTracks } from "@/src/lib/education-data";
+import { digitalTracks } from "@/src/utils/education-data";
 import "@/src/styles/education.css";
 
 export default function DigitalSkillsPage() {

@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { blogPosts } from '@/src/lib/blog-posts'
+import { blogPosts } from '@/src/utils/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ceojacklearninghub.com'

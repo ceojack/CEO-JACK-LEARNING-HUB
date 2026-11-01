@@ -1,15 +1,15 @@
 
 :root {
-  --bg: #f7f4ec;
-  --surface: #fffdf8;
-  --sidebar: #1b2b3d;
-  --text: #263449;
-  --muted: #697789;
-  --primary: #367f78;
-  --primary-dark: #2e6b65;
-  --border: #e9e2d6;
-  --green: #3d896f;
-  --shadow: 0 12px 35px rgba(25, 40, 75, .055);
+  --bg: #080d1b;
+  --surface: #10182a;
+  --sidebar: #090f1e;
+  --text: #f5f7ff;
+  --muted: #9ba9c2;
+  --primary: #9b7bff;
+  --primary-dark: #8064e5;
+  --border: rgba(255,255,255,.09);
+  --green: #83d6af;
+  --shadow: 0 12px 35px rgba(0,0,0,.18);
 }
 
 * {
@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: radial-gradient(ellipse at 72% -12%, rgba(99,133,255,.12), transparent 35%), var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
 }
@@ -55,9 +55,11 @@ a {
 .sidebar {
   width: 255px;
   min-height: 100vh;
-  background: var(--sidebar);
+  background: rgba(9,15,30,.97);
   color: white;
-  padding: 25px 16px;
+  padding: 28px 17px 20px;
+  border-right: 1px solid rgba(255,255,255,.05);
+  backdrop-filter: blur(18px);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -133,9 +135,9 @@ a {
 }
 
 .nav-link.active {
-  background: linear-gradient(100deg, rgba(111,96,231,.25), rgba(111,96,231,.08));
+  border: 1px solid rgba(99,133,255,.2);
+  background: linear-gradient(100deg,rgba(99,133,255,.2),rgba(79,140,255,.075));
   color: white;
-  box-shadow: inset 3px 0 #6385ff;
 }
 
 .nav-icon {
@@ -967,6 +969,23 @@ a {
 .mobile-overlay {
   display: none;
 }
+
+/* Shared learner workspace styling across the three learning hubs. */
+.topbar {
+  height: 69px;
+  background: rgba(8,13,27,.83);
+  border-color: rgba(255,255,255,.06);
+}
+.topbar h1 { font-family: 'Space Grotesk',sans-serif; }
+.ai-top-button { color: #d2c8ff; background: rgba(155,123,255,.08); border: 1px solid rgba(155,123,255,.24); }
+.section-heading h2,.class-card strong,.subject-card h3 { color: #f5f7ff; }
+.level-switch { background: rgba(255,255,255,.055); border: 1px solid var(--border); }
+.level-tab { color: #a7b1c7; }
+.level-tab.active { color: #fff; background: rgba(99,133,255,.22); box-shadow: none; }
+.class-card,.continue-card,.subject-card,.search-box { background: linear-gradient(145deg,rgba(20,30,52,.94),rgba(15,24,42,.96)); }
+.class-card.active { background: rgba(155,123,255,.14); border-color: rgba(155,123,255,.45); }
+.class-card:hover,.subject-card:hover { border-color: rgba(155,123,255,.38); }
+.search-box input { color: #f5f7ff; }
 
 /* RESPONSIVE */
 

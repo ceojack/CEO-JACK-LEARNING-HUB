@@ -43,6 +43,11 @@ button{cursor:pointer}
 .brand-logo{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-family:'Space Grotesk',sans-serif;font-weight:700}
 .brand strong{display:block;font-size:14px;letter-spacing:.5px}
 .brand span{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px;margin-top:3px}
+.workspace-nav{display:grid;gap:5px;margin:0 0 18px}
+.workspace-nav a{display:flex;min-height:42px;align-items:center;gap:11px;padding:0 11px;border:1px solid transparent;border-radius:10px;color:#a7b1c7;text-decoration:none;font-size:11px;font-weight:600;transition:background .18s,border-color .18s,color .18s}
+.workspace-nav a span{display:grid;width:20px;place-items:center;color:#8a9eff;font-size:14px}
+.workspace-nav a:hover{border-color:rgba(255,255,255,.07);background:rgba(255,255,255,.045);color:#fff}
+.workspace-nav a.active{border-color:rgba(99,133,255,.2);background:linear-gradient(100deg,rgba(99,133,255,.2),rgba(79,140,255,.075));color:#fff}
 .new-chat{width:100%;padding:13px;border:1px solid rgba(99,133,255,.35);border-radius:12px;background:rgba(99,133,255,.10);color:var(--text);text-align:left;font-weight:600;transition:.2s}
 .new-chat:hover{background:rgba(99,133,255,.2)}
 .new-chat span{margin-right:8px;font-size:19px}
