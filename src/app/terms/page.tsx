@@ -14,7 +14,7 @@ export default function TermsPage() {
         <span className="legal-kicker">CEO JACK LEARNING HUB</span>
         <h1>Terms of Use</h1>
         <p className="legal-lead">These terms explain how to use our learning website and what you can expect from it.</p>
-        <p className="legal-updated">Last updated: <time dateTime="2026-10-28">28 October 2026</time></p>
+        <p className="legal-updated">Last updated: <time dateTime="2026-11-01">1 November 2026</time></p>
         <div className="legal-copy">
           <section aria-labelledby="terms-acceptance">
             <h2 id="terms-acceptance">1. Using the Learning Hub</h2>
@@ -26,11 +26,11 @@ export default function TermsPage() {
           </section>
           <section aria-labelledby="terms-account">
             <h2 id="terms-account">3. Accounts and learner information</h2>
-            <p>Keep your sign-in details private and provide accurate information when using account forms. You are responsible for activity carried out through your account and should tell us if you think someone else has accessed it. Account sign-in and progress features are currently a prototype and may not provide secure, server-backed accounts or sync between devices.</p>
+            <p>Keep your sign-in details private and provide accurate information when using account forms. You are responsible for activity carried out through your account and should tell us if you think someone else has accessed it. When Supabase is configured, sign-in uses Supabase Auth and your learning profile and sample lesson progress are saved to your account. AI chats and work plans remain on the device where you use them.</p>
           </section>
           <section aria-labelledby="terms-young-learners">
             <h2 id="terms-young-learners">4. Children and young learners</h2>
-            <p>If you are under 18, ask a parent or guardian to review these terms and supervise your use of the site. A parent or guardian must give permission before a child’s personal data is submitted. Do not share your home address, school, passwords, phone number, precise location or other sensitive details in lessons or AI chats.</p>
+            <p>If you are under 18, ask a parent or guardian to review these terms and supervise your use of the site. A parent or guardian must give permission before a child’s personal data is submitted. The site does not currently verify that permission, so do not create an account or submit a child’s personal data until the parent or guardian has agreed. Do not share your home address, school, passwords, phone number, precise location or other sensitive details in lessons or AI chats.</p>
           </section>
           <section aria-labelledby="terms-acceptable-use">
             <h2 id="terms-acceptable-use">5. Acceptable use</h2>

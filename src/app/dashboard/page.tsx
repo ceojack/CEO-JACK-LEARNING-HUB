@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useMemo, useState } from "react";
+import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "./dashboard.css";
 
 type LearnerProfile = { level?: string; ageGroup?: string; interests?: string[]; goals?: string[] };
@@ -20,15 +21,42 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState<LearnerProfile | null>(null);
   const [lessonComplete, setLessonComplete] = useState(false);
+  const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
-    try {
-      const storedProfile = window.localStorage.getItem("ceoJackOnboarding");
-      if (storedProfile) setProfile(JSON.parse(storedProfile) as LearnerProfile);
-      setLessonComplete(window.localStorage.getItem(lessonKey) === "complete");
-    } catch {
-      setProfile(null);
+    let cancelled = false;
+    async function loadLearningData() {
+      if (!isSupabaseConfigured()) {
+        try {
+          const storedProfile = window.localStorage.getItem("ceoJackOnboarding");
+          if (!cancelled && storedProfile) setProfile(JSON.parse(storedProfile) as LearnerProfile);
+          if (!cancelled) setLessonComplete(window.localStorage.getItem(lessonKey) === "complete");
+        } catch {
+          if (!cancelled) setProfile(null);
+        }
+        return;
+      }
+
+      try {
+        const [profileResponse, progressResponse] = await Promise.all([
+          fetch("/api/profile", { cache: "no-store" }),
+          fetch("/api/progress", { cache: "no-store" }),
+        ]);
+        if (cancelled) return;
+        if (profileResponse.ok) {
+          const result = await profileResponse.json() as { profile: LearnerProfile | null };
+          setProfile(result.profile);
+        } else setBackendError("Your learning profile could not be loaded. Refresh to try again.");
+        if (progressResponse.ok) {
+          const result = await progressResponse.json() as { progress: { lessonId: string; status: string }[] };
+          setLessonComplete(result.progress.some((item) => item.lessonId === "p7-maths-equivalent-fractions" && item.status === "completed"));
+        } else setBackendError("Your learning progress could not be loaded. Refresh to try again.");
+      } catch {
+        if (!cancelled) setBackendError("Your learning data could not be reached. Check your connection and refresh.");
+      }
     }
+    void loadLearningData();
+    return () => { cancelled = true; };
   }, []);
 
   const recommendedPath = useMemo(() => {
@@ -60,6 +88,7 @@ export default function DashboardPage() {
         </nav>
         <div className="dashboard-sidebar-bottom">
           <div className="dashboard-sidebar-card"><span>✦ YOUR NEXT STEP</span><strong>One lesson at a time.</strong><p>Keep exploring and build a learning routine that works for you.</p><Link href="/how-it-works">How the hub works <span>→</span></Link></div>
+          {isSupabaseConfigured() ? <form action="/auth/signout" method="post" className="dashboard-signout-form"><button className="dashboard-signout" type="submit">Sign out</button></form> : null}
           <Link href="/" className="dashboard-site-link"><span>↗</span> Visit the main website</Link>
         </div>
       </aside>
@@ -72,6 +101,7 @@ export default function DashboardPage() {
         </header>
 
         <div className="dashboard-content">
+          {backendError ? <p className="dashboard-backend-error" role="status">{backendError}</p> : null}
           <section className="dashboard-hero">
             <div className="dashboard-hero-copy">
               <div className="dashboard-eyebrow"><i /> YOUR LEARNING JOURNEY</div>

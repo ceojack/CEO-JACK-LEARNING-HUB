@@ -13,8 +13,8 @@ export default function PrivacyPage() {
         <Link className="legal-back" href="/">← Back to home</Link>
         <span className="legal-kicker">CEO JACK LEARNING HUB</span>
         <h1>Privacy Policy</h1>
-        <p className="legal-lead">This page explains what information the current Learning Hub prototype uses, why it is used, and what choices you have.</p>
-        <p className="legal-updated">Last updated: <time dateTime="2026-10-30">30 October 2026</time></p>
+        <p className="legal-lead">This page explains what information the Learning Hub uses, why it is used, and what choices you have.</p>
+        <p className="legal-updated">Last updated: <time dateTime="2026-11-01">1 November 2026</time></p>
         <div className="legal-copy">
           <section aria-labelledby="privacy-controller">
             <h2 id="privacy-controller">1. Who is responsible</h2>
@@ -23,9 +23,9 @@ export default function PrivacyPage() {
           <section aria-labelledby="privacy-information">
             <h2 id="privacy-information">2. Information the site uses</h2>
             <ul>
-              <li><strong>Account form:</strong> your name and email address are saved in this browser to personalize the prototype. Passwords entered in the form are not saved as accounts or checked against a password database.</li>
-              <li><strong>Onboarding:</strong> your learning level, age group, interests and goals are saved in this browser so the dashboard can suggest a learning path.</li>
-              <li><strong>Lesson progress:</strong> completion for the sample lesson is saved in this browser.</li>
+              <li><strong>Account:</strong> when Supabase is configured, your email address and the name you provide are processed by Supabase Auth to create and secure your account. The website does not store your raw password. Account access is disabled when the service is not configured.</li>
+              <li><strong>Onboarding:</strong> when Supabase is configured, your learning level, broad age group, interests and goals are saved to your account in the Learning Hub database. Without Supabase, these choices are saved in this browser for the local demo.</li>
+              <li><strong>Lesson progress:</strong> when Supabase is configured, your sample lesson completion and score are saved to your account. Without Supabase, completion is saved in this browser.</li>
               <li><strong>AI companion:</strong> if live AI service is enabled, the message you send and up to the ten most recent chat messages may be sent to our server and then to Groq to generate a reply. Avoid sharing personal, sensitive or confidential information.</li>
               <li><strong>AI chat history and work plans:</strong> recent conversations and your current work plan are saved in local browser storage on the device you use. They are not synced to an account and remain there until you delete them or clear that browser’s site data.</li>
               <li><strong>Voice input:</strong> dictation uses speech recognition provided by your browser or device. Its handling of audio or speech data is governed by that provider’s privacy terms.</li>
@@ -34,11 +34,11 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-purpose">
             <h2 id="privacy-purpose">3. Why we use it</h2>
-            <p>Information is used to display your selected profile and learning progress in the same browser, respond to AI requests when enabled, and help you contact us. The prototype does not currently use Supabase or another account database to sync this information between devices.</p>
+            <p>Information is used to authenticate you, display your selected learning path and progress, respond to AI requests when enabled, and help you contact us. With Supabase configured, your profile and lesson progress are associated with your account and can be loaded on another device after you sign in.</p>
           </section>
           <section aria-labelledby="privacy-storage">
             <h2 id="privacy-storage">4. Storage, providers and retention</h2>
-            <p>Profile and lesson information is stored in your browser’s local storage. Anyone with access to the same browser profile may be able to see it. You can remove it by clearing this site’s browser storage. If live AI is enabled, your prompt is processed by Groq; the provider’s own policies apply to its processing. The website does not currently provide a server-side account deletion or data export feature. Website hosting may also process basic technical information needed to deliver and protect the service.</p>
+            <p>When Supabase is configured, Supabase Auth processes account credentials and the Learning Hub database stores your profile and lesson progress. Supabase may process this information on our behalf under its service terms. When Supabase is not configured, profile and lesson details use this browser’s local storage. AI conversation history and work plans remain in local storage in either mode. If live AI is enabled, your prompt is sent to our server and Groq to generate a reply. Website hosting may also process basic technical information needed to deliver and protect the service. Contact us to request account-data access or deletion; self-service account deletion and data export are not yet available.</p>
           </section>
           <section aria-labelledby="privacy-sharing">
             <h2 id="privacy-sharing">5. When information is shared</h2>
@@ -46,11 +46,11 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-children">
             <h2 id="privacy-children">6. Children and young learners</h2>
-            <p>The site is intended for learners, including young people. A parent or guardian should review the site and give permission before a child’s personal information is submitted. Our current prototype does not verify a parent or guardian’s consent. Parents or guardians can contact us with questions or requests about a child’s information.</p>
+            <p>The site is intended for learners, including young people. A parent or guardian should review the site and give permission before a child’s personal information is submitted. The Learning Hub does not currently verify a parent or guardian’s consent. Do not create an account or submit a child’s personal information until the required parent or guardian permission has been obtained. Parents or guardians can contact us with questions or requests about a child’s information.</p>
           </section>
           <section aria-labelledby="privacy-rights">
             <h2 id="privacy-rights">7. Your choices and requests</h2>
-            <p>You can delete individual AI conversations and your work plan in CEO JACK AI, or clear profile, progress and other saved details from your browser storage. Under applicable law, you may ask about personal information held about you and request access, correction or deletion where those rights apply. Email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
+            <p>You can delete individual AI conversations and your work plan in CEO JACK AI. In local-demo mode, clear profile and progress from your browser storage. For account profile and progress data, or to request account deletion, email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. Under applicable law, you may request access, correction or deletion where those rights apply. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
           </section>
           <section aria-labelledby="privacy-security">
             <h2 id="privacy-security">8. Security</h2>
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-changes">
             <h2 id="privacy-changes">9. Changes to this policy</h2>
-            <p>We will update this page when the website’s data practices change. If we add server accounts, Supabase, Google sign-in, analytics or other data processing, we will revise this policy to describe the information involved and the choices available before relying on those features.</p>
+            <p>We will update this page when the website’s data practices change, including when new account, analytics or other data services are enabled.</p>
           </section>
           <section aria-labelledby="privacy-contact">
             <h2 id="privacy-contact">10. Contact</h2>

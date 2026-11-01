@@ -36,7 +36,12 @@
 .dashboard-sidebar-card a span { margin-left: 5px; }
 .dashboard-site-link { display: flex; align-items: center; gap: 8px; margin: 17px 10px 0; color: #929fb7 !important; font-size: 10px; font-weight: 600; }
 .dashboard-site-link span { color: #9b7bff; }
+.dashboard-signout-form { margin: 12px 10px 0; }
+.dashboard-signout { padding: 0; border: 0; background: transparent; color: #929fb7; font-size: 10px; font-weight: 600; cursor: pointer; }
+.dashboard-signout:hover { color: #fff; }
+.dashboard-signout:focus-visible { outline: 2px solid #b6a5ff; outline-offset: 3px; }
 .dashboard-main { min-height: 100vh; margin-left: 258px; }
+.dashboard-backend-error { margin: 0 0 14px; padding: 11px 14px; border: 1px solid rgba(255,153,153,.26); border-radius: 10px; background: rgba(255,105,125,.08); color: #ffc0c8; font-size: 11px; }
 .dashboard-topbar { position: sticky; z-index: 20; top: 0; display: flex; height: 69px; align-items: center; justify-content: space-between; padding: 0 clamp(24px,4vw,58px); border-bottom: 1px solid rgba(255,255,255,.06); background: rgba(8,13,27,.83); backdrop-filter: blur(16px); }
 .dashboard-breadcrumb { color: #8694ac; font-size: 11px; font-weight: 600; }
 .dashboard-breadcrumb span { margin: 0 8px; color: #536078; }

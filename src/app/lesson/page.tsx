@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useState } from "react";
+import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "@/src/styles/lesson.css";
 
 const progressKey = "ceoJackLesson:p7-maths-equivalent-fractions";
@@ -16,20 +17,62 @@ export default function LessonPage() {
   const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(-1));
   const [submitted, setSubmitted] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
-    setSaved(window.localStorage.getItem(progressKey) === "complete");
+    let cancelled = false;
+    async function loadProgress() {
+      if (!isSupabaseConfigured()) {
+        setSaved(window.localStorage.getItem(progressKey) === "complete");
+        return;
+      }
+      try {
+        const response = await fetch("/api/progress", { cache: "no-store" });
+        if (!response.ok) {
+          if (!cancelled) setSaveError("Your saved progress could not be loaded.");
+          return;
+        }
+        const result = await response.json() as { progress: { lessonId: string; status: string }[] };
+        if (!cancelled) setSaved(result.progress.some((item) => item.lessonId === "p7-maths-equivalent-fractions" && item.status === "completed"));
+      } catch {
+        if (!cancelled) setSaveError("Your saved progress could not be loaded.");
+      }
+    }
+    void loadProgress();
+    return () => { cancelled = true; };
   }, []);
 
   const score = answers.reduce((total, answer, index) => total + (answer === questions[index].answer ? 1 : 0), 0);
   const complete = score >= 2;
 
-  function submitQuiz() {
+  async function submitQuiz() {
     if (answers.some((answer) => answer < 0)) return;
     setSubmitted(true);
     if (complete) {
-      window.localStorage.setItem(progressKey, "complete");
-      setSaved(true);
+      setSaveError("");
+      if (isSupabaseConfigured()) {
+        try {
+          setSaving(true);
+          const response = await fetch("/api/progress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ lessonId: "p7-maths-equivalent-fractions", score }),
+          });
+          if (!response.ok) {
+            const result = await response.json().catch(() => null) as { error?: string } | null;
+            throw new Error(result?.error ?? "Your result could not be saved. Please check your connection and try again.");
+          }
+          setSaved(true);
+        } catch (error) {
+          setSaveError(error instanceof Error ? error.message : "Your result could not be saved.");
+        } finally {
+          setSaving(false);
+        }
+      } else {
+        window.localStorage.setItem(progressKey, "complete");
+        setSaved(true);
+      }
     }
   }
 
@@ -98,15 +141,16 @@ export default function LessonPage() {
             {submitted ? (
               <div className={`quiz-result ${complete ? "passed" : "retry"}`} role="status">
                 <strong>{complete ? "Nice work — lesson complete!" : "You’re close. Review the examples and try again."}</strong>
-                <span>You got {score} out of {questions.length} correct.{saved ? " Your completion is saved on this device." : " Get at least 2 correct to complete the lesson."}</span>
-                <button type="button" onClick={resetQuiz}>Try again</button>
+                <span>You got {score} out of {questions.length} correct.{saving ? " Saving your completion…" : saved ? (isSupabaseConfigured() ? " Your result is saved to your account." : " Your completion is saved on this device.") : complete ? " Your result has not been saved yet." : " Get at least 2 correct to complete the lesson."}</span>
+                <button type="button" onClick={resetQuiz} disabled={saving}>Try again</button>
               </div>
             ) : (
               <button className="quiz-submit" type="button" onClick={submitQuiz} disabled={answers.some((answer) => answer < 0)}>Check answers <span>→</span></button>
             )}
+            {saveError ? <p className="progress-note" role="status">{saveError}</p> : null}
           </section>
           <div className="lesson-foot"><Link href="/education">← Back to subjects</Link><Link href={`/ai?prompt=${encodeURIComponent("Explain equivalent fractions with another example.")}`}>Ask CEO JACK AI about this topic →</Link></div>
-          <p className="progress-note">Lesson completion is saved in this browser for this prototype. Secure account-based progress can be connected later.</p>
+          <p className="progress-note">{isSupabaseConfigured() ? "Your lesson progress is saved to your account when you pass the quiz." : "Lesson completion is saved in this browser for this local demo."}</p>
         </article>
       </main>
     </div>

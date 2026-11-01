@@ -12,19 +12,12 @@ export async function GET(request: Request) {
     const supabase = await createClient()
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      const forwardedHost = request.headers.get('x-forwarded-host')
-      const isLocalEnv = process.env.NODE_ENV === 'development'
-      if (isLocalEnv) {
-        // we can be on localhost
-        return NextResponse.redirect(`${origin}${next}`)
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`)
-      } else {
-        return NextResponse.redirect(`${origin}${next}`)
-      }
+      return NextResponse.redirect(new URL(next, origin))
     }
   }
 
   // return user to error page with instructions
-  return NextResponse.redirect(`${origin}/auth?error=Could not login with Google`)
+  const errorUrl = new URL('/auth', origin)
+  errorUrl.searchParams.set('error', 'Could not sign in. Please try again.')
+  return NextResponse.redirect(errorUrl)
 }

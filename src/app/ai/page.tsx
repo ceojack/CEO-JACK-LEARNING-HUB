@@ -238,28 +238,31 @@ function AiChat() {
   const busyRef = useRef(false);
 
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(CHAT_HISTORY_KEY);
-      const parsed: unknown = stored ? JSON.parse(stored) : [];
-      if (Array.isArray(parsed)) {
-        const valid = parsed.filter((item: unknown): item is SavedConversation => {
-          if (typeof item !== "object" || item === null) return false;
-          const candidate = item as Partial<SavedConversation>;
-          return typeof candidate.id === "string" && typeof candidate.title === "string" &&
-            typeof candidate.mode === "string" && ["general", "education", "coding", "business"].includes(candidate.mode) &&
-            Array.isArray(candidate.messages) && candidate.messages.every((message: unknown) =>
-              typeof message === "object" && message !== null &&
-              "role" in message && (message.role === "user" || message.role === "assistant") &&
-              "content" in message && typeof message.content === "string",
-            ) && typeof candidate.updatedAt === "number";
-        });
-        setConversations(valid.slice(0, 20));
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const stored = window.localStorage.getItem(CHAT_HISTORY_KEY);
+        const parsed: unknown = stored ? JSON.parse(stored) : [];
+        if (Array.isArray(parsed)) {
+          const valid = parsed.filter((item: unknown): item is SavedConversation => {
+            if (typeof item !== "object" || item === null) return false;
+            const candidate = item as Partial<SavedConversation>;
+            return typeof candidate.id === "string" && typeof candidate.title === "string" &&
+              typeof candidate.mode === "string" && ["general", "education", "coding", "business"].includes(candidate.mode) &&
+              Array.isArray(candidate.messages) && candidate.messages.every((message: unknown) =>
+                typeof message === "object" && message !== null &&
+                "role" in message && (message.role === "user" || message.role === "assistant") &&
+                "content" in message && typeof message.content === "string",
+              ) && typeof candidate.updatedAt === "number";
+          });
+          setConversations(valid.slice(0, 20));
+        }
+      } catch {
+        console.error("Saved CEO JACK AI conversations could not be read.");
+      } finally {
+        setHistoryReady(true);
       }
-    } catch {
-      setConversations([]);
-    } finally {
-      setHistoryReady(true);
-    }
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -267,7 +270,7 @@ function AiChat() {
     try {
       window.localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(conversations.slice(0, 20)));
     } catch {
-      setVoiceNotice("Chat history could not be saved in this browser.");
+      console.error("CEO JACK AI conversation history could not be saved in this browser.");
     }
   }, [conversations, historyReady]);
 
@@ -288,22 +291,25 @@ function AiChat() {
   }, [messages, mode, conversationId, historyReady]);
 
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(WORK_PLAN_KEY);
-      if (!stored) return;
-      const parsed: unknown = JSON.parse(stored);
-      if (isWorkPlan(parsed)) {
-        setWorkPlan(parsed);
-        setPlanGoal(parsed.goal);
-        setPlanArea(parsed.area);
-        setPlanDuration(parsed.duration);
-        setPlanHours(parsed.hoursPerWeek);
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const stored = window.localStorage.getItem(WORK_PLAN_KEY);
+        if (!stored) return;
+        const parsed: unknown = JSON.parse(stored);
+        if (isWorkPlan(parsed)) {
+          setWorkPlan(parsed);
+          setPlanGoal(parsed.goal);
+          setPlanArea(parsed.area);
+          setPlanDuration(parsed.duration);
+          setPlanHours(parsed.hoursPerWeek);
+        }
+      } catch {
+        console.error("Saved CEO JACK AI work plan could not be read.");
+      } finally {
+        setPlanReady(true);
       }
-    } catch {
-      setWorkPlan(null);
-    } finally {
-      setPlanReady(true);
-    }
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -312,7 +318,7 @@ function AiChat() {
       if (workPlan) window.localStorage.setItem(WORK_PLAN_KEY, JSON.stringify(workPlan));
       else window.localStorage.removeItem(WORK_PLAN_KEY);
     } catch {
-      setVoiceNotice("Your work plan could not be saved in this browser.");
+      console.error("CEO JACK AI work plan could not be saved in this browser.");
     }
   }, [workPlan, planReady]);
 

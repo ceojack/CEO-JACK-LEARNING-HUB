@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { getAuthenticatedClient } from "@/src/utils/supabase/auth";
+import { isSupabaseConfigured } from "@/src/utils/supabase/config";
+import { readJsonBody } from "@/src/utils/read-json";
 
 const systemPrompts: Record<string, string> = {
   general:
@@ -18,15 +21,24 @@ type ChatPayload = {
 };
 
 export async function POST(request: Request) {
-  let body: ChatPayload;
-
-  try {
-    body = (await request.json()) as ChatPayload;
-  } catch {
-    return NextResponse.json({ reply: "Send a valid JSON request." }, { status: 400 });
+  if (process.env.NODE_ENV === "production" && !isSupabaseConfigured()) {
+    return NextResponse.json({ reply: "AI chat is unavailable until account security is configured." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
+  }
+  if (isSupabaseConfigured() && !(await getAuthenticatedClient())) {
+    return NextResponse.json({ reply: "Sign in to use CEO JACK AI." }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
   }
 
-  const message = body.message?.trim();
+  const parsed = await readJsonBody(request, 24_000);
+  if (parsed.error === "too_large") return NextResponse.json({ reply: "That request is too large. Shorten your message and try again." }, { status: 413 });
+  if (parsed.error || !parsed.value || typeof parsed.value !== "object" || Array.isArray(parsed.value)) {
+    return NextResponse.json({ reply: "Send a valid JSON request." }, { status: 400 });
+  }
+  const body = parsed.value as ChatPayload;
+
+  if (typeof body.message !== "string") {
+    return NextResponse.json({ reply: "Please send a message." }, { status: 400 });
+  }
+  const message = body.message.trim();
 
   if (!message || message.length > 4_000) {
     return NextResponse.json({ reply: "Please send a message." }, { status: 400 });
@@ -107,7 +119,7 @@ Organize responses for easy scanning. Use a short opening answer, descriptive Ma
   return new Response(groqRes.body, {
     headers: {
       "Content-Type": "text/event-stream; charset=utf-8",
-      "Cache-Control": "no-cache, no-transform",
+      "Cache-Control": "private, no-store, no-transform",
       "X-Accel-Buffering": "no",
     },
   });

@@ -8,6 +8,7 @@ import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/auth.css";
 import { createClient } from "@/src/utils/supabase/client";
+import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 
 type Mode = "signup" | "signin";
 
@@ -16,6 +17,9 @@ function AuthForm() {
   const router = useRouter();
   const params = useSearchParams();
   const initialMode = params.get("mode") === "signin" ? "signin" : "signup";
+  const requestedNext = params.get("next") ?? "/dashboard";
+  const nextPath = requestedNext.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/dashboard";
+  const backendReady = isSupabaseConfigured();
   const [mode, setMode] = useState<Mode>(initialMode);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,10 +27,9 @@ function AuthForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [terms, setTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState("");
+  const [status, setStatus] = useState(params.get("error") ?? "");
+  const [statusType, setStatusType] = useState(params.get("error") ? "error" : "");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const supabase = createClient();
 
   const strength = useMemo(() => {
     let score = 0;
@@ -57,46 +60,63 @@ function AuthForm() {
       return;
     }
 
+    if (!backendReady) {
+      setStatusType("error");
+      setStatus("Account access is not configured yet. Please contact the site administrator.");
+      return;
+    }
+
     setStatusType("");
     setStatus("Please wait...");
-
-    if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({
-        email: email.trim(),
-        password,
-        options: { data: { full_name: fullName } }
-      });
-      if (error) {
-        setStatusType("error");
-        setStatus(error.message);
-      } else {
+    try {
+      const supabase = createClient();
+      if (mode === "signup") {
+        const { data, error } = await supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: {
+            data: { full_name: fullName.trim() },
+            emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/onboarding")}`,
+          },
+        });
+        if (error) throw error;
+        if (data.session) {
+          router.replace("/onboarding");
+          return;
+        }
         setStatusType("success");
-        setStatus("Account created! Check your email, then sign in.");
+        setStatus("Account created. Check your email to confirm your address, then sign in.");
         setMode("signin");
-      }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      if (error) {
-        setStatusType("error");
-        setStatus(error.message);
       } else {
-        setStatusType("success");
-        setStatus("Signed in. Opening your dashboard...");
-        router.push("/dashboard");
+        const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+        if (error) throw error;
+        router.replace(nextPath);
       }
+    } catch (error) {
+      setStatusType("error");
+      setStatus(error instanceof Error ? error.message : "Account access failed. Please try again.");
     }
   }
 
   async function handleGoogle() {
+    if (!backendReady) {
+      setStatusType("error");
+      setStatus("Account access is not configured yet. Please contact the site administrator.");
+      return;
+    }
     setStatusType("");
     setStatus("Redirecting to Google...");
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` }
-    });
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}` },
+      });
+      if (error) throw error;
+    } catch (error) {
+      setStatusType("error");
+      setStatus(error instanceof Error ? error.message : "Google sign-in could not start. Please try again.");
+    }
   }
 
   return (
@@ -139,6 +159,7 @@ function AuthForm() {
               </div>
               <span className="account-pill"><span /> Get started free</span>
             </div>
+            {!backendReady ? <p className="form-status error" role="status">Account access is not configured yet. Please contact the site administrator.</p> : null}
             <form noValidate onSubmit={handleSubmit}>
               {mode === "signup" ? (
                 <div className={`form-group${errors.fullName ? " invalid" : ""}`}>
@@ -188,7 +209,7 @@ function AuthForm() {
                   <small className="field-error terms-error">{errors.terms}</small>
                 </>
               ) : null}
-              <button type="submit" className="submit-btn">
+              <button type="submit" className="submit-btn" disabled={!backendReady}>
                 <span>{mode === "signup" ? "Create account" : "Sign in"}</span>
                 <span aria-hidden="true">→</span>
               </button>
@@ -196,7 +217,7 @@ function AuthForm() {
             </form>
             <div className="social-divider"><span>OR CONTINUE WITH</span></div>
             <div className="social-login">
-              <button className="social-button google-button" type="button" onClick={handleGoogle}>
+              <button className="social-button google-button" type="button" onClick={handleGoogle} disabled={!backendReady}>
                 <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                   <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" />
                   <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.98 46.98 31.9 46.98 24.55Z" />

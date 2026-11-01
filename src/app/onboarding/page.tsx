@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
+import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "@/src/styles/onboarding.css";
 
 const levels = ["Primary", "Secondary", "Higher Education", "Independent Learner"];
 const interests = ["School & Education", "Web Development", "Programming", "AI", "Business", "Design"];
 const goals = ["Improve school results", "Learn digital skills", "Build projects", "Start a small idea"];
+type SavedLearnerProfile = { level?: string; ageGroup?: string; interests?: string[]; goals?: string[] };
 const stepLabels = ["Your level", "Interests", "Goals", "Review"];
 const stepGuidance = [
   "Choose the level that best describes you and your age group. This helps us recommend learning at the right pace.",
@@ -30,22 +32,30 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      try {
-        const saved = window.localStorage.getItem("ceoJackOnboarding");
-        if (!saved) return;
-        const profile = JSON.parse(saved) as {
-          level?: string;
-          ageGroup?: string;
-          interests?: string[];
-          goals?: string[];
-        };
-        if (profile.level && levels.includes(profile.level)) setLevel(profile.level);
-        if (profile.ageGroup) setAgeGroup(profile.ageGroup);
-        if (Array.isArray(profile.interests)) setSelectedInterests(profile.interests.filter((item) => interests.includes(item)));
-        if (Array.isArray(profile.goals)) setSelectedGoals(profile.goals.filter((item) => goals.includes(item)));
-      } catch {
-        // Keep the form available if saved browser data is unavailable or invalid.
-      }
+      void (async () => {
+        try {
+          let profile: SavedLearnerProfile | null = null;
+          if (isSupabaseConfigured()) {
+            const response = await fetch("/api/profile", { cache: "no-store" });
+            if (!response.ok) {
+              setStatus("Your saved learning path could not be loaded. You can still set a new path.");
+              return;
+            }
+            const result = await response.json() as { profile: SavedLearnerProfile | null };
+            profile = result.profile;
+          } else {
+            const saved = window.localStorage.getItem("ceoJackOnboarding");
+            profile = saved ? JSON.parse(saved) as SavedLearnerProfile : null;
+          }
+          if (!profile) return;
+          if (profile.level && levels.includes(profile.level)) setLevel(profile.level);
+          if (profile.ageGroup) setAgeGroup(profile.ageGroup);
+          if (Array.isArray(profile.interests)) setSelectedInterests(profile.interests.filter((item) => interests.includes(item)));
+          if (Array.isArray(profile.goals)) setSelectedGoals(profile.goals.filter((item) => goals.includes(item)));
+        } catch {
+          setStatus("Your saved learning path could not be loaded. You can still set a new path.");
+        }
+      })();
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -54,7 +64,7 @@ export default function OnboardingPage() {
     setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
   }
 
-  function next() {
+  async function next() {
     if (step === 1 && (!level || !ageGroup)) {
       setStatus("Choose your learning level and age group.");
       return;
@@ -69,10 +79,27 @@ export default function OnboardingPage() {
     }
     setStatus("");
     if (step === 4) {
-      window.localStorage.setItem(
-        "ceoJackOnboarding",
-        JSON.stringify({ level, ageGroup, interests: selectedInterests, goals: selectedGoals })
-      );
+      const profile = { level, ageGroup, interests: selectedInterests, goals: selectedGoals };
+      if (isSupabaseConfigured()) {
+        try {
+          const response = await fetch("/api/profile", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(profile),
+          });
+          if (!response.ok) {
+            const result = await response.json().catch(() => null) as { error?: string } | null;
+            setStatus(result?.error ?? "Your learning path could not be saved. Please try again.");
+            return;
+          }
+          window.localStorage.removeItem("ceoJackOnboarding");
+        } catch {
+          setStatus("Your learning path could not be saved. Check your connection and try again.");
+          return;
+        }
+      } else {
+        window.localStorage.setItem("ceoJackOnboarding", JSON.stringify(profile));
+      }
       router.push("/dashboard");
       return;
     }

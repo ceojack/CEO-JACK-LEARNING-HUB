@@ -20,14 +20,17 @@ export default function EducationPage() {
   const [toast, setToast] = useState("");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const requestedLevel: AcademicLevel = params.get("level") === "secondary" ? "secondary" : "primary";
-    const requestedClass = params.get("class");
-    setLevel(requestedLevel);
-    if (requestedClass) {
-      const match = classes[requestedLevel].find((item) => item.value === requestedClass || item.label === requestedClass);
-      if (match) setSelectedClass(match.value);
-    }
+    const frame = window.requestAnimationFrame(() => {
+      const params = new URLSearchParams(window.location.search);
+      const requestedLevel: AcademicLevel = params.get("level") === "secondary" ? "secondary" : "primary";
+      const requestedClass = params.get("class");
+      setLevel(requestedLevel);
+      if (requestedClass) {
+        const match = classes[requestedLevel].find((item) => item.value === requestedClass || item.label === requestedClass);
+        if (match) setSelectedClass(match.value);
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const subjects = useMemo(() => {
