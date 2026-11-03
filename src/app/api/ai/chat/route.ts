@@ -63,7 +63,7 @@ Organize responses for easy scanning. Use a short opening answer, descriptive Ma
         .filter((item) => item && (item.role === "user" || item.role === "assistant") && typeof item.content === "string")
         .map((item) => ({ role: item.role, content: item.content.slice(-1_500) }))
     : [];
-  const explicitSearchRequest = /\b(search|web search|look up|find online|browse the web|google)\b/i.test(message);
+  const explicitSearchRequest = /\b(search|web search|look up|find online|browse the web|google|latest|current|today|recent)\b/i.test(message);
 
   let groqRes: Response;
   let data: { error?: { message?: string } };
@@ -79,10 +79,12 @@ Organize responses for easy scanning. Use a short opening answer, descriptive Ma
         model: "openai/gpt-oss-20b",
         messages: [{ role: "system", content: systemContent }, ...history, { role: "user", content: message }],
         temperature: 0.45,
-        max_tokens: 1200,
-        tools: [{ type: "browser_search" }],
-        tool_choice: explicitSearchRequest ? "required" : "auto",
-        stream: true,
+        max_completion_tokens: 1200,
+        ...(explicitSearchRequest ? {
+          tools: [{ type: "browser_search" }],
+          tool_choice: "required",
+        } : {}),
+        stream: !explicitSearchRequest,
       }),
       signal: AbortSignal.any([request.signal, AbortSignal.timeout(60_000)]),
     });
@@ -113,6 +115,17 @@ Organize responses for easy scanning. Use a short opening answer, descriptive Ma
     return NextResponse.json(
       { reply: data.error?.message || "The AI service could not complete that request." },
       { status: 500 }
+    );
+  }
+
+  if (explicitSearchRequest) {
+    const completion = await groqRes.json().catch(() => null) as {
+      choices?: { message?: { content?: string | null } }[];
+    } | null;
+    const reply = completion?.choices?.[0]?.message?.content?.trim();
+    return NextResponse.json(
+      { reply: reply || "I couldn’t find a useful answer from that search. Try rephrasing your question." },
+      { headers: { "Cache-Control": "private, no-store" } },
     );
   }
 

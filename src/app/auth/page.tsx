@@ -30,6 +30,7 @@ function AuthForm() {
   const [status, setStatus] = useState(params.get("error") ?? "");
   const [statusType, setStatusType] = useState(params.get("error") ? "error" : "");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const strength = useMemo(() => {
     let score = 0;
@@ -54,6 +55,7 @@ function AuthForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     if (!validate()) {
       setStatusType("error");
       setStatus("Please check the highlighted fields.");
@@ -68,6 +70,7 @@ function AuthForm() {
 
     setStatusType("");
     setStatus("Please wait...");
+    setIsSubmitting(true);
     try {
       const supabase = createClient();
       if (mode === "signup") {
@@ -95,6 +98,8 @@ function AuthForm() {
     } catch (error) {
       setStatusType("error");
       setStatus(error instanceof Error ? error.message : "Account access failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -104,19 +109,32 @@ function AuthForm() {
       setStatus("Account access is not configured yet. Please contact the site administrator.");
       return;
     }
+    if (isSubmitting) return;
     setStatusType("");
     setStatus("Redirecting to Google...");
+    setIsSubmitting(true);
     try {
       const supabase = createClient();
+      const authNext = mode === "signup" ? "/onboarding" : nextPath;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}` },
+        options: { redirectTo: `${window.location.origin}/auth/callback?mode=${mode}&next=${encodeURIComponent(authNext)}` },
       });
       if (error) throw error;
     } catch (error) {
+      setIsSubmitting(false);
       setStatusType("error");
       setStatus(error instanceof Error ? error.message : "Google sign-in could not start. Please try again.");
     }
+  }
+
+  function switchMode() {
+    const nextMode = mode === "signup" ? "signin" : "signup";
+    setMode(nextMode);
+    setErrors({});
+    setStatus("");
+    setStatusType("");
+    router.replace(`/auth?mode=${nextMode}&next=${encodeURIComponent(nextPath)}`, { scroll: false });
   }
 
   return (
@@ -209,15 +227,15 @@ function AuthForm() {
                   <small className="field-error terms-error">{errors.terms}</small>
                 </>
               ) : null}
-              <button type="submit" className="submit-btn" disabled={!backendReady}>
-                <span>{mode === "signup" ? "Create account" : "Sign in"}</span>
+              <button type="submit" className="submit-btn" disabled={!backendReady || isSubmitting}>
+                <span>{isSubmitting ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}</span>
                 <span aria-hidden="true">→</span>
               </button>
               <p className={`form-status ${statusType}`} role="status">{status}</p>
             </form>
             <div className="social-divider"><span>OR CONTINUE WITH</span></div>
             <div className="social-login">
-              <button className="social-button google-button" type="button" onClick={handleGoogle} disabled={!backendReady}>
+              <button className="social-button google-button" type="button" onClick={handleGoogle} disabled={!backendReady || isSubmitting}>
                 <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                   <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" />
                   <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.98 46.98 31.9 46.98 24.55Z" />
@@ -229,7 +247,7 @@ function AuthForm() {
             </div>
             <div className="auth-switch">
               <span>{mode === "signup" ? "Already have an account?" : "New here?"}</span>
-              <button type="button" onClick={() => setMode(mode === "signup" ? "signin" : "signup")}>
+              <button type="button" onClick={switchMode}>
                 {mode === "signup" ? "Sign in" : "Create account"}
               </button>
             </div>

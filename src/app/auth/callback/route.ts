@@ -4,6 +4,7 @@ import { createClient } from '@/src/utils/supabase/server'
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  const mode = searchParams.get('mode') === 'signin' ? 'signin' : 'signup'
   // if "next" is in param, use it as redirect
   const requestedNext = searchParams.get('next') ?? '/'
   const next = requestedNext.startsWith('/') && !requestedNext.startsWith('//') ? requestedNext : '/'
@@ -18,6 +19,7 @@ export async function GET(request: Request) {
 
   // return user to error page with instructions
   const errorUrl = new URL('/auth', origin)
+  errorUrl.searchParams.set('mode', mode)
   errorUrl.searchParams.set('error', 'Could not sign in. Please try again.')
   return NextResponse.redirect(errorUrl)
 }
