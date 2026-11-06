@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Suspense } from "react";
 import { ScrollToTop } from "@/src/components/scroll-to-top";
 import { CookieConsent } from "@/src/components/cookie-consent";
@@ -59,6 +58,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3891995236976645"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700,900&f[]=clash-display@600,700&display=swap"
           rel="stylesheet"
@@ -70,12 +74,6 @@ export default function RootLayout({
         </Suspense>
         {children}
         <CookieConsent />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3891995236976645"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
