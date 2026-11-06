@@ -58,10 +58,26 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-changes">
             <h2 id="privacy-changes">9. Changes to this policy</h2>
-            <p>We will update this page when the website’s data practices change, including when new account, analytics or other data services are enabled.</p>
+            <p>We will update this page when the website’s data practices change, including when new account, analytics or other data services are enabled. This includes changes to our use of cookies and advertising services.</p>
+          </section>
+          <section aria-labelledby="privacy-cookies">
+            <h2 id="privacy-cookies">10. Cookies</h2>
+            <p>This site stores your cookie and advertising choice in your browser so it can remember whether you accepted or declined. You can clear this choice by clearing this site’s local storage in your browser settings.</p>
+          </section>
+          <section aria-labelledby="privacy-adsense">
+            <h2 id="privacy-adsense">11. Google AdSense</h2>
+            <p>We may use Google AdSense to display advertisements. Google and its partners may use cookies or similar technologies to serve, measure and personalize ads, subject to your choice and applicable settings. Learn more in <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noreferrer">Google’s advertising policies</a>.</p>
+          </section>
+          <section aria-labelledby="privacy-third-party-ads">
+            <h2 id="privacy-third-party-ads">12. Third-party ads</h2>
+            <p>Advertisements may be provided by Google and its advertising partners. Those third parties may collect or receive information from your browser as described in their own privacy policies. We do not control third-party ad technologies.</p>
+          </section>
+          <section aria-labelledby="privacy-ad-choices">
+            <h2 id="privacy-ad-choices">13. Your advertising choices</h2>
+            <p>You can accept or decline advertising preferences using the site’s cookie banner. To review or change Google’s personalized advertising settings, visit <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer">Google Ad Settings</a>.</p>
           </section>
           <section aria-labelledby="privacy-contact">
-            <h2 id="privacy-contact">10. Contact</h2>
+            <h2 id="privacy-contact">14. Contact</h2>
             <p>For a privacy question or request, email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a> or visit our <Link href="/contact">contact page</Link>. You may also contact Uganda’s <a href="https://pdpo.go.ug/" target="_blank" rel="noreferrer">Personal Data Protection Office</a>.</p>
           </section>
           <p className="legal-related">See also our <Link href="/terms">Terms of Use</Link>.</p>

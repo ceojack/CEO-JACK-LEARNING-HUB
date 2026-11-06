@@ -23,6 +23,7 @@ export function SiteHeader({ active = "/" }: SiteHeaderProps) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
+    <>
     <header className="site-header">
       <div className="container nav-wrap">
         <Link href="/" className="brand" aria-label="CEO JACK Learning Hub home" onClick={closeMenu}>
@@ -84,5 +85,7 @@ export function SiteHeader({ active = "/" }: SiteHeaderProps) {
         </nav>
       </div>
     </header>
+    <div className="site-header-spacer" aria-hidden="true" />
+    </>
   );
 }

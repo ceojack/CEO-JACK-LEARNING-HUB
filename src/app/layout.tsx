@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ScrollToTop } from "@/src/components/scroll-to-top";
+import { CookieConsent } from "@/src/components/cookie-consent";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -57,6 +58,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* REPLACE ca-pub-XXXXXXXXXXXXXX with my real AdSense Publisher ID after approval */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXX" crossOrigin="anonymous" />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700,900&f[]=clash-display@600,700&display=swap"
           rel="stylesheet"
@@ -67,6 +70,7 @@ export default function RootLayout({
           <ScrollToTop />
         </Suspense>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

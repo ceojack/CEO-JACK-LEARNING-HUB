@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
+import { AdSenseSlot } from "@/src/components/adsense-slot";
 import { blogPosts, getBlogPost } from "@/src/utils/blog-posts";
 import "../blog.css";
 
@@ -84,6 +85,9 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
   };
 
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 2);
+  const midpointSection = Math.ceil(post.sections.length / 2) - 1;
+  let paragraphCount = 1; // The article introduction is the first paragraph.
+  let secondParagraphAdPlaced = false;
 
   return (
     <div className="blog-page blog-shell">
@@ -115,12 +119,21 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
           <div className="article-layout">
             <article className="article-body">
               <p className="article-intro">{post.intro}</p>
-              {post.sections.map((section) => (
+              {post.sections.map((section, sectionIndex) => (
                 <section className="article-section" key={section.heading}>
                   <h2>{section.heading}</h2>
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.paragraphs.map((paragraph) => {
+                    paragraphCount += 1;
+                    const showAd = paragraphCount === 2 && !secondParagraphAdPlaced;
+                    if (showAd) secondParagraphAdPlaced = true;
+                    return <div key={paragraph}>
+                      <p>{paragraph}</p>
+                      {showAd ? <AdSenseSlot label="Advertisement after the second article paragraph" /> : null}
+                    </div>;
+                  })}
                   {section.bullets ? <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}
                   {section.takeaway ? <aside className="article-takeaway"><span>TAKE THIS WITH YOU</span><p>{section.takeaway}</p></aside> : null}
+                  {sectionIndex === midpointSection ? <AdSenseSlot label="Advertisement in the middle of the article" /> : null}
                 </section>
               ))}
               <div className="article-end"><span>LEARN · CREATE · DEVELOP</span><Link href="/blog">More practical guides <span aria-hidden="true">→</span></Link></div>
@@ -130,6 +143,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
               <div className="article-sidebar-cta"><span>KEEP LEARNING</span><p>Explore lessons across education, digital skills and entrepreneurship.</p><Link href="/get-started">Explore the hubs →</Link></div>
             </aside>
           </div>
+          <AdSenseSlot label="Advertisement before related posts" />
           <section className="article-related" aria-labelledby="related-heading">
             <div className="blog-section-heading"><div><span className="blog-kicker">NEXT STEPS</span><h2 id="related-heading">Keep exploring</h2></div><Link href="/blog">All guides <span aria-hidden="true">→</span></Link></div>
             <div className="related-grid">{relatedPosts.map((related) => <article key={related.slug}><span className="blog-category">{related.category}</span><h3><Link href={`/blog/${related.slug}`}>{related.title}</Link></h3><Link className="blog-read-link" href={`/blog/${related.slug}`}>Read the guide <span aria-hidden="true">→</span></Link></article>)}</div>

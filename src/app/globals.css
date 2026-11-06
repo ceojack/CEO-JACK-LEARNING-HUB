@@ -38,6 +38,20 @@ header.lesson-top {
   top: 0;
 }
 
+.site-header-spacer { display: none; }
+
+@media (max-width: 780px) {
+  html body header.site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  header.site-header .nav-wrap { min-height: 76px; }
+  .site-header-spacer { display: block; height: 76px; }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -314,4 +328,44 @@ h1, h2, h3, h4, p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+/* Ad containers reserve space to reduce layout movement when AdSense fills them. */
+.adsense-slot {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 120px;
+  margin-block: 28px;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.cookie-consent {
+  position: fixed;
+  z-index: 1000;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: max(16px, env(safe-area-inset-left));
+  display: flex;
+  width: min(680px, calc(100% - 32px));
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-inline: auto;
+  padding: 14px 16px;
+  border: 1px solid rgba(129, 154, 255, .28);
+  border-radius: 14px;
+  color: #f5f7ff;
+  background: #10182a;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .3);
+}
+
+.cookie-consent p { margin: 0; font-size: 14px; line-height: 1.45; }
+.cookie-consent > div { display: flex; flex: 0 0 auto; gap: 8px; }
+.cookie-consent button { min-height: 40px; padding: 8px 13px; border: 1px solid #819aff; border-radius: 9px; color: #08101f; background: #aebdff; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.cookie-consent button.cookie-consent-decline { color: #f5f7ff; background: transparent; }
+
+@media (max-width: 520px) {
+  .cookie-consent { align-items: stretch; flex-direction: column; gap: 10px; }
+  .cookie-consent > div { display: grid; grid-template-columns: 1fr 1fr; }
 }
