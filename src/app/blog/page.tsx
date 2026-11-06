@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
-import { AdSenseSlot } from "@/src/components/adsense-slot";
 import { blogPosts } from "@/src/utils/blog-posts";
 import "./blog.css";
 
@@ -120,7 +119,6 @@ export default function BlogPage() {
               </article>
             ))}
           </div>
-          <AdSenseSlot label="Advertisement after the third blog post" />
         </section>
 
         <section className="container blog-cta-section">
