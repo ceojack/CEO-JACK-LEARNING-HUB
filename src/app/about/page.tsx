@@ -67,6 +67,35 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section className="section testimonies-section" aria-labelledby="testimonies-title">
+          <div className="container">
+            <div className="section-heading centered reveal">
+              <h2 id="testimonies-title">What Our Learners Say</h2>
+              <p>Real stories from real learners.</p>
+            </div>
+            <div className="testimony-grid">
+              <article className="hub-card testimony-card reveal">
+                <div className="testimony-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>“I didn't understand my school topics before. Now I learn step by step and I can do my practice on my own.”</blockquote>
+                <p className="testimony-name">Sarah N.</p>
+                <p className="testimony-role">Student, Kampala</p>
+              </article>
+              <article className="hub-card testimony-card reveal reveal-delay">
+                <div className="testimony-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>“I didn't know how to use a computer. Now I can build a website and use Facebook for my business.”</blockquote>
+                <p className="testimony-name">Daniel K.</p>
+                <p className="testimony-role">Small Business Owner, Kampala</p>
+              </article>
+              <article className="hub-card testimony-card reveal reveal-delay-2">
+                <div className="testimony-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>“CEO JACK taught me how to turn my idea into a real business. Now I know how to plan, sell and grow.”</blockquote>
+                <p className="testimony-name">Grace A.</p>
+                <p className="testimony-role">Aspiring Entrepreneur, Kampala</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section className="section purpose-section">
           <div className="container">
             <div className="section-heading reveal">

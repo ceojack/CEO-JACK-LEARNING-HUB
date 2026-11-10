@@ -89,6 +89,29 @@ export default function HomePage() {
       />
 
       <main>
+        <section className="learning-marquee-strip" aria-label="CEO JACK Learning Hub">
+          <div className="learning-marquee" aria-label="Learn. Create. Develop. • Education Hub • Digital Skills Hub • Entrepreneurship Hub • CEO JACK AI • Learn Today. Create Tomorrow. Develop For Life. •">
+            <div className="learning-marquee-track">
+              <div className="learning-marquee-group">
+                <span className="learning-marquee-lead">Learn. Create. Develop.</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+                <span>Education Hub</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+                <span>Digital Skills Hub</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+                <span>Entrepreneurship Hub</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+                <span>CEO JACK AI</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+                <span>Learn Today. Create Tomorrow. Develop For Life.</span><span className="learning-marquee-separator" aria-hidden="true">•</span>
+              </div>
+              <div className="learning-marquee-group" aria-hidden="true">
+                <span className="learning-marquee-lead">Learn. Create. Develop.</span><span className="learning-marquee-separator">•</span>
+                <span>Education Hub</span><span className="learning-marquee-separator">•</span>
+                <span>Digital Skills Hub</span><span className="learning-marquee-separator">•</span>
+                <span>Entrepreneurship Hub</span><span className="learning-marquee-separator">•</span>
+                <span>CEO JACK AI</span><span className="learning-marquee-separator">•</span>
+                <span>Learn Today. Create Tomorrow. Develop For Life.</span><span className="learning-marquee-separator">•</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="hero section" id="home">
           <div className="container hero-grid">
             <div className="hero-copy reveal">
@@ -282,6 +305,18 @@ export default function HomePage() {
               <div><b>02</b><strong>Skills</strong><span>Practise and build.</span></div>
               <div><b>03</b><strong>Confidence</strong><span>Apply what you know.</span></div>
               <div><b>04</b><strong>Opportunity</strong><span>Develop your next step.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section sponsors-section" aria-labelledby="sponsors-title">
+          <div className="container">
+            <div className="sponsor-invite reveal">
+              <div className="section-heading centered">
+                <h2 id="sponsors-title">Become Our Sponsor</h2>
+                <p>Want to support learning in Uganda? Partner with CEO JACK Learning Hub.</p>
+              </div>
+              <Link href="/contact" className="btn btn-primary sponsor-button">Become a Sponsor</Link>
             </div>
           </div>
         </section>

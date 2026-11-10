@@ -1801,3 +1801,55 @@ a {
   }
 
 }
+
+/* LEARNER TESTIMONIES */
+.testimonies-section {
+  background: rgba(255, 255, 255, .012);
+}
+
+.testimony-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.testimony-card {
+  display: flex;
+  min-height: 375px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.testimony-stars {
+  color: #d4ad55;
+  font-size: 20px;
+  letter-spacing: .12em;
+  line-height: 1;
+}
+
+.testimony-card blockquote {
+  flex: 1;
+  margin: 24px 0 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.testimony-card .testimony-name {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.testimony-card .testimony-role {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 780px) {
+  .testimony-grid { grid-template-columns: 1fr; }
+  .testimony-card { min-height: 0; }
+}
