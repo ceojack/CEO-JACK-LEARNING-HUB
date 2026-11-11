@@ -207,9 +207,11 @@ function renderMessage(content: string) {
 
 function AiChat() {
   const params = useSearchParams();
+  const initialPrompt = params.get("prompt") || "";
+  const autoPromptSentRef = useRef(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [mode, setMode] = useState<Mode>("general");
-  const [input, setInput] = useState(params.get("prompt") || "");
+  const [mode, setMode] = useState<Mode>(params.get("mode") === "education" ? "education" : "general");
+  const [input, setInput] = useState(initialPrompt);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [conversations, setConversations] = useState<SavedConversation[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
@@ -264,6 +266,12 @@ function AiChat() {
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    if (!historyReady || !initialPrompt || autoPromptSentRef.current) return;
+    autoPromptSentRef.current = true;
+    void send(initialPrompt);
+  }, [historyReady, initialPrompt, send]);
 
   useEffect(() => {
     if (!historyReady) return;

@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AcademicLevel,
   classes,
+  getClassLearningTasks,
   getClassLabel,
   primarySubjects,
   secondarySubjects,
@@ -24,10 +25,21 @@ export default function EducationPage() {
       const params = new URLSearchParams(window.location.search);
       const requestedLevel: AcademicLevel = params.get("level") === "secondary" ? "secondary" : "primary";
       const requestedClass = params.get("class");
-      setLevel(requestedLevel);
+      const savedLevel = window.localStorage.getItem("ceojack-education-level");
+      const savedClass = window.localStorage.getItem("ceojack-education-class");
+      const initialLevel = requestedClass ? requestedLevel : savedLevel === "secondary" ? "secondary" : requestedLevel;
+      setLevel(initialLevel);
+      setSelectedClass(classes[initialLevel][0].value);
+      if (!requestedClass && savedClass && classes[initialLevel].some((item) => item.value === savedClass)) {
+        setSelectedClass(savedClass);
+      }
       if (requestedClass) {
         const match = classes[requestedLevel].find((item) => item.value === requestedClass || item.label === requestedClass);
-        if (match) setSelectedClass(match.value);
+        if (match) {
+          setSelectedClass(match.value);
+          window.localStorage.setItem("ceojack-education-level", requestedLevel);
+          window.localStorage.setItem("ceojack-education-class", match.value);
+        }
       }
     });
     return () => window.cancelAnimationFrame(frame);
@@ -43,8 +55,12 @@ export default function EducationPage() {
     );
   }, [level, query]);
 
+  const learningTasks = useMemo(() => getClassLearningTasks(selectedClass), [selectedClass]);
+
   function selectClass(className: string) {
     setSelectedClass(className);
+    window.localStorage.setItem("ceojack-education-level", level);
+    window.localStorage.setItem("ceojack-education-class", className);
     setToast(`${getClassLabel(className)} selected successfully.`);
     window.setTimeout(() => setToast(""), 2800);
   }
@@ -52,6 +68,8 @@ export default function EducationPage() {
   function switchLevel(nextLevel: AcademicLevel) {
     setLevel(nextLevel);
     setSelectedClass(classes[nextLevel][0].value);
+    window.localStorage.setItem("ceojack-education-level", nextLevel);
+    window.localStorage.setItem("ceojack-education-class", classes[nextLevel][0].value);
     setQuery("");
   }
 
@@ -143,14 +161,23 @@ export default function EducationPage() {
             </div>
           </section>
 
-          <section className="section" aria-labelledby="featured-lesson-title">
+          <section className="section" aria-labelledby="class-tasks-title">
             <div className="section-heading">
               <div>
-                <span className="section-kicker">TRY A COMPLETE LESSON</span>
-                <h2 id="featured-lesson-title">Learn, practise, and check your understanding</h2>
-                <p>Start with a short P7 Mathematics lesson on equivalent fractions, then take a three-question quiz.</p>
+                <span className="section-kicker">YOUR NEXT STEPS · {getClassLabel(selectedClass).toUpperCase()}</span>
+                <h2 id="class-tasks-title">Tasks for {getClassLabel(selectedClass)}</h2>
+                <p>Choose a task to continue learning at your class level. Your class selection is remembered on this device.</p>
               </div>
-              <Link href="/lesson" className="lesson-entry-link">Open sample lesson →</Link>
+            </div>
+            <div className="learning-task-grid">
+              {learningTasks.map((task) => (
+                <article className="learning-task-card" key={task.subject}>
+                  <span className="task-subject">{task.subject}</span>
+                  <h3>{task.title}</h3>
+                  <p>Guided practice for {getClassLabel(selectedClass)}.</p>
+                  <Link className="task-continue" href={`/ai?mode=education&prompt=${encodeURIComponent(task.prompt)}`}>Continue learning <span aria-hidden="true">→</span></Link>
+                </article>
+              ))}
             </div>
           </section>
 

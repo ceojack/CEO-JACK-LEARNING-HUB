@@ -27,6 +27,42 @@ export function getClassLabel(classValue: string) {
   return Object.values(classes).flat().find((item) => item.value === classValue)?.label ?? classValue;
 }
 
+export type ClassLearningTask = {
+  subject: string;
+  title: string;
+  prompt: string;
+};
+
+export function getClassLearningTasks(classValue: string): ClassLearningTask[] {
+  const classLabel = getClassLabel(classValue);
+  const isNursery = ["baby-class", "middle-class", "top-class"].includes(classValue);
+  const isSecondary = classValue.startsWith("S");
+  const classNumber = Number(classValue.slice(1)) || 1;
+
+  const tasks = isNursery
+    ? [
+        { subject: "Early Numeracy", title: "Count and compare", prompt: "Create a playful counting activity using familiar objects. Help me count, compare groups, and explain which group has more or fewer." },
+        { subject: "Early Literacy", title: "Explore letter sounds", prompt: "Teach me a short letter-sound activity with simple words, repetition, and one question to practise." },
+        { subject: "Creative Learning", title: "Notice shapes and colors", prompt: "Guide me through a simple activity to identify shapes and colors around me, one step at a time." },
+      ]
+    : isSecondary
+      ? [
+          { subject: "Mathematics", title: classNumber <= 2 ? "Work with algebraic expressions" : classNumber <= 4 ? "Solve linear equations" : "Explore functions and graphs", prompt: `Teach me ${classNumber <= 2 ? "algebraic expressions" : classNumber <= 4 ? "linear equations" : "functions and graphs"} at ${classLabel} level, then give me one guided example and three practice questions.` },
+          { subject: "Science", title: classNumber <= 2 ? "Understand cells and living things" : classNumber <= 4 ? "Explore forces and energy" : "Connect biology to real life", prompt: `Teach me an age-appropriate ${classNumber <= 2 ? "biology topic about cells and living things" : classNumber <= 4 ? "physics topic about forces and energy" : "biology topic"} for ${classLabel}, with a clear explanation and a short practice activity.` },
+          { subject: "English Language", title: "Build a clear paragraph", prompt: `Help me write a clear paragraph for ${classLabel}. Show me how to plan a main idea, supporting details, and a strong final sentence, then let me try.` },
+        ]
+      : [
+          { subject: "Mathematics", title: classNumber <= 2 ? "Build number confidence" : classNumber <= 4 ? "Practise fractions and operations" : "Solve a multi-step problem", prompt: `Teach me a ${classNumber <= 2 ? "number and place-value" : classNumber <= 4 ? "fractions and operations" : "multi-step mathematics"} activity for ${classLabel}. Explain one example, then give me three practice questions one at a time.` },
+          { subject: "English", title: classNumber <= 2 ? "Read and understand a short story" : classNumber <= 4 ? "Grow vocabulary from a passage" : "Write a strong composition", prompt: `Give me a ${classNumber <= 2 ? "short reading passage with simple comprehension questions" : classNumber <= 4 ? "reading passage to practise vocabulary and comprehension" : "composition writing activity with a planning outline"} suitable for ${classLabel}, and guide me through it step by step.` },
+          { subject: "Science", title: classNumber <= 3 ? "Explore plants and animals" : classNumber <= 5 ? "Investigate matter and energy" : "Explain an ecosystem", prompt: `Teach me a science activity about ${classNumber <= 3 ? "plants and animals" : classNumber <= 5 ? "matter and energy" : "ecosystems"} at ${classLabel} level, using familiar examples and a short check for understanding.` },
+        ];
+
+  return tasks.map((task) => ({
+    ...task,
+    prompt: `I am in ${classLabel}. ${task.prompt}`,
+  }));
+}
+
 export type Subject = {
   name: string;
   icon: string;
