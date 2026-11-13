@@ -29,6 +29,8 @@ export default function OnboardingPage() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState<"success" | "error" | "">("");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -66,22 +68,28 @@ export default function OnboardingPage() {
 
   async function next() {
     if (step === 1 && (!level || !ageGroup)) {
+      setStatusType("error");
       setStatus("Choose your learning level and age group.");
       return;
     }
     if (step === 2 && selectedInterests.length === 0) {
+      setStatusType("error");
       setStatus("Select at least one interest.");
       return;
     }
     if (step === 3 && selectedGoals.length === 0) {
+      setStatusType("error");
       setStatus("Select at least one goal.");
       return;
     }
     setStatus("");
+    setStatusType("");
     if (step === 4) {
       const profile = { level, ageGroup, interests: selectedInterests, goals: selectedGoals };
-      if (isSupabaseConfigured()) {
-        try {
+      setIsSaving(true);
+      setStatus("Saving your learning path…");
+      try {
+        if (isSupabaseConfigured()) {
           const response = await fetch("/api/profile", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -89,18 +97,24 @@ export default function OnboardingPage() {
           });
           if (!response.ok) {
             const result = await response.json().catch(() => null) as { error?: string } | null;
+            setStatusType("error");
             setStatus(result?.error ?? "Your learning path could not be saved. Please try again.");
             return;
           }
           window.localStorage.removeItem("ceoJackOnboarding");
-        } catch {
-          setStatus("Your learning path could not be saved. Check your connection and try again.");
-          return;
+        } else {
+          window.localStorage.setItem("ceoJackOnboarding", JSON.stringify(profile));
         }
-      } else {
-        window.localStorage.setItem("ceoJackOnboarding", JSON.stringify(profile));
+        setStatusType("success");
+        setStatus("Your learning path is ready. Opening your dashboard…");
+        router.replace("/dashboard");
+        router.refresh();
+      } catch {
+        setStatusType("error");
+        setStatus("Your learning path could not be saved. Check your connection and try again.");
+      } finally {
+        setIsSaving(false);
       }
-      router.push("/dashboard");
       return;
     }
     setStep((value) => value + 1);
@@ -222,13 +236,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           ) : null}
-          <p className="onboarding-status" role="status" aria-live="polite">{status}</p>
+          <p className={`onboarding-status${statusType ? ` ${statusType}` : ""}`} role="status" aria-live="polite">{status}</p>
           <div className="step-actions">
             {step > 1 ? (
               <button className="nav-btn back-btn" type="button" onClick={() => { setStatus(""); setStep((value) => value - 1); }}>Back</button>
             ) : null}
-            <button className="nav-btn next-btn" type="button" onClick={next}>
-              {step === 4 ? "Enter dashboard" : "Continue"}
+            <button className="nav-btn next-btn" type="button" onClick={next} disabled={isSaving}>
+              {isSaving ? "Opening dashboard…" : step === 4 ? "Enter dashboard" : "Continue"}
             </button>
           </div>
         </section>

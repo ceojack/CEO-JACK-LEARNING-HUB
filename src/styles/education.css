@@ -362,6 +362,26 @@ a {
   transform: translateY(-2px);
 }
 
+/* Guided, consistent hub introductions */
+.hub-journey {
+  display: grid;
+  grid-template-columns: minmax(190px,.8fr) minmax(0,2fr);
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+  padding: 21px 23px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  background: linear-gradient(115deg,rgba(20,30,52,.96),rgba(16,24,42,.9));
+}
+.hub-journey-intro h2 { font-family: 'Space Grotesk',sans-serif; font-size: 17px; letter-spacing: -.35px; }
+.hub-journey-intro p { margin-top: 6px; color: var(--muted); font-size: 10px; line-height: 1.65; }
+.hub-journey-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; }
+.hub-journey-grid article { display: flex; min-width: 0; gap: 10px; padding: 12px; border: 1px solid rgba(255,255,255,.07); border-radius: 11px; background: rgba(255,255,255,.025); }
+.hub-journey-number { display: grid; width: 27px; height: 27px; flex: 0 0 27px; place-items: center; border-radius: 8px; background: rgba(155,123,255,.16); color: #c7b8ff; font-size: 8px; font-weight: 800; }
+.hub-journey-grid article strong { color: #f5f7ff; font-size: 10px; }
+.hub-journey-grid article p { margin-top: 4px; color: #9ba9c2; font-size: 9px; line-height: 1.55; }
+
 /* HERO ART */
 
 .hero-visual {
@@ -1433,4 +1453,13 @@ a {
   .footer > * {
     overflow-wrap: anywhere;
   }
+}
+
+@media (max-width: 850px) {
+  .hub-journey { grid-template-columns: 1fr; gap: 15px; }
+}
+
+@media (max-width: 600px) {
+  .hub-journey { margin-top: 18px; padding: 17px; }
+  .hub-journey-grid { grid-template-columns: 1fr; }
 }

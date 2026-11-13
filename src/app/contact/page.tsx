@@ -110,6 +110,7 @@ export default function ContactPage() {
                 <p>Complete the form and your email application will open with your message prepared.</p>
               </div>
               <form className="contact-form" noValidate onSubmit={handleSubmit}>
+                <div className="contact-form-heading"><span aria-hidden="true">✉</span><div><strong>Contact form</strong><small>Share your details and tell us how we can help.</small></div></div>
                 <div className="form-row">
                   <div className={`form-group${errors.name ? " invalid" : ""}`}>
                     <label htmlFor="name">Your name</label>

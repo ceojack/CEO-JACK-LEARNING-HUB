@@ -48,12 +48,20 @@ export default function EntrepreneurshipPage() {
               <Link href="/ai" className="hero-button">Explore business with AI <span>→</span></Link>
             </div>
           </section>
+          <section className="hub-journey" aria-label="How to use the Entrepreneurship Hub">
+            <div className="hub-journey-intro"><span className="section-kicker">IDEA TO ACTION</span><h2>Build a business mindset</h2><p>Explore practical foundations for turning useful ideas into small, thoughtful experiments.</p></div>
+            <div className="hub-journey-grid">
+              <article><span className="hub-journey-number">01</span><div><strong>Notice a need</strong><p>Look for everyday problems people want solved.</p></div></article>
+              <article><span className="hub-journey-number">02</span><div><strong>Plan the basics</strong><p>Think about customers, costs, and what makes your idea useful.</p></div></article>
+              <article><span className="hub-journey-number">03</span><div><strong>Try a small test</strong><p>Get feedback, learn from it, and improve your next step.</p></div></article>
+            </div>
+          </section>
           <section className="section">
             <div className="section-heading">
               <div>
                 <span className="section-kicker">GROWTH PATHS</span>
-                <h2>Start developing</h2>
-                <p>Choose an area and keep moving from idea to action.</p>
+                <h2>Choose a business learning path</h2>
+                <p>Explore a foundation, then use CEO JACK AI to plan a beginner-friendly activity.</p>
               </div>
             </div>
             <div className="subject-grid">

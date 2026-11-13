@@ -48,12 +48,20 @@ export default function DigitalSkillsPage() {
               <Link href="/ai" className="hero-button">Ask CEO JACK AI <span>→</span></Link>
             </div>
           </section>
+          <section className="hub-journey" aria-label="How to use the Digital Skills Hub">
+            <div className="hub-journey-intro"><span className="section-kicker">LEARN BY MAKING</span><h2>Turn new skills into real projects</h2><p>Choose a practical track and grow your confidence through guided practice.</p></div>
+            <div className="hub-journey-grid">
+              <article><span className="hub-journey-number">01</span><div><strong>Pick a skill</strong><p>Start with web, programming, AI, or digital projects.</p></div></article>
+              <article><span className="hub-journey-number">02</span><div><strong>Learn the basics</strong><p>Ask CEO JACK AI for a simple explanation and examples.</p></div></article>
+              <article><span className="hub-journey-number">03</span><div><strong>Build something</strong><p>Practice by creating a small project of your own.</p></div></article>
+            </div>
+          </section>
           <section className="section">
             <div className="section-heading">
               <div>
                 <span className="section-kicker">LEARNING TRACKS</span>
-                <h2>Start creating</h2>
-                <p>Choose a track and continue into practice.</p>
+                <h2>Choose your learning track</h2>
+                <p>Each path introduces a useful skill and gives you a practical next step.</p>
               </div>
             </div>
             <div className="subject-grid">

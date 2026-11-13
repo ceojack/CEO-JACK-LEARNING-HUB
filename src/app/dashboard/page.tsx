@@ -7,6 +7,7 @@ import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "./dashboard.css";
 
 type LearnerProfile = { level?: string; ageGroup?: string; interests?: string[]; goals?: string[] };
+type SignedInUser = { email?: string; fullName?: string };
 
 const paths = [
   { title: "Education Hub", eyebrow: "BUILD YOUR FOUNDATION", description: "Explore school subjects, choose your class, and strengthen what you learn every day.", href: "/education", icon: "▤", tone: "violet", action: "Explore subjects" },
@@ -20,6 +21,8 @@ const lessonKey = "ceoJackLesson:p7-maths-equivalent-fractions";
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState<LearnerProfile | null>(null);
+  const [signedInUser, setSignedInUser] = useState<SignedInUser | null>(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [lessonComplete, setLessonComplete] = useState(false);
   const [backendError, setBackendError] = useState("");
 
@@ -44,8 +47,9 @@ export default function DashboardPage() {
         ]);
         if (cancelled) return;
         if (profileResponse.ok) {
-          const result = await profileResponse.json() as { profile: LearnerProfile | null };
+          const result = await profileResponse.json() as { profile: LearnerProfile | null; user?: SignedInUser };
           setProfile(result.profile);
+          setSignedInUser(result.user ?? null);
         } else setBackendError("Your learning profile could not be loaded. Refresh to try again.");
         if (progressResponse.ok) {
           const result = await progressResponse.json() as { progress: { lessonId: string; status: string }[] };
@@ -69,6 +73,8 @@ export default function DashboardPage() {
 
   const levelQuery = profile?.level === "Secondary" ? "secondary" : "primary";
   const completedCount = lessonComplete ? 1 : 0;
+  const profileName = signedInUser?.fullName?.trim() || signedInUser?.email?.split("@")[0] || "Learner profile";
+  const profileInitials = profileName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "LP";
 
   return (
     <div className="learner-dashboard">
@@ -97,7 +103,23 @@ export default function DashboardPage() {
         <header className="dashboard-topbar">
           <button className="dashboard-menu" type="button" aria-label={sidebarOpen ? "Close navigation" : "Open navigation"} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen((open) => !open)}><span /><span /><span /></button>
           <div className="dashboard-breadcrumb">Learning Space <span>/</span> My dashboard</div>
-          <Link href="/ai" className="dashboard-top-action"><span>✦</span> Ask CEO JACK AI</Link>
+          <div className="dashboard-topbar-actions">
+            <Link href="/ai" className="dashboard-top-action"><span>✦</span> Ask CEO JACK AI</Link>
+            <div className="dashboard-account-menu">
+              <button className="dashboard-account-trigger" type="button" aria-label={`Open account menu for ${profileName}`} aria-expanded={profileMenuOpen} aria-controls="dashboard-account-popover" onClick={() => setProfileMenuOpen((open) => !open)}>
+                <span className="dashboard-account-avatar" aria-hidden="true">{profileInitials}</span>
+                <span className="dashboard-account-chevron" aria-hidden="true">⌄</span>
+              </button>
+              {profileMenuOpen ? (
+                <div className="dashboard-account-popover" id="dashboard-account-popover">
+                  <div className="dashboard-account-summary"><span className="dashboard-account-avatar" aria-hidden="true">{profileInitials}</span><div><strong>{profileName}</strong><small>{signedInUser?.email || "Learner account"}</small></div></div>
+                  <Link href="/profile" onClick={() => setProfileMenuOpen(false)}>View my profile <span>→</span></Link>
+                  <Link href="/onboarding" onClick={() => setProfileMenuOpen(false)}>Edit learning profile <span>→</span></Link>
+                  {isSupabaseConfigured() ? <form action="/auth/signout" method="post"><button type="submit">Sign out</button></form> : null}
+                </div>
+              ) : null}
+            </div>
+          </div>
         </header>
 
         <div className="dashboard-content">
@@ -119,6 +141,22 @@ export default function DashboardPage() {
             <article className="overview-card overview-progress"><span className="overview-icon">◷</span><div><span className="overview-label">YOUR MOMENTUM</span><strong>{lessonComplete ? "1 lesson" : "Start today"}</strong><small>{lessonComplete ? "You’ve completed your first lesson" : "Your learning journey is ready"}</small></div></article>
             <article className="overview-card"><span className="overview-icon blue">▤</span><div><span className="overview-label">LEARNING AREAS</span><strong>4 paths</strong><small>Choose what you want to explore</small></div></article>
             <article className="overview-card"><span className="overview-icon green">◎</span><div><span className="overview-label">YOUR LEARNING LEVEL</span><strong>{profile?.level || "Choose your path"}</strong><small>{profile?.ageGroup ? `Age group ${profile.ageGroup}` : "Personalize your experience"}</small></div></article>
+          </section>
+
+          <section className="dashboard-profile-card" id="account-profile" aria-labelledby="dashboard-profile-title">
+            <div className="dashboard-profile-avatar" aria-hidden="true">{profileInitials}</div>
+            <div className="dashboard-profile-main">
+              <div className="dashboard-profile-heading">
+                <div><span className="section-kicker">YOUR ACCOUNT</span><h2 id="dashboard-profile-title">{profileName}</h2><p>{signedInUser?.email || "Your learning profile is saved on this device."}</p></div>
+                <Link href="/profile" className="dashboard-profile-edit">Manage profile <span aria-hidden="true">→</span></Link>
+              </div>
+              <div className="dashboard-profile-details">
+                <div><span>Learning level</span><strong>{profile?.level || "Not set yet"}</strong></div>
+                <div><span>Age group</span><strong>{profile?.ageGroup || "Not set yet"}</strong></div>
+                <div><span>Interests</span><strong>{profile?.interests?.join(", ") || "Choose your interests"}</strong></div>
+                <div><span>Goals</span><strong>{profile?.goals?.join(", ") || "Set your learning goals"}</strong></div>
+              </div>
+            </div>
           </section>
 
           <section className="dashboard-next-section" aria-labelledby="next-lesson-title">

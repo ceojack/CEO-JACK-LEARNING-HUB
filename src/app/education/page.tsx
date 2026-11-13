@@ -133,6 +133,15 @@ export default function EducationPage() {
             </div>
           </section>
 
+          <section className="hub-journey" aria-label="How to use the Education Hub">
+            <div className="hub-journey-intro"><span className="section-kicker">A CLEAR PATH FORWARD</span><h2>Learn one step at a time</h2><p>Your class guides the subjects and practice activities you see.</p></div>
+            <div className="hub-journey-grid">
+              <article><span className="hub-journey-number">01</span><div><strong>Choose your class</strong><p>Set your school section and current class.</p></div></article>
+              <article><span className="hub-journey-number">02</span><div><strong>Pick a guided task</strong><p>Start with a short activity made for your level.</p></div></article>
+              <article><span className="hub-journey-number">03</span><div><strong>Practice a subject</strong><p>Build confidence with clear, step-by-step help.</p></div></article>
+            </div>
+          </section>
+
           <section className="section" id="classSection">
             <div className="section-heading">
               <div>

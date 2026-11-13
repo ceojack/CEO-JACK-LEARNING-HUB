@@ -97,7 +97,46 @@ function AuthForm() {
       }
     } catch (error) {
       setStatusType("error");
-      setStatus(error instanceof Error ? error.message : "Account access failed. Please try again.");
+      const message = error instanceof Error ? error.message : "";
+      const normalized = message.toLowerCase();
+      setStatus(
+        normalized.includes("invalid login credentials")
+          ? "That email and password do not match. Check them and try again, or reset your password."
+          : normalized.includes("email not confirmed")
+            ? "Please confirm your email using the link we sent you, then sign in."
+            : normalized.includes("user already registered")
+              ? "An account already exists for this email. Choose Sign in instead."
+              : message || "We couldn’t complete account access. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function handlePasswordReset() {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setErrors({ email: "Enter your account email first." });
+      setStatusType("error");
+      setStatus("We’ll send a password reset link to this address.");
+      return;
+    }
+    if (!backendReady || isSubmitting) return;
+
+    setErrors({});
+    setIsSubmitting(true);
+    setStatusType("");
+    setStatus("Sending your reset link…");
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/auth/update-password")}`,
+      });
+      if (error) throw error;
+      setStatusType("success");
+      setStatus("If an account exists for this email, a password reset link is on its way. Check your inbox and spam folder.");
+    } catch (error) {
+      setStatusType("error");
+      setStatus(error instanceof Error ? error.message : "We couldn’t send a reset link. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -179,6 +218,8 @@ function AuthForm() {
             </div>
             {!backendReady ? <p className="form-status error" role="status">Account access is not configured yet. Please contact the site administrator.</p> : null}
             <form noValidate onSubmit={handleSubmit}>
+              <div className="form-panel-heading"><span aria-hidden="true">✦</span><div><strong>{mode === "signup" ? "Your account details" : "Sign in securely"}</strong><small>Complete the fields below to continue.</small></div></div>
+              {mode === "signup" ? <p className="auth-form-hint">Use your email to create an account. We’ll send a confirmation link before your first sign-in.</p> : null}
               {mode === "signup" ? (
                 <div className={`form-group${errors.fullName ? " invalid" : ""}`}>
                   <label htmlFor="fullName">Full name</label>
@@ -188,7 +229,7 @@ function AuthForm() {
               ) : null}
               <div className={`form-group${errors.email ? " invalid" : ""}`}>
                 <label htmlFor="email">Email address</label>
-                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="example@gmail.com" autoComplete="email" />
                 <small className="field-error">{errors.email}</small>
               </div>
               <div className={`form-group${errors.password ? " invalid" : ""}`}>
@@ -231,6 +272,7 @@ function AuthForm() {
                 <span>{isSubmitting ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}</span>
                 <span aria-hidden="true">→</span>
               </button>
+              {mode === "signin" ? <button className="forgot-password-button" type="button" onClick={() => void handlePasswordReset()} disabled={!backendReady || isSubmitting}>Forgot your password?</button> : null}
               <p className={`form-status ${statusType}`} role="status">{status}</p>
             </form>
             <div className="social-divider"><span>OR CONTINUE WITH</span></div>
