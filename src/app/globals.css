@@ -68,6 +68,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Keep short pages at least viewport-height while allowing normal vertical scrolling. */
+main:not(.main-panel) {
+  min-height: 100vh;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Clash Display', sans-serif;
   line-height: 1.2;

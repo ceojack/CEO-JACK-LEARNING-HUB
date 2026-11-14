@@ -96,12 +96,14 @@
 .blog-card-copy { display: flex; min-height: 255px; flex-direction: column; align-items: flex-start; padding: 24px 25px 25px; }
 .blog-card-copy h3 { margin: 16px 0 10px; font-size: clamp(21px, 2.4vw, 27px); letter-spacing: -.02em; line-height: 1.32; }
 
-.blog-ad-placeholder { position: relative; display: grid; min-height: 136px; align-content: center; justify-items: center; gap: 5px; overflow: hidden; margin: 26px 0; padding: 20px; border: 1px dashed rgba(173,186,215,.32); border-radius: 14px; background: linear-gradient(120deg,rgba(255,255,255,.025),rgba(99,133,255,.035)); color: var(--blog-muted); text-align: center; }
+.blog-ad-placeholder { position: relative; display: grid; width: 100%; min-width: 0; min-height: 136px; align-content: center; justify-items: center; gap: 9px; overflow: hidden; margin: 26px 0; padding: 20px; border: 1px solid rgba(129,154,255,.2); border-radius: 14px; background: linear-gradient(120deg,rgba(255,255,255,.035),rgba(99,133,255,.065)); color: var(--blog-muted); font-family: 'DM Sans', sans-serif; text-align: center; }
+.blog-ad-unit { width: 100%; min-height: 90px; max-width: 100%; }
 .blog-ad-placeholder::before { position: absolute; inset: 0; background: repeating-linear-gradient(135deg,transparent 0 16px,rgba(255,255,255,.012) 16px 17px); content: ""; pointer-events: none; }
 .blog-ad-placeholder-label,.blog-ad-placeholder strong,.blog-ad-placeholder small { position: relative; z-index: 1; }
-.blog-ad-placeholder-label { color: #98a7c2; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
-.blog-ad-placeholder strong { color: #dce3f2; font-size: 13px; }
-.blog-ad-placeholder small { color: #8492aa; font-size: 10px; }
+.blog-ad-placeholder-label { color: #b8c7ff; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.blog-ad-placeholder-copy { display: grid; justify-items: center; gap: 5px; max-width: 100%; }
+.blog-ad-placeholder strong { color: #f0f3ff; font-size: 15px; line-height: 1.45; }
+.blog-ad-placeholder small { max-width: 620px; color: #c1c9dc; font-size: 13px; line-height: 1.6; }
 .blog-ad-placeholder-list { min-height: 150px; margin: 28px 0 0; }
 .article-body > .blog-ad-placeholder { margin: 27px 0 32px; }
 .article-container > .blog-ad-placeholder { margin: 26px auto 0; }
