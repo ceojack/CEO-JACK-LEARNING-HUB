@@ -87,9 +87,9 @@ function AuthForm() {
           router.replace("/onboarding");
           return;
         }
-        setStatusType("success");
-        setStatus("Account created. Check your email to confirm your address, then sign in.");
-        setMode("signin");
+        window.sessionStorage.setItem("ceojack-pending-confirmation-email", email.trim());
+        router.replace("/auth/confirm");
+        return;
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
         if (error) throw error;

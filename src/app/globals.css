@@ -167,6 +167,31 @@ html body a.get-started-button.get-started-button span {
   content: none;
 }
 
+/* Keep sign-in easy to spot beside the primary account action. */
+.site-header .desktop-nav > a.nav-login,
+.site-header .mobile-menu > a.nav-login {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  border: 1px solid rgba(173, 186, 215, .28);
+  border-radius: 10px;
+  color: #e2e8ff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.site-header .desktop-nav > a.nav-login:hover,
+.site-header .mobile-menu > a.nav-login:hover {
+  border-color: rgba(129, 154, 255, .55);
+  background: rgba(99, 133, 255, .12);
+  color: #fff;
+}
+
 img, svg, video {
   display: block;
   max-width: 100%;
