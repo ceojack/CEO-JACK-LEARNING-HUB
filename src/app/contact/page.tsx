@@ -7,7 +7,9 @@ import { SiteHeader } from "@/src/components/header";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/contact.css";
 
-const CONTACT_EMAIL = "hello@ceojacklearninghub.com";
+const HELLO_EMAIL = "hello@ceojacklearninghub.com";
+const INFO_EMAIL = "info@ceojacklearninghub.com";
+const SUPPORT_EMAIL = "support@ceojacklearninghub.com";
 
 export default function ContactPage() {
   useReveal();
@@ -34,7 +36,12 @@ export default function ContactPage() {
     }
 
     const body = [`Name: ${name.trim()}`, `Email: ${email.trim()}`, "", message.trim()].join("\n");
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const recipient = subject === "Technical support"
+      ? SUPPORT_EMAIL
+      : subject === "Partnership"
+        ? INFO_EMAIL
+        : HELLO_EMAIL;
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setStatus("Your email app should open with the message prepared.");
   }
 
@@ -58,28 +65,30 @@ export default function ContactPage() {
                 Have a question, suggestion, idea or feedback? We want to hear from you as CEO JACK LEARNING HUB grows.
               </p>
               <div className="contact-points">
-                <a className="contact-point" href={`mailto:${CONTACT_EMAIL}`}>
+                <a className="contact-point" href={`mailto:${HELLO_EMAIL}`}>
                   <span className="point-icon" aria-hidden="true">@</span>
                   <span>
-                    <strong>Email</strong>
-                    <small>{CONTACT_EMAIL}</small>
+                    <strong>General messages</strong>
+                    <small>{HELLO_EMAIL}</small>
                   </span>
                   <span className="point-arrow" aria-hidden="true">↗</span>
                 </a>
-                <div className="contact-point">
+                <a className="contact-point" href={`mailto:${SUPPORT_EMAIL}`}>
                   <span className="point-icon" aria-hidden="true">?</span>
                   <span>
                     <strong>Platform support</strong>
-                    <small>Questions about learning or using the platform</small>
+                    <small>{SUPPORT_EMAIL}</small>
                   </span>
-                </div>
-                <div className="contact-point">
+                  <span className="point-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a className="contact-point" href={`mailto:${INFO_EMAIL}`}>
                   <span className="point-icon" aria-hidden="true">✦</span>
                   <span>
-                    <strong>Ideas &amp; feedback</strong>
-                    <small>Share ways we can make the experience better</small>
+                    <strong>General enquiries &amp; partnerships</strong>
+                    <small>{INFO_EMAIL}</small>
                   </span>
-                </div>
+                  <span className="point-arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
             <div className="contact-visual reveal reveal-delay" aria-label="Connect, share ideas and start a conversation">

@@ -18,7 +18,7 @@ export default function PrivacyPage() {
         <div className="legal-copy">
           <section aria-labelledby="privacy-controller">
             <h2 id="privacy-controller">1. Who is responsible</h2>
-            <p>CEO JACK LEARNING HUB operates this website. For privacy questions or requests, contact <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. We are based in Uganda and aim to handle personal information in line with applicable data protection law, including Uganda’s <a href="https://ict.go.ug/ims/public/site/documents/Data-Protection-and-Privacy-Act-2019.pdf" target="_blank" rel="noreferrer">Data Protection and Privacy Act, 2019</a>.</p>
+            <p>CEO JACK LEARNING HUB operates this website. For privacy questions or requests, contact <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>. We are based in Uganda and aim to handle personal information in line with applicable data protection law, including Uganda’s <a href="https://ict.go.ug/ims/public/site/documents/Data-Protection-and-Privacy-Act-2019.pdf" target="_blank" rel="noreferrer">Data Protection and Privacy Act, 2019</a>.</p>
           </section>
           <section aria-labelledby="privacy-information">
             <h2 id="privacy-information">2. Information the site uses</h2>
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-rights">
             <h2 id="privacy-rights">7. Your choices and requests</h2>
-            <p>You can delete individual AI conversations and your work plan in CEO JACK AI. In local-demo mode, clear profile and progress from your browser storage. For account profile and progress data, or to request account deletion, email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a>. Under applicable law, you may request access, correction or deletion where those rights apply. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
+            <p>You can delete individual AI conversations and your work plan in CEO JACK AI. In local-demo mode, clear profile and progress from your browser storage. For account profile and progress data, or to request account deletion, email <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>. Under applicable law, you may request access, correction or deletion where those rights apply. We may need to verify your identity before responding. You can also raise a concern with Uganda’s Personal Data Protection Office.</p>
           </section>
           <section aria-labelledby="privacy-security">
             <h2 id="privacy-security">8. Security</h2>
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
           </section>
           <section aria-labelledby="privacy-contact">
             <h2 id="privacy-contact">14. Contact</h2>
-            <p>For a privacy question or request, email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a> or visit our <Link href="/contact">contact page</Link>. You may also contact Uganda’s <a href="https://pdpo.go.ug/" target="_blank" rel="noreferrer">Personal Data Protection Office</a>.</p>
+            <p>For a privacy question or request, email <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a> or visit our <Link href="/contact">contact page</Link>. You may also contact Uganda’s <a href="https://pdpo.go.ug/" target="_blank" rel="noreferrer">Personal Data Protection Office</a>.</p>
           </section>
           <p className="legal-related">See also our <Link href="/terms">Terms of Use</Link>.</p>
         </div>

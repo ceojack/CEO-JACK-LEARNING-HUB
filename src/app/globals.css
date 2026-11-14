@@ -63,14 +63,15 @@ body {
   var(--color-bg);
   color: var(--color-text);
   font-family: 'Satoshi', sans-serif;
-  line-height: 1.6;
+  line-height: 1.68;
+  letter-spacing: .005em;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: 'Clash Display', sans-serif;
   line-height: 1.2;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 button, input, textarea, select {

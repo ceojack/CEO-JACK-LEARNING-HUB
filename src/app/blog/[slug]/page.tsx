@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
+import { BlogAdPlaceholder } from "@/src/components/blog-ad-placeholder";
 import { blogPosts, getBlogPost } from "@/src/utils/blog-posts";
 import "../blog.css";
 
@@ -84,6 +86,8 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
   };
 
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 2);
+  let paragraphCount = 1;
+  const middleSectionIndex = Math.floor(post.sections.length / 2) - 1;
 
   return (
     <div className="blog-page blog-shell">
@@ -118,9 +122,19 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
               {post.sections.map((section) => (
                 <section className="article-section" key={section.heading}>
                   <h2>{section.heading}</h2>
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.paragraphs.map((paragraph) => {
+                    paragraphCount += 1;
+                    const isSecondParagraph = paragraphCount === 2;
+                    return (
+                      <Fragment key={paragraph}>
+                        <p>{paragraph}</p>
+                        {isSecondParagraph ? <BlogAdPlaceholder placement="article" /> : null}
+                      </Fragment>
+                    );
+                  })}
                   {section.bullets ? <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}
                   {section.takeaway ? <aside className="article-takeaway"><span>TAKE THIS WITH YOU</span><p>{section.takeaway}</p></aside> : null}
+                  {post.sections.length > 2 && post.sections.indexOf(section) === middleSectionIndex ? <BlogAdPlaceholder placement="article" /> : null}
                 </section>
               ))}
               <div className="article-end"><span>LEARN · CREATE · DEVELOP</span><Link href="/blog">More practical guides <span aria-hidden="true">→</span></Link></div>
@@ -130,6 +144,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
               <div className="article-sidebar-cta"><span>KEEP LEARNING</span><p>Explore lessons across education, digital skills and entrepreneurship.</p><Link href="/get-started">Explore the hubs →</Link></div>
             </aside>
           </div>
+          <BlogAdPlaceholder placement="article" />
           <section className="article-related" aria-labelledby="related-heading">
             <div className="blog-section-heading"><div><span className="blog-kicker">NEXT STEPS</span><h2 id="related-heading">Keep exploring</h2></div><Link href="/blog">All guides <span aria-hidden="true">→</span></Link></div>
             <div className="related-grid">{relatedPosts.map((related) => <article key={related.slug}><span className="blog-category">{related.category}</span><h3><Link href={`/blog/${related.slug}`}>{related.title}</Link></h3><Link className="blog-read-link" href={`/blog/${related.slug}`}>Read the guide <span aria-hidden="true">→</span></Link></article>)}</div>

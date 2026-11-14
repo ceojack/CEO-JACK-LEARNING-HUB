@@ -59,6 +59,9 @@
   text-underline-offset: 3px;
 }
 
+.footer-contact-email { display: grid; justify-items: start; gap: 4px; margin-top: 8px; }
+.footer-contact-email > span { color: #a8b2c6; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+
 .footer-navigation-group {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

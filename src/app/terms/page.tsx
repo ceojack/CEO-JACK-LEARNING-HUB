@@ -54,7 +54,7 @@ export default function TermsPage() {
           </section>
           <section aria-labelledby="terms-contact">
             <h2 id="terms-contact">10. Contact</h2>
-            <p>Questions about these terms? Email <a href="mailto:hello@ceojacklearninghub.com">hello@ceojacklearninghub.com</a> or use our <Link href="/contact">contact page</Link>.</p>
+            <p>Questions about these terms? Email <a href="mailto:info@ceojacklearninghub.com">info@ceojacklearninghub.com</a> or use our <Link href="/contact">contact page</Link>.</p>
           </section>
           <p className="legal-related">See also our <Link href="/privacy">Privacy Policy</Link>.</p>
         </div>

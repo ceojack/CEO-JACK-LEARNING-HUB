@@ -30,7 +30,7 @@ export default function UpdatePasswordPage() {
     }
     if (!isSupabaseConfigured()) {
       setStatusType("error");
-      setStatus("Password updates are unavailable right now. Please contact support.");
+      setStatus("Password updates are unavailable right now. Please contact support@ceojacklearninghub.com.");
       return;
     }
 

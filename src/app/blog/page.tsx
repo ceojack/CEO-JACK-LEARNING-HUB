@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
+import { BlogAdPlaceholder } from "@/src/components/blog-ad-placeholder";
 import { blogPosts } from "@/src/utils/blog-posts";
 import "./blog.css";
 
@@ -120,6 +121,7 @@ export default function BlogPage() {
             ))}
           </div>
         </section>
+        <div className="container"><BlogAdPlaceholder placement="list" /></div>
 
         <section className="container blog-cta-section">
           <div className="blog-cta">

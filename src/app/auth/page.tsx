@@ -64,7 +64,7 @@ function AuthForm() {
 
     if (!backendReady) {
       setStatusType("error");
-      setStatus("Account access is not configured yet. Please contact the site administrator.");
+      setStatus("Account access is not configured yet. Please contact support@ceojacklearninghub.com.");
       return;
     }
 
@@ -145,7 +145,7 @@ function AuthForm() {
   async function handleGoogle() {
     if (!backendReady) {
       setStatusType("error");
-      setStatus("Account access is not configured yet. Please contact the site administrator.");
+      setStatus("Account access is not configured yet. Please contact support@ceojacklearninghub.com.");
       return;
     }
     if (isSubmitting) return;
@@ -216,7 +216,7 @@ function AuthForm() {
               </div>
               <span className="account-pill"><span /> Get started free</span>
             </div>
-            {!backendReady ? <p className="form-status error" role="status">Account access is not configured yet. Please contact the site administrator.</p> : null}
+            {!backendReady ? <p className="form-status error" role="status">Account access is not configured yet. Please contact <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>.</p> : null}
             <form noValidate onSubmit={handleSubmit}>
               <div className="form-panel-heading"><span aria-hidden="true">✦</span><div><strong>{mode === "signup" ? "Your account details" : "Sign in securely"}</strong><small>Complete the fields below to continue.</small></div></div>
               {mode === "signup" ? <p className="auth-form-hint">Use your email to create an account. We’ll send a confirmation link before your first sign-in.</p> : null}
