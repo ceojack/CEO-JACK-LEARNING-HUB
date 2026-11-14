@@ -19,7 +19,7 @@ const adSlotId = process.env.NEXT_PUBLIC_ADSENSE_BLOG_SLOT_ID?.trim() || "610929
 // Keep Education, Business, Technology, and Jobs enabled.
 
 export function BlogAdPlaceholder({ placement }: { placement: BlogAdPlacement }) {
-  const adRef = useRef<HTMLElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
   const [consent, setConsent] = useState<ConsentChoice | null>(null);
   const [requested, setRequested] = useState(false);
 
