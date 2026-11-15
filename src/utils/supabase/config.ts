@@ -1,6 +1,8 @@
 export function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-  const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim();
+  const publishableKey =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
 
   if (!url || !publishableKey) return null;
 
@@ -18,5 +20,9 @@ export function getSupabaseConfig() {
 }
 
 export function isSupabaseConfigured() {
-  return getSupabaseConfig() !== null;
+  try {
+    return getSupabaseConfig() !== null;
+  } catch {
+    return false;
+  }
 }

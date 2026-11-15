@@ -9,6 +9,7 @@ import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/auth.css";
 import { createClient } from "@/src/utils/supabase/client";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
+import { AuthRequestTimeoutError, withAuthRequestTimeout } from "@/src/utils/supabase/request-timeout";
 
 type Mode = "signup" | "signin";
 
@@ -64,7 +65,7 @@ function AuthForm() {
 
     if (!backendReady) {
       setStatusType("error");
-      setStatus("Account access is not configured yet. Please contact support@ceojacklearninghub.com.");
+      setStatus("Sign-in and account creation are unavailable because this site’s account service is missing or has invalid settings. Please contact support@ceojacklearninghub.com.");
       return;
     }
 
@@ -74,14 +75,14 @@ function AuthForm() {
     try {
       const supabase = createClient();
       if (mode === "signup") {
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await withAuthRequestTimeout(supabase.auth.signUp({
           email: email.trim(),
           password,
           options: {
             data: { full_name: fullName.trim() },
             emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/onboarding")}`,
           },
-        });
+        }));
         if (error) throw error;
         if (data.session) {
           router.replace("/onboarding");
@@ -91,16 +92,19 @@ function AuthForm() {
         router.replace("/auth/confirm");
         return;
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+        const { error } = await withAuthRequestTimeout(supabase.auth.signInWithPassword({ email: email.trim(), password }));
         if (error) throw error;
-        router.replace(nextPath);
+        router.replace("/dashboard");
+        router.refresh();
       }
     } catch (error) {
       setStatusType("error");
       const message = error instanceof Error ? error.message : "";
       const normalized = message.toLowerCase();
       setStatus(
-        normalized.includes("invalid login credentials")
+        error instanceof AuthRequestTimeoutError
+          ? "Check your internet and try again"
+          : normalized.includes("invalid login credentials")
           ? "That email and password do not match. Check them and try again, or reset your password."
           : normalized.includes("email not confirmed")
             ? "Please confirm your email using the link we sent you, then sign in."
@@ -128,15 +132,15 @@ function AuthForm() {
     setStatus("Sending your reset link…");
     try {
       const supabase = createClient();
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      const { error } = await withAuthRequestTimeout(supabase.auth.resetPasswordForEmail(email.trim(), {
         redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/auth/update-password")}`,
-      });
+      }));
       if (error) throw error;
       setStatusType("success");
       setStatus("If an account exists for this email, a password reset link is on its way. Check your inbox and spam folder.");
     } catch (error) {
       setStatusType("error");
-      setStatus(error instanceof Error ? error.message : "We couldn’t send a reset link. Please try again.");
+      setStatus(error instanceof AuthRequestTimeoutError ? "Check your internet and try again" : error instanceof Error ? error.message : "We couldn’t send a reset link. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -154,16 +158,19 @@ function AuthForm() {
     setIsSubmitting(true);
     try {
       const supabase = createClient();
-      const authNext = mode === "signup" ? "/onboarding" : nextPath;
-      const { error } = await supabase.auth.signInWithOAuth({
+      const authNext = mode === "signup" ? "/onboarding" : "/dashboard";
+      const { error } = await withAuthRequestTimeout(supabase.auth.signInWithOAuth({
         provider: "google",
         options: { redirectTo: `${window.location.origin}/auth/callback?mode=${mode}&next=${encodeURIComponent(authNext)}` },
-      });
+      }));
       if (error) throw error;
+      setIsSubmitting(false);
+      setStatusType("");
+      setStatus("");
     } catch (error) {
       setIsSubmitting(false);
       setStatusType("error");
-      setStatus(error instanceof Error ? error.message : "Google sign-in could not start. Please try again.");
+      setStatus(error instanceof AuthRequestTimeoutError ? "Check your internet and try again" : error instanceof Error ? error.message : "Google sign-in could not start. Please try again.");
     }
   }
 
@@ -216,7 +223,7 @@ function AuthForm() {
               </div>
               <span className="account-pill"><span /> Get started free</span>
             </div>
-            {!backendReady ? <p className="form-status error" role="status">Account access is not configured yet. Please contact <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>.</p> : null}
+            {!backendReady ? <p className="form-status error" role="status">Sign-in and account creation are unavailable because this site’s account service is missing or has invalid settings. Please contact <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>.</p> : null}
             <form noValidate onSubmit={handleSubmit}>
               <div className="form-panel-heading"><span aria-hidden="true">✦</span><div><strong>{mode === "signup" ? "Your account details" : "Sign in securely"}</strong><small>Complete the fields below to continue.</small></div></div>
               {mode === "signup" ? <p className="auth-form-hint">Use your email to create an account. We’ll send a confirmation link before your first sign-in.</p> : null}
@@ -268,8 +275,8 @@ function AuthForm() {
                   <small className="field-error terms-error">{errors.terms}</small>
                 </>
               ) : null}
-              <button type="submit" className="submit-btn" disabled={!backendReady || isSubmitting}>
-                <span>{isSubmitting ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}</span>
+              <button type="submit" className="submit-btn" disabled={!backendReady || isSubmitting} aria-busy={isSubmitting}>
+                <span>{isSubmitting ? mode === "signup" ? "Creating account…" : "Signing in…" : mode === "signup" ? "Create account" : "Sign in"}</span>
                 <span aria-hidden="true">→</span>
               </button>
               {mode === "signin" ? <button className="forgot-password-button" type="button" onClick={() => void handlePasswordReset()} disabled={!backendReady || isSubmitting}>Forgot your password?</button> : null}
