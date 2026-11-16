@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { SiteFooter } from "@/src/components/footer";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
@@ -19,7 +20,7 @@ function SubjectContent() {
       {sidebarOpen ? <div className="sidebar-overlay show" onClick={() => setSidebarOpen(false)} /> : null}
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <div className="brand">
-          <div className="brand-logo">CJ</div>
+          <SiteLogoMark className="brand-logo" width={84} height={84} alt="CEO JACK Learning Hub logo" />
           <div className="brand-text">
             <h2>CEO JACK</h2>
             <span>LEARNING HUB</span>

@@ -6,6 +6,8 @@ import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 export const metadata: Metadata = {
   title: "CEO JACK AI",
   description: "Ask questions, explore ideas and get learning help with CEO JACK AI.",
+  alternates: { canonical: "/ai" },
+  robots: { index: false, follow: false },
 };
 
 export const dynamic = "force-dynamic";

@@ -3,12 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, Suspense, useMemo, useState } from "react";
+import { FormEvent, Suspense, useEffect, useMemo, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/auth.css";
 import { createClient } from "@/src/utils/supabase/client";
-import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import { AuthRequestTimeoutError, withAuthRequestTimeout } from "@/src/utils/supabase/request-timeout";
 
 type Mode = "signup" | "signin";
@@ -20,7 +19,6 @@ function AuthForm() {
   const initialMode = params.get("mode") === "signin" ? "signin" : "signup";
   const requestedNext = params.get("next") ?? "/dashboard";
   const nextPath = requestedNext.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/dashboard";
-  const backendReady = isSupabaseConfigured();
   const [mode, setMode] = useState<Mode>(initialMode);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,10 +26,28 @@ function AuthForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [terms, setTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [status, setStatus] = useState(params.get("error") ?? "");
-  const [statusType, setStatusType] = useState(params.get("error") ? "error" : "");
+  const initialError = params.get("error");
+  const initialMessage = params.get("message");
+  const [status, setStatus] = useState(initialError ?? initialMessage ?? "");
+  const [statusType, setStatusType] = useState(initialError ? "error" : initialMessage ? "success" : "");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [signupExistingAccount, setSignupExistingAccount] = useState(false);
+  const [signinInvalidCredentials, setSigninInvalidCredentials] = useState(false);
+
+  useEffect(() => {
+    if (!signupExistingAccount) return;
+    const timer = window.setTimeout(() => {
+      setMode("signin");
+      setErrors({});
+      setStatus("");
+      setStatusType("");
+      setSignupExistingAccount(false);
+      setSigninInvalidCredentials(false);
+      router.replace(`/auth?mode=signin&next=${encodeURIComponent(nextPath)}`, { scroll: false });
+    }, 2000);
+    return () => window.clearTimeout(timer);
+  }, [signupExistingAccount, nextPath, router]);
 
   const strength = useMemo(() => {
     let score = 0;
@@ -63,54 +79,56 @@ function AuthForm() {
       return;
     }
 
-    if (!backendReady) {
-      setStatusType("error");
-      setStatus("Sign-in and account creation are unavailable because this site’s account service is missing or has invalid settings. Please contact support@ceojacklearninghub.com.");
-      return;
-    }
-
     setStatusType("");
     setStatus("Please wait...");
+    setSignupExistingAccount(false);
+    setSigninInvalidCredentials(false);
     setIsSubmitting(true);
     try {
       const supabase = createClient();
       if (mode === "signup") {
-        const { data, error } = await withAuthRequestTimeout(supabase.auth.signUp({
-          email: email.trim(),
-          password,
-          options: {
-            data: { full_name: fullName.trim() },
-            emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/onboarding")}`,
-          },
-        }));
+        const { data, error } = await withAuthRequestTimeout(
+          supabase.auth.signUp({
+            email: email.trim(),
+            password,
+            options: { data: { full_name: fullName.trim() } },
+          }),
+        );
         if (error) throw error;
         if (data.session) {
-          router.replace("/onboarding");
+          router.replace("/dashboard");
+          router.refresh();
           return;
         }
-        window.sessionStorage.setItem("ceojack-pending-confirmation-email", email.trim());
-        router.replace("/auth/confirm");
-        return;
+        throw new Error("Supabase created the account but did not return a sign-in session. Please try signing in.");
       } else {
         const { error } = await withAuthRequestTimeout(supabase.auth.signInWithPassword({ email: email.trim(), password }));
-        if (error) throw error;
+        if (error) {
+          console.log(error);
+          throw error;
+        }
         router.replace("/dashboard");
         router.refresh();
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "We couldn’t complete account access. Please try again.";
+      const normalizedMessage = errorMessage.toLowerCase();
+      if (mode === "signup" && (normalizedMessage.includes("already registered") || normalizedMessage.includes("already exists"))) {
+        setSignupExistingAccount(true);
+        setStatusType("success");
+        setStatus("You already have an account. Taking you to Sign In...");
+        return;
+      }
+      if (mode === "signin" && normalizedMessage.includes("invalid login credentials")) {
+        setSigninInvalidCredentials(true);
+      }
       setStatusType("error");
-      const message = error instanceof Error ? error.message : "";
-      const normalized = message.toLowerCase();
       setStatus(
         error instanceof AuthRequestTimeoutError
           ? "Check your internet and try again"
-          : normalized.includes("invalid login credentials")
-          ? "That email and password do not match. Check them and try again, or reset your password."
-          : normalized.includes("email not confirmed")
-            ? "Please confirm your email using the link we sent you, then sign in."
-            : normalized.includes("user already registered")
-              ? "An account already exists for this email. Choose Sign in instead."
-              : message || "We couldn’t complete account access. Please try again."
+          : mode === "signin" && normalizedMessage.includes("invalid login credentials")
+            ? "Account not found"
+          : errorMessage
       );
     } finally {
       setIsSubmitting(false);
@@ -124,7 +142,7 @@ function AuthForm() {
       setStatus("We’ll send a password reset link to this address.");
       return;
     }
-    if (!backendReady || isSubmitting) return;
+    if (isSubmitting) return;
 
     setErrors({});
     setIsSubmitting(true);
@@ -147,18 +165,13 @@ function AuthForm() {
   }
 
   async function handleGoogle() {
-    if (!backendReady) {
-      setStatusType("error");
-      setStatus("Account access is not configured yet. Please contact support@ceojacklearninghub.com.");
-      return;
-    }
     if (isSubmitting) return;
     setStatusType("");
     setStatus("Redirecting to Google...");
     setIsSubmitting(true);
     try {
       const supabase = createClient();
-      const authNext = mode === "signup" ? "/onboarding" : "/dashboard";
+      const authNext = "/dashboard";
       const { error } = await withAuthRequestTimeout(supabase.auth.signInWithOAuth({
         provider: "google",
         options: { redirectTo: `${window.location.origin}/auth/callback?mode=${mode}&next=${encodeURIComponent(authNext)}` },
@@ -180,6 +193,8 @@ function AuthForm() {
     setErrors({});
     setStatus("");
     setStatusType("");
+    setSignupExistingAccount(false);
+    setSigninInvalidCredentials(false);
     router.replace(`/auth?mode=${nextMode}&next=${encodeURIComponent(nextPath)}`, { scroll: false });
   }
 
@@ -223,10 +238,9 @@ function AuthForm() {
               </div>
               <span className="account-pill"><span /> Get started free</span>
             </div>
-            {!backendReady ? <p className="form-status error" role="status">Sign-in and account creation are unavailable because this site’s account service is missing or has invalid settings. Please contact <a href="mailto:support@ceojacklearninghub.com">support@ceojacklearninghub.com</a>.</p> : null}
             <form noValidate onSubmit={handleSubmit}>
               <div className="form-panel-heading"><span aria-hidden="true">✦</span><div><strong>{mode === "signup" ? "Your account details" : "Sign in securely"}</strong><small>Complete the fields below to continue.</small></div></div>
-              {mode === "signup" ? <p className="auth-form-hint">Use your email to create an account. We’ll send a confirmation link before your first sign-in.</p> : null}
+              {mode === "signup" ? <p className="auth-form-hint">Create your account and start your CEO JACK Learning Hub journey right away.</p> : null}
               {mode === "signup" ? (
                 <div className={`form-group${errors.fullName ? " invalid" : ""}`}>
                   <label htmlFor="fullName">Full name</label>
@@ -275,16 +289,27 @@ function AuthForm() {
                   <small className="field-error terms-error">{errors.terms}</small>
                 </>
               ) : null}
-              <button type="submit" className="submit-btn" disabled={!backendReady || isSubmitting} aria-busy={isSubmitting}>
+              <button type="submit" className="submit-btn" disabled={isSubmitting} aria-busy={isSubmitting}>
                 <span>{isSubmitting ? mode === "signup" ? "Creating account…" : "Signing in…" : mode === "signup" ? "Create account" : "Sign in"}</span>
                 <span aria-hidden="true">→</span>
               </button>
-              {mode === "signin" ? <button className="forgot-password-button" type="button" onClick={() => void handlePasswordReset()} disabled={!backendReady || isSubmitting}>Forgot your password?</button> : null}
+              {mode === "signin" ? <button className="forgot-password-button" type="button" onClick={() => void handlePasswordReset()} disabled={isSubmitting}>Forgot your password?</button> : null}
               <p className={`form-status ${statusType}`} role="status">{status}</p>
+              {signupExistingAccount && mode === "signup" ? (
+                <div className="auth-inline-action">
+                  <button type="button" onClick={switchMode}>Go to Sign In <span aria-hidden="true">→</span></button>
+                </div>
+              ) : null}
+              {signinInvalidCredentials && mode === "signin" ? (
+                <div className="auth-inline-action">
+                  <span>No account?</span>
+                  <button type="button" onClick={switchMode}>Create Account</button>
+                </div>
+              ) : null}
             </form>
             <div className="social-divider"><span>OR CONTINUE WITH</span></div>
             <div className="social-login">
-              <button className="social-button google-button" type="button" onClick={handleGoogle} disabled={!backendReady || isSubmitting}>
+              <button className="social-button google-button" type="button" onClick={handleGoogle} disabled={isSubmitting}>
                 <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                   <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" />
                   <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.98 46.98 31.9 46.98 24.55Z" />

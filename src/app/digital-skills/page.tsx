@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { useState } from "react";
 import { digitalTracks } from "@/src/utils/education-data";
 import "@/src/styles/education.css";
@@ -14,7 +15,7 @@ export default function DigitalSkillsPage() {
     <div className="app">
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <Link href="/" className="brand">
-          <div className="brand-icon">CJ</div>
+          <SiteLogoMark className="brand-icon" width={84} height={84} alt="CEO JACK Learning Hub logo" />
           <div className="brand-copy">
             <strong>CEO JACK</strong>
             <span>LEARNING HUB</span>

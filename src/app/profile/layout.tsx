@@ -6,6 +6,8 @@ import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 export const metadata: Metadata = {
   title: "My Profile",
   description: "Manage your CEO JACK Learning Hub account and learning profile.",
+  alternates: { canonical: "/profile" },
+  robots: { index: false, follow: false },
 };
 
 export const dynamic = "force-dynamic";

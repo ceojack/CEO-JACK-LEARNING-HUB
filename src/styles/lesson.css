@@ -1,7 +1,7 @@
 .lesson-app{min-height:100vh;background:#f7f4ec;color:#263449;font-family:"DM Sans",sans-serif}
 .lesson-sidebar{position:fixed;inset:0 auto 0 0;width:255px;background:#1b2b3d;padding:25px 18px;color:#fff}
 .lesson-brand{display:flex;align-items:center;gap:11px;color:#fff;margin:0 0 48px 5px}
-.lesson-brand>span{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#6385ff,#9b7bff);font-weight:800}
+.lesson-brand>img{display:block;width:42px;height:42px;object-fit:cover;border-radius:13px}
 .lesson-brand strong{font-size:13px;letter-spacing:.5px}.lesson-brand small{display:block;margin-top:4px;color:#9caac1;font-size:9px;letter-spacing:1.3px}
 .lesson-sidebar nav{display:grid;gap:8px}.lesson-sidebar nav a{display:flex;gap:14px;padding:13px 12px;border-radius:10px;color:#c1cbd7;font-size:15px}.lesson-sidebar nav a.active,.lesson-sidebar nav a:hover{background:#2b4057;color:#fff}
 .lesson-main{margin-left:255px;min-height:100vh}.lesson-top{height:76px;padding:0 max(5vw,24px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e9e2d6;background:#fffdf8}.lesson-top a,.lesson-foot a{color:#367f78;font-weight:700}.lesson-top span{font-size:13px;color:#697789}

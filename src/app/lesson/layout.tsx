@@ -6,6 +6,8 @@ import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 export const metadata: Metadata = {
   title: "Equivalent Fractions Lesson",
   description: "A short P7 mathematics lesson with a worked example, practice quiz and saved completion.",
+  alternates: { canonical: "/lesson" },
+  robots: { index: false, follow: false },
 };
 
 export const dynamic = "force-dynamic";

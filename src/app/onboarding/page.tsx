@@ -30,7 +30,6 @@ export default function OnboardingPage() {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"success" | "error" | "">("");
-  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -66,7 +65,46 @@ export default function OnboardingPage() {
     setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
   }
 
-  async function next() {
+  function enterDashboard() {
+    const profile = {
+      level,
+      ageGroup,
+      interests: [...selectedInterests],
+      goals: [...selectedGoals],
+    };
+    try {
+      window.localStorage.setItem("ceoJackOnboarding", JSON.stringify(profile));
+    } catch (error) {
+      console.log("Could not cache the learner profile:", error);
+    }
+
+    setStatusType("success");
+    setStatus("Your learning path is ready. Opening your dashboard…");
+
+    router.push("/dashboard");
+    router.refresh();
+
+    if (isSupabaseConfigured()) {
+      try {
+        void fetch("/api/profile", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(profile),
+        }).then(async (response) => {
+          if (!response.ok) {
+            const result = await response.json().catch(() => null);
+            console.log("Supabase learner profile save error:", result ?? response.statusText);
+          }
+        }).catch((error) => {
+          console.log("Supabase learner profile save request failed:", error);
+        });
+      } catch (error) {
+        console.log("Supabase learner profile save request failed:", error);
+      }
+    }
+  }
+
+  function next() {
     if (step === 1 && (!level || !ageGroup)) {
       setStatusType("error");
       setStatus("Choose your learning level and age group.");
@@ -84,39 +122,6 @@ export default function OnboardingPage() {
     }
     setStatus("");
     setStatusType("");
-    if (step === 4) {
-      const profile = { level, ageGroup, interests: selectedInterests, goals: selectedGoals };
-      setIsSaving(true);
-      setStatus("Saving your learning path…");
-      try {
-        if (isSupabaseConfigured()) {
-          const response = await fetch("/api/profile", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(profile),
-          });
-          if (!response.ok) {
-            const result = await response.json().catch(() => null) as { error?: string } | null;
-            setStatusType("error");
-            setStatus(result?.error ?? "Your learning path could not be saved. Please try again.");
-            return;
-          }
-          window.localStorage.removeItem("ceoJackOnboarding");
-        } else {
-          window.localStorage.setItem("ceoJackOnboarding", JSON.stringify(profile));
-        }
-        setStatusType("success");
-        setStatus("Your learning path is ready. Opening your dashboard…");
-        router.replace("/dashboard");
-        router.refresh();
-      } catch {
-        setStatusType("error");
-        setStatus("Your learning path could not be saved. Check your connection and try again.");
-      } finally {
-        setIsSaving(false);
-      }
-      return;
-    }
     setStep((value) => value + 1);
   }
 
@@ -241,8 +246,8 @@ export default function OnboardingPage() {
             {step > 1 ? (
               <button className="nav-btn back-btn" type="button" onClick={() => { setStatus(""); setStep((value) => value - 1); }}>Back</button>
             ) : null}
-            <button className="nav-btn next-btn" type="button" onClick={next} disabled={isSaving}>
-              {isSaving ? "Opening dashboard…" : step === 4 ? "Enter dashboard" : "Continue"}
+            <button className="nav-btn next-btn" type="button" onClick={step === 4 ? enterDashboard : next}>
+              {step === 4 ? "Enter dashboard" : "Continue"}
             </button>
           </div>
         </section>

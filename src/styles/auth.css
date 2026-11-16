@@ -198,114 +198,6 @@ input:focus-visible {
   gap: clamp(50px, 8vw, 110px);
 }
 
-.auth-confirmation-page {
-  width: min(calc(100% - 40px), 740px);
-  flex: 1;
-  display: grid;
-  align-items: center;
-  margin: 0 auto;
-  padding: 48px 0 64px;
-}
-
-.confirmation-card {
-  padding: clamp(28px, 6vw, 54px);
-  border: 1px solid rgba(99, 133, 255, .2);
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgba(21, 27, 48, .97), rgba(11, 15, 29, .97));
-  box-shadow: 0 28px 85px rgba(0, 0, 0, .3);
-  text-align: center;
-}
-
-.confirmation-icon {
-  display: grid;
-  width: 70px;
-  height: 70px;
-  place-items: center;
-  margin: 0 auto 23px;
-  border: 1px solid rgba(155, 123, 255, .35);
-  border-radius: 21px;
-  background: linear-gradient(145deg, rgba(155, 123, 255, .19), rgba(99, 133, 255, .1));
-  box-shadow: 0 12px 34px rgba(99, 91, 220, .16);
-}
-
-.confirmation-icon svg { width: 39px; height: 39px; }
-.confirmation-icon rect { stroke: #c9bdff; stroke-width: 2; }
-.confirmation-icon path { stroke: #b3a1ff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
-.confirmation-icon circle { fill: #18203a; stroke: #8bd9ca; stroke-width: 2; }
-.confirmation-icon circle + path { stroke: #8bd9ca; }
-
-.confirmation-label {
-  margin: 0 0 12px;
-  color: #b3a1ff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .17em;
-}
-
-.confirmation-card h1 {
-  margin: 0;
-  font: 600 clamp(34px, 6vw, 52px)/1.1 var(--display);
-  letter-spacing: -.05em;
-}
-
-.confirmation-copy {
-  max-width: 510px;
-  margin: 17px auto 0;
-  color: #bac5dc;
-  font-size: 15px;
-  line-height: 1.75;
-  overflow-wrap: anywhere;
-}
-
-.confirmation-copy strong { color: #fff; font-weight: 700; }
-
-.confirmation-steps {
-  display: grid;
-  gap: 12px;
-  margin: 29px 0 0;
-  padding: 19px;
-  border: 1px solid rgba(156, 174, 219, .18);
-  border-radius: 16px;
-  background: rgba(35, 48, 72, .55);
-  list-style: none;
-  text-align: left;
-}
-
-.confirmation-steps li { display: grid; grid-template-columns: 30px minmax(0, 1fr); align-items: start; gap: 11px; }
-.confirmation-steps li > span { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid rgba(155, 123, 255, .3); border-radius: 9px; background: rgba(155, 123, 255, .12); color: #d4caff; font-size: 12px; font-weight: 800; }
-.confirmation-steps p { margin: 2px 0 0; color: #c1cbe0; font-size: 14px; line-height: 1.65; }
-.confirmation-steps strong { color: #f5f3ff; }
-
-.confirmation-spam-note { margin: 17px 0 0; color: #9ba9c2; font-size: 13px; line-height: 1.6; }
-
-.confirmation-resend,
-.confirmation-signin {
-  display: inline-flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  padding: 0 18px;
-  border: 1px solid rgba(155, 123, 255, .4);
-  border-radius: 11px;
-  background: linear-gradient(105deg, rgba(52, 177, 226, .17), rgba(121, 101, 236, .19));
-  color: #f4f2ff;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .2s, border-color .2s, background .2s;
-}
-
-.confirmation-resend:hover,
-.confirmation-signin:hover { transform: translateY(-1px); border-color: rgba(179, 161, 255, .75); background-color: rgba(155, 123, 255, .18); }
-.confirmation-resend:disabled { opacity: .65; cursor: wait; transform: none; }
-.confirmation-status { min-height: 0; margin: 12px 0 0; color: #b3a1ff; font-size: 13px; line-height: 1.6; }
-.confirmation-status:empty { display: none; }
-.confirmation-status.success { color: #85e5bc; }
-.confirmation-status.error { color: #ff91a3; }
-.confirmation-signin { display: flex; width: fit-content; min-height: 40px; margin: 10px auto 0; border-color: transparent; background: transparent; color: #b9c4dc; }
-.confirmation-signin:hover { color: #fff; background: rgba(255,255,255,.05); }
-
 .auth-intro {
   max-width: 620px;
 }
@@ -714,6 +606,42 @@ h1 span {
 
 .form-status.success {
   color: #85e5bc;
+}
+
+.auth-inline-action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #b8c3d8;
+  font-size: 12px;
+  text-align: center;
+}
+
+.auth-inline-action button {
+  min-height: 38px;
+  padding: 0 15px;
+  border: 1px solid rgba(179, 161, 255, .48);
+  border-radius: 9px;
+  background: rgba(155, 123, 255, .15);
+  color: #e2d9ff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.auth-inline-action button:hover {
+  transform: translateY(-1px);
+  border-color: #b3a1ff;
+  background: rgba(155, 123, 255, .25);
+}
+
+.auth-inline-action button:focus-visible {
+  outline: 3px solid rgba(179, 161, 255, .75);
+  outline-offset: 3px;
 }
 
 .auth-form-hint {

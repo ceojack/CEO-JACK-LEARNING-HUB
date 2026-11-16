@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { useEffect, useMemo, useState } from "react";
 import {
   AcademicLevel,
@@ -78,7 +79,7 @@ export default function EducationPage() {
     <div className="app">
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`} id="sidebar">
         <Link href="/" className="brand">
-          <div className="brand-icon">CJ</div>
+          <SiteLogoMark className="brand-icon" width={84} height={84} alt="CEO JACK Learning Hub logo" />
           <div className="brand-copy">
             <strong>CEO JACK</strong>
             <span>LEARNING HUB</span>

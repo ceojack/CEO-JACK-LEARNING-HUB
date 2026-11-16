@@ -4,6 +4,7 @@ import "@/src/styles/legal.css";
 
 export const metadata = {
   title: "Privacy Policy",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

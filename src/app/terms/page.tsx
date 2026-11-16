@@ -4,6 +4,7 @@ import "@/src/styles/legal.css";
 
 export const metadata = {
   title: "Terms",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

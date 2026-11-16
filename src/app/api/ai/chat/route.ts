@@ -18,6 +18,14 @@ type ChatPayload = {
   message?: string;
   mode?: string;
   history?: { role: "user" | "assistant"; content: string }[];
+  profile?: {
+    displayName?: string;
+    hobby?: string;
+    level?: string;
+    interests?: string[];
+    goals?: string[];
+    memory?: string;
+  };
 };
 
 export async function POST(request: Request) {
@@ -52,7 +60,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const systemContent = `${systemPrompts[body.mode || "general"] || systemPrompts.general}
+  const learner = body.profile;
+  const learnerName = typeof learner?.displayName === "string" && learner.displayName.trim() ? learner.displayName.trim().slice(0, 80) : "Friend";
+  const learnerLevel = typeof learner?.level === "string" && learner.level.trim() ? learner.level.trim().slice(0, 80) : "Beginner";
+  const learnerHobby = typeof learner?.hobby === "string" ? learner.hobby.trim().slice(0, 100) : "";
+  const learnerInterests = Array.isArray(learner?.interests) ? learner.interests.filter((item): item is string => typeof item === "string").slice(0, 8).join(", ") : "";
+  const learnerGoals = Array.isArray(learner?.goals) ? learner.goals.filter((item): item is string => typeof item === "string").slice(0, 6).join(", ") : "";
+  const learnerMemory = typeof learner?.memory === "string" ? learner.memory.trim().slice(0, 1000) : "";
+  const profileContext = `\n\nLearner context (use naturally and respectfully; do not repeat private profile data unless useful): name: ${learnerName}; level: ${learnerLevel}; hobby: ${learnerHobby || "not set"}; interests: ${learnerInterests || "not set"}; goals: ${learnerGoals || "not set"}; recent learning memory: ${learnerMemory || "none yet"}. Address the learner by name when natural. Adapt explanations to their level and connect examples to their hobby/interests when relevant.`;
+  const systemContent = `${systemPrompts[body.mode || "general"] || systemPrompts.general}${profileContext}
 
 Act as a professional, encouraging learning coach for the CEO JACK LEARNING HUB community. Be accurate, thoughtful, and specific. Answer the user's actual question first, then add the most useful explanation or next step. Adapt detail to the request: simple questions deserve direct answers; complex tasks need enough context and steps to be actionable. Ask one focused clarification only when a missing detail would materially change the answer; otherwise state a reasonable assumption and proceed.
 

@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { UserAvatar } from "@/src/components/user-avatar";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useMemo, useState } from "react";
+import { createClient } from "@/src/utils/supabase/client";
+import { switchToGoogleAccount } from "@/src/utils/supabase/google-account";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "./dashboard.css";
 
-type LearnerProfile = { level?: string; ageGroup?: string; interests?: string[]; goals?: string[] };
-type SignedInUser = { email?: string; fullName?: string };
+type LearnerProfile = { displayName?: string; hobby?: string; level?: string; learningLevel?: string; ageGroup?: string; interests?: string[]; goals?: string[] };
+type SignedInUser = { email?: string; fullName?: string; avatarUrl?: string };
 
 const paths = [
   { title: "Education Hub", eyebrow: "BUILD YOUR FOUNDATION", description: "Explore school subjects, choose your class, and strengthen what you learn every day.", href: "/education", icon: "▤", tone: "violet", action: "Explore subjects" },
@@ -23,8 +27,8 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<LearnerProfile | null>(null);
   const [signedInUser, setSignedInUser] = useState<SignedInUser | null>(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [switchingAccount, setSwitchingAccount] = useState(false);
   const [lessonComplete, setLessonComplete] = useState(false);
-  const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -34,29 +38,59 @@ export default function DashboardPage() {
           const storedProfile = window.localStorage.getItem("ceoJackOnboarding");
           if (!cancelled && storedProfile) setProfile(JSON.parse(storedProfile) as LearnerProfile);
           if (!cancelled) setLessonComplete(window.localStorage.getItem(lessonKey) === "complete");
-        } catch {
+        } catch (error) {
+          console.log("Could not read saved learning details:", error);
           if (!cancelled) setProfile(null);
         }
         return;
       }
 
       try {
-        const [profileResponse, progressResponse] = await Promise.all([
-          fetch("/api/profile", { cache: "no-store" }),
-          fetch("/api/progress", { cache: "no-store" }),
-        ]);
-        if (cancelled) return;
+        const { error } = await createClient().auth.getSession();
+        if (error) console.log("Could not confirm the shared Learning Hub session:", error);
+      } catch (error) {
+        console.log("Could not confirm the shared Learning Hub session:", error);
+      }
+
+      try {
+        const savedProfile = window.localStorage.getItem("ceoJackOnboarding");
+        if (!cancelled && savedProfile) setProfile(JSON.parse(savedProfile) as LearnerProfile);
+      } catch (error) {
+        console.log("Could not read cached learning details:", error);
+      }
+
+      try {
+        const profileResponse = await fetch("/api/profile", { cache: "no-store" });
         if (profileResponse.ok) {
-          const result = await profileResponse.json() as { profile: LearnerProfile | null; user?: SignedInUser };
-          setProfile(result.profile);
+          const result = await profileResponse.json() as { profile: LearnerProfile | null; user?: SignedInUser; error?: string };
+          if (cancelled) return;
+          if (result.profile && (result.profile.level || result.profile.learningLevel || result.profile.interests?.length || result.profile.goals?.length)) {
+            setProfile(result.profile);
+            window.localStorage.removeItem("ceoJackOnboarding");
+          }
           setSignedInUser(result.user ?? null);
-        } else setBackendError("Your learning profile could not be loaded. Refresh to try again.");
+        } else {
+          const result = await profileResponse.json().catch(() => null) as { error?: string } | null;
+          console.log("Could not load dashboard profile:", result?.error ?? profileResponse.statusText);
+        }
+      } catch (error) {
+        console.log("Could not load dashboard profile:", error);
+      }
+
+      try {
+        const progressResponse = await fetch("/api/progress", { cache: "no-store" });
         if (progressResponse.ok) {
           const result = await progressResponse.json() as { progress: { lessonId: string; status: string }[] };
+          if (cancelled) return;
           setLessonComplete(result.progress.some((item) => item.lessonId === "p7-maths-equivalent-fractions" && item.status === "completed"));
-        } else setBackendError("Your learning progress could not be loaded. Refresh to try again.");
-      } catch {
-        if (!cancelled) setBackendError("Your learning data could not be reached. Check your connection and refresh.");
+        } else {
+          const result = await progressResponse.json().catch(() => null) as { error?: string } | null;
+          console.log("Could not load dashboard progress:", result?.error ?? progressResponse.statusText);
+          if (!cancelled) setLessonComplete(false);
+        }
+      } catch (error) {
+        console.log("Could not load dashboard progress:", error);
+        if (!cancelled) setLessonComplete(false);
       }
     }
     void loadLearningData();
@@ -71,17 +105,33 @@ export default function DashboardPage() {
     return paths[0];
   }, [profile]);
 
-  const levelQuery = profile?.level === "Secondary" ? "secondary" : "primary";
+  const learnerLevel = profile?.level || profile?.learningLevel || "Level 1";
+  const levelQuery = learnerLevel === "Secondary" ? "secondary" : "primary";
   const completedCount = lessonComplete ? 1 : 0;
-  const profileName = signedInUser?.fullName?.trim() || signedInUser?.email?.split("@")[0] || "Learner profile";
-  const profileInitials = profileName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "LP";
+  const profileName = signedInUser?.fullName?.trim() || profile?.displayName?.trim() || "Learner";
+  const hasLearningProfile = Boolean(
+    (profile?.level || profile?.learningLevel) && profile?.ageGroup && profile?.interests?.length && profile?.goals?.length,
+  );
+  const learningSummary = hasLearningProfile
+    ? `Level: ${learnerLevel} · Interests: ${profile?.interests?.join(", ") || "ready to explore"}`
+    : "Welcome to your learning hub. Start your first lesson and build momentum one step at a time.";
+
+  async function switchAccount() {
+    setSwitchingAccount(true);
+    try {
+      await switchToGoogleAccount("/dashboard");
+    } catch (error) {
+      console.error("Could not start Google account switching:", error);
+      setSwitchingAccount(false);
+    }
+  }
 
   return (
     <div className="learner-dashboard">
       {sidebarOpen ? <button className="dashboard-scrim" aria-label="Close navigation" onClick={() => setSidebarOpen(false)} /> : null}
       <aside className={`dashboard-sidebar${sidebarOpen ? " is-open" : ""}`}>
         <Link href="/" className="dashboard-brand" aria-label="CEO JACK Learning Hub home">
-          <span className="dashboard-brand-mark">CJ</span>
+          <SiteLogoMark className="dashboard-brand-mark" width={82} height={82} alt="CEO JACK Learning Hub logo" />
           <span><strong>CEO JACK</strong><small>LEARNING HUB</small></span>
         </Link>
         <span className="dashboard-nav-label">YOUR LEARNING SPACE</span>
@@ -106,15 +156,16 @@ export default function DashboardPage() {
           <div className="dashboard-topbar-actions">
             <Link href="/ai" className="dashboard-top-action"><span>✦</span> Ask CEO JACK AI</Link>
             <div className="dashboard-account-menu">
-              <button className="dashboard-account-trigger" type="button" aria-label={`Open account menu for ${profileName}`} aria-expanded={profileMenuOpen} aria-controls="dashboard-account-popover" onClick={() => setProfileMenuOpen((open) => !open)}>
-                <span className="dashboard-account-avatar" aria-hidden="true">{profileInitials}</span>
-                <span className="dashboard-account-chevron" aria-hidden="true">⌄</span>
-              </button>
+              <Link className="dashboard-account-trigger" href="/profile" aria-label={`Open profile for ${profileName}`}>
+                <UserAvatar src={signedInUser?.avatarUrl} className="dashboard-account-avatar" />
+              </Link>
+              <button className="dashboard-account-menu-toggle" type="button" aria-label="Open account menu" aria-expanded={profileMenuOpen} aria-controls="dashboard-account-popover" onClick={() => setProfileMenuOpen((open) => !open)}>⌄</button>
               {profileMenuOpen ? (
                 <div className="dashboard-account-popover" id="dashboard-account-popover">
-                  <div className="dashboard-account-summary"><span className="dashboard-account-avatar" aria-hidden="true">{profileInitials}</span><div><strong>{profileName}</strong><small>{signedInUser?.email || "Learner account"}</small></div></div>
+                  <div className="dashboard-account-summary"><UserAvatar src={signedInUser?.avatarUrl} className="dashboard-account-avatar" /><div><strong>{profileName}</strong><small>Learning Hub account</small></div></div>
                   <Link href="/profile" onClick={() => setProfileMenuOpen(false)}>View my profile <span>→</span></Link>
                   <Link href="/onboarding" onClick={() => setProfileMenuOpen(false)}>Edit learning profile <span>→</span></Link>
+                  <button className="dashboard-switch-account" type="button" onClick={() => void switchAccount()} disabled={switchingAccount}><span className="dashboard-google-mark" aria-hidden="true">G</span>{switchingAccount ? "Choose a Google account…" : "Switch Account"}<span aria-hidden="true">↗</span></button>
                   {isSupabaseConfigured() ? <form action="/auth/signout" method="post"><button type="submit">Sign out</button></form> : null}
                 </div>
               ) : null}
@@ -123,14 +174,13 @@ export default function DashboardPage() {
         </header>
 
         <div className="dashboard-content">
-          {backendError ? <p className="dashboard-backend-error" role="status">{backendError}</p> : null}
           <section className="dashboard-hero">
             <div className="dashboard-hero-copy">
               <div className="dashboard-eyebrow"><i /> YOUR LEARNING JOURNEY</div>
-              <h1>{profile ? "Welcome back to your learning hub" : "Welcome to your learning hub"}<span> ✦</span></h1>
-              <p>{profile ? `Your ${recommendedPath.title} path is ready. Pick up where you left off or explore something new.` : "Your next big step starts with a small one. Pick up where you left off or explore something new."}</p>
+              <h1>{hasLearningProfile ? "Welcome back to your learning hub" : "Welcome to your learning hub"}<span> ✦</span></h1>
+              <p>{hasLearningProfile ? learningSummary : "Welcome to your learning hub. Start your first lesson and build momentum one step at a time."}</p>
               <div className="dashboard-hero-actions">
-                <Link href={lessonComplete ? `/education?level=${levelQuery}` : "/lesson"} className="dashboard-primary-cta">{lessonComplete ? "Choose your next lesson" : "Continue learning"}<span>→</span></Link>
+                <Link href={lessonComplete ? `/education?level=${levelQuery}` : "/lesson"} className="dashboard-primary-cta">{lessonComplete ? "Choose your next lesson" : "Start your first lesson"}<span>→</span></Link>
                 <Link href="#learning-paths" className="dashboard-text-cta">Explore learning areas <span>↓</span></Link>
               </div>
             </div>
@@ -138,20 +188,21 @@ export default function DashboardPage() {
           </section>
 
           <section className="dashboard-overview" aria-label="Your learning overview">
-            <article className="overview-card overview-progress"><span className="overview-icon">◷</span><div><span className="overview-label">YOUR MOMENTUM</span><strong>{lessonComplete ? "1 lesson" : "Start today"}</strong><small>{lessonComplete ? "You’ve completed your first lesson" : "Your learning journey is ready"}</small></div></article>
-            <article className="overview-card"><span className="overview-icon blue">▤</span><div><span className="overview-label">LEARNING AREAS</span><strong>4 paths</strong><small>Choose what you want to explore</small></div></article>
-            <article className="overview-card"><span className="overview-icon green">◎</span><div><span className="overview-label">YOUR LEARNING LEVEL</span><strong>{profile?.level || "Choose your path"}</strong><small>{profile?.ageGroup ? `Age group ${profile.ageGroup}` : "Personalize your experience"}</small></div></article>
+            <article className="overview-card overview-progress"><span className="overview-icon">◷</span><div><span className="overview-label">PROGRESS</span><strong>{lessonComplete ? "100%" : "0%"}</strong><small>{lessonComplete ? "You’ve completed your first lesson" : "Start your first lesson"}</small></div></article>
+            <article className="overview-card"><span className="overview-icon blue">✦</span><div><span className="overview-label">STREAK</span><strong>0 days</strong><small>Build a learning habit</small></div></article>
+            <article className="overview-card"><span className="overview-icon green">◎</span><div><span className="overview-label">YOUR LEARNING LEVEL</span><strong>{learnerLevel}</strong><small>{profile?.ageGroup ? `Age group ${profile.ageGroup}` : "Your starting point"}</small></div></article>
           </section>
 
           <section className="dashboard-profile-card" id="account-profile" aria-labelledby="dashboard-profile-title">
-            <div className="dashboard-profile-avatar" aria-hidden="true">{profileInitials}</div>
+            <Link href="/profile" aria-label="Open profile"><UserAvatar src={signedInUser?.avatarUrl} className="dashboard-profile-avatar" /></Link>
             <div className="dashboard-profile-main">
               <div className="dashboard-profile-heading">
-                <div><span className="section-kicker">YOUR ACCOUNT</span><h2 id="dashboard-profile-title">{profileName}</h2><p>{signedInUser?.email || "Your learning profile is saved on this device."}</p></div>
+                <div><span className="section-kicker">YOUR ACCOUNT</span><h2 id="dashboard-profile-title">{profileName}</h2><p>Your learning profile and preferences.</p></div>
                 <Link href="/profile" className="dashboard-profile-edit">Manage profile <span aria-hidden="true">→</span></Link>
               </div>
               <div className="dashboard-profile-details">
-                <div><span>Learning level</span><strong>{profile?.level || "Not set yet"}</strong></div>
+                <div><span>Learning level</span><strong>{learnerLevel}</strong></div>
+                <div><span>Hobby</span><strong>{profile?.hobby || "Add a hobby"}</strong></div>
                 <div><span>Age group</span><strong>{profile?.ageGroup || "Not set yet"}</strong></div>
                 <div><span>Interests</span><strong>{profile?.interests?.join(", ") || "Choose your interests"}</strong></div>
                 <div><span>Goals</span><strong>{profile?.goals?.join(", ") || "Set your learning goals"}</strong></div>
@@ -181,7 +232,7 @@ export default function DashboardPage() {
           </section>
 
           <section className="dashboard-personalize">
-            <div className="personalize-mark">✦</div><div className="personalize-copy"><span className="section-kicker">MAKE IT YOURS</span><h2>{profile ? "Your learning path is set up" : "Get a learning path made for you"}</h2><p>{profile ? `Your interests: ${(profile.interests ?? []).join(", ") || "ready to explore"}. You can revisit your choices any time.` : "Tell us what you’re interested in and we’ll help you find a place to start."}</p></div><Link href="/onboarding" className="personalize-link">{profile ? "Update my path" : "Personalize my path"}<span>→</span></Link>
+            <div className="personalize-mark">✦</div><div className="personalize-copy"><span className="section-kicker">MAKE IT YOURS</span><h2>{hasLearningProfile ? "Your learning path is set up" : "Welcome! Upload your details to set up your learner account"}</h2><p>{hasLearningProfile ? `Your interests: ${(profile?.interests ?? []).join(", ") || "ready to explore"}. You can revisit your choices any time.` : "Add your name, hobby, learning level, age group, interests and goals to personalize your learning space."}</p></div><Link href={hasLearningProfile ? "/onboarding" : "/profile"} className="personalize-link">{hasLearningProfile ? "Update my path" : "Upload learner profile"}<span>→</span></Link>
           </section>
 
         </div>

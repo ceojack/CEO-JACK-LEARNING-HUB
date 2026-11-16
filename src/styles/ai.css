@@ -38,7 +38,7 @@ button{cursor:pointer}
   z-index:20;overflow-y:auto;
 }
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);margin:0 5px 32px}
-.brand-logo{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-family:'Space Grotesk',sans-serif;font-weight:700}
+.brand-logo{width:43px;height:43px;display:block;object-fit:cover;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
 .brand strong{display:block;font-size:14px;letter-spacing:.5px}
 .brand span{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px;margin-top:3px}
 .workspace-nav{display:grid;gap:5px;margin:0 0 18px}
@@ -200,6 +200,10 @@ button{cursor:pointer}
 
 /* FORMATTED CHAT, IMAGE PREVIEWS, AND VOICE CONTROLS */
 .topbar-tools{display:flex;align-items:center;gap:14px}
+.ai-profile-link{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:50%;outline-offset:3px}
+.ai-profile-avatar{position:relative;display:grid;width:36px;height:36px;overflow:hidden;place-items:center;border:1px solid rgba(206,193,255,.42);border-radius:50%;background:linear-gradient(145deg,#718fff,#9b7bff);box-shadow:0 5px 15px rgba(99,117,255,.23)}
+.ai-profile-avatar img,.dashboard-account-avatar img,.dashboard-profile-avatar img,.profile-avatar img{position:absolute;inset:0;width:100%;height:100%;border-radius:inherit;object-fit:cover}
+.user-avatar svg{width:55%;height:55%;fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}
 .connection-status{display:inline-flex;align-items:center;gap:7px;color:#a7b1c7;font-size:10px;font-weight:600}
 .connection-status i{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 10px rgba(140,200,169,.55)}
 .voice-mode-button{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.035);color:#b9c4d8;font-size:10px;font-weight:700;transition:.2s}

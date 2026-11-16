@@ -4,6 +4,9 @@ import Link from "next/link";
 import { FormEvent, Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
+import { UserAvatar } from "@/src/components/user-avatar";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
+import { createClient } from "@/src/utils/supabase/client";
 import "@/src/styles/ai.css";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
@@ -12,6 +15,8 @@ type SavedConversation = { id: string; title: string; mode: Mode; messages: Chat
 type PlanArea = "education" | "digital-skills" | "entrepreneurship" | "personal-growth";
 type PlanTask = { id: string; title: string; detail: string; days: string; minutes: number; done: boolean };
 type WorkPlan = { id: string; goal: string; area: PlanArea; duration: 7 | 14 | 30; hoursPerWeek: number; tasks: PlanTask[]; createdAt: number };
+type AiLearnerProfile = { displayName: string; hobby: string; level: string; interests: string[]; goals: string[]; memory: string; avatarUrl: string };
+const defaultAiProfile: AiLearnerProfile = { displayName: "Friend", hobby: "", level: "Beginner", interests: [], goals: [], memory: "", avatarUrl: "" };
 const CHAT_HISTORY_KEY = "ceojack-ai-conversations-v1";
 const WORK_PLAN_KEY = "ceojack-ai-work-plan-v1";
 type RecognitionResult = { isFinal: boolean; 0: { transcript: string } };
@@ -213,6 +218,7 @@ function AiChat() {
   const [mode, setMode] = useState<Mode>(params.get("mode") === "education" ? "education" : "general");
   const [input, setInput] = useState(initialPrompt);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [learnerProfile, setLearnerProfile] = useState<AiLearnerProfile>(defaultAiProfile);
   const [conversations, setConversations] = useState<SavedConversation[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [historyReady, setHistoryReady] = useState(false);
@@ -238,6 +244,40 @@ function AiChat() {
   const planDialogRef = useRef<HTMLElement | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const busyRef = useRef(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadLearnerProfile() {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        if (!data.session) return;
+        const response = await fetch("/api/profile", { cache: "no-store" });
+        if (!response.ok) throw new Error(`Profile request failed (${response.status}).`);
+        const result = await response.json() as {
+          user?: { fullName?: string; avatarUrl?: string };
+          profile?: { displayName?: string; hobby?: string; level?: string; learningLevel?: string; interests?: string[]; goals?: string[]; jackAiMemory?: string; avatarUrl?: string } | null;
+        };
+        if (cancelled) return;
+        const profile = result.profile;
+        setLearnerProfile({
+          displayName: profile?.displayName?.trim() || result.user?.fullName?.trim() || "Friend",
+          hobby: profile?.hobby ?? "",
+          level: profile?.level || profile?.learningLevel || "Beginner",
+          interests: Array.isArray(profile?.interests) ? profile.interests : [],
+          goals: Array.isArray(profile?.goals) ? profile.goals : [],
+          memory: profile?.jackAiMemory ?? "",
+          avatarUrl: result.user?.avatarUrl || profile?.avatarUrl || "",
+        });
+      } catch (error) {
+        console.error("JACK AI will use its default learner profile:", error);
+        if (!cancelled) setLearnerProfile(defaultAiProfile);
+      }
+    }
+    void loadLearnerProfile();
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -341,6 +381,18 @@ function AiChat() {
     const chatArea = scrollRef.current;
     if (!chatArea || Date.now() < programmaticScrollUntilRef.current) return;
     followLatestRef.current = chatArea.scrollHeight - chatArea.scrollTop - chatArea.clientHeight < 100;
+  }
+
+  function saveChatMemory(userMessage: string, assistantReply: string) {
+    const summary = `Learner ${learnerProfile.displayName || "Friend"} (${learnerProfile.level || "Beginner"}${learnerProfile.hobby ? `, hobby: ${learnerProfile.hobby}` : ""}) asked about: ${userMessage.replace(/\s+/g, " ").trim().slice(0, 220)}. JACK AI discussed: ${assistantReply.replace(/\s+/g, " ").trim().slice(0, 420)}`;
+    setLearnerProfile((current) => ({ ...current, memory: summary }));
+    void fetch("/api/ai/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ summary }),
+    }).then((response) => {
+      if (!response.ok) console.error("JACK AI conversation memory could not be saved.", response.status);
+    }).catch((error) => console.error("JACK AI conversation memory could not be saved:", error));
   }
 
   useEffect(() => {
@@ -474,6 +526,7 @@ function AiChat() {
           message: trimmed,
           mode,
           history: previousMessages.slice(-10),
+          profile: learnerProfile,
         }),
         signal: controller.signal,
       });
@@ -482,6 +535,7 @@ function AiChat() {
         const data = (await response.json()) as { reply?: string };
         const reply = data.reply || "I didn’t get a reply. Please try again.";
         updateReply(reply);
+        if (response.ok) saveChatMemory(trimmed, reply);
         if (voiceMode) speak(reply);
         return;
       }
@@ -551,6 +605,7 @@ function AiChat() {
         reply = "I didn’t get a reply. Please try again.";
         updateReply(reply);
       }
+      if (response.ok && !controller.signal.aborted) saveChatMemory(trimmed, reply);
       if (voiceMode) speak(reply);
     } catch (error) {
       if (controller.signal.aborted) return;
@@ -770,7 +825,7 @@ function AiChat() {
       {sidebarOpen ? <button className="mobile-overlay show" aria-label="Close navigation" onClick={() => setSidebarOpen(false)} /> : null}
       <aside className={`sidebar${sidebarOpen ? " open" : ""}`}>
         <Link href="/" className="brand" aria-label="CEO JACK Home" onClick={() => setSidebarOpen(false)}>
-          <div className="brand-logo">CJ</div>
+          <SiteLogoMark className="brand-logo" width={86} height={86} alt="CEO JACK Learning Hub logo" />
           <div><strong>CEO JACK</strong><span>LEARNING HUB</span></div>
         </Link>
         <nav className="workspace-nav" aria-label="Learning space">
@@ -809,6 +864,7 @@ function AiChat() {
           <button className="menu-btn" type="button" aria-label={sidebarOpen ? "Close menu" : "Open menu"} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen((open) => !open)}>☰</button>
           <div className="topbar-title"><span className="eyebrow">YOUR AI COMPANION</span><h1>CEO JACK AI</h1></div>
           <div className="topbar-tools">
+            <Link href="/profile" className="ai-profile-link" aria-label={`Open profile for ${learnerProfile.displayName}`}><UserAvatar src={learnerProfile.avatarUrl} className="ai-profile-avatar" /></Link>
             <span className="connection-status"><i />AI chat</span>
             <button className="export-chat-button" type="button" disabled={!messages.length} onClick={exportConversation} aria-label="Export conversation as Markdown" title="Export conversation"><span aria-hidden="true">⇩</span><span className="export-label">Export</span></button>
             <button className={`voice-mode-button${voiceMode ? " active" : ""}`} type="button" aria-pressed={voiceMode} onClick={() => { setVoiceMode((enabled) => !enabled); setVoiceNotice(voiceMode ? "Voice mode off." : "Voice mode on. Replies will be spoken aloud."); }}>

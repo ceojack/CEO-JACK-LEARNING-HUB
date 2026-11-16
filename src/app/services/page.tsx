@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/services.css";
 
@@ -51,7 +52,7 @@ export default function ServicesPage() {
                   <div className="orbit-node node-skills">SKILLS</div>
                   <div className="orbit-node node-business">BUSINESS</div>
                   <div className="visual-core">
-                    <strong>CJ</strong>
+                    <SiteLogoMark className="services-center-logo" width={140} height={140} alt="CEO JACK Learning Hub logo" />
                     <small>LEARN</small>
                     <small>CREATE</small>
                     <small>DEVELOP</small>

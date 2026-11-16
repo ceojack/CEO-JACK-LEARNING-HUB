@@ -17,7 +17,7 @@
 .learner-dashboard a { color: inherit; text-decoration: none; }
 .dashboard-sidebar { position: fixed; z-index: 30; inset: 0 auto 0 0; display: flex; width: 258px; flex-direction: column; padding: 28px 17px 20px; border-right: 1px solid rgba(255,255,255,.05); background: rgba(9,15,30,.97); backdrop-filter: blur(18px); }
 .dashboard-brand { display: flex; align-items: center; gap: 11px; padding: 0 8px; }
-.dashboard-brand-mark { display: grid; width: 41px; height: 41px; flex: 0 0 41px; place-items: center; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; background: linear-gradient(135deg,#6385ff,#9b7bff); box-shadow: 0 9px 25px rgba(94,103,255,.24); font-size: 13px; font-weight: 800; }
+.dashboard-brand-mark { display: block; width: 41px; height: 41px; flex: 0 0 41px; object-fit: cover; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; box-shadow: 0 9px 25px rgba(94,103,255,.24); }
 .dashboard-brand > span:last-child { display: grid; line-height: 1.2; }
 .dashboard-brand strong { font-family: 'Clash Display',sans-serif; font-size: 13px; letter-spacing: .07em; }
 .dashboard-brand small { margin-top: 4px; color: #8794ab; font-size: 7px; font-weight: 700; letter-spacing: .2em; }
@@ -48,18 +48,27 @@
 .dashboard-top-action { display: inline-flex; min-height: 36px; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid rgba(155,123,255,.24); border-radius: 9px; background: rgba(155,123,255,.08); color: #d2c8ff !important; font-size: 10px; font-weight: 700; }
 .dashboard-top-action span { color: #b7a5ff; }
 .dashboard-topbar-actions { display: flex; align-items: center; gap: 13px; margin-left: auto; }
-.dashboard-account-menu { position: relative; }
+.dashboard-account-menu { position: relative; display: flex; align-items: center; }
 .dashboard-account-trigger { display: inline-flex; align-items: center; gap: 6px; padding: 3px; border: 0; border-radius: 999px; background: transparent; color: #aebbd0; cursor: pointer; }
 .dashboard-account-trigger:hover,.dashboard-account-trigger:focus-visible { outline: 2px solid rgba(182,165,255,.65); outline-offset: 2px; }
-.dashboard-account-avatar { display: grid; width: 37px; height: 37px; flex: 0 0 37px; place-items: center; border: 1px solid rgba(206,193,255,.42); border-radius: 50%; background: linear-gradient(145deg,#718fff,#9b7bff); box-shadow: 0 5px 15px rgba(99,117,255,.23); color: #fff; font-size: 11px; font-weight: 800; }
+.dashboard-account-menu-toggle { display: grid; width: 26px; height: 34px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: #aebbd0; cursor: pointer; }
+.dashboard-account-menu-toggle:hover,.dashboard-account-menu-toggle:focus-visible { outline: 2px solid rgba(182,165,255,.65); outline-offset: 1px; color: #fff; }
+.dashboard-account-avatar { position: relative; display: grid; width: 37px; height: 37px; flex: 0 0 37px; overflow: hidden; place-items: center; border: 1px solid rgba(206,193,255,.42); border-radius: 50%; background: linear-gradient(145deg,#718fff,#9b7bff); box-shadow: 0 5px 15px rgba(99,117,255,.23); color: #fff; font-size: 11px; font-weight: 800; }
+.dashboard-account-avatar img,.dashboard-profile-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+.dashboard-account-avatar svg,.dashboard-profile-avatar svg { width: 55%; height: 55%; fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .dashboard-account-chevron { font-size: 13px; }
 .dashboard-account-popover { position: absolute; z-index: 40; top: calc(100% + 10px); right: 0; width: min(270px,calc(100vw - 32px)); padding: 10px; border: 1px solid rgba(255,255,255,.1); border-radius: 13px; background: #111a2d; box-shadow: 0 18px 45px rgba(0,0,0,.38); }
 .dashboard-account-summary { display: flex; align-items: center; gap: 10px; padding: 6px 6px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
 .dashboard-account-summary > div { display: grid; min-width: 0; gap: 3px; }
 .dashboard-account-summary strong { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .dashboard-account-summary small { overflow: hidden; color: #93a1ba; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
-.dashboard-account-popover > a,.dashboard-account-popover form button { display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: space-between; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: #c7d0e3; font-size: 10px; text-align: left; cursor: pointer; }
-.dashboard-account-popover > a:hover,.dashboard-account-popover form button:hover { background: rgba(255,255,255,.06); color: #fff; }
+.dashboard-account-popover > a,.dashboard-account-popover > .dashboard-switch-account,.dashboard-account-popover form button { display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: space-between; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: #c7d0e3; font-size: 10px; text-align: left; cursor: pointer; }
+.dashboard-account-popover .dashboard-switch-account { justify-content: flex-start; gap: 9px; }
+.dashboard-account-popover .dashboard-switch-account > span:last-child { margin-left: auto; }
+.dashboard-account-popover .dashboard-switch-account:hover { background: rgba(255,255,255,.06); color: #fff; }
+.dashboard-account-popover .dashboard-switch-account:disabled { opacity: .65; cursor: wait; }
+.dashboard-google-mark,.profile-google-mark { display: inline-grid; width: 20px; height: 20px; flex: 0 0 20px; place-items: center; border-radius: 50%; background: #fff; color: #4285f4; font-family: Arial,sans-serif; font-size: 13px; font-weight: 800; }
+.dashboard-account-popover > a:hover,.dashboard-account-popover > .dashboard-switch-account:hover,.dashboard-account-popover form button:hover { background: rgba(255,255,255,.06); color: #fff; }
 .dashboard-account-popover > a span { color: #b7a5ff; }
 .dashboard-menu { display: none; }
 .dashboard-content { width: min(1180px,100%); margin: 0 auto; padding: 34px clamp(24px,4vw,58px) 25px; }
@@ -91,7 +100,7 @@
 .overview-card strong { margin-top: 2px; font-family: 'Clash Display',sans-serif; font-size: 17px; }
 .overview-card small { overflow: hidden; margin-top: 1px; color: #8e9bb2; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
 .dashboard-profile-card { display: flex; align-items: flex-start; gap: 16px; margin-top: 14px; padding: 19px; border: 1px solid var(--dash-line); border-radius: 15px; background: linear-gradient(120deg,rgba(20,30,52,.96),rgba(15,24,42,.96)); }
-.dashboard-profile-avatar { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border: 1px solid rgba(178,154,255,.24); border-radius: 15px; background: linear-gradient(145deg,rgba(155,123,255,.3),rgba(99,133,255,.17)); color: #d4c9ff; font-family: 'Clash Display',sans-serif; font-size: 15px; font-weight: 800; }
+.dashboard-profile-avatar { position: relative; display: grid; width: 48px; height: 48px; flex: 0 0 48px; overflow: hidden; place-items: center; border: 1px solid rgba(178,154,255,.24); border-radius: 15px; background: linear-gradient(145deg,rgba(155,123,255,.3),rgba(99,133,255,.17)); color: #d4c9ff; font-family: 'Clash Display',sans-serif; font-size: 15px; font-weight: 800; }
 .dashboard-profile-main { min-width: 0; flex: 1; }
 .dashboard-profile-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .dashboard-profile-heading h2 { margin: 4px 0 2px; font-family: 'Clash Display',sans-serif; font-size: 19px; }

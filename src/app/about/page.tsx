@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
 import { SiteHeader } from "@/src/components/header";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { useReveal } from "@/src/hooks/use-reveal";
 import "@/src/styles/about.css";
 
@@ -51,7 +52,7 @@ export default function AboutPage() {
                   <div className="center-ring ring-one" />
                   <div className="center-ring ring-two" />
                   <div className="center-core">
-                    <strong>CJ</strong>
+                    <SiteLogoMark className="about-center-logo" width={140} height={140} alt="CEO JACK Learning Hub logo" />
                     <small>LEARN</small>
                     <small>CREATE</small>
                     <small>DEVELOP</small>
@@ -235,7 +236,7 @@ export default function AboutPage() {
               <div className="map-line line-two" />
               <div className="map-line line-three" />
               <div className="map-node node-center">
-                <strong>CJ</strong>
+                <SiteLogoMark className="about-map-logo" width={80} height={80} alt="CEO JACK Learning Hub logo" />
                 <small>LEARNER</small>
               </div>
               <div className="map-node node-education">

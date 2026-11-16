@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteLogoMark } from "@/src/components/site-logo-mark";
 import { SiteFooter } from "@/src/components/footer";
 import { useEffect, useState } from "react";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
@@ -85,7 +86,7 @@ export default function LessonPage() {
     <>
     <div className="lesson-app">
       <aside className="lesson-sidebar">
-        <Link href="/" className="lesson-brand"><span>CJ</span><strong>CEO JACK<small>LEARNING HUB</small></strong></Link>
+        <Link href="/" className="lesson-brand"><SiteLogoMark className="lesson-brand-mark" width={84} height={84} alt="CEO JACK Learning Hub logo" /><strong>CEO JACK<small>LEARNING HUB</small></strong></Link>
         <nav aria-label="Learning space">
           <Link href="/dashboard">⌂ <span>Dashboard</span></Link>
           <Link href="/education" className="active">▤ <span>Education Hub</span></Link>

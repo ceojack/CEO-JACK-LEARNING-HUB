@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   authors: [{ name: "CEO JACK", url: "https://ceojacklearninghub.com" }],
   creator: "CEO JACK",
   applicationName: "CEO JACK LEARNING HUB",
-  metadataBase: new URL("https://ceojacklearninghub.com"),
+  metadataBase: new URL("https://ceojacklearninghub.com/"),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "CEO JACK Uganda | Business Coach & Founder of CEO JACK LEARNING HUB",
     description: "CEO Jack is a business coach and founder of CEO JACK LEARNING HUB in Kampala, Uganda. Learn business, leadership and digital skills.",

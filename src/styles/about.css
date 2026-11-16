@@ -677,6 +677,8 @@ a {
   -webkit-background-clip: text;
 }
 
+.about-center-logo { width: 72px; height: 72px; margin-bottom: 4px; border-radius: 12px; object-fit: cover; }
+
 .center-core small {
   margin-top: 3px;
 
@@ -1148,6 +1150,8 @@ a {
 
   font-size: 19px;
 }
+
+.about-map-logo { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
 
 .map-node small {
   margin-top: 4px;

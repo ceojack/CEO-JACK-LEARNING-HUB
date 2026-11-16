@@ -16,24 +16,29 @@ export async function GET() {
   const auth = await getAuthenticatedClient()
   if (!auth) return json({ error: 'Sign in to access your learning progress.' }, 401)
 
-  const { data, error } = await auth.supabase
-    .from('lesson_progress')
-    .select('lesson_id, status, score, completed_at, updated_at')
-    .eq('user_id', auth.userId)
-    .order('updated_at', { ascending: false })
+  try {
+    const { data, error } = await auth.supabase
+      .from('lesson_progress')
+      .select('lesson_id, status, score, completed_at, updated_at')
+      .eq('user_id', auth.userId)
+      .order('updated_at', { ascending: false })
 
-  if (error) {
-    console.error('Could not load lesson progress:', error.message)
-    return json({ error: 'Your learning progress could not be loaded.' }, 500)
+    if (error) {
+      console.error('Could not load lesson progress:', error.message)
+      return json({ progress: [] })
+    }
+
+    return json({ progress: data.map((item) => ({
+      lessonId: item.lesson_id,
+      status: item.status,
+      score: item.score,
+      completedAt: item.completed_at,
+      updatedAt: item.updated_at,
+    })) })
+  } catch (error) {
+    console.error('Could not load lesson progress:', error)
+    return json({ progress: [] })
   }
-
-  return json({ progress: data.map((item) => ({
-    lessonId: item.lesson_id,
-    status: item.status,
-    score: item.score,
-    completedAt: item.completed_at,
-    updatedAt: item.updated_at,
-  })) })
 }
 
 export async function POST(request: Request) {
