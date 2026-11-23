@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SiteFooter } from "@/src/components/footer";
 import { useReveal } from "@/src/hooks/use-reveal";
+import { createClient } from "@/src/utils/supabase/client";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
 import "@/src/styles/onboarding.css";
 
@@ -30,6 +31,7 @@ export default function OnboardingPage() {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"success" | "error" | "">("");
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -65,7 +67,7 @@ export default function OnboardingPage() {
     setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
   }
 
-  function enterDashboard() {
+  async function enterDashboard() {
     const profile = {
       level,
       ageGroup,
@@ -78,30 +80,41 @@ export default function OnboardingPage() {
       console.log("Could not cache the learner profile:", error);
     }
 
-    setStatusType("success");
-    setStatus("Your learning path is ready. Opening your dashboard…");
-
-    router.push("/dashboard");
-    router.refresh();
-
     if (isSupabaseConfigured()) {
+      setSaving(true);
+      setStatusType("");
+      setStatus("Saving your learning path…");
       try {
-        void fetch("/api/profile", {
+        const { data: authData, error: authError } = await createClient().auth.getSession();
+        if (authError) throw authError;
+        const accessToken = authData.session?.access_token;
+        const response = await fetch("/api/profile", {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+          },
           body: JSON.stringify(profile),
-        }).then(async (response) => {
-          if (!response.ok) {
-            const result = await response.json().catch(() => null);
-            console.log("Supabase learner profile save error:", result ?? response.statusText);
-          }
-        }).catch((error) => {
-          console.log("Supabase learner profile save request failed:", error);
         });
+        if (!response.ok) {
+          const result = await response.json().catch(() => null) as { error?: string } | null;
+          throw new Error(result?.error ?? "Your learning path could not be saved. Please try again.");
+        }
+        try {
+          window.localStorage.removeItem("ceoJackOnboarding");
+        } catch {}
       } catch (error) {
-        console.log("Supabase learner profile save request failed:", error);
+        setStatusType("error");
+        setStatus(error instanceof Error ? error.message : "Your learning path could not be saved. Please try again.");
+        setSaving(false);
+        return;
       }
     }
+
+    setStatusType("success");
+    setStatus("Your learning path is ready. Opening your dashboard…");
+    router.push("/dashboard");
+    router.refresh();
   }
 
   function next() {
@@ -246,8 +259,8 @@ export default function OnboardingPage() {
             {step > 1 ? (
               <button className="nav-btn back-btn" type="button" onClick={() => { setStatus(""); setStep((value) => value - 1); }}>Back</button>
             ) : null}
-            <button className="nav-btn next-btn" type="button" onClick={step === 4 ? enterDashboard : next}>
-              {step === 4 ? "Enter dashboard" : "Continue"}
+            <button className="nav-btn next-btn" type="button" onClick={step === 4 ? () => void enterDashboard() : next} disabled={saving}>
+              {step === 4 ? (saving ? "Saving…" : "Enter dashboard") : "Continue"}
             </button>
           </div>
         </section>

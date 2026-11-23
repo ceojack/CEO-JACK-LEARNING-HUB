@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedClient } from "@/src/utils/supabase/auth";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
+import { clientRateLimitKey, consumeRateLimit } from "@/src/utils/rate-limit";
 import { readJsonBody } from "@/src/utils/read-json";
 
 const systemPrompts: Record<string, string> = {
@@ -28,12 +29,21 @@ type ChatPayload = {
   };
 };
 
+function jsonReply(reply: string, status = 200, extraHeaders?: HeadersInit) {
+  return NextResponse.json({ reply }, { status, headers: { "Cache-Control": "private, no-store", ...extraHeaders } });
+}
+
 export async function POST(request: Request) {
   if (process.env.NODE_ENV === "production" && !isSupabaseConfigured()) {
-    return NextResponse.json({ reply: "AI chat is unavailable until account security is configured." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
+    return jsonReply("AI chat is unavailable until account security is configured.", 503);
   }
-  if (isSupabaseConfigured() && !(await getAuthenticatedClient())) {
-    return NextResponse.json({ reply: "Sign in to use CEO JACK AI." }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
+  const auth = isSupabaseConfigured() ? await getAuthenticatedClient(request) : null;
+  if (isSupabaseConfigured() && !auth) {
+    return jsonReply("Sign in to use CEO JACK AI.", 401);
+  }
+  const rate = consumeRateLimit(`ai-chat:${clientRateLimitKey(request, auth?.userId)}`, 20, 10 * 60_000);
+  if (!rate.allowed) {
+    return jsonReply("CEO JACK AI is handling many requests right now. Please wait a few seconds, then try again.", 429, { "Retry-After": String(rate.retryAfterSeconds) });
   }
 
   const parsed = await readJsonBody(request, 24_000);
@@ -60,13 +70,40 @@ export async function POST(request: Request) {
     );
   }
 
-  const learner = body.profile;
+  let learner = body.profile;
+  if (auth) {
+    try {
+      const { data: storedProfile, error: profileError } = await auth.supabase
+        .from("profiles")
+        .select("display_name, hobby, level, learning_level, interests, goals, jack_ai_memory")
+        .eq("id", auth.userId)
+        .maybeSingle();
+      if (profileError) {
+        console.error("Could not load learner context for JACK AI:", profileError.message);
+        learner = { displayName: "", hobby: "", level: "", interests: [], goals: [], memory: "" };
+      } else if (storedProfile) {
+        learner = {
+          displayName: storedProfile.display_name ?? "",
+          hobby: storedProfile.hobby ?? "",
+          level: storedProfile.learning_level ?? storedProfile.level ?? "",
+          interests: Array.isArray(storedProfile.interests) ? storedProfile.interests : [],
+          goals: Array.isArray(storedProfile.goals) ? storedProfile.goals : [],
+          memory: storedProfile.jack_ai_memory ?? "",
+        };
+      } else {
+        learner = { displayName: "", hobby: "", level: "", interests: [], goals: [], memory: "" };
+      }
+    } catch (error) {
+      console.error("Could not load learner context for JACK AI:", error);
+      learner = { displayName: "", hobby: "", level: "", interests: [], goals: [], memory: "" };
+    }
+  }
   const learnerName = typeof learner?.displayName === "string" && learner.displayName.trim() ? learner.displayName.trim().slice(0, 80) : "Friend";
   const learnerLevel = typeof learner?.level === "string" && learner.level.trim() ? learner.level.trim().slice(0, 80) : "Beginner";
   const learnerHobby = typeof learner?.hobby === "string" ? learner.hobby.trim().slice(0, 100) : "";
   const learnerInterests = Array.isArray(learner?.interests) ? learner.interests.filter((item): item is string => typeof item === "string").slice(0, 8).join(", ") : "";
   const learnerGoals = Array.isArray(learner?.goals) ? learner.goals.filter((item): item is string => typeof item === "string").slice(0, 6).join(", ") : "";
-  const learnerMemory = typeof learner?.memory === "string" ? learner.memory.trim().slice(0, 1000) : "";
+  const learnerMemory = typeof learner?.memory === "string" ? learner.memory.trim().slice(0, 800) : "";
   const profileContext = `\n\nLearner context (use naturally and respectfully; do not repeat private profile data unless useful): name: ${learnerName}; level: ${learnerLevel}; hobby: ${learnerHobby || "not set"}; interests: ${learnerInterests || "not set"}; goals: ${learnerGoals || "not set"}; recent learning memory: ${learnerMemory || "none yet"}. Address the learner by name when natural. Adapt explanations to their level and connect examples to their hobby/interests when relevant.`;
   const systemContent = `${systemPrompts[body.mode || "general"] || systemPrompts.general}${profileContext}
 
@@ -128,10 +165,8 @@ Organize responses for easy scanning. Use a short opening answer, descriptive Ma
         { status: 429, headers: { "Retry-After": groqRes.headers.get("retry-after") || "4" } },
       );
     }
-    return NextResponse.json(
-      { reply: data.error?.message || "The AI service could not complete that request." },
-      { status: 500 }
-    );
+    console.error("Groq chat request failed:", groqRes.status, data.error?.message);
+    return jsonReply("The AI service could not complete that request.", 500);
   }
 
   if (explicitSearchRequest) {

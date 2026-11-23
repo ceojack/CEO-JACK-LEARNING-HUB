@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedClient } from "@/src/utils/supabase/auth";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
-import { isVerifiedMemberTheme } from "@/src/utils/verified-member";
+import { isOwnVerifiedMemberPhotoUrl, isVerifiedMemberTheme } from "@/src/utils/verified-member";
+import { getSupabaseConfig } from "@/src/utils/supabase/config";
 import { readJsonBody } from "@/src/utils/read-json";
 
 export const dynamic = "force-dynamic";
@@ -65,9 +66,12 @@ export async function POST(request: Request) {
   const level = body.level;
   const motto = typeof body.motto === "string" ? body.motto.trim() : "";
   const theme = body.cardColour;
+  const supabaseUrl = getSupabaseConfig()?.url;
 
   if (fullName.length < 2 || fullName.length > 80) return json({ error: "Enter a name between 2 and 80 characters." }, 400);
-  if (!/^https:\/\//i.test(photoUrl) || photoUrl.length > 2048) return json({ error: "Upload a photo or choose your profile photo first." }, 400);
+  if (!supabaseUrl || !isOwnVerifiedMemberPhotoUrl(photoUrl, auth.userId, supabaseUrl)) {
+    return json({ error: "Upload a photo or choose your profile photo first." }, 400);
+  }
   if (!hobby || hobby.length > 60) return json({ error: "Choose or enter a hobby." }, 400);
   if (!(["Beginner", "Intermediate", "Pro", "Master"] as unknown[]).includes(level)) return json({ error: "Choose a learner level." }, 400);
   if (motto.length > 35) return json({ error: "Keep your motto to 35 characters or fewer." }, 400);
@@ -83,12 +87,27 @@ export async function POST(request: Request) {
     return json({ error: "Verified member cards are not set up yet. Apply the verified member database migration, then try again." }, 503);
   }
 
+  const { data: learner, error: learnerError } = await auth.supabase
+    .from("profiles")
+    .select("level, age_group, interests, goals")
+    .eq("id", auth.userId)
+    .maybeSingle();
+  if (learnerError) {
+    console.error("Could not check learner profile before verifying member card:", learnerError);
+    return json({ error: "Your verified card could not be saved. Please try again." }, 500);
+  }
+  const isVerified = Boolean(
+    learner?.level
+    && learner?.age_group
+    && Array.isArray(learner.interests) && learner.interests.length > 0
+    && Array.isArray(learner.goals) && learner.goals.length > 0,
+  );
+
   const year = new Date().getFullYear();
-  const requestedId = typeof body.memberId === "string" && /^CJ-\d{4}-\d{4}$/.test(body.memberId) ? body.memberId : "";
   let saveError: { code?: string; message?: string } | null = null;
   let saved: Record<string, unknown> | null = null;
   for (let attempt = 0; attempt < 8; attempt += 1) {
-    const memberId = typeof existing?.member_id === "string" ? existing.member_id : attempt === 0 && requestedId ? requestedId : createMemberId(year);
+    const memberId = typeof existing?.member_id === "string" ? existing.member_id : createMemberId(year);
     const qrUrl = `https://ceojacklearninghub.com/verified-member/${memberId}`;
     const { data, error } = await auth.supabase
       .from("verified_member_cards")
@@ -102,7 +121,7 @@ export async function POST(request: Request) {
         member_id: memberId,
         card_colour: theme,
         qr_url: qrUrl,
-        is_verified: true,
+        is_verified: isVerified,
         created_at: existing?.created_at ?? new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" })

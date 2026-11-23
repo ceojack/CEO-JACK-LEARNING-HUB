@@ -3,44 +3,84 @@ import { Suspense } from "react";
 import { ScrollToTop } from "@/src/components/scroll-to-top";
 import { CookieConsent } from "@/src/components/cookie-consent";
 import "./globals.css";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "CEO JACK Uganda | The Business Coach & The Founder of CEO JACK Learning Hub",
-    template: "%s | CEO JACK Uganda",
+    default: "CEO JACK LEARNING HUB | Education, Digital Skills & Entrepreneurship",
+    template: "%s | CEO JACK LEARNING HUB",
   },
-  description: "CEO Jack is a business coach and entrepreneur based in Kampala, Uganda. Founder of CEO JACK Learning Hub, teaching business, leadership and digital skills to young entrepreneurs.",
-  keywords: ["CEO JACK", "CEO JACK Uganda", "CEO Jack Kampala", "CEO Jack Uganda Business Coach", "JACK Learning Hub", "Business Coach Uganda"],
-  authors: [{ name: "CEO JACK", url: "https://ceojacklearninghub.com" }],
-  creator: "CEO JACK",
+
+  description:
+    "Explore CEO JACK LEARNING HUB, an online learning platform offering educational resources, digital skills training, technology courses, business education, entrepreneurship guidance and practical learning opportunities for students and aspiring entrepreneurs.",
+
+  keywords: [
+    "CEO JACK LEARNING HUB",
+    "Online Learning Platform",
+    "Education Platform Uganda",
+    "Digital Skills Training",
+    "Learn Programming Online",
+    "Web Development Courses",
+    "HTML CSS JavaScript",
+    "Python Programming",
+    "Entrepreneurship Education",
+    "Business Education",
+    "Online Education Africa",
+    "Digital Literacy",
+    "Technology Education",
+    "Student Learning Resources",
+  ],
+
+  authors: [
+    {
+      name: "CEO JACK LEARNING HUB",
+      url: "https://ceojacklearninghub.com",
+    },
+  ],
+
+  creator: "CEO JACK LEARNING HUB",
   applicationName: "CEO JACK LEARNING HUB",
-  metadataBase: new URL("https://ceojacklearninghub.com/"),
-  alternates: { canonical: "/" },
+
+  metadataBase: new URL("https://ceojacklearninghub.com"),
+
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
-    title: "CEO JACK Uganda | Business Coach & Founder of CEO JACK LEARNING HUB",
-    description: "CEO Jack is a business coach and founder of CEO JACK LEARNING HUB in Kampala, Uganda. Learn business, leadership and digital skills.",
+    title:
+      "CEO JACK LEARNING HUB | Learn. Create. Develop.",
+    description:
+      "Discover three learning experiences under one platform: Education, Digital Skills and Entrepreneurship. Access learning resources, develop technology skills and explore business opportunities.",
+
     url: "https://ceojacklearninghub.com",
     siteName: "CEO JACK LEARNING HUB",
     locale: "en_UG",
+    type: "website",
+
     images: [
       {
         url: "/assets/images/banner.jpeg",
         width: 1096,
         height: 576,
-        alt: "CEO JACK LEARNING HUB — Learn. Create. Develop.",
+        alt: "CEO JACK LEARNING HUB - Education, Digital Skills and Entrepreneurship",
       },
     ],
-    type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "CEO JACK Uganda | Business Coach & Founder",
-    description: "CEO Jack is a business coach in Kampala, Uganda. Founder of CEO JACK Learning Hub.",
+    title: "CEO JACK LEARNING HUB | Learn. Create. Develop.",
+    description:
+      "Education, digital skills and entrepreneurship resources. Learn new skills, explore technology and develop your entrepreneurial potential.",
+
     images: ["/assets/images/banner.jpeg"],
   },
+
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -82,6 +122,7 @@ export default function RootLayout({
         {children}
         <CookieConsent />
       </body>
+      <GoogleAnalytics gaId="G-XY18MCK21Y" />
     </html>
   );
 }

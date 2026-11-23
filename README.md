@@ -22,7 +22,11 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
 
 The publishable key is designed for browser use. Never put a Supabase secret or service-role key in a `NEXT_PUBLIC_` variable or in client code. The app uses signed-in user sessions and Postgres Row Level Security; it does not need a service-role key.
 
-Apply `supabase/migrations/202610310001_initial_learner_backend.sql` to the project using the Supabase SQL Editor or Supabase CLI. It creates the learner profile and lesson progress tables, grants access only to authenticated users, and adds policies that scope each operation to `auth.uid()`.
+Apply these SQL files to the project using the Supabase SQL Editor or Supabase CLI, in order:
+
+- `supabase/migrations/202610310001_initial_learner_backend.sql` creates the learner profile and lesson progress tables, grants access only to authenticated users, and adds policies that scope each operation to `auth.uid()`.
+- `supabase/migrations/202611160001_verified_member_cards.sql` creates verified member cards, public lookup, and photo storage.
+- `supabase/migrations/202611220001_learner_profile_fields.sql` adds display name, email, hobby, avatar, learning level, and AI memory columns used by the profile and AI routes.
 
 In Supabase Authentication settings:
 
@@ -59,5 +63,5 @@ Run `npm run lint` and `npm run build` before deployment. Review deployment logs
 - Apply the migration to the production project and verify that two separate accounts cannot read or change one another's rows.
 - Test email confirmation, sign-in, Google OAuth, sign-out, and expired-session refresh against the deployed origin.
 - Before onboarding children, implement and verify the required parent or guardian consent process. The current site does not verify that consent.
-- Add a documented account deletion and data export workflow, and set an abuse limit for the AI route before broad public access.
+- Add a documented account deletion and data export workflow. The AI route now has a basic per-user limit; review it before broad public access.
 - Review the Privacy Policy and Terms against the actual provider configuration, retention, consent and support process.

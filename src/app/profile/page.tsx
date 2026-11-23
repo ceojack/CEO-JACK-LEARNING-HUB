@@ -35,7 +35,7 @@ export default function ProfilePage() {
   const [passwordHelpStatus, setPasswordHelpStatus] = useState("");
   const [passwordHelpError, setPasswordHelpError] = useState(false);
   const [switchingAccount, setSwitchingAccount] = useState(false);
-  const [isVerifiedMember, setIsVerifiedMember] = useState(false);
+  const [hasMemberCard, setHasMemberCard] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -64,8 +64,8 @@ export default function ProfilePage() {
         const session = authData.session;
         if (session) {
           void fetch("/api/verified-member", { headers: { Authorization: `Bearer ${session.access_token}` }, cache: "no-store" })
-            .then(async (response) => response.ok ? response.json() as Promise<{ card?: { isVerified?: boolean } | null }> : null)
-            .then((result) => { if (!cancelled) setIsVerifiedMember(Boolean(result?.card?.isVerified)); })
+            .then(async (response) => response.ok ? response.json() as Promise<{ card?: { memberId?: string } | null }> : null)
+            .then((result) => { if (!cancelled) setHasMemberCard(Boolean(result?.card?.memberId)); })
             .catch((verifiedError) => console.error("Could not check verified member status:", verifiedError));
         }
         const response = await fetch("/api/profile", { cache: "no-store" });
@@ -210,7 +210,7 @@ export default function ProfilePage() {
           <div className="profile-hero-action-row">
             <button className="profile-save-button profile-hero-save-button" type="submit" form="profile-information-form" disabled={loading || saving}>{saving ? "Saving…" : hasLearnerProfile ? "Save Changes" : "Save / Upload Profile"}<span aria-hidden="true">→</span></button>
             {isSupabaseConfigured() ? <button className="profile-switch-account-button" type="button" onClick={() => void switchAccount()} disabled={switchingAccount}><span className="profile-google-mark" aria-hidden="true">G</span>{switchingAccount ? "Choose a Google account…" : "Switch Account"}<span aria-hidden="true">↗</span></button> : null}
-            <Link className="profile-verified-member-link" href="/verified-member"><span className="profile-verified-member-tick" aria-hidden="true">✓</span>{isVerifiedMember ? "VIEW MY VERIFIED CARD" : "BECOME A VERIFIED MEMBER"}<span aria-hidden="true">→</span></Link>
+            <Link className="profile-verified-member-link" href="/verified-member"><span className="profile-verified-member-tick" aria-hidden="true">✓</span>{hasMemberCard ? "VIEW MY MEMBER CARD" : "BECOME A VERIFIED MEMBER"}<span aria-hidden="true">→</span></Link>
           </div>
           <p className={`profile-form-status profile-hero-status${statusType ? ` ${statusType}` : ""}`} role="status" aria-live="polite">{status}</p>
         </section>

@@ -107,7 +107,7 @@ export default async function BlogArticlePage({ params }: BlogArticleProps) {
             <h1>{post.title}</h1>
             <p className="article-deck">{post.description}</p>
             <div className="article-byline">
-              <Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile"><Image src="/assets/images/logo1.webp" alt="" width={80} height={80} /></Link>
+              <Link href="/author/ceo-jack" className="author-mark" aria-label="Read the CEO JACK author profile"><Image src="public/assets/images/logo1.webp" alt="" width={80} height={80} /></Link>
               <span><Link href="/author/ceo-jack" className="article-author-name">CEO JACK</Link><br /><small>Published <time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time> <i aria-hidden="true">·</i> {post.readTime}</small></span>
             </div>
             <Link href="/author/ceo-jack" className="blog-author-profile-link">Meet the author <span aria-hidden="true">→</span></Link>

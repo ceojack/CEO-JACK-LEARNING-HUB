@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedClient } from "@/src/utils/supabase/auth";
 import { isSupabaseConfigured } from "@/src/utils/supabase/config";
+import { consumeRateLimit } from "@/src/utils/rate-limit";
 import { readJsonBody } from "@/src/utils/read-json";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   if (!isSupabaseConfigured()) return NextResponse.json({ saved: false }, { status: 503 });
-  const auth = await getAuthenticatedClient();
+  const auth = await getAuthenticatedClient(request);
   if (!auth) return NextResponse.json({ saved: false }, { status: 401 });
+  const rate = consumeRateLimit(`ai-memory:${auth.userId}`, 30, 10 * 60_000);
+  if (!rate.allowed) return NextResponse.json({ saved: false }, { status: 429, headers: { "Retry-After": String(rate.retryAfterSeconds) } });
   const parsed = await readJsonBody(request, 4_096);
   if (parsed.error || !parsed.value || typeof parsed.value !== "object" || Array.isArray(parsed.value)) {
     return NextResponse.json({ saved: false }, { status: 400 });

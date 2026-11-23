@@ -85,6 +85,7 @@ export default function VerifiedMemberPage() {
   const [downloadFallbackUrl, setDownloadFallbackUrl] = useState("");
   const [previewAnimating, setPreviewAnimating] = useState(false);
   const previousPreview = useRef("");
+  const photoObjectUrl = useRef("");
 
   useEffect(() => {
     let cancelled = false;
@@ -130,7 +131,7 @@ export default function VerifiedMemberPage() {
           setPhotoUrl(card.photoUrl);
           setProfilePhoto((current) => current || card.photoUrl);
           setCreatedAt(card.createdAt);
-          setGenerated(Boolean(card.isVerified));
+          setGenerated(Boolean(card.memberId));
         } else if (!cardResponse.ok) {
           if (!cancelled) setError(cardResult.error ?? "Verified member cards are not available yet.");
         }
@@ -141,7 +142,10 @@ export default function VerifiedMemberPage() {
       }
     }
     void loadMember();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+      if (photoObjectUrl.current) URL.revokeObjectURL(photoObjectUrl.current);
+    };
   }, []);
 
   const qrUrl = useMemo(() => memberId ? `https://ceojacklearninghub.com/verified-member/${memberId}` : "", [memberId]);
@@ -208,7 +212,10 @@ export default function VerifiedMemberPage() {
     try {
       const blob = await compressPhoto(file);
       setPhotoBlob(blob);
-      setPhotoUrl(URL.createObjectURL(blob));
+      if (photoObjectUrl.current) URL.revokeObjectURL(photoObjectUrl.current);
+      const objectUrl = URL.createObjectURL(blob);
+      photoObjectUrl.current = objectUrl;
+      setPhotoUrl(objectUrl);
       setError("");
       setGenerated(false);
     } catch (photoError) {
@@ -267,7 +274,7 @@ export default function VerifiedMemberPage() {
       const response = await fetch("/api/verified-member", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${authData.session.access_token}` },
-        body: JSON.stringify({ fullName: fullName.trim(), photoUrl: savedPhotoUrl, hobby, level, motto: motto.trim(), cardColour, memberId }),
+        body: JSON.stringify({ fullName: fullName.trim(), photoUrl: savedPhotoUrl, hobby, level, motto: motto.trim(), cardColour }),
       });
       const result = await response.json() as CardResponse;
       if (!response.ok || !result.card) throw new Error(result.error ?? "Your card could not be saved.");
@@ -278,14 +285,16 @@ export default function VerifiedMemberPage() {
       setMemberId(saved.memberId);
       setCreatedAt(saved.createdAt);
       setGenerated(true);
-      setStatus("Your verified member card is ready.");
+      setStatus(saved.isVerified
+        ? "Your verified member card is ready."
+        : "Your card is saved. Complete onboarding to publish it as a verified member card.");
     } catch (saveError) {
       console.error("Could not generate verified member card:", saveError);
       setError(saveError instanceof Error ? saveError.message : "Your card could not be saved. Please try again.");
     } finally {
       setSaving(false);
     }
-  }, [cardColour, fullName, hobby, level, memberId, motto, photoBlob, photoUrl, signedIn, userId]);
+  }, [cardColour, fullName, hobby, level, motto, photoBlob, photoUrl, signedIn, userId]);
 
   async function downloadCard() {
     setError("");

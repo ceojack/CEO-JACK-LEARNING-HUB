@@ -54,12 +54,13 @@ export async function GET(request: Request) {
       .maybeSingle()
 
     if (error) {
-      console.error('Could not load account profile:', error.message)
-    } else {
-      profile = data
+      console.error('Could not load account profile:', describeDatabaseError(error))
+      return json({ error: 'Your learner profile could not be loaded.' }, 500)
     }
+    profile = data
   } catch (error) {
-    console.error('Could not load account profile:', error)
+    console.error('Could not load account profile:', describeDatabaseError(error))
+    return json({ error: 'Your learner profile could not be loaded.' }, 500)
   }
 
   const claims = auth.claims as Record<string, unknown>;
@@ -125,8 +126,8 @@ export async function PUT(request: Request) {
       .eq('id', auth.userId)
       .maybeSingle()
     if (existingProfileError) {
-      console.error('Could not read existing shared profile before saving:', existingProfileError)
-      return json(describeDatabaseError(existingProfileError), 500)
+      console.error('Could not read existing shared profile before saving:', describeDatabaseError(existingProfileError))
+      return json({ error: 'Your learner profile could not be saved. Please try again.' }, 500)
     }
     const { data, error } = await auth.supabase
       .from('profiles')
@@ -148,8 +149,8 @@ export async function PUT(request: Request) {
       .single()
 
     if (error) {
-      console.error('Could not save learner profile to Supabase:', error)
-      return json(describeDatabaseError(error), 500)
+      console.error('Could not save learner profile to Supabase:', describeDatabaseError(error))
+      return json({ error: 'Your learner profile could not be saved. Please try again.' }, 500)
     }
 
     return json({ profile: {
@@ -162,8 +163,8 @@ export async function PUT(request: Request) {
       updatedAt: data.updated_at,
     } })
   } catch (error) {
-    console.error('Could not save learner profile to Supabase:', error)
-    return json(describeDatabaseError(error), 500)
+    console.error('Could not save learner profile to Supabase:', describeDatabaseError(error))
+    return json({ error: 'Your learner profile could not be saved. Please try again.' }, 500)
   }
 }
 

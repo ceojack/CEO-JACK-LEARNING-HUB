@@ -11,9 +11,9 @@ function json(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { 'Cache-Control': 'private, no-store' } })
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   if (!isSupabaseConfigured()) return json({ error: 'Backend is not configured.' }, 503)
-  const auth = await getAuthenticatedClient()
+  const auth = await getAuthenticatedClient(request)
   if (!auth) return json({ error: 'Sign in to access your learning progress.' }, 401)
 
   try {
@@ -25,7 +25,7 @@ export async function GET() {
 
     if (error) {
       console.error('Could not load lesson progress:', error.message)
-      return json({ progress: [] })
+      return json({ error: 'Your learning progress could not be loaded.' }, 500)
     }
 
     return json({ progress: data.map((item) => ({
@@ -37,13 +37,13 @@ export async function GET() {
     })) })
   } catch (error) {
     console.error('Could not load lesson progress:', error)
-    return json({ progress: [] })
+    return json({ error: 'Your learning progress could not be loaded.' }, 500)
   }
 }
 
 export async function POST(request: Request) {
   if (!isSupabaseConfigured()) return json({ error: 'Backend is not configured.' }, 503)
-  const auth = await getAuthenticatedClient()
+  const auth = await getAuthenticatedClient(request)
   if (!auth) return json({ error: 'Sign in to save learning progress.' }, 401)
   const parsed = await readJsonBody(request, 2_048)
   if (parsed.error === 'too_large') return json({ error: 'Progress data is too large.' }, 413)
