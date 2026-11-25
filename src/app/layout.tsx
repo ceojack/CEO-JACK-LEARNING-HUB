@@ -33,12 +33,12 @@ export const metadata: Metadata = {
 
   authors: [
     {
-      name: "CEO JACK LEARNING HUB",
+      name: "CEO JACK",
       url: "https://ceojacklearninghub.com",
     },
   ],
 
-  creator: "CEO JACK LEARNING HUB",
+  creator: "CEO JACK",
   applicationName: "CEO JACK LEARNING HUB",
 
   metadataBase: new URL("https://ceojacklearninghub.com"),
