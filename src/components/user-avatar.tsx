@@ -7,7 +7,7 @@ export function UserAvatar({ src, className = "" }: { src?: string | null; class
   const imageSrc = src && failedSrc !== src ? src : null;
 
   return (
-    <span className={`user-avatar ${className}`} aria-hidden="true">
+    <span className={`user-avatar${className}`} aria-hidden="true">
       {imageSrc ? (
         <img src={imageSrc} alt="" onError={() => setFailedSrc(imageSrc)} />
       ) : (

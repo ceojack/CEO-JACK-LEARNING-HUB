@@ -1,1 +1,5 @@
-export { default } from "../auth/update-password/page";
+import { ResetPasswordForm } from "@/src/components/password-recovery";
+
+export default function ResetPasswordPage() {
+  return <ResetPasswordForm />;
+}

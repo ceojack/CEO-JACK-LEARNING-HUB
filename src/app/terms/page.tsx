@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SiteFooter } from "@/src/components/footer";
-import "@/src/styles/legal.css";
 
 export const metadata = {
   title: "Terms",
@@ -9,14 +8,14 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="legal-page">
-      <article className="legal-card">
-        <Link className="legal-back" href="/">← Back to home</Link>
-        <span className="legal-kicker">CEO JACK LEARNING HUB</span>
-        <h1>Terms of Use</h1>
-        <p className="legal-lead">These terms explain how to use our learning website and what you can expect from it.</p>
-        <p className="legal-updated">Last updated: <time dateTime="2026-11-01">1 November 2026</time></p>
-        <div className="legal-copy">
+    <main className="grid min-h-screen place-items-center bg-[radial-gradient(ellipse_at_15%_0%,rgba(99,133,255,0.11),transparent_42%),radial-gradient(ellipse_at_90%_100%,rgba(155,123,255,0.08),transparent_36%)] px-4 py-7 min-[561px]:px-6 min-[561px]:py-16">
+      <article className="w-full max-w-[780px] rounded-[18px] border border-white/10 bg-[linear-gradient(145deg,rgba(18,28,48,0.96),rgba(12,19,34,0.98))] p-[clamp(28px,6vw,58px)] shadow-[0_28px_90px_rgba(0,0,0,0.3)] min-[561px]:rounded-[24px]">
+        <Link className="mb-[35px] inline-flex text-[13px] font-bold text-[#bdc9df] transition duration-200 hover:-translate-x-[3px] hover:text-white min-[561px]:mb-11" href="/">← Back to home</Link>
+        <span className="mb-3 block text-[11px] font-extrabold tracking-[0.14em] text-[#9b7bff]">CEO JACK LEARNING HUB</span>
+        <h1 className="mb-3 text-[clamp(38px,7vw,60px)] tracking-[-0.045em]">Terms of Use</h1>
+        <p className="max-w-[560px] text-[clamp(16px,2.5vw,19px)] leading-[1.65] text-[#b6c0d2]">These terms explain how to use our learning website and what you can expect from it.</p>
+        <p className="mt-[14px] text-[13px] text-[#8491aa]">Last updated: <time dateTime="2026-11-01">1 November 2026</time></p>
+        <div className="mt-[30px] rounded-[14px] border border-white/[0.08] bg-white/[0.025] p-[18px] min-[561px]:px-6 min-[561px]:py-[22px] [&_a]:text-[#b8a5ff] [&_a]:underline [&_a]:underline-offset-[3px] [&_h2]:mb-[10px] [&_h2]:text-[clamp(18px,2.5vw,22px)] [&_h2]:leading-[1.4] [&_h2]:tracking-[-0.02em] [&_h2]:text-[#f0f3fb] [&_li]:text-[15px] [&_li]:leading-[1.8] [&_li]:marker:text-[#9b7bff] [&_p]:mb-[14px] [&_p]:text-[15px] [&_p]:leading-[1.85] [&_p]:text-[#a7b1c7] [&_section+section]:mt-7 [&_section+section]:border-t [&_section+section]:border-white/[0.08] [&_section+section]:pt-6 [&_strong]:text-[#e7ebf8] [&_ul]:my-0 [&_ul]:grid [&_ul]:list-disc [&_ul]:gap-3 [&_ul]:pl-[22px] [&_.legal-related]:mt-7 [&_.legal-related]:border-t [&_.legal-related]:border-white/[0.08] [&_.legal-related]:pt-5">
           <section aria-labelledby="terms-acceptance">
             <h2 id="terms-acceptance">1. Using the Learning Hub</h2>
             <p>By visiting or using CEO JACK LEARNING HUB, you agree to these terms. If you do not agree, please stop using the website. “We,” “us” and “our” mean CEO JACK LEARNING HUB; “you” means a visitor or learner using the site.</p>

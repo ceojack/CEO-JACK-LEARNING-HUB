@@ -11,7 +11,7 @@ export function useReveal() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       elements.forEach((element) => {
-        element.classList.add("show", "is-visible");
+        element.classList.add("reveal-visible");
       });
       return;
     }
@@ -20,7 +20,7 @@ export function useReveal() {
       (entries, currentObserver) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("show", "is-visible");
+            entry.target.classList.add("reveal-visible");
             currentObserver.unobserve(entry.target);
           }
         });
